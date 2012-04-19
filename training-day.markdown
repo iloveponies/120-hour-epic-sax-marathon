@@ -105,6 +105,8 @@ Write the following expression in the Clojure prefix syntax:
 Try evaluating it in the interactive session. The result should be 10.
 </section>
 
+TODO: Talk about "REPL" (meaning of the term)
+
 ### Notation
 
 In our example code, we often want to show the result of an expression
@@ -144,6 +146,18 @@ user=> (+ 3 4) ; I am a comment
 7
 ```
 
+### Function definitions
+
+```{.clojure}
+(defn hello [who]
+  (str "Hello, " who "!"))
+```
+
+```{.clojure}
+(hello "Metropolia") ;=> "Hello, Metropolia!"
+```
+
+TODO: literate clojure
 TODO: funktion määrittäminen
 TODO: koodin kirjoittaminen tiedostoon
 TODO: koodin lataaminen tiedostosta REPLiin
