@@ -192,12 +192,18 @@ Write a function `square` that takes a number as a parameter and multiplies it w
 (square 3) ;=> 9
 ```
 
-TODO: nimiavaruudet
+TODO: markdown-esikääntäjä tehtävänannoille
+
+TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri
 
 TODO: doc
 TODO: lein-shit ja testien ajaminen
 
+TODO: if?
+
+TODO: tiedostopohjat ja testit about tästä eteenpäin?
+TODO: git
+
 TODO: literate clojure
 TODO?: lein projektit
 
-TODO: markdown-esikääntäjä tehtävänannoille
