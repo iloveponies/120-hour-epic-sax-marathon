@@ -157,11 +157,47 @@ user=> (+ 3 4) ; I am a comment
 (hello "Metropolia") ;=> "Hello, Metropolia!"
 ```
 
-TODO: literate clojure
 TODO: funktion määrittäminen
+
+### Files and Namespaces
+
 TODO: koodin kirjoittaminen tiedostoon
 TODO: koodin lataaminen tiedostosta REPLiin
+
+. foobar
++-. example/
+  +- hello.clj
+
+```
+(ns example.hello)
+
+(defn hello [who]
+  (str "Hello, " who "!"))
+```
+
+```
+$ cd foobar
+$ lein repl
+user=> (use 'example.hello)
+user=> (hello "is there anybody out there?")
+```
+
+TODO: selitä tässä jotain pientä nimiavaruuksistä (vähän niinq Javan paketit)
+
+Exercise!!!
+Write a function `square` that takes a number as a parameter and multiplies it with itself
+
+```{.clojure}
+(square 2) ;=> 4
+(square 3) ;=> 9
+```
+
 TODO: nimiavaruudet
+
+TODO: doc
 TODO: lein-shit ja testien ajaminen
 
+TODO: literate clojure
 TODO?: lein projektit
+
+TODO: markdown-esikääntäjä tehtävänannoille
