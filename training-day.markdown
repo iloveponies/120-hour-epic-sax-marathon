@@ -97,4 +97,57 @@ int w = 5 + 6 * 3;
 (def w (+ 5 (* 6 3)))
 ```
 
-TODO: Esimerkki ja tehtävä
+<section class="exercise">
+Write the following expression in the Clojure prefix syntax:
+<div class="math">
+(2 * 3) + 4
+</div>
+Try evaluating it in the interactive session. The result should be 10.
+</section>
+
+### Notation
+
+In our example code, we often want to show the result of an expression
+when it is evaluated. Instead of showing what evaluating the expression in the
+interactive session looks like:
+
+```
+user=> (+ 3 4)
+7
+```
+
+we're going to use the convention of writing the expression and the result,
+separated with `;=>`. For an example:
+
+```
+(+ 3 4) ;=> 7
+```
+
+Sometimes we will put the result on a new line:
+
+```
+(str 1337)
+  ;=> "1337"
+```
+
+We use this idiom because it's short, and because `;` starts a comment line in
+Clojure. The `=>` is an illustration of an arrow, meaning "this expression
+evaluates *to* this result". You can copy these examples to the REPL and they
+will work without modification:
+
+```
+user=> (+ 3 4)
+7
+user=> (+ 3 4) ;=> 7
+7
+user=> (+ 3 4) ; I am a comment
+7
+```
+
+TODO: funktion määrittäminen
+TODO: koodin kirjoittaminen tiedostoon
+TODO: koodin lataaminen tiedostosta REPLiin
+TODO: nimiavaruudet
+TODO: lein-shit ja testien ajaminen
+
+TODO?: lein projektit
