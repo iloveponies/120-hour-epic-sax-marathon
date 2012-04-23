@@ -262,6 +262,11 @@ We can imagine the evaluator doing something like this:
 
 TODO: tiedostoon kirjotetut funktiot tulee näkyviin usella
 
+TODO: ohjeita vähän tähän: Jotain parempaa ohjastusta, et niinq mihin
+tiedostoon tätä pitäs kirjottaa ja sillai
+
+TODO: jatkossa tehtäväpohjat ja testit or wat?
+
 <section class="exercise alert alert-success">
 
 *Exercise:*
