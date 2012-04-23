@@ -1,10 +1,8 @@
-# Training day
+% Training day
+% 120 hour epic
+% sax marathon
 
-## First lesson
-
-TODO: Powershell, lein? blaa
-
-### Synopsis
+## Synopsis
 
 - Using the REPL
 - Prefix syntax (+, -, /, \*)
@@ -13,7 +11,9 @@ TODO: Powershell, lein? blaa
 - `if` and truthiness
 - Everything is an expression / has a value
 
-### Interactive Clojure
+TODO: Powershell, lein? blaa
+
+## Interactive Clojure
 
 To start an interactive Clojure session, type
 ```
@@ -43,7 +43,7 @@ user=>
 Clojure evaluated the expression `(+ 1 2)` and printed its value, `3`. If you
 see something different, please let us know by raising your hand.
 
-### Prefix Syntax
+## Prefix Syntax
 
 As you can see above, instead of writing `1 + 2` to calculate the sum of one
 and two, we write `(+ 1 2)`. This syntax applies everywhere in Clojure. In
@@ -105,7 +105,7 @@ int w = 5 + 6 * 3;
 
 TODO: Talk about "REPL" (meaning of the term)
 
-### Notation
+## Notation
 
 In our example code, we often want to show the result of an expression
 when it is evaluated. Instead of showing what evaluating the expression in the
@@ -154,7 +154,7 @@ user=> (+ 3 4) ; I am a comment
 7
 ```
 
-### Files and Namespaces
+## Files and Namespaces
 
 Code in Clojure projects is structured into separate files. Usually each file
 corresponds to a namespace identified by the file's path, so that the file
@@ -231,7 +231,7 @@ later.
 `use` is similar to Java's `import`. It takes a namespace and loads the file
 corresponding to the namespace.
 
-### Functions
+## Functions
 
 So far we've worked with expressions and simple names defined with `def`.
 
@@ -261,6 +261,11 @@ We can imagine the evaluator doing something like this:
 ```
 
 TODO: tiedostoon kirjotetut funktiot tulee näkyviin usella
+
+TODO: ohjeita vähän tähän: Jotain parempaa ohjastusta, et niinq mihin
+tiedostoon tätä pitäs kirjottaa ja sillai
+
+TODO: jatkossa tehtäväpohjat ja testit or wat?
 
 <section class="exercise alert alert-success">
 
