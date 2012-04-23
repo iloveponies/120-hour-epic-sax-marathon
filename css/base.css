@@ -28,18 +28,14 @@ h1 {
 }
 
 h2 {
-    line-height: 42px;
+    line-height: 36px;
+    margin-top: 12px;
+    font-size: 18px;
 }
 
-h3 {
-    margin-top: 1em;
-    line-height: 38px;
-}
-
-h1, h2, h3 {
+h1, h2 {
     font-weight: normal;
 }
-
 
 p::after {
     clear: both;
