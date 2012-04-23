@@ -97,12 +97,10 @@ int w = 5 + 6 * 3;
 (def w (+ 5 (* 6 3)))
 ```
 
-<section class="exercise">
-Write the following expression in the Clojure prefix syntax:
-<div class="math">
-(2 * 3) + 4
-</div>
-Try evaluating it in the interactive session. The result should be 10.
+<section class="exercise alert alert-success">
+*Exercise:* Write the following expression in the Clojure prefix syntax: $(2 *
+3) + 4$. Try evaluating it in the interactive session. The result should be
+10.
 </section>
 
 TODO: Talk about "REPL" (meaning of the term)
@@ -129,13 +127,23 @@ Sometimes we will put the result on a new line:
 
 ```{.clojure}
 (str 1337)
-  ;=> "1337"
+;=> "1337"
 ```
 
-We use this idiom because it's short, and because `;` starts a comment line in
-Clojure. The `=>` is an illustration of an arrow, meaning "this expression
-evaluates *to* this result". You can copy these examples to the REPL and they
-will work without modification:
+<aside class="alert alert-info">
+`str` is a function that turns its argument to a string. If given multiple
+arguments, it concatenates the results:
+
+```{.clojure}
+(str "Over " 9000 "!") ;=> "Over 9000!"
+```
+
+</aside>
+
+`;` starts a comment that lasts until the end of that line, like `//` in Java.
+The `=>` inside the comment is an illustration of an arrow, meaning "evaluates
+to". You can copy these examples to the REPL and they will work without
+modification:
 
 ```{.clojure}
 user=> (+ 3 4)
@@ -145,6 +153,83 @@ user=> (+ 3 4) ;=> 7
 user=> (+ 3 4) ; I am a comment
 7
 ```
+
+### Files and Namespaces
+
+Code in Clojure projects is structured into separate files. Usually each file
+corresponds to a namespace identified by the file's path, so that the file
+`foo/bar/baz.clj` contains the namespace `foo.bar.baz`. This is a bit
+different from Java, where directories correspond to namespaces (packages) and
+files under a directory usually contain a single class in the given package.
+This difference makes sense given the FUNCTIONAL AWESOMENESS of Clojure.
+
+Suppose we start a project called `foobar`. First, we create the basic
+directory structure with an example file:
+
+```
+. foobar
++-. example/
+  +- hello.clj
+```
+
+Here `hello.clj` is under the directory `example`, which means it contains the
+namespace `example.hello`:
+
+```{.clojure}
+(ns example.hello)
+
+(println "O HAI!")
+```
+
+Namespaces are declared with the `ns` form.
+
+Now, we go to the directory `foobar` in a terminal and start an interactive
+session there:
+
+```
+$ cd foobar
+$ lein repl
+REPL started; server listening on localhost port 63206
+user=>
+```
+
+<aside class="alert alert-info">
+*Note:* We use Leiningen to launch the interactive session for convenience
+only. We could just as well have run `java -cp ".:/path/to/clojure.jar"
+clojure.main` for the same effect. (On Windows, replace the `:` with `;`.)
+Typing `lein repl` is just a bit nicer.  Additionally, Leiningen provides
+commandline editing functions that running Clojure directly wouldn't. Try
+typing <i class="icon-arrow-up"></i> in the interactive session launched by
+Leiningen, then try it in the session launched with `java` directly.
+</aside>
+
+We can now load the `hello.clj` file into the session:
+
+```{.clojure}
+user=> (use 'example.hello)
+O HAI!
+nil
+```
+
+This loaded the file `hello.clj` into the interactive session. Doing this, it
+evaluated everything in the file, which is why we see the printed line. The
+result of `use` itself is `nil`, a special value like Java's `null`.
+
+<aside class="alert alert-error">
+The `'` before the namespace name is important. If you forget it, you will get
+an error like this:
+
+```{.clojure}
+user=> (use example.hello)
+java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE:1)
+```
+
+`'` is an alias for the  `quote` special form, which we will talk more about
+later.
+</aside>
+
+`use` is similar to Java's `import`. It takes a namespace and loads the file
+corresponding to the namespace.
 
 ### Functions
 
@@ -175,40 +260,19 @@ We can imagine the evaluator doing something like this:
 ;=> "Hello, Metropolia!"
 ```
 
-### Files and Namespaces
+TODO: tiedostoon kirjotetut funktiot tulee näkyviin usella
 
-TODO: koodin kirjoittaminen tiedostoon
-TODO: koodin lataaminen tiedostosta REPLiin
+<section class="exercise alert alert-success">
 
-```
-. foobar
-+-. example/
-  +- hello.clj
-```
-
-```{.clojure}
-(ns example.hello)
-
-(defn hello [who]
-  (str "Hello, " who "!"))
-```
-
-```
-$ cd foobar
-$ lein repl
-user=> (use 'example.hello)
-user=> (hello "is there anybody out there?")
-```
-
-TODO: selitä tässä jotain pientä nimiavaruuksistä (vähän niinq Javan paketit)
-
-Exercise!!!
-Write a function `square` that takes a number as a parameter and multiplies it with itself
+*Exercise:*
+Write a function `square` that takes a number as a parameter and multiplies it with itself.
 
 ```{.clojure}
 (square 2) ;=> 4
 (square 3) ;=> 9
 ```
+
+</section>
 
 TODO: markdown-esikääntäjä tehtävänannoille
 
