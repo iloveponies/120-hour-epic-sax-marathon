@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title></title>
+  <meta name="author" content="120 hour epic">
+  <title>Training day</title>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -32,10 +33,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-<h1 id="training-day">Training day</h1>
-<h2 id="first-lesson">First lesson</h2>
-<p>TODO: Powershell, lein? blaa</p>
-<h3 id="synopsis">Synopsis</h3>
+<header>
+<h1 class="title">Training day</h1>
+<h2 class="author">120 hour epic</h2>
+<h3 class="date">sax marathon</h3>
+</header>
+<h2 id="synopsis">Synopsis</h2>
 <ul>
 <li>Using the REPL</li>
 <li>Prefix syntax (+, -, /, *)</li>
@@ -44,7 +47,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><code>if</code> and truthiness</li>
 <li>Everything is an expression / has a value</li>
 </ul>
-<h3 id="interactive-clojure">Interactive Clojure</h3>
+<p>TODO: Powershell, lein? blaa</p>
+<h2 id="interactive-clojure">Interactive Clojure</h2>
 <p>To start an interactive Clojure session, type <code>lein repl</code> in the terminal.</p>
 <p>It should look something like this: TODO: tarkista et varmasti näyttää windozella samalta <code>REPL started; server listening on localhost port 3099 user=&gt;</code></p>
 <p>If you type <code>{.clojure} (+ 1 2)</code> and press the return key, you should see this:</p>
@@ -52,7 +56,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="dv">3</span>
 user=&gt;</code></pre>
 <p>Clojure evaluated the expression <code>(+ 1 2)</code> and printed its value, <code>3</code>. If you see something different, please let us know by raising your hand.</p>
-<h3 id="prefix-syntax">Prefix Syntax</h3>
+<h2 id="prefix-syntax">Prefix Syntax</h2>
 <p>As you can see above, instead of writing <code>1 + 2</code> to calculate the sum of one and two, we write <code>(+ 1 2)</code>. This syntax applies everywhere in Clojure. In fact, Clojure has no operators at all. For an example, in languages such as Java or C, arithmetic operations are usually written in the mathematical notation called <em>infix form</em>:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="dt">int</span> x =  <span class="dv">2</span> + <span class="dv">3</span>;
 <span class="dt">int</span> y = <span class="dv">42</span> * <span class="dv">7</span>;
@@ -80,7 +84,7 @@ user=&gt; (<span class="kw">+</span> x z)
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> w </span>(<span class="kw">+</span> <span class="dv">5</span> (<span class="kw">*</span> <span class="dv">6</span> <span class="dv">3</span>)))</code></pre>
 <p><section class="exercise alert alert-success"> <em>Exercise:</em> Write the following expression in the Clojure prefix syntax: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mn>2</mn><mo>*</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>4</mn></mrow></math>. Try evaluating it in the interactive session. The result should be 10. </section></p>
 <p>TODO: Talk about &quot;REPL&quot; (meaning of the term)</p>
-<h3 id="notation">Notation</h3>
+<h2 id="notation">Notation</h2>
 <p>In our example code, we often want to show the result of an expression when it is evaluated. Instead of showing what evaluating the expression in the interactive session looks like:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)
 <span class="dv">7</span></code></pre>
@@ -99,7 +103,7 @@ user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">
 <span class="dv">7</span>
 user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="co">; I am a comment</span>
 <span class="dv">7</span></code></pre>
-<h3 id="files-and-namespaces">Files and Namespaces</h3>
+<h2 id="files-and-namespaces">Files and Namespaces</h2>
 <p>Code in Clojure projects is structured into separate files. Usually each file corresponds to a namespace identified by the file's path, so that the file <code>foo/bar/baz.clj</code> contains the namespace <code>foo.bar.baz</code>. This is a bit different from Java, where directories correspond to namespaces (packages) and files under a directory usually contain a single class in the given package. This difference makes sense given the FUNCTIONAL AWESOMENESS of Clojure.</p>
 <p>Suppose we start a project called <code>foobar</code>. First, we create the basic directory structure with an example file:</p>
 <pre><code>. foobar
@@ -126,7 +130,7 @@ nil</code></pre>
 java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">:1)</span></code></pre>
 <p><code>'</code> is an alias for the <code>quote</code> special form, which we will talk more about later. </aside></p>
 <p><code>use</code> is similar to Java's <code>import</code>. It takes a namespace and loads the file corresponding to the namespace.</p>
-<h3 id="functions">Functions</h3>
+<h2 id="functions">Functions</h2>
 <p>So far we've worked with expressions and simple names defined with <code>def</code>.</p>
 <p>Functions are defined with <code>defn</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hello </span>[who]
@@ -139,6 +143,8 @@ java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">
 <span class="co">;=&gt; (str &quot;Hello, &quot; &quot;Metropolia&quot; &quot;!&quot;)</span>
 <span class="co">;=&gt; &quot;Hello, Metropolia!&quot;</span></code></pre>
 <p>TODO: tiedostoon kirjotetut funktiot tulee näkyviin usella</p>
+<p>TODO: ohjeita vähän tähän: Jotain parempaa ohjastusta, et niinq mihin tiedostoon tätä pitäs kirjottaa ja sillai</p>
+<p>TODO: jatkossa tehtäväpohjat ja testit or wat?</p>
 <section class="exercise alert alert-success">
 <p><em>Exercise:</em> Write a function <code>square</code> that takes a number as a parameter and multiplies it with itself.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(square <span class="dv">2</span>) <span class="co">;=&gt; 4</span>
