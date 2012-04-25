@@ -15,24 +15,18 @@ TODO: Powershell, lein? blaa
 
 ## Interactive Clojure
 
-To start an interactive Clojure session, type
-```
-lein repl
-```
-in the terminal.
+To start an interactive Clojure session, type `lein repl` in the terminal.
 
 It should look something like this:
-TODO: tarkista et varmasti näyttää windozella samalta
+
 ```
 REPL started; server listening on localhost port 3099
 user=>
 ```
 
-If you type
-```{.clojure}
-(+ 1 2)
-```
-and press the return key, you should see this:
+TODO: tarkista et varmasti näyttää windozella samalta
+
+If you type `(+ 1 2)` and press the return key, you should see this:
 
 ```{.clojure}
 user=> (+ 1 2)
