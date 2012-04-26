@@ -58,6 +58,10 @@ ul {
     margin-left: 0;
 }
 
+.exercise ul {
+    margin-left: 1em;
+}
+
 pre {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }

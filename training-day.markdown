@@ -288,7 +288,31 @@ TODO: lein-shit ja testien ajaminen
 </section>
 
 <section class="alert alert-error">
-TODO: if?
+TODO: vertailut, if
+</section>
+
+<section class="exercise alert alert-success">
+Write the function `(abs n)`.
+</section>
+
+<section class="alert alert-error">
+TODO: `mod`
+</section>
+
+<section class="exercise alert alert-success">
+
+Write the function `(fizzbuzz n)` that returns
+
+- "fizz" when `n` is divisible by 3,
+- "buzz" when `n` is divisible by 5,
+- but *only* "gotcha!" when `n` is divisible by 15.
+
+```{.clojure}
+(fizzbuzz 45) ;=> "gotcha!"
+(fizzbuzz 48) ;=> "fizz"
+(fizzbuzz 70) ;=> "buzz"
+```
+
 </section>
 
 <section class="alert alert-error">
