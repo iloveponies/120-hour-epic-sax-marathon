@@ -32,6 +32,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -51,13 +52,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><code>if</code> and truthiness</li>
 <li>Everything is an expression / has a value</li>
 </ul>
-<p>TODO: Powershell, lein? blaa</p>
 <h2 id="interactive-clojure">Interactive Clojure</h2>
 <p>To start an interactive Clojure session, type <code>lein repl</code> in the terminal.</p>
 <p>It should look something like this:</p>
 <pre><code>REPL started; server listening on localhost port 3099
 user=&gt;</code></pre>
-<p>TODO: tarkista et varmasti näyttää windozella samalta</p>
+<p><section class="alert alert-error"> TODO: tarkista et varmasti näyttää windozella samalta </section></p>
 <p>If you type <code>(+ 1 2)</code> and press the return key, you should see this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>)
 <span class="dv">3</span>
@@ -65,37 +65,52 @@ user=&gt;</code></pre>
 <p>Clojure evaluated the expression <code>(+ 1 2)</code> and printed its value, <code>3</code>. If you see something different, please let us know by raising your hand.</p>
 <h2 id="prefix-syntax">Prefix Syntax</h2>
 <p>As you can see above, instead of writing <code>1 + 2</code> to calculate the sum of one and two, we write <code>(+ 1 2)</code>. This syntax applies everywhere in Clojure. In fact, Clojure has no operators at all. For an example, in languages such as Java or C, arithmetic operations are usually written in the mathematical notation called <em>infix form</em>:</p>
-<pre class="sourceCode java"><code class="sourceCode java"><span class="dt">int</span> x =  <span class="dv">2</span> + <span class="dv">3</span>;
-<span class="dt">int</span> y = <span class="dv">42</span> * <span class="dv">7</span>;
-<span class="dt">int</span> z =  x - y;</code></pre>
-<p>These operations are regular functions in Clojure instead:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> x </span>(<span class="kw">+</span>  <span class="dv">2</span> <span class="dv">3</span>))
-(<span class="kw">def</span><span class="fu"> y </span>(<span class="kw">*</span> <span class="dv">42</span> <span class="dv">7</span>))
-(<span class="kw">def</span><span class="fu"> z </span>(<span class="kw">-</span>  x y))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Java</th>
+<th style="text-align: left;">Clojure</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>2 + 3</code></td>
+<td style="text-align: left;"><code>(+ 2 3)</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>42 * 7</code></td>
+<td style="text-align: left;"><code>(* 42 7)</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>2 - 78 * 35</code></td>
+<td style="text-align: left;"><code>(- 2 (* 78 35))</code></td>
+</tr>
+</tbody>
+</table>
+<!-- `* -->
+
 <p>This syntax is called <em>prefix form</em>. All Clojure syntax is of this basic form.</p>
 <p>Let's input these definitions in our Clojure session to see how they work:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">def</span><span class="fu"> x </span>(<span class="kw">+</span>  <span class="dv">2</span> <span class="dv">3</span>))
-<span class="kw">#&#39;</span>user/x
-user=&gt; (<span class="kw">def</span><span class="fu"> y </span>(<span class="kw">*</span> <span class="dv">42</span> <span class="dv">7</span>))
-<span class="kw">#&#39;</span>user/y
-user=&gt; (<span class="kw">def</span><span class="fu"> z </span>(<span class="kw">-</span>  x y))
-<span class="kw">#&#39;</span>user/z</code></pre>
-<p>We can now use the names <code>x</code>, <code>y</code> and <code>z</code> in our session:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; x
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">3</span>)
 <span class="dv">5</span>
-user=&gt; z
--<span class="dv">289</span>
-user=&gt; (<span class="kw">+</span> x z)
--<span class="dv">284</span></code></pre>
-<pre class="sourceCode java"><code class="sourceCode java"><span class="dt">int</span> w = <span class="dv">5</span> + <span class="dv">6</span> * <span class="dv">3</span>;</code></pre>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> w </span>(<span class="kw">+</span> <span class="dv">5</span> (<span class="kw">*</span> <span class="dv">6</span> <span class="dv">3</span>)))</code></pre>
+user=&gt; (<span class="kw">*</span> <span class="dv">42</span> <span class="dv">7</span>)
+<span class="dv">294</span>
+user=&gt; (<span class="kw">-</span> <span class="dv">2</span> (<span class="kw">*</span> <span class="dv">78</span> <span class="dv">35</span>))
+-<span class="dv">2728</span></code></pre>
 <p><section class="exercise alert alert-success"> <em>Exercise:</em> Write the following expression in the Clojure prefix syntax: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mn>2</mn><mo>*</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>4</mn></mrow></math>. Try evaluating it in the interactive session. The result should be 10. </section></p>
-<p>TODO: Talk about &quot;REPL&quot; (meaning of the term)</p>
+<p>As an example, let's take a look at getting a single character from a string in Clojure and Java. In Clojure, we can use the <code>get</code> function for this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> <span class="st">&quot;Clojure&quot;</span> <span class="dv">2</span>) <span class="co">;=&gt; \o</span></code></pre>
+<!-- `* -->
+
+<p>The result is the character <code>o</code>, printed in Clojure's literal character syntax.</p>
+<p>In Java, we reorder things a bit: the first parameter goes <em>before</em> the method name, and the parentheses are moved <em>after</em> the method name:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="st">&quot;Java&quot;</span>.<span class="fu">charAt</span>(<span class="dv">2</span>); <span class="co">//=&gt; v</span></code></pre>
+<p>The Clojure prefix syntax might take some time to get used to, but becomes natural after you've written a few programs in it.</p>
 <h2 id="notation">Notation</h2>
 <p>In our example code, we often want to show the result of an expression when it is evaluated. Instead of showing what evaluating the expression in the interactive session looks like:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)
 <span class="dv">7</span></code></pre>
-<p>we're going to use the convention of writing the expression and the result, separated with <code>;=&gt;</code>. For an example:</p>
+<p>We're going to use the convention of writing the expression and the result, separated with <code>;=&gt;</code>. For an example:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="co">;=&gt; 7</span></code></pre>
 <p>Sometimes we will put the result on a new line:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="dv">1337</span>)
@@ -126,22 +141,25 @@ user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">
 $ lein repl
 REPL started; server listening on localhost port 63206
 user=&gt;</code></pre>
-<p><aside class="alert alert-info"> <em>Note:</em> We use Leiningen to launch the interactive session for convenience only. We could just as well have run <code>java -cp &quot;.:/path/to/clojure.jar&quot; clojure.main</code> for the same effect. (On Windows, replace the <code>:</code> with <code>;</code>.) Typing <code>lein repl</code> is just a bit nicer. Additionally, Leiningen provides commandline editing functions that running Clojure directly wouldn't. Try typing <i class="icon-arrow-up"></i> in the interactive session launched by Leiningen, then try it in the session launched with <code>java</code> directly. </aside></p>
 <p>We can now load the <code>hello.clj</code> file into the session:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;example.hello)
-O HAI!
-nil</code></pre>
+O HAI!    <span class="co">; ← (println &quot;O HAI!&quot;)</span>
+nil       <span class="co">; ← result of use</span></code></pre>
 <p>This loaded the file <code>hello.clj</code> into the interactive session. Doing this, it evaluated everything in the file, which is why we see the printed line. The result of <code>use</code> itself is <code>nil</code>, a special value like Java's <code>null</code>.</p>
 <p><aside class="alert alert-error"> The <code>'</code> before the namespace name is important. If you forget it, you will get an error like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> example.hello)
 java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">:1)</span></code></pre>
 <p><code>'</code> is an alias for the <code>quote</code> special form, which we will talk more about later. </aside></p>
-<p><code>use</code> is similar to Java's <code>import</code>. It takes a namespace and loads the file corresponding to the namespace.</p>
 <h2 id="functions">Functions</h2>
 <p>So far we've worked with expressions and simple names defined with <code>def</code>.</p>
 <p>Functions are defined with <code>defn</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hello </span>[who]
   (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))</code></pre>
+<p>Let's look at that again, now with running commentary alongside:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu">                       </span><span class="co">; Start a function definition:</span>
+  hello                     <span class="co">; name</span>
+  [who]                     <span class="co">; parameters inside brackets</span>
+  (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))  <span class="co">; body</span></code></pre>
 <p>Here <code>hello</code> is the name of the function, <code>[who]</code> is the parameter list, and the expression on the second line is the body of the function.</p>
 <p>Let's try calling our function:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(hello <span class="st">&quot;Metropolia&quot;</span>) <span class="co">;=&gt; &quot;Hello, Metropolia!&quot;</span></code></pre>
@@ -149,20 +167,36 @@ java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(hello <span class="st">&quot;Metropolia&quot;</span>)
 <span class="co">;=&gt; (str &quot;Hello, &quot; &quot;Metropolia&quot; &quot;!&quot;)</span>
 <span class="co">;=&gt; &quot;Hello, Metropolia!&quot;</span></code></pre>
-<p>TODO: tiedostoon kirjotetut funktiot tulee näkyviin usella</p>
-<p>TODO: ohjeita vähän tähän: Jotain parempaa ohjastusta, et niinq mihin tiedostoon tätä pitäs kirjottaa ja sillai</p>
-<p>TODO: jatkossa tehtäväpohjat ja testit or wat?</p>
+<p><section class="alert alert-error"> TODO: tiedostoon kirjotetut funktiot tulee näkyviin usella </section></p>
+<p><section class="alert alert-error"> TODO: ohjeita vähän tähän: Jotain parempaa ohjastusta, et niinq mihin tiedostoon tätä pitäs kirjottaa ja sillai </section></p>
+<p><section class="alert alert-error"> TODO: jatkossa tehtäväpohjat ja testit or wat? </section></p>
 <section class="exercise alert alert-success">
 <p><em>Exercise:</em> Write a function <code>square</code> that takes a number as a parameter and multiplies it with itself.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(square <span class="dv">2</span>) <span class="co">;=&gt; 4</span>
 (square <span class="dv">3</span>) <span class="co">;=&gt; 9</span></code></pre>
 </section>
-<p>TODO: markdown-esikääntäjä tehtävänannoille</p>
-<p>TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri</p>
-<p>TODO: doc TODO: lein-shit ja testien ajaminen</p>
-<p>TODO: if?</p>
-<p>TODO: tiedostopohjat ja testit about tästä eteenpäin? TODO: git</p>
-<p>TODO: literate clojure TODO?: lein projektit</p>
+<p><section class="alert alert-error"> TODO: markdown-esikääntäjä tehtävänannoille </section></p>
+<p><section class="alert alert-error"> TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri </section></p>
+<p><section class="alert alert-error"> TODO: doc </section></p>
+<p><section class="alert alert-error"> TODO: lein-shit ja testien ajaminen </section></p>
+<p><section class="alert alert-error"> TODO: vertailut, if </section></p>
+<p><section class="exercise alert alert-success"> Write the function <code>(abs n)</code>. </section></p>
+<p><section class="alert alert-error"> TODO: <code>mod</code> </section></p>
+<section class="exercise alert alert-success">
+<p>Write the function <code>(fizzbuzz n)</code> that returns</p>
+<ul>
+<li>&quot;fizz&quot; when <code>n</code> is divisible by 3,</li>
+<li>&quot;buzz&quot; when <code>n</code> is divisible by 5,</li>
+<li>but <em>only</em> &quot;gotcha!&quot; when <code>n</code> is divisible by 15.</li>
+</ul>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(fizzbuzz <span class="dv">45</span>) <span class="co">;=&gt; &quot;gotcha!&quot;</span>
+(fizzbuzz <span class="dv">48</span>) <span class="co">;=&gt; &quot;fizz&quot;</span>
+(fizzbuzz <span class="dv">70</span>) <span class="co">;=&gt; &quot;buzz&quot;</span></code></pre>
+</section>
+<p><section class="alert alert-error"> TODO: tiedostopohjat ja testit about tästä eteenpäin? </section></p>
+<p><section class="alert alert-error"> TODO: git </section></p>
+<p><section class="alert alert-error"> TODO: literate clojure </section></p>
+<p><section class="alert alert-error"> TODO?: lein projektit </section></p>
 </div>
 </div>
 </div>

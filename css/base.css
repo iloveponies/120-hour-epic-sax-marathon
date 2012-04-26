@@ -58,6 +58,21 @@ ul {
     margin-left: 0;
 }
 
+.exercise ul {
+    margin-left: 1em;
+}
+
 pre {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+table code {
+    border: none;
+    background: none;
+    color: inherit;
+    padding: 0;
+}
+
+code, pre {
+  font-family: Menlo, Monaco, Consolas, "DejaVu Sans", monospace;
 }

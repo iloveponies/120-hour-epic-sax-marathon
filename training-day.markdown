@@ -11,8 +11,6 @@
 - `if` and truthiness
 - Everything is an expression / has a value
 
-TODO: Powershell, lein? blaa
-
 ## Interactive Clojure
 
 To start an interactive Clojure session, type `lein repl` in the terminal.
@@ -24,7 +22,9 @@ REPL started; server listening on localhost port 3099
 user=>
 ```
 
+<section class="alert alert-error">
 TODO: tarkista et varmasti näyttää windozella samalta
+</section>
 
 If you type `(+ 1 2)` and press the return key, you should see this:
 
@@ -45,51 +45,27 @@ fact, Clojure has no operators at all. For an example, in languages such as
 Java or C, arithmetic operations are usually written in the mathematical
 notation called *infix form*:
 
-```{.java}
-int x =  2 + 3;
-int y = 42 * 7;
-int z =  x - y;
-```
+Java           Clojure
+-------        -------
+`2 + 3`        `(+ 2 3)`
+`42 * 7`       `(* 42 7)`
+`2 - 78 * 35`  `(- 2 (* 78 35))`
 
-These operations are regular functions in Clojure instead:
-
-```{.clojure}
-(def x (+  2 3))
-(def y (* 42 7))
-(def z (-  x y))
-```
+<!-- `* -->
 
 This syntax is called *prefix form*. All Clojure syntax is of this basic form.
 
 Let's input these definitions in our Clojure session to see how they work:
 
 ```{.clojure}
-user=> (def x (+  2 3))
-#'user/x
-user=> (def y (* 42 7))
-#'user/y
-user=> (def z (-  x y))
-#'user/z
-```
-
-We can now use the names `x`, `y` and `z` in our session:
-
-```{.clojure}
-user=> x
+user=> (+ 2 3)
 5
-user=> z
--289
-user=> (+ x z)
--284
+user=> (* 42 7)
+294
+user=> (- 2 (* 78 35))
+-2728
 ```
 
-```{.java}
-int w = 5 + 6 * 3;
-```
-
-```{.clojure}
-(def w (+ 5 (* 6 3)))
-```
 
 <section class="exercise alert alert-success">
 *Exercise:* Write the following expression in the Clojure prefix syntax: $(2 *
@@ -97,7 +73,27 @@ int w = 5 + 6 * 3;
 10.
 </section>
 
-TODO: Talk about "REPL" (meaning of the term)
+As an example, let's take a look at getting a single character from a string
+in Clojure and Java. In Clojure, we can use the `get` function for this:
+
+```{.clojure}
+(get "Clojure" 2) ;=> \o
+```
+
+<!-- `* -->
+
+The result is the character `o`, printed in Clojure's literal character
+syntax.
+
+In Java, we reorder things a bit: the first parameter goes *before* the method
+name, and the parentheses are moved *after* the method name:
+
+```{.java}
+"Java".charAt(2); //=> v
+```
+
+The Clojure prefix syntax might take some time to get used to, but becomes
+natural after you've written a few programs in it.
 
 ## Notation
 
@@ -110,7 +106,7 @@ user=> (+ 3 4)
 7
 ```
 
-we're going to use the convention of writing the expression and the result,
+We're going to use the convention of writing the expression and the result,
 separated with `;=>`. For an example:
 
 ```{.clojure}
@@ -187,22 +183,12 @@ REPL started; server listening on localhost port 63206
 user=>
 ```
 
-<aside class="alert alert-info">
-*Note:* We use Leiningen to launch the interactive session for convenience
-only. We could just as well have run `java -cp ".:/path/to/clojure.jar"
-clojure.main` for the same effect. (On Windows, replace the `:` with `;`.)
-Typing `lein repl` is just a bit nicer.  Additionally, Leiningen provides
-commandline editing functions that running Clojure directly wouldn't. Try
-typing <i class="icon-arrow-up"></i> in the interactive session launched by
-Leiningen, then try it in the session launched with `java` directly.
-</aside>
-
 We can now load the `hello.clj` file into the session:
 
 ```{.clojure}
 user=> (use 'example.hello)
-O HAI!
-nil
+O HAI!    ; ← (println "O HAI!")
+nil       ; ← result of use
 ```
 
 This loaded the file `hello.clj` into the interactive session. Doing this, it
@@ -222,9 +208,6 @@ java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE:1)
 later.
 </aside>
 
-`use` is similar to Java's `import`. It takes a namespace and loads the file
-corresponding to the namespace.
-
 ## Functions
 
 So far we've worked with expressions and simple names defined with `def`.
@@ -234,6 +217,15 @@ Functions are defined with `defn`:
 ```{.clojure}
 (defn hello [who]
   (str "Hello, " who "!"))
+```
+
+Let's look at that again, now with running commentary alongside:
+
+```{.clojure}
+(defn                       ; Start a function definition:
+  hello                     ; name
+  [who]                     ; parameters inside brackets
+  (str "Hello, " who "!"))  ; body
 ```
 
 Here `hello` is the name of the function, `[who]` is the parameter list, and
@@ -254,12 +246,18 @@ We can imagine the evaluator doing something like this:
 ;=> "Hello, Metropolia!"
 ```
 
+<section class="alert alert-error">
 TODO: tiedostoon kirjotetut funktiot tulee näkyviin usella
+</section>
 
+<section class="alert alert-error">
 TODO: ohjeita vähän tähän: Jotain parempaa ohjastusta, et niinq mihin
 tiedostoon tätä pitäs kirjottaa ja sillai
+</section>
 
+<section class="alert alert-error">
 TODO: jatkossa tehtäväpohjat ja testit or wat?
+</section>
 
 <section class="exercise alert alert-success">
 
@@ -273,18 +271,62 @@ Write a function `square` that takes a number as a parameter and multiplies it w
 
 </section>
 
+<section class="alert alert-error">
 TODO: markdown-esikääntäjä tehtävänannoille
+</section>
 
+<section class="alert alert-error">
 TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri
+</section>
 
+<section class="alert alert-error">
 TODO: doc
+</section>
+
+<section class="alert alert-error">
 TODO: lein-shit ja testien ajaminen
+</section>
 
-TODO: if?
+<section class="alert alert-error">
+TODO: vertailut, if
+</section>
 
+<section class="exercise alert alert-success">
+Write the function `(abs n)`.
+</section>
+
+<section class="alert alert-error">
+TODO: `mod`
+</section>
+
+<section class="exercise alert alert-success">
+
+Write the function `(fizzbuzz n)` that returns
+
+- "fizz" when `n` is divisible by 3,
+- "buzz" when `n` is divisible by 5,
+- but *only* "gotcha!" when `n` is divisible by 15.
+
+```{.clojure}
+(fizzbuzz 45) ;=> "gotcha!"
+(fizzbuzz 48) ;=> "fizz"
+(fizzbuzz 70) ;=> "buzz"
+```
+
+</section>
+
+<section class="alert alert-error">
 TODO: tiedostopohjat ja testit about tästä eteenpäin?
+</section>
+
+<section class="alert alert-error">
 TODO: git
+</section>
 
+<section class="alert alert-error">
 TODO: literate clojure
-TODO?: lein projektit
+</section>
 
+<section class="alert alert-error">
+TODO?: lein projektit
+</section>
