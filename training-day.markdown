@@ -183,22 +183,12 @@ REPL started; server listening on localhost port 63206
 user=>
 ```
 
-<aside class="alert alert-info">
-*Note:* We use Leiningen to launch the interactive session for convenience
-only. We could just as well have run `java -cp ".:/path/to/clojure.jar"
-clojure.main` for the same effect. (On Windows, replace the `:` with `;`.)
-Typing `lein repl` is just a bit nicer.  Additionally, Leiningen provides
-commandline editing functions that running Clojure directly wouldn't. Try
-typing <i class="icon-arrow-up"></i> in the interactive session launched by
-Leiningen, then try it in the session launched with `java` directly.
-</aside>
-
 We can now load the `hello.clj` file into the session:
 
 ```{.clojure}
 user=> (use 'example.hello)
-O HAI!
-nil
+O HAI!    ; ← (println "O HAI!")
+nil       ; ← result of use
 ```
 
 This loaded the file `hello.clj` into the interactive session. Doing this, it
@@ -218,9 +208,6 @@ java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE:1)
 later.
 </aside>
 
-`use` is similar to Java's `import`. It takes a namespace and loads the file
-corresponding to the namespace.
-
 ## Functions
 
 So far we've worked with expressions and simple names defined with `def`.
@@ -230,6 +217,15 @@ Functions are defined with `defn`:
 ```{.clojure}
 (defn hello [who]
   (str "Hello, " who "!"))
+```
+
+Let's look at that again, now with running commentary alongside:
+
+```{.clojure}
+(defn                       ; Start a function definition:
+  hello                     ; name
+  [who]                     ; parameters inside brackets
+  (str "Hello, " who "!"))  ; body
 ```
 
 Here `hello` is the name of the function, `[who]` is the parameter list, and
@@ -285,6 +281,9 @@ TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametr
 
 <section class="alert alert-error">
 TODO: doc
+</section>
+
+<section class="alert alert-error">
 TODO: lein-shit ja testien ajaminen
 </section>
 
@@ -294,10 +293,16 @@ TODO: if?
 
 <section class="alert alert-error">
 TODO: tiedostopohjat ja testit about tästä eteenpäin?
+</section>
+
+<section class="alert alert-error">
 TODO: git
 </section>
 
 <section class="alert alert-error">
 TODO: literate clojure
+</section>
+
+<section class="alert alert-error">
 TODO?: lein projektit
 </section>

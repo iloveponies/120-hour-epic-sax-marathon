@@ -1,1 +1,4 @@
-training-day.html
+*.html
+!before.html
+!after.html
+!header.html

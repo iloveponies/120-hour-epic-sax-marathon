@@ -1,4 +1,4 @@
-ALL: training-day.html
+ALL: training-day.html basic-tools.html
 
 %.html: %.markdown
 	pandoc                              \
