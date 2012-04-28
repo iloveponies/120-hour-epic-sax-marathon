@@ -261,11 +261,19 @@ TODO: ohjeita vähän tähän: Jotain parempaa ohjastusta, et niinq mihin
 tiedostoon tätä pitäs kirjottaa ja sillai
 </section>
 
-## We come bearing gifts
+## We come gifting bears
 
-> In bear no-one hears you gift.
+We will now move to a Leiningen-based project structure instead of the one we
+manually created above. No worries, though; you can use [Git] to get a
+ready-made structure we have lovingly crafted by hand just for you:
 
-Get the project structure from http://github.com/iloveponies/120
+```
+$ git clone https://github.com/iloveponies/training-day.git
+Cloning into 'training-day'…
+…more output…
+$ cd training-day
+$ lein2 midje
+```
 
 <section class="exercise alert alert-success">
 
@@ -295,12 +303,37 @@ TODO: doc
 TODO: lein-shit ja testien ajaminen
 </section>
 
-<section class="alert alert-error">
-TODO: vertailut, if
-</section>
+## If then else
+
+> Any program is only as good as it is useful. <small>Linus Torvalds</small>
+
+```{.clojure}
+(if (my-father? darth-vader)
+  (lose-hand me)
+  (gain-hat me))
+```
+
+```{.clojure}
+(defn sign [x]
+  (if (< 0 x)
+    "-"
+    "+"))
+```
+
+```{.clojure}
+user=> (use 'if-then-else :reload)
+nil
+user=> (sign -42)
+"-"
+user=> (sign 0)
+"+"
+```
 
 <section class="exercise alert alert-success">
-Write the function `(abs n)`.
+
+Write the function `(abs n)`, which returns the absolute value of `n`, i.e. if
+$n < 0$, the value of `(abs n)` is $- n$, and otherwise $n$.
+
 </section>
 
 <section class="alert alert-error">
@@ -311,9 +344,9 @@ TODO: `mod`
 
 Write the function `(fizzbuzz n)` that returns
 
-- "fizz" when `n` is divisible by 3,
-- "buzz" when `n` is divisible by 5,
-- but *only* "gotcha!" when `n` is divisible by 15.
+- `"fizz"` when `n` is divisible by 3,
+- `"buzz"` when `n` is divisible by 5,
+- but *only* `"gotcha!"` when `n` is divisible by 15.
 
 ```{.clojure}
 (fizzbuzz 45) ;=> "gotcha!"
@@ -324,17 +357,11 @@ Write the function `(fizzbuzz n)` that returns
 </section>
 
 <section class="alert alert-error">
-TODO: tiedostopohjat ja testit about tästä eteenpäin?
-</section>
-
-<section class="alert alert-error">
-TODO: git
-</section>
-
-<section class="alert alert-error">
 TODO: literate clojure
 </section>
 
 <section class="alert alert-error">
 TODO?: lein projektit
 </section>
+
+[Git]: http://git-scm.com
