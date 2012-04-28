@@ -4,6 +4,8 @@
 
 ## Synopsis
 
+> In which we learn to butt.
+
 - Using the REPL
 - Prefix syntax (+, -, /, \*)
 - Editor
@@ -38,6 +40,8 @@ Clojure evaluated the expression `(+ 1 2)` and printed its value, `3`. If you
 see something different, please let us know by raising your hand.
 
 ## Prefix Syntax
+
+> I used to be an adventurer like you, but then I took an arrow in the knee.
 
 As you can see above, instead of writing `1 + 2` to calculate the sum of one
 and two, we write `(+ 1 2)`. This syntax applies everywhere in Clojure. In
@@ -146,6 +150,8 @@ user=> (+ 3 4) ; I am a comment
 
 ## Files and Namespaces
 
+> In space no one can hear you quark.
+
 Code in Clojure projects is structured into separate files. Usually each file
 corresponds to a namespace identified by the file's path, so that the file
 `foo/bar/baz.clj` contains the namespace `foo.bar.baz`. This is a bit
@@ -237,7 +243,7 @@ Let's try calling our function:
 (hello "Metropolia") ;=> "Hello, Metropolia!"
 ```
 
-Calling the function evaluated its body with `who` bound to "Metropolia".
+Calling the function evaluated its body with `who` bound to `"Metropolia"`.
 We can imagine the evaluator doing something like this:
 
 ```{.clojure}
@@ -255,9 +261,11 @@ TODO: ohjeita vähän tähän: Jotain parempaa ohjastusta, et niinq mihin
 tiedostoon tätä pitäs kirjottaa ja sillai
 </section>
 
-<section class="alert alert-error">
-TODO: jatkossa tehtäväpohjat ja testit or wat?
-</section>
+## We come bearing gifts
+
+> In bear no-one hears you gift.
+
+Get the project structure from http://github.com/iloveponies/120
 
 <section class="exercise alert alert-success">
 
