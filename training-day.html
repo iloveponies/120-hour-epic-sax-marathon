@@ -44,6 +44,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3 class="date">sax marathon</h3>
 </header>
 <h2 id="synopsis">Synopsis</h2>
+<blockquote>
+<p>In which we learn to butt.</p>
+</blockquote>
 <ul>
 <li>Using the REPL</li>
 <li>Prefix syntax (+, -, /, *)</li>
@@ -64,6 +67,9 @@ user=&gt;</code></pre>
 user=&gt;</code></pre>
 <p>Clojure evaluated the expression <code>(+ 1 2)</code> and printed its value, <code>3</code>. If you see something different, please let us know by raising your hand.</p>
 <h2 id="prefix-syntax">Prefix Syntax</h2>
+<blockquote>
+<p>I used to be an adventurer like you, but then I took an arrow in the knee.</p>
+</blockquote>
 <p>As you can see above, instead of writing <code>1 + 2</code> to calculate the sum of one and two, we write <code>(+ 1 2)</code>. This syntax applies everywhere in Clojure. In fact, Clojure has no operators at all. For an example, in languages such as Java or C, arithmetic operations are usually written in the mathematical notation called <em>infix form</em>:</p>
 <table>
 <thead>
@@ -126,6 +132,9 @@ user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">
 user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="co">; I am a comment</span>
 <span class="dv">7</span></code></pre>
 <h2 id="files-and-namespaces">Files and Namespaces</h2>
+<blockquote>
+<p>In space no one can hear you quark.</p>
+</blockquote>
 <p>Code in Clojure projects is structured into separate files. Usually each file corresponds to a namespace identified by the file's path, so that the file <code>foo/bar/baz.clj</code> contains the namespace <code>foo.bar.baz</code>. This is a bit different from Java, where directories correspond to namespaces (packages) and files under a directory usually contain a single class in the given package. This difference makes sense given the FUNCTIONAL AWESOMENESS of Clojure.</p>
 <p>Suppose we start a project called <code>foobar</code>. First, we create the basic directory structure with an example file:</p>
 <pre><code>. foobar
@@ -163,13 +172,19 @@ java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">
 <p>Here <code>hello</code> is the name of the function, <code>[who]</code> is the parameter list, and the expression on the second line is the body of the function.</p>
 <p>Let's try calling our function:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(hello <span class="st">&quot;Metropolia&quot;</span>) <span class="co">;=&gt; &quot;Hello, Metropolia!&quot;</span></code></pre>
-<p>Calling the function evaluated its body with <code>who</code> bound to &quot;Metropolia&quot;. We can imagine the evaluator doing something like this:</p>
+<p>Calling the function evaluated its body with <code>who</code> bound to <code>&quot;Metropolia&quot;</code>. We can imagine the evaluator doing something like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(hello <span class="st">&quot;Metropolia&quot;</span>)
 <span class="co">;=&gt; (str &quot;Hello, &quot; &quot;Metropolia&quot; &quot;!&quot;)</span>
 <span class="co">;=&gt; &quot;Hello, Metropolia!&quot;</span></code></pre>
 <p><section class="alert alert-error"> TODO: tiedostoon kirjotetut funktiot tulee näkyviin usella </section></p>
 <p><section class="alert alert-error"> TODO: ohjeita vähän tähän: Jotain parempaa ohjastusta, et niinq mihin tiedostoon tätä pitäs kirjottaa ja sillai </section></p>
-<p><section class="alert alert-error"> TODO: jatkossa tehtäväpohjat ja testit or wat? </section></p>
+<h2 id="we-come-gifting-bears">We come gifting bears</h2>
+<p>We will now move to a Leiningen-based project structure instead of the one we manually created above. No worries, though; you can use <a href="http://git-scm.com">Git</a> to get a ready-made structure we have lovingly crafted by hand just for you:</p>
+<pre><code>$ git clone https://github.com/iloveponies/training-day.git
+Cloning into &#39;training-day&#39;…
+…more output…
+$ cd training-day
+$ lein2 midje</code></pre>
 <section class="exercise alert alert-success">
 <p><em>Exercise:</em> Write a function <code>square</code> that takes a number as a parameter and multiplies it with itself.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(square <span class="dv">2</span>) <span class="co">;=&gt; 4</span>
@@ -179,22 +194,38 @@ java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">
 <p><section class="alert alert-error"> TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri </section></p>
 <p><section class="alert alert-error"> TODO: doc </section></p>
 <p><section class="alert alert-error"> TODO: lein-shit ja testien ajaminen </section></p>
-<p><section class="alert alert-error"> TODO: vertailut, if </section></p>
-<p><section class="exercise alert alert-success"> Write the function <code>(abs n)</code>. </section></p>
+<h2 id="if-then-else">If then else</h2>
+<blockquote>
+<p>Any program is only as good as it is useful. <small>Linus Torvalds</small></p>
+</blockquote>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> (my-father? darth-vader)
+  (lose-hand me)
+  (gain-hat me))</code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sign </span>[x]
+  (<span class="kw">if</span> (<span class="kw">&lt;</span> <span class="dv">0</span> x)
+    <span class="st">&quot;-&quot;</span>
+    <span class="st">&quot;+&quot;</span>))</code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;if-then-else <span class="kw">:reload)</span>
+nil
+user=&gt; (sign -<span class="dv">42</span>)
+<span class="st">&quot;-&quot;</span>
+user=&gt; (sign <span class="dv">0</span>)
+<span class="st">&quot;+&quot;</span></code></pre>
+<section class="exercise alert alert-success">
+<p>Write the function <code>(abs n)</code>, which returns the absolute value of <code>n</code>, i.e. if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi><mo>&lt;</mo><mn>0</mn></mrow></math>, the value of <code>(abs n)</code> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>−</mo><mi>n</mi></mrow></math>, and otherwise <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi></mrow></math>.</p>
+</section>
 <p><section class="alert alert-error"> TODO: <code>mod</code> </section></p>
 <section class="exercise alert alert-success">
 <p>Write the function <code>(fizzbuzz n)</code> that returns</p>
 <ul>
-<li>&quot;fizz&quot; when <code>n</code> is divisible by 3,</li>
-<li>&quot;buzz&quot; when <code>n</code> is divisible by 5,</li>
-<li>but <em>only</em> &quot;gotcha!&quot; when <code>n</code> is divisible by 15.</li>
+<li><code>&quot;fizz&quot;</code> when <code>n</code> is divisible by 3,</li>
+<li><code>&quot;buzz&quot;</code> when <code>n</code> is divisible by 5,</li>
+<li>but <em>only</em> <code>&quot;gotcha!&quot;</code> when <code>n</code> is divisible by 15.</li>
 </ul>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(fizzbuzz <span class="dv">45</span>) <span class="co">;=&gt; &quot;gotcha!&quot;</span>
 (fizzbuzz <span class="dv">48</span>) <span class="co">;=&gt; &quot;fizz&quot;</span>
 (fizzbuzz <span class="dv">70</span>) <span class="co">;=&gt; &quot;buzz&quot;</span></code></pre>
 </section>
-<p><section class="alert alert-error"> TODO: tiedostopohjat ja testit about tästä eteenpäin? </section></p>
-<p><section class="alert alert-error"> TODO: git </section></p>
 <p><section class="alert alert-error"> TODO: literate clojure </section></p>
 <p><section class="alert alert-error"> TODO?: lein projektit </section></p>
 </div>
