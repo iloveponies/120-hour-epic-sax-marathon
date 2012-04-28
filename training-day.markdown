@@ -4,6 +4,8 @@
 
 ## Synopsis
 
+> In which we learn to butt.
+
 - Using the REPL
 - Prefix syntax (+, -, /, \*)
 - Editor
@@ -38,6 +40,8 @@ Clojure evaluated the expression `(+ 1 2)` and printed its value, `3`. If you
 see something different, please let us know by raising your hand.
 
 ## Prefix Syntax
+
+> I used to be an adventurer like you, but then I took an arrow in the knee.
 
 As you can see above, instead of writing `1 + 2` to calculate the sum of one
 and two, we write `(+ 1 2)`. This syntax applies everywhere in Clojure. In
@@ -146,6 +150,8 @@ user=> (+ 3 4) ; I am a comment
 
 ## Files and Namespaces
 
+> In space no one can hear you quark.
+
 Code in Clojure projects is structured into separate files. Usually each file
 corresponds to a namespace identified by the file's path, so that the file
 `foo/bar/baz.clj` contains the namespace `foo.bar.baz`. This is a bit
@@ -237,7 +243,7 @@ Let's try calling our function:
 (hello "Metropolia") ;=> "Hello, Metropolia!"
 ```
 
-Calling the function evaluated its body with `who` bound to "Metropolia".
+Calling the function evaluated its body with `who` bound to `"Metropolia"`.
 We can imagine the evaluator doing something like this:
 
 ```{.clojure}
@@ -255,9 +261,19 @@ TODO: ohjeita vähän tähän: Jotain parempaa ohjastusta, et niinq mihin
 tiedostoon tätä pitäs kirjottaa ja sillai
 </section>
 
-<section class="alert alert-error">
-TODO: jatkossa tehtäväpohjat ja testit or wat?
-</section>
+## We come gifting bears
+
+We will now move to a Leiningen-based project structure instead of the one we
+manually created above. No worries, though; you can use [Git] to get a
+ready-made structure we have lovingly crafted by hand just for you:
+
+```
+$ git clone https://github.com/iloveponies/training-day.git
+Cloning into 'training-day'…
+…more output…
+$ cd training-day
+$ lein2 midje
+```
 
 <section class="exercise alert alert-success">
 
@@ -287,12 +303,37 @@ TODO: doc
 TODO: lein-shit ja testien ajaminen
 </section>
 
-<section class="alert alert-error">
-TODO: vertailut, if
-</section>
+## If then else
+
+> Any program is only as good as it is useful. <small>Linus Torvalds</small>
+
+```{.clojure}
+(if (my-father? darth-vader)
+  (lose-hand me)
+  (gain-hat me))
+```
+
+```{.clojure}
+(defn sign [x]
+  (if (< 0 x)
+    "-"
+    "+"))
+```
+
+```{.clojure}
+user=> (use 'if-then-else :reload)
+nil
+user=> (sign -42)
+"-"
+user=> (sign 0)
+"+"
+```
 
 <section class="exercise alert alert-success">
-Write the function `(abs n)`.
+
+Write the function `(abs n)`, which returns the absolute value of `n`, i.e. if
+$n < 0$, the value of `(abs n)` is $- n$, and otherwise $n$.
+
 </section>
 
 <section class="alert alert-error">
@@ -303,9 +344,9 @@ TODO: `mod`
 
 Write the function `(fizzbuzz n)` that returns
 
-- "fizz" when `n` is divisible by 3,
-- "buzz" when `n` is divisible by 5,
-- but *only* "gotcha!" when `n` is divisible by 15.
+- `"fizz"` when `n` is divisible by 3,
+- `"buzz"` when `n` is divisible by 5,
+- but *only* `"gotcha!"` when `n` is divisible by 15.
 
 ```{.clojure}
 (fizzbuzz 45) ;=> "gotcha!"
@@ -316,17 +357,11 @@ Write the function `(fizzbuzz n)` that returns
 </section>
 
 <section class="alert alert-error">
-TODO: tiedostopohjat ja testit about tästä eteenpäin?
-</section>
-
-<section class="alert alert-error">
-TODO: git
-</section>
-
-<section class="alert alert-error">
 TODO: literate clojure
 </section>
 
 <section class="alert alert-error">
 TODO?: lein projektit
 </section>
+
+[Git]: http://git-scm.com

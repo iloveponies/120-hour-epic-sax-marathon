@@ -9,7 +9,17 @@
     - ps
 - Leiningen
 - Clojure REPL
+- Git
 
+## The shell game
+
+## You can have a butler
+
+## REPL or read-eval-print-loop
+
+## Version control with Linus Torvalds
+
+> When in doubt, do exactly the opposite of CVS. <small>Linus Torvalds</small>
 
 <aside class="alert alert-info">
 *Note:* We use Leiningen to launch the interactive session for convenience
@@ -21,4 +31,7 @@ typing <i class="icon-arrow-up"></i> in the interactive session launched by
 Leiningen, then try it in the session launched with `java` directly.
 </aside>
 
-lein-midje -plugarin asennuksen jälkeen pitää ajaa lein deps, että "lein midje" toimii PAITSI lein2:ssa toimii.
+lein-midje -plugarin asennuksen jälkeen pitää ajaa lein deps, että "lein
+midje" toimii PAITSI lein2:ssa toimii.
+
+[Git]: http://git-scm.com
