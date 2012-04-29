@@ -30,11 +30,11 @@ TODO: tarkista et varmasti näyttää windozella samalta
 
 If you type `(+ 1 2)` and press the return key, you should see this:
 
-```{.clojure}
+~~~ {.clojure}
 user=> (+ 1 2)
 3
 user=>
-```
+~~~
 
 Clojure evaluated the expression `(+ 1 2)` and printed its value, `3`. If you
 see something different, please let us know by raising your hand.
@@ -61,14 +61,14 @@ This syntax is called *prefix form*. All Clojure syntax is of this basic form.
 
 Let's input these definitions in our Clojure session to see how they work:
 
-```{.clojure}
+~~~ {.clojure}
 user=> (+ 2 3)
 5
 user=> (* 42 7)
 294
 user=> (- 2 (* 78 35))
 -2728
-```
+~~~
 
 
 <section class="exercise alert alert-success">
@@ -80,11 +80,9 @@ user=> (- 2 (* 78 35))
 As an example, let's take a look at getting a single character from a string
 in Clojure and Java. In Clojure, we can use the `get` function for this:
 
-```{.clojure}
+~~~ {.clojure}
 (get "Clojure" 2) ;=> \o
-```
-
-<!-- `* -->
+~~~
 
 The result is the character `o`, printed in Clojure's literal character
 syntax.
@@ -92,9 +90,9 @@ syntax.
 In Java, we reorder things a bit: the first parameter goes *before* the method
 name, and the parentheses are moved *after* the method name:
 
-```{.java}
+~~~{.java}
 "Java".charAt(2); //=> v
-```
+~~~
 
 The Clojure prefix syntax might take some time to get used to, but becomes
 natural after you've written a few programs in it.
@@ -105,32 +103,32 @@ In our example code, we often want to show the result of an expression
 when it is evaluated. Instead of showing what evaluating the expression in the
 interactive session looks like:
 
-```{.clojure}
+~~~{.clojure}
 user=> (+ 3 4)
 7
-```
+~~~
 
 We're going to use the convention of writing the expression and the result,
 separated with `;=>`. For an example:
 
-```{.clojure}
+~~~{.clojure}
 (+ 3 4) ;=> 7
-```
+~~~
 
 Sometimes we will put the result on a new line:
 
-```{.clojure}
+~~~{.clojure}
 (str 1337)
 ;=> "1337"
-```
+~~~
 
 <aside class="alert alert-info">
 `str` is a function that turns its argument to a string. If given multiple
 arguments, it concatenates the results:
 
-```{.clojure}
+~~~{.clojure}
 (str "Over " 9000 "!") ;=> "Over 9000!"
-```
+~~~
 
 </aside>
 
@@ -139,14 +137,14 @@ The `=>` inside the comment is an illustration of an arrow, meaning "evaluates
 to". You can copy these examples to the REPL and they will work without
 modification:
 
-```{.clojure}
+~~~{.clojure}
 user=> (+ 3 4)
 7
 user=> (+ 3 4) ;=> 7
 7
 user=> (+ 3 4) ; I am a comment
 7
-```
+~~~
 
 ## Files and Namespaces
 
@@ -162,40 +160,40 @@ This difference makes sense given the FUNCTIONAL AWESOMENESS of Clojure.
 Suppose we start a project called `foobar`. First, we create the basic
 directory structure with an example file:
 
-```
+~~~
 . foobar
 +-. example/
   +- hello.clj
-```
+~~~
 
 Here `hello.clj` is under the directory `example`, which means it contains the
 namespace `example.hello`:
 
-```{.clojure}
+~~~{.clojure}
 (ns example.hello)
 
 (println "O HAI!")
-```
+~~~
 
 Namespaces are declared with the `ns` form.
 
 Now, we go to the directory `foobar` in a terminal and start an interactive
 session there:
 
-```
+~~~
 $ cd foobar
 $ lein repl
 REPL started; server listening on localhost port 63206
 user=>
-```
+~~~
 
 We can now load the `hello.clj` file into the session:
 
-```{.clojure}
+~~~{.clojure}
 user=> (use 'example.hello)
 O HAI!    ; ← (println "O HAI!")
 nil       ; ← result of use
-```
+~~~
 
 This loaded the file `hello.clj` into the interactive session. Doing this, it
 evaluated everything in the file, which is why we see the printed line. The
@@ -205,10 +203,10 @@ result of `use` itself is `nil`, a special value like Java's `null`.
 The `'` before the namespace name is important. If you forget it, you will get
 an error like this:
 
-```{.clojure}
+~~~{.clojure}
 user=> (use example.hello)
 java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE:1)
-```
+~~~
 
 `'` is an alias for the  `quote` special form, which we will talk more about
 later.
@@ -220,37 +218,37 @@ So far we've worked with expressions and simple names defined with `def`.
 
 Functions are defined with `defn`:
 
-```{.clojure}
+~~~{.clojure}
 (defn hello [who]
   (str "Hello, " who "!"))
-```
+~~~
 
 Let's look at that again, now with running commentary alongside:
 
-```{.clojure}
+~~~{.clojure}
 (defn                       ; Start a function definition:
   hello                     ; name
   [who]                     ; parameters inside brackets
   (str "Hello, " who "!"))  ; body
-```
+~~~
 
 Here `hello` is the name of the function, `[who]` is the parameter list, and
 the expression on the second line is the body of the function.
 
 Let's try calling our function:
 
-```{.clojure}
+~~~{.clojure}
 (hello "Metropolia") ;=> "Hello, Metropolia!"
-```
+~~~
 
 Calling the function evaluated its body with `who` bound to `"Metropolia"`.
 We can imagine the evaluator doing something like this:
 
-```{.clojure}
+~~~{.clojure}
 (hello "Metropolia")
 ;=> (str "Hello, " "Metropolia" "!")
 ;=> "Hello, Metropolia!"
-```
+~~~
 
 <section class="alert alert-error">
 TODO: tiedostoon kirjotetut funktiot tulee näkyviin usella
@@ -267,23 +265,23 @@ We will now move to a Leiningen-based project structure instead of the one we
 manually created above. No worries, though; you can use [Git] to get a
 ready-made structure we have lovingly crafted by hand just for you:
 
-```
+~~~
 $ git clone https://github.com/iloveponies/training-day.git
 Cloning into 'training-day'…
 …more output…
 $ cd training-day
 $ lein2 midje
-```
+~~~
 
 <section class="exercise alert alert-success">
 
 *Exercise:*
 Write a function `square` that takes a number as a parameter and multiplies it with itself.
 
-```{.clojure}
+~~~{.clojure}
 (square 2) ;=> 4
 (square 3) ;=> 9
-```
+~~~
 
 </section>
 
@@ -307,27 +305,27 @@ TODO: lein-shit ja testien ajaminen
 
 > Any program is only as good as it is useful. <small>Linus Torvalds</small>
 
-```{.clojure}
+~~~{.clojure}
 (if (my-father? darth-vader)
   (lose-hand me)
   (gain-hat me))
-```
+~~~
 
-```{.clojure}
+~~~{.clojure}
 (defn sign [x]
   (if (< 0 x)
     "-"
     "+"))
-```
+~~~
 
-```{.clojure}
+~~~{.clojure}
 user=> (use 'if-then-else :reload)
 nil
 user=> (sign -42)
 "-"
 user=> (sign 0)
 "+"
-```
+~~~
 
 <section class="exercise alert alert-success">
 
@@ -348,11 +346,11 @@ Write the function `(fizzbuzz n)` that returns
 - `"buzz"` when `n` is divisible by 5,
 - but *only* `"gotcha!"` when `n` is divisible by 15.
 
-```{.clojure}
+~~~{.clojure}
 (fizzbuzz 45) ;=> "gotcha!"
 (fizzbuzz 48) ;=> "fizz"
 (fizzbuzz 70) ;=> "buzz"
-```
+~~~
 
 </section>
 
