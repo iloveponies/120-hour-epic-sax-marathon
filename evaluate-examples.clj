@@ -20,20 +20,20 @@
                      (recur (conj blocks result-block)
                             ""
                             :in
-                            (inc line#))
+                            next-line)
                      (recur blocks
                             result-block
                             state
-                            (inc line#)))
+                            next-line))
               :in (if (= current-line "~~~")
                     (recur (conj blocks (evaluate result-block))
                            current-line
                            :out
-                           (inc line#))
+                           next-line)
                     (recur blocks
                            result-block
                            state
-                           (inc line#))))))))))
+                           next-line)))))))))
 
 (let [file-name (first *command-line-args*)]
   (println "Parsing " file-name)
