@@ -160,11 +160,14 @@ user=> (+ 3 4) ; I am a comment
 > In space no one can hear you quark.
 
 Code in Clojure projects is structured into separate files. Usually each file
-corresponds to a namespace identified by the file's path, so that the file
-`foo/bar/baz.clj` contains the namespace `foo.bar.baz`. This is a bit
+corresponds to a namespace identified by the file's path. For an example, the
+file `foo/bar/baz.clj` contains the namespace `foo.bar.baz`. This is slightly
 different from Java, where directories correspond to namespaces (packages) and
 files under a directory usually contain a single class in the given package.
-This difference makes sense given the FUNCTIONAL AWESOMENESS of Clojure.
+
+Let's create the basic structure for a project to get a feeling for how
+this works. As you read the description below, execute the same steps on your
+own computer.
 
 Suppose we start a project called `foobar`. First, we create the basic
 directory structure with an example file:
@@ -184,21 +187,21 @@ namespace `example.hello`:
 (println "O HAI!")
 ~~~
 
-Namespaces are declared with the `ns` form.
+Namespaces are declared with `ns`.
 
 Now, we go to the directory `foobar` in a terminal and start an interactive
 session there:
 
 ~~~
 $ cd foobar
-$ lein repl
-REPL started; server listening on localhost port 63206
+$ lein2 repl
+…
 user=>
 ~~~
 
 We can now load the `hello.clj` file into the session:
 
-~~~{.clojure}
+~~~ {.clojure}
 user=> (use 'example.hello)
 O HAI!    ; ← (println "O HAI!")
 nil       ; ← result of use
@@ -209,32 +212,40 @@ evaluated everything in the file, which is why we see the printed line. The
 result of `use` itself is `nil`, a special value like Java's `null`.
 
 <aside class="alert alert-error">
-The `'` before the namespace name is important. If you forget it, you will get
-an error like this:
 
-~~~{.clojure}
+The `'` before the namespace name in a `use` is important. If you forget it,
+you will get an error like this:
+
+~~~ {.clojure}
 user=> (use example.hello)
 java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE:1)
 ~~~
 
 `'` is an alias for the  `quote` special form, which we will talk more about
 later.
+
 </aside>
 
 ## Functions
 
-So far we've worked with expressions and simple names defined with `def`.
+So far we've worked with expressions and simple names defined with `def`. For
+structuring any kind of non-trivial programs, we will want to group code into
+*functions*.
 
-Functions are defined with `defn`:
+Functions are written in source files, and we have one ready, `hello.clj`, so
+let's write the following function definition in that file. Functions are
+defined with `defn`:
 
-~~~{.clojure}
+~~~ {.clojure}
 (defn hello [who]
   (str "Hello, " who "!"))
 ~~~
 
+Write this function to the `hello.clj` file.
+
 Let's look at that again, now with running commentary alongside:
 
-~~~{.clojure}
+~~~ {.clojure}
 (defn                       ; Start a function definition:
   hello                     ; name
   [who]                     ; parameters inside brackets
@@ -242,37 +253,43 @@ Let's look at that again, now with running commentary alongside:
 ~~~
 
 Here `hello` is the name of the function, `[who]` is the parameter list, and
-the expression on the second line is the body of the function.
+the expression on the second line is the body of the function. For comparison,
+our function looks like this in Java:
 
-Let's try calling our function:
-
-~~~{.clojure}
-(hello "Metropolia") ;=> "Hello, Metropolia!"
+~~~ {.java}
+String hello(String who) {
+    return "Hello, " + who + "!";
+}
 ~~~
 
-Calling the function evaluated its body with `who` bound to `"Metropolia"`.
-We can imagine the evaluator doing something like this:
+Now, let's try calling our function:
 
-~~~{.clojure}
+~~~ {.clojure}
+user=> (use 'example.hello :reload)
+user=> (hello "Metropolia")
+"Hello, Metropolia!"
+~~~
+
+First we import the `example.hello` namespace, and tell Clojure to *reimport*
+it if it is already imported, so we actually see the new function definition.
+We then call the function with the parameter `"Metropolia"`. Calling the
+function evaluated its body with `who` bound to `"Metropolia"`. We can
+imagine the evaluator doing something like the following:
+
+~~~ {.clojure}
 (hello "Metropolia")
 ;=> (str "Hello, " "Metropolia" "!")
 ;=> "Hello, Metropolia!"
 ~~~
 
-<section class="alert alert-error">
-TODO: tiedostoon kirjotetut funktiot tulee näkyviin usella
-</section>
-
-<section class="alert alert-error">
-TODO: ohjeita vähän tähän: Jotain parempaa ohjastusta, et niinq mihin
-tiedostoon tätä pitäs kirjottaa ja sillai
-</section>
+We now know all the basics of structuring Clojure programs.
 
 ## We come gifting bears
 
 We will now move to a Leiningen-based project structure instead of the one we
-manually created above. No worries, though; you can use [Git] to get a
-ready-made structure we have lovingly crafted by hand just for you:
+manually created above. It contains unit tests for the exercises that will
+follow. No worries, though: you can use [Git] to get a ready-made structure we
+have lovingly hand-crafted just for you:
 
 ~~~
 $ git clone https://github.com/iloveponies/training-day.git
@@ -280,7 +297,28 @@ Cloning into 'training-day'…
 …more output…
 $ cd training-day
 $ lein2 midje
+TODO: failing test output
 ~~~
+
+Our project uses the [Midje] testing library. Let's take a look at what kind
+of tests the project contains. Open the file `test/training_day_test.clj`. The
+first ten lines or so of the file look like this:
+
+~~~ {.clojure}
+(ns training-day-test
+  (:use training-day
+        midje.sweet))
+
+(facts
+  (square 2) => 4
+  (square 3) => 9)
+~~~
+
+You can ignore the namespace declaration (`(ns …)`) for now. Look at the
+`facts` expression. It declares some properties of the `square` function. In
+fact, `square` is our first exercise! After writing the implementation of
+`square` in `src/training_day.clj`, run `lein2 midje` again to see if your
+implementation agrees with the facts declared in our test file.
 
 <section class="exercise alert alert-success">
 
@@ -372,3 +410,4 @@ TODO?: lein projektit
 </section>
 
 [Git]: http://git-scm.com
+[Midje]: https://github.com/marick/Midje
