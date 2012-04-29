@@ -90,10 +90,13 @@ Implement the function `(author-has-years? author)`, which returns `true` or
 
 ~~~ {.clojure}
 (author-has-years? {:title "Nuoren Robertin matka Grönlantiin isäänsä hakemaan"
-                    :author {:name "Hoffmann, Franz", :birth-year 1814, :death-year 1882}})
+                    :author {:name "Hoffmann, Franz",
+                             :birth-year 1814,
+                             :death-year 1882}})
 ;=> true
 
-(author-has-years? {:title "Contigo Pan y Cebolla", :author {:name "Gorostiza, Manuel Eduardo  de"}})
+(author-has-years? {:title "Contigo Pan y Cebolla",
+;                   :author {:name "Gorostiza, Manuel Eduardo  de"}})
 ;=> false
 ~~~
 
@@ -112,17 +115,22 @@ books from `books` whose `:author` has `:death-year` and `:birth-year`.
 ~~~ {.clojure}
 (books-with-author-years
     [{:title "Nuoren Robertin matka Grönlantiin isäänsä hakemaan"
-      :author {:name "Hoffmann, Franz", :birth-year 1814, :death-year 1882}}
-     {:title "Contigo Pan y Cebolla", :author {:name "Gorostiza, Manuel Eduardo  de"}}])
+      :author {:name "Hoffmann, Franz",
+               :birth-year 1814,
+               :death-year 1882}}
+     {:title "Contigo Pan y Cebolla",
+      :author {:name "Gorostiza, Manuel Eduardo  de"}}])
 ;=> ({:title "Nuoren Robertin matka Grönlantiin isäänsä hakemaan"
-;     :author {:name "Hoffmann, Franz", :birth-year 1814, :death-year 1882}})
+;     :author {:name "Hoffmann, Franz",
+;              :birth-year 1814,
+;              :death-year 1882}})
 ~~~
 
 </section>
 
 ## It's dangerous to go alone! Take this.
 
-Now we start to write the actual helper functions we know we will need to
+Now we begin to write the actual helper functions we know we will need to
 implement `author-catalog`.
 
 <section class="exercise alert alert-success">
@@ -135,16 +143,28 @@ You can use `distinct` to remove duplicates from a sequence.
 
 ~~~ {.clojure}
 (authors [{:title "Nuoren Robertin matka Grönlantiin isäänsä hakemaan"
-           :author {:name "Hoffmann, Franz", :birth-year 1814, :death-year 1882}}
+           :author {:name "Hoffmann, Franz",
+                    :birth-year 1814,
+                    :death-year 1882}}
           {:title "Ihmiskohtaloja"
-           :author {:name "Järnefelt, Arvid", :birth-year 1861, :death-year 1932}}
+           :author {:name "Järnefelt, Arvid",
+                    :birth-year 1861,
+                    :death-year 1932}}
           {:title "Elämän meri"
-           :author {:name "Järnefelt, Arvid", :birth-year 1861, :death-year 1932}}])
-;=> ({:name "Järnefelt, Arvid", :birth-year 1861, :death-year 1932}
-;    {:name "Hoffmann, Franz", :birth-year 1814, :death-year 1882})
+           :author {:name "Järnefelt, Arvid",
+                    :birth-year 1861,
+                    :death-year 1932}}])
+;=> ({:name "Järnefelt, Arvid",
+      :birth-year 1861,
+      :death-year 1932}
+;    {:name "Hoffmann, Franz",
+      :birth-year 1814,
+      :death-year 1882})
 ~~~
 
 </section>
+
+Another useful function will be `author-names`:
 
 <section class="exercise alert alert-success">
 
@@ -153,9 +173,13 @@ duplicates.
 
 ~~~ {.clojure}
 (author-names [{:title "Nuoren Robertin matka Grönlantiin isäänsä hakemaan"
-                :author {:name "Hoffmann, Franz", :birth-year 1814, :death-year 1882}}
+                :author {:name "Hoffmann, Franz",
+                         :birth-year 1814,
+                         :death-year 1882}}
                {:title "Ihmiskohtaloja"
-                :author {:name "Järnefelt, Arvid", :birth-year 1861, :death-year 1932}}])
+                :author {:name "Järnefelt, Arvid",
+                         :birth-year 1861,
+                         :death-year 1932}}])
 ;=> ("Hoffmann, Franz", "Järnefelt, Arvid")
 ~~~
 
@@ -163,21 +187,34 @@ duplicates.
 
 ## The boss fight
 
+We now implement the `author-catalog` function. It is an example of one kind
+of a view (or catalog) into the Project Gutenberg data. You are encouraged to
+write other kinds of views. For an example, it would be interesting to catalog
+authors by their birth year.
+
 <section class="exercise alert alert-success">
 
 Write the function `(author-catalog books)` that returns a new map of the
-catalog data with authors as keys and the respective book titles as values.
-For an example:
+catalog data with *author names* as keys and the respective *book titles* as
+values. For an example:
 
 ~~~ {.clojure}
 (author-catalog [{:title "Nuoren Robertin matka Grönlantiin isäänsä hakemaan"
-                  :author {:name "Hoffmann, Franz", :birth-year 1814, :death-year 1882}} 
+                  :author {:name "Hoffmann, Franz",
+                           :birth-year 1814,
+                           :death-year 1882}}
                  {:title "Ihmiskohtaloja"
-                  :author {:name "Järnefelt, Arvid", :birth-year 1861, :death-year 1932}}
+                  :author {:name "Järnefelt, Arvid",
+                           :birth-year 1861,
+                           :death-year 1932}}
                  {:title "Elämän meri"
-                  :author {:name "Järnefelt, Arvid", :birth-year 1861, :death-year 1932}}])
-;=> {{:name "Hoffmann, Franz",  :birth-year 1814, :death-year 1882} ("Nuoren Robertin matka Grönlantiin isäänsä hakemaan")
-;    {:name "Järnefelt, Arvid", :birth-year 1861, :death-year 1932} ("Elämän meri", "Ihmiskohtaloja")}
+                  :author {:name "Järnefelt, Arvid",
+                           :birth-year 1861,
+                           :death-year 1932}}])
+;=> {"Hoffmann, Franz"
+;    ("Nuoren Robertin matka Grönlantiin isäänsä hakemaan")
+;    "Järnefelt, Arvid"
+;    ("Elämän meri", "Ihmiskohtaloja")}
 ~~~
 
 </section>
