@@ -325,7 +325,7 @@ implementation agrees with the facts declared in our test file.
 *Exercise:*
 Write a function `square` that takes a number as a parameter and multiplies it with itself.
 
-~~~{.clojure}
+~~~ {.clojure}
 (square 2) ;=> 4
 (square 3) ;=> 9
 ~~~
@@ -352,20 +352,20 @@ TODO: lein-shit ja testien ajaminen
 
 > Any program is only as good as it is useful. <small>Linus Torvalds</small>
 
-~~~{.clojure}
+~~~ {.clojure}
 (if (my-father? darth-vader)
   (lose-hand me)
   (gain-hat me))
 ~~~
 
-~~~{.clojure}
+~~~ {.clojure}
 (defn sign [x]
   (if (< 0 x)
     "-"
     "+"))
 ~~~
 
-~~~{.clojure}
+~~~ {.clojure}
 user=> (use 'if-then-else :reload)
 nil
 user=> (sign -42)
@@ -393,7 +393,7 @@ Write the function `(fizzbuzz n)` that returns
 - `"buzz"` when `n` is divisible by 5,
 - but *only* `"gotcha!"` when `n` is divisible by 15.
 
-~~~{.clojure}
+~~~ {.clojure}
 (fizzbuzz 45) ;=> "gotcha!"
 (fizzbuzz 48) ;=> "fizz"
 (fizzbuzz 70) ;=> "buzz"
