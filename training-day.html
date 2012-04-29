@@ -122,7 +122,11 @@ user=&gt; (<span class="kw">-</span> <span class="dv">2</span> (<span class="kw"
 <p><aside class="alert alert-info"> <code>str</code> is a function that turns its argument to a string. If given multiple arguments, it concatenates the results:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="st">&quot;Over &quot;</span> <span class="dv">9000</span> <span class="st">&quot;!&quot;</span>) <span class="co">;=&gt; &quot;Over 9000!&quot;</span></code></pre>
 </aside>
-<p><code>;</code> starts a comment that lasts until the end of that line, like <code>//</code> in Java. The <code>=&gt;</code> inside the comment is an illustration of an arrow, meaning &quot;evaluates to&quot;. You can copy these examples to the REPL and they will work without modification:</p>
+<p>When the resulting value is too long to display on one line, we will mark the continuation lines with a leading <code>;</code> like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">take</span> <span class="dv">20</span> (<span class="kw">cycle</span> [<span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>]))
+<span class="co">;=&gt; (&quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot;</span>
+<span class="co">;    &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot;)</span></code></pre>
+<p><code>;</code> starts a comment that lasts until the end of that line, like <code>//</code> in Java. The <code>=&gt;</code> inside the comment is an illustration of an arrow, meaning &quot;evaluates to&quot;. You can copy the examples above to the REPL and they will work without modification:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)
 <span class="dv">7</span>
 user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="co">;=&gt; 7</span>
@@ -133,7 +137,8 @@ user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">
 <blockquote>
 <p>In space no one can hear you quark.</p>
 </blockquote>
-<p>Code in Clojure projects is structured into separate files. Usually each file corresponds to a namespace identified by the file's path, so that the file <code>foo/bar/baz.clj</code> contains the namespace <code>foo.bar.baz</code>. This is a bit different from Java, where directories correspond to namespaces (packages) and files under a directory usually contain a single class in the given package. This difference makes sense given the FUNCTIONAL AWESOMENESS of Clojure.</p>
+<p>Code in Clojure projects is structured into separate files. Usually each file corresponds to a namespace identified by the file's path. For an example, the file <code>foo/bar/baz.clj</code> contains the namespace <code>foo.bar.baz</code>. This is slightly different from Java, where directories correspond to namespaces (packages) and files under a directory usually contain a single class in the given package.</p>
+<p>Let's create the basic structure for a project to get a feeling for how this works. As you read the description below, execute the same steps on your own computer.</p>
 <p>Suppose we start a project called <code>foobar</code>. First, we create the basic directory structure with an example file:</p>
 <pre><code>. foobar
 +-. example/
@@ -142,47 +147,64 @@ user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">ns</span> example.hello)
 
 (<span class="kw">println</span> <span class="st">&quot;O HAI!&quot;</span>)</code></pre>
-<p>Namespaces are declared with the <code>ns</code> form.</p>
+<p>Namespaces are declared with <code>ns</code>.</p>
 <p>Now, we go to the directory <code>foobar</code> in a terminal and start an interactive session there:</p>
 <pre><code>$ cd foobar
-$ lein repl
-REPL started; server listening on localhost port 63206
+$ lein2 repl
+…
 user=&gt;</code></pre>
 <p>We can now load the <code>hello.clj</code> file into the session:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;example.hello)
 O HAI!    <span class="co">; ← (println &quot;O HAI!&quot;)</span>
 nil       <span class="co">; ← result of use</span></code></pre>
 <p>This loaded the file <code>hello.clj</code> into the interactive session. Doing this, it evaluated everything in the file, which is why we see the printed line. The result of <code>use</code> itself is <code>nil</code>, a special value like Java's <code>null</code>.</p>
-<p><aside class="alert alert-error"> The <code>'</code> before the namespace name is important. If you forget it, you will get an error like this:</p>
+<aside class="alert alert-error">
+<p>The <code>'</code> before the namespace name in a <code>use</code> is important. If you forget it, you will get an error like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> example.hello)
 java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">:1)</span></code></pre>
-<p><code>'</code> is an alias for the <code>quote</code> special form, which we will talk more about later. </aside></p>
+<p><code>'</code> is an alias for the <code>quote</code> special form, which we will talk more about later.</p>
+</aside>
 <h2 id="functions">Functions</h2>
-<p>So far we've worked with expressions and simple names defined with <code>def</code>.</p>
-<p>Functions are defined with <code>defn</code>:</p>
+<p>So far we've worked with expressions and simple names defined with <code>def</code>. For structuring any kind of non-trivial programs, we will want to group code into <em>functions</em>.</p>
+<p>Functions are written in source files, and we have one ready, <code>hello.clj</code>, so let's write the following function definition in that file. Functions are defined with <code>defn</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hello </span>[who]
   (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))</code></pre>
+<p>Write this function to the <code>hello.clj</code> file.</p>
 <p>Let's look at that again, now with running commentary alongside:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu">                       </span><span class="co">; Start a function definition:</span>
   hello                     <span class="co">; name</span>
   [who]                     <span class="co">; parameters inside brackets</span>
   (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))  <span class="co">; body</span></code></pre>
-<p>Here <code>hello</code> is the name of the function, <code>[who]</code> is the parameter list, and the expression on the second line is the body of the function.</p>
-<p>Let's try calling our function:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(hello <span class="st">&quot;Metropolia&quot;</span>) <span class="co">;=&gt; &quot;Hello, Metropolia!&quot;</span></code></pre>
-<p>Calling the function evaluated its body with <code>who</code> bound to <code>&quot;Metropolia&quot;</code>. We can imagine the evaluator doing something like this:</p>
+<p>Here <code>hello</code> is the name of the function, <code>[who]</code> is the parameter list, and the expression on the second line is the body of the function. For comparison, our function looks like this in Java:</p>
+<pre class="sourceCode java"><code class="sourceCode java">String <span class="fu">hello</span>(String who) {
+    <span class="kw">return</span> <span class="st">&quot;Hello, &quot;</span> + who + <span class="st">&quot;!&quot;</span>;
+}</code></pre>
+<p>Now, let's try calling our function:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;example.hello <span class="kw">:reload)</span>
+user=&gt; (hello <span class="st">&quot;Metropolia&quot;</span>)
+<span class="st">&quot;Hello, Metropolia!&quot;</span></code></pre>
+<p>First we import the <code>example.hello</code> namespace, and tell Clojure to <em>reimport</em> it if it is already imported, so we actually see the new function definition. We then call the function with the parameter <code>&quot;Metropolia&quot;</code>. Calling the function evaluated its body with <code>who</code> bound to <code>&quot;Metropolia&quot;</code>. We can imagine the evaluator doing something like the following:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(hello <span class="st">&quot;Metropolia&quot;</span>)
 <span class="co">;=&gt; (str &quot;Hello, &quot; &quot;Metropolia&quot; &quot;!&quot;)</span>
 <span class="co">;=&gt; &quot;Hello, Metropolia!&quot;</span></code></pre>
-<p><section class="alert alert-error"> TODO: tiedostoon kirjotetut funktiot tulee näkyviin usella </section></p>
-<p><section class="alert alert-error"> TODO: ohjeita vähän tähän: Jotain parempaa ohjastusta, et niinq mihin tiedostoon tätä pitäs kirjottaa ja sillai </section></p>
+<p>We now know all the basics of structuring Clojure programs.</p>
 <h2 id="we-come-gifting-bears">We come gifting bears</h2>
-<p>We will now move to a Leiningen-based project structure instead of the one we manually created above. No worries, though; you can use <a href="http://git-scm.com">Git</a> to get a ready-made structure we have lovingly crafted by hand just for you:</p>
+<p>We will now move to a Leiningen-based project structure instead of the one we manually created above. It contains unit tests for the exercises that will follow. No worries, though: you can use <a href="http://git-scm.com">Git</a> to get a ready-made structure we have lovingly hand-crafted just for you:</p>
 <pre><code>$ git clone https://github.com/iloveponies/training-day.git
 Cloning into &#39;training-day&#39;…
 …more output…
 $ cd training-day
-$ lein2 midje</code></pre>
+$ lein2 midje
+TODO: failing test output</code></pre>
+<p>Our project uses the <a href="https://github.com/marick/Midje">Midje</a> testing library. Let's take a look at what kind of tests the project contains. Open the file <code>test/training_day_test.clj</code>. The first ten lines or so of the file look like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">ns</span> training-day-test
+  (<span class="kw">:use</span> training-day
+        midje.sweet))
+
+(facts
+  (square <span class="dv">2</span>) =&gt; <span class="dv">4</span>
+  (square <span class="dv">3</span>) =&gt; <span class="dv">9</span>)</code></pre>
+<p>You can ignore the namespace declaration (<code>(ns …)</code>) for now. Look at the <code>facts</code> expression. It declares some properties of the <code>square</code> function. In fact, <code>square</code> is our first exercise! After writing the implementation of <code>square</code> in <code>src/training_day.clj</code>, run <code>lein2 midje</code> again to see if your implementation agrees with the facts declared in our test file.</p>
 <section class="exercise alert alert-success">
 <p><em>Exercise:</em> Write a function <code>square</code> that takes a number as a parameter and multiplies it with itself.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(square <span class="dv">2</span>) <span class="co">;=&gt; 4</span>
