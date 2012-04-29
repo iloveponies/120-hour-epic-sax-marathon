@@ -132,9 +132,18 @@ arguments, it concatenates the results:
 
 </aside>
 
+When the resulting value is too long to display on one line, we will mark the
+continuation lines with a leading `;` like this:
+
+~~~ {.clojure}
+(take 20 (cycle ["foo" "bar"]))
+;=> ("foo" "bar" "foo" "bar" "foo" "bar" "foo" "bar" "foo" "bar"
+;    "foo" "bar" "foo" "bar" "foo" "bar" "foo" "bar" "foo" "bar")
+~~~
+
 `;` starts a comment that lasts until the end of that line, like `//` in Java.
 The `=>` inside the comment is an illustration of an arrow, meaning "evaluates
-to". You can copy these examples to the REPL and they will work without
+to". You can copy the examples above to the REPL and they will work without
 modification:
 
 ~~~{.clojure}
