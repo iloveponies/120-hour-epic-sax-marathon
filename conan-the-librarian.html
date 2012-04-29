@@ -78,10 +78,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section class="exercise alert alert-success">
 <p>Implement the function <code>(author-has-years? author)</code>, which returns <code>true</code> or <code>false</code> depending on whether the given <code>author</code> has the <code>:birth-year</code> and <code>:death-year</code> entries.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(author-has-years? {<span class="kw">:title</span> <span class="st">&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;</span>
-                    <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1814</span>, <span class="kw">:death-year</span> <span class="dv">1882</span>}})
+                    <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>,
+                             <span class="kw">:birth-year</span> <span class="dv">1814</span>,
+                             <span class="kw">:death-year</span> <span class="dv">1882</span>}})
 <span class="co">;=&gt; true</span>
 
-(author-has-years? {<span class="kw">:title</span> <span class="st">&quot;Contigo Pan y Cebolla&quot;</span>, <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Gorostiza, Manuel Eduardo  de&quot;</span>}})
+(author-has-years? {<span class="kw">:title</span> <span class="st">&quot;Contigo Pan y Cebolla&quot;</span>,
+<span class="co">;                   :author {:name &quot;Gorostiza, Manuel Eduardo  de&quot;}})</span>
 <span class="co">;=&gt; false</span></code></pre>
 </section>
 <p>Now that we have a function to detect if an author map contains the year information, we can, for an example, write a function that will return all the books whose authors do have the year information. We do not need this for our catalog, but it is a good practice function.</p>
@@ -89,44 +92,73 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Write the function <code>(books-with-author-years books)</code>, which returns those books from <code>books</code> whose <code>:author</code> has <code>:death-year</code> and <code>:birth-year</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(books-with-author-years
     [{<span class="kw">:title</span> <span class="st">&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;</span>
-      <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1814</span>, <span class="kw">:death-year</span> <span class="dv">1882</span>}}
-     {<span class="kw">:title</span> <span class="st">&quot;Contigo Pan y Cebolla&quot;</span>, <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Gorostiza, Manuel Eduardo  de&quot;</span>}}])
+      <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>,
+               <span class="kw">:birth-year</span> <span class="dv">1814</span>,
+               <span class="kw">:death-year</span> <span class="dv">1882</span>}}
+     {<span class="kw">:title</span> <span class="st">&quot;Contigo Pan y Cebolla&quot;</span>,
+      <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Gorostiza, Manuel Eduardo  de&quot;</span>}}])
 <span class="co">;=&gt; ({:title &quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;</span>
-<span class="co">;     :author {:name &quot;Hoffmann, Franz&quot;, :birth-year 1814, :death-year 1882}})</span></code></pre>
+<span class="co">;     :author {:name &quot;Hoffmann, Franz&quot;,</span>
+<span class="co">;              :birth-year 1814,</span>
+<span class="co">;              :death-year 1882}})</span></code></pre>
 </section>
 <h2 id="its-dangerous-to-go-alone-take-this.">It's dangerous to go alone! Take this.</h2>
-<p>Now we start to write the actual helper functions we know we will need to implement <code>author-catalog</code>.</p>
+<p>Now we begin to write the actual helper functions we know we will need to implement <code>author-catalog</code>.</p>
 <section class="exercise alert alert-success">
 <p><code>(authors books)</code> returns a collection of authors. The returned collection should not contain the same author multiple times even if the author has multiple books in <code>books</code>.</p>
 <p>You can use <code>distinct</code> to remove duplicates from a sequence.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(authors [{<span class="kw">:title</span> <span class="st">&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;</span>
-           <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1814</span>, <span class="kw">:death-year</span> <span class="dv">1882</span>}}
+           <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>,
+                    <span class="kw">:birth-year</span> <span class="dv">1814</span>,
+                    <span class="kw">:death-year</span> <span class="dv">1882</span>}}
           {<span class="kw">:title</span> <span class="st">&quot;Ihmiskohtaloja&quot;</span>
-           <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Järnefelt, Arvid&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1861</span>, <span class="kw">:death-year</span> <span class="dv">1932</span>}}
+           <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Järnefelt, Arvid&quot;</span>,
+                    <span class="kw">:birth-year</span> <span class="dv">1861</span>,
+                    <span class="kw">:death-year</span> <span class="dv">1932</span>}}
           {<span class="kw">:title</span> <span class="st">&quot;Elämän meri&quot;</span>
-           <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Järnefelt, Arvid&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1861</span>, <span class="kw">:death-year</span> <span class="dv">1932</span>}}])
-<span class="co">;=&gt; ({:name &quot;Järnefelt, Arvid&quot;, :birth-year 1861, :death-year 1932}</span>
-<span class="co">;    {:name &quot;Hoffmann, Franz&quot;, :birth-year 1814, :death-year 1882})</span></code></pre>
+           <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Järnefelt, Arvid&quot;</span>,
+                    <span class="kw">:birth-year</span> <span class="dv">1861</span>,
+                    <span class="kw">:death-year</span> <span class="dv">1932</span>}}])
+<span class="co">;=&gt; ({:name &quot;Järnefelt, Arvid&quot;,</span>
+      <span class="kw">:birth-year</span> <span class="dv">1861</span>,
+      <span class="kw">:death-year</span> <span class="dv">1932</span>}
+<span class="co">;    {:name &quot;Hoffmann, Franz&quot;,</span>
+      <span class="kw">:birth-year</span> <span class="dv">1814</span>,
+      <span class="kw">:death-year</span> <span class="dv">1882</span>})</code></pre>
 </section>
+<p>Another useful function will be <code>author-names</code>:</p>
 <section class="exercise alert alert-success">
 <p><code>(author-names books)</code> returns a collection of author names, without duplicates.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(author-names [{<span class="kw">:title</span> <span class="st">&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;</span>
-                <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1814</span>, <span class="kw">:death-year</span> <span class="dv">1882</span>}}
+                <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>,
+                         <span class="kw">:birth-year</span> <span class="dv">1814</span>,
+                         <span class="kw">:death-year</span> <span class="dv">1882</span>}}
                {<span class="kw">:title</span> <span class="st">&quot;Ihmiskohtaloja&quot;</span>
-                <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Järnefelt, Arvid&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1861</span>, <span class="kw">:death-year</span> <span class="dv">1932</span>}}])
+                <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Järnefelt, Arvid&quot;</span>,
+                         <span class="kw">:birth-year</span> <span class="dv">1861</span>,
+                         <span class="kw">:death-year</span> <span class="dv">1932</span>}}])
 <span class="co">;=&gt; (&quot;Hoffmann, Franz&quot;, &quot;Järnefelt, Arvid&quot;)</span></code></pre>
 </section>
 <h2 id="the-boss-fight">The boss fight</h2>
+<p>We now implement the <code>author-catalog</code> function. It is an example of one kind of a view (or catalog) into the Project Gutenberg data. You are encouraged to write other kinds of views. For an example, it would be interesting to catalog authors by their birth year.</p>
 <section class="exercise alert alert-success">
-<p>Write the function <code>(author-catalog books)</code> that returns a new map of the catalog data with authors as keys and the respective book titles as values. For an example:</p>
+<p>Write the function <code>(author-catalog books)</code> that returns a new map of the catalog data with <em>author names</em> as keys and the respective <em>book titles</em> as values. For an example:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(author-catalog [{<span class="kw">:title</span> <span class="st">&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;</span>
-                  <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1814</span>, <span class="kw">:death-year</span> <span class="dv">1882</span>}} 
+                  <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>,
+                           <span class="kw">:birth-year</span> <span class="dv">1814</span>,
+                           <span class="kw">:death-year</span> <span class="dv">1882</span>}}
                  {<span class="kw">:title</span> <span class="st">&quot;Ihmiskohtaloja&quot;</span>
-                  <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Järnefelt, Arvid&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1861</span>, <span class="kw">:death-year</span> <span class="dv">1932</span>}}
+                  <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Järnefelt, Arvid&quot;</span>,
+                           <span class="kw">:birth-year</span> <span class="dv">1861</span>,
+                           <span class="kw">:death-year</span> <span class="dv">1932</span>}}
                  {<span class="kw">:title</span> <span class="st">&quot;Elämän meri&quot;</span>
-                  <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Järnefelt, Arvid&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1861</span>, <span class="kw">:death-year</span> <span class="dv">1932</span>}}])
-<span class="co">;=&gt; {{:name &quot;Hoffmann, Franz&quot;,  :birth-year 1814, :death-year 1882} (&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;)</span>
-<span class="co">;    {:name &quot;Järnefelt, Arvid&quot;, :birth-year 1861, :death-year 1932} (&quot;Elämän meri&quot;, &quot;Ihmiskohtaloja&quot;)}</span></code></pre>
+                  <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Järnefelt, Arvid&quot;</span>,
+                           <span class="kw">:birth-year</span> <span class="dv">1861</span>,
+                           <span class="kw">:death-year</span> <span class="dv">1932</span>}}])
+<span class="co">;=&gt; {&quot;Hoffmann, Franz&quot;</span>
+<span class="co">;    (&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;)</span>
+<span class="co">;    &quot;Järnefelt, Arvid&quot;</span>
+<span class="co">;    (&quot;Elämän meri&quot;, &quot;Ihmiskohtaloja&quot;)}</span></code></pre>
 </section>
 </div>
 </div>
