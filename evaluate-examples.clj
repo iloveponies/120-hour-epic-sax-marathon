@@ -13,27 +13,27 @@
         (if (= line# lines#)
           (conj blocks (str current-block "\n"))
           (let [current-line (get lines line#)
-                next-line (inc line#)
+                next-line# (inc line#)
                 result-block (str current-block "\n" current-line)]
             (case state
               :out (if (= current-line "~~~ {.clojure}")
                      (recur (conj blocks result-block)
                             ""
                             :in
-                            next-line)
+                            next-line#)
                      (recur blocks
                             result-block
                             state
-                            next-line))
+                            next-line#))
               :in (if (= current-line "~~~")
                     (recur (conj blocks (evaluate result-block))
                            current-line
                            :out
-                           next-line)
+                           next-line#)
                     (recur blocks
                            result-block
                            state
-                           next-line)))))))))
+                           next-line#)))))))))
 
 (let [file-name (first *command-line-args*)]
   (println "Parsing " file-name)
