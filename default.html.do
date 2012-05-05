@@ -5,6 +5,7 @@ redo-ifchange "$SRC" $DEPS
 
 pandoc                              \
     --to html5                      \
+    --smart                         \
     --standalone                    \
     --mathml                        \
     --include-in-header header.html \

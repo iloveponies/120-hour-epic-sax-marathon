@@ -13,7 +13,19 @@
 
 ## The shell game
 
-## You can have a butler
+<section class="alert alert-error">
+TODO: What do we need to talk about here?
+</section>
+
+### sh
+
+Foo barb ar.
+
+### PowerShell
+
+Foo barb ar.
+
+## Your very own butler
 
 [Leiningen] is a project management tool for Clojure projects. It handles
 building the project, declaring and fetching dependencies, opening an
@@ -28,11 +40,11 @@ help listing about the commands it understands.
 TODO: Leiningenin komennot
 </section>
 
-## REPL or read-eval-print-loop
+## The <abbr title="Read-Eval-Print-Loop">REPL</abbr> or read-eval-print-loop
 
-## Version control with Linus Torvalds
-
-> When in doubt, do exactly the opposite of CVS. <small>Linus Torvalds</small>
+One of the great features of Clojure (and other languages such as Ruby,
+Haskell or Python) is the REPL, or read-eval-print-loop. The REPL is an
+interactive session -- very similar to the system shell -- 
 
 <aside class="alert alert-info">
 *Note:* We use Leiningen to launch the interactive session for convenience
@@ -44,8 +56,9 @@ typing <i class="icon-arrow-up"></i> in the interactive session launched by
 Leiningen, then try it in the session launched with `java` directly.
 </aside>
 
-lein-midje -plugarin asennuksen jälkeen pitää ajaa lein deps, että "lein
-midje" toimii PAITSI lein2:ssa toimii.
+## Version control with Linus Torvalds
+
+> When in doubt, do exactly the opposite of CVS. <small>Linus Torvalds</small>
 
 [Git]: http://git-scm.com
 [Leiningen]: https://github.com/technomancy/leiningen

@@ -52,7 +52,9 @@ Java           Clojure
 `42 * 7`       `(* 42 7)`
 `2 - 78 * 35`  `(- 2 (* 78 35))`
 
+<section class="alert alert-error">
 TODO: Lisää selitystä tähän Clojuren syntaksista?
+</section>
 
 Let's input these definitions in our Clojure session to see how they work:
 
@@ -151,8 +153,6 @@ user=> (+ 3 4) ; I am a comment
 ~~~
 
 ## Files and Namespaces
-
-> In space no one can hear you quark.
 
 Code in Clojure projects is structured into separate files. Usually each file
 corresponds to a namespace identified by the file's path. For an example, the
@@ -457,24 +457,9 @@ There is no need for a `return` clause
 
 <section class="alert alert-info">
 
-In Java, you might write `sign` like this:
-
-~~~ {.java}
-String sign(int x) {
-    return x < 0
-        ? "-"
-        : "+";
-}
-~~~
-
-This is very close to our definition of `sign` in Clojure. We use the *trinary
-conditional* expression to choose the return value of `sign`. This is exactly
-how Clojure's `if` works.
-
-`if`, on the other hand, does *not* have a return value in Java. In other
-words, it is not an expression, but a clause. Because everything is an
-expression in Clojure, there is no equivalent construct to Java's `if` in it.
-This is why the trinary conditional is the more exact equivalent.
+`if`, does *not* have a return value in a language like Java. In other words,
+it is not an expression, but a clause. Because everything is an expression in
+Clojure, there is no equivalent construct to Java's `if` in it.
 
 For illustration, you could use Java's `if` to implement `sign`:
 
@@ -485,6 +470,15 @@ String sign(int x) {
     else
         return "+";
 }
+~~~
+
+Note that you need to use the `return` keyword to indicate when to return from
+the method. Compare this to Clojure, where the last expression's value will be
+the function's return value. Because Java's `if` does not return a value, you
+can not say:
+
+~~~ {.java}
+return if (x < 0) "-" else "+"; // Illegal Java!
 ~~~
 
 </section>
