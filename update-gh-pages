@@ -2,6 +2,7 @@
 
 PAGES="training-day.html basic-tools.html conan-the-librarian.html"
 
+git clean -f
 git checkout gh-pages
 git merge --no-edit master
 rm -f $PAGES
