@@ -5,4 +5,4 @@ for format in $FORMATS; do
     for file in $FILES; do
         echo "${file%%.markdown}.$format"
     done
-done | redo-ifchange
+done | xargs redo-ifchange
