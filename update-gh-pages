@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -x
-
 PAGES="training-day.html basic-tools.html conan-the-librarian.html"
 
 git checkout gh-pages &&
