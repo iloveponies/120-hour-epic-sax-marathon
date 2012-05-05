@@ -8,7 +8,9 @@ git checkout gh-pages &&
 git merge --no-edit master &&
 rm -f $PAGES &&
 redo &&
-git commit -a -m "Update HTML." &&
-git push
+if git commit --porcelain --all | grep -q '^M '; then
+    git commit -a -m "Update HTML." &&
+    git push
+fi
 
 git checkout master
