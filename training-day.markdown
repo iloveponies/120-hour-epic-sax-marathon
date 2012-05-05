@@ -453,7 +453,9 @@ values of `x`:
 (sign  0) ;=> "+"
 ~~~
 
-There is no need for a `return` clause 
+There is no need for a `return` clause -- there is no such keyword in Clojure
+-- because the return value of a function is always the value of the last
+expression in the body of the function.
 
 <section class="alert alert-info">
 
