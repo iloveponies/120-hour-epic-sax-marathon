@@ -6,6 +6,7 @@ PAGES=${SOURCES/%.markdown/.html}
 echo "Building $PAGES."
 
 git checkout gh-pages       &&
+git clean -fx               &&
 git merge --no-edit master  &&
 rm -f $PAGES                &&
 redo                        &&
