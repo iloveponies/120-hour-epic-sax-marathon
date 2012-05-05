@@ -5,8 +5,8 @@
 ## Synopis
 
 - Shell
-    - sh
-    - ps
+    - Unix: sh
+    - Windows: ps
 - Leiningen
 - Clojure REPL
 - Git
@@ -14,6 +14,19 @@
 ## The shell game
 
 ## You can have a butler
+
+[Leiningen] is a project management tool for Clojure projects. It handles
+building the project, declaring and fetching dependencies, opening an
+interactive session inside the project, and other things.
+
+We use Leiningen version 2 on this course. Your computer has it installed.
+
+You can run Leiningen with the `lein` command. Leiningen will print a succinct
+help listing about the commands it understands.
+
+<section class="alert alert-error">
+TODO: Leiningenin komennot
+</section>
 
 ## REPL or read-eval-print-loop
 
@@ -35,3 +48,4 @@ lein-midje -plugarin asennuksen jälkeen pitää ajaa lein deps, että "lein
 midje" toimii PAITSI lein2:ssa toimii.
 
 [Git]: http://git-scm.com
+[Leiningen]: https://github.com/technomancy/leiningen
