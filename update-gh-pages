@@ -1,7 +1,9 @@
 #!/usr/bin/env zsh
 
 SOURCES=(*.markdown)
-PAGES=${SOURCES/%.markdown/.html}.html
+PAGES=${SOURCES/%.markdown/.html}
+
+echo "Building $PAGES."
 
 git checkout gh-pages       &&
 git merge --no-edit master  &&
