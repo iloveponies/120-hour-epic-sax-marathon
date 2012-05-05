@@ -9,6 +9,8 @@ redo &&
 if git commit --porcelain --all | grep -q '^M '; then
     git commit -a -m "Update HTML." &&
     git push
+else
+    echo No changes, skipping push.
 fi
 
 git checkout master
