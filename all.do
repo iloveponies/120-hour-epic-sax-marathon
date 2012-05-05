@@ -1,1 +1,8 @@
-redo-ifchange training-day.html basic-tools.html conan-the-librarian.html
+FORMATS="html pdf"
+FILES="$(ls *.markdown)"
+
+for format in $FORMATS; do
+    for file in $FILES; do
+        echo "${file%%.markdown}.$format"
+    done
+done | redo-ifchange
