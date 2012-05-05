@@ -74,5 +74,5 @@ table code {
 }
 
 code, pre {
-  font-family: Menlo, Monaco, Consolas, "DejaVu Sans", monospace;
+  font-family: Menlo, Monaco, Consolas, "Ubuntu Mono", "DejaVu Mono", monospace;
 }
