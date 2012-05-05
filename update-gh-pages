@@ -8,7 +8,7 @@ echo "Building $PAGES."
 git checkout gh-pages       &&
 git clean -fx               &&
 git merge --no-edit master  &&
-rm -f $PAGES                &&
+rm $PAGES                &&
 redo                        &&
 if git commit --porcelain --all | grep -q '^M '; then
     git commit -a -m "Update HTML." &&
