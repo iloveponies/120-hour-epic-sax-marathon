@@ -485,16 +485,6 @@ return if (x < 0) "-" else "+"; // Illegal Java!
 
 </section>
 
-
-~~~ {.clojure}
-user=> (use 'if-then-else :reload)
-nil
-user=> (sign -42)
-"-"
-user=> (sign 0)
-"+"
-~~~
-
 ## Conditional evaluation
 
 In any case, *only* the appropriate expression is evaluated. So the following
