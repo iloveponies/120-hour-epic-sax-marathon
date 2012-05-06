@@ -244,13 +244,11 @@ Functions are defined with `defn`:
   (str "Hello, " who "!"))
 ~~~
 
-Write this function to the `hello.clj` file.
+Write this function to the `hello.clj` file found in the `src` directory that
+we created previously.
 
-<section class="alert alert-error">
-TODO: Parempi selitys mihin kirjoitetaan
-</section>
-
-Let's look at that again, now with running commentary alongside:
+Let's take another look at that function, now with running commentary
+alongside, to make sure we understand its parts.
 
 ~~~ {.clojure}
 (defn                       ; Start a function definition:
@@ -276,7 +274,8 @@ String hello(String who) {
 Note that in Clojure, there is no `return` keyword; the return value of a
 function is always the value of the last expression in the function body.
 
-Now, let's try calling our function:
+Now, let's try calling our function (assuming you have now added it to the
+`hello.clj` file and saved the file):
 
 ~~~ {.clojure}
 user=> (use 'example.hello :reload)
