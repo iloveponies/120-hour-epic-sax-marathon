@@ -55,15 +55,13 @@ One of the great features of Clojure (and other languages such as Ruby,
 Haskell or Python) is the REPL, or read-eval-print-loop. The REPL is an
 interactive session -- very similar to the system shell -- 
 
-<aside class="alert alert-info">
-*Note:* We use Leiningen to launch the interactive session for convenience
+*Aside:* We use Leiningen to launch the interactive session for convenience
 only. We could just as well have run `java -cp ".:/path/to/clojure.jar"
 clojure.main` for the same effect. (On Windows, replace the `:` with `;`.)
 Typing `lein repl` is just a bit nicer.  Additionally, Leiningen provides
 commandline editing functions that running Clojure directly wouldn't. Try
 typing <i class="icon-arrow-up"></i> in the interactive session launched by
 Leiningen, then try it in the session launched with `java` directly.
-</aside>
 
 ## Version control with Linus Torvalds
 
