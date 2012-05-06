@@ -3,5 +3,5 @@
 !after.html
 !header.html
 .redo/
+!*.hs
 filters/
-!filters/*.hs

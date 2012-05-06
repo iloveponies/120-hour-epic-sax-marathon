@@ -4,8 +4,10 @@
 
 ## Synopsis
 
+A whirlwind tour of the basics of Clojure, including:
+
 - Using the REPL
-- Prefix syntax (+, -, /, \*)
+- Prefix syntax
 - Defining functions
 - `if` and truthiness
 - Everything is an expression / has a value
@@ -17,13 +19,22 @@ To start an interactive Clojure session, type `lein2 repl` in the terminal.
 It should look something like this:
 
 ```
-REPL started; server listening on localhost port 3099
+nREPL server started on port 41612
+Welcome to REPL-y!
+Clojure 1.3.0
+    Exit: Control+D or (exit) or (quit)
+Commands: (help)
+    Docs: (doc function-name-here)
+          (find-doc "part-of-name-here")
+  Source: (source function-name-here)
+          (sourcery function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+Examples from clojuredocs.org:
+          (clojuredocs name-here)
+          (clojuredocs "ns-here" "name-here")
+nil
 user=>
 ```
-
-<section class="alert alert-error">
-TODO: Korjaa lein2-tyyliseksi.
-</section>
 
 If you type `(+ 1 2)` and press the return key, you should see this:
 
@@ -52,10 +63,6 @@ Java           Clojure
 `42 * 7`       `(* 42 7)`
 `2 - 78 * 35`  `(- 2 (* 78 35))`
 
-<section class="alert alert-error">
-TODO: Lisää selitystä tähän Clojuren syntaksista?
-</section>
-
 Let's input these definitions in our Clojure session to see how they work:
 
 ~~~ {.clojure}
@@ -67,22 +74,22 @@ user=> (- 2 (* 78 35))
 -2728
 ~~~
 
-
-<section class="exercise alert alert-success">
 *Exercise:* Write the following expression in the Clojure prefix syntax: $(2 *
 3) + 4$. Try evaluating it in the interactive session. The result should be
 10.
-</section>
 
-As an example, let's take a look at getting a single character from a string
-in Clojure and Java. In Clojure, we can use the `get` function for this:
+A function call in Clojure is exactly the same as the arithmetic operations
+above. As an example, let's take a look at getting a single character from a
+string in Clojure and Java. In Clojure, we can use the `get` function for
+this:
 
 ~~~ {.clojure}
 (get "Clojure" 2) ;=> \o
 ~~~
 
 The result is the character `o`, printed in Clojure's literal character
-syntax.
+syntax. (That is, `\o` in Clojure code means the single character `o`. In
+Java, you would write a literal character as `'o'`.)
 
 In Java, we reorder things a bit: the first parameter goes *before* the method
 name, and the parentheses are moved *after* the method name:
@@ -91,8 +98,10 @@ name, and the parentheses are moved *after* the method name:
 "Java".charAt(2); //=> v
 ~~~
 
-The Clojure prefix syntax might take some time to get used to, but becomes
-natural after you've written a few programs in it.
+In Clojure, the function name always goes first, and the parameters come after
+it, including the object, if such is present. The Clojure syntax might take
+some time to get used to, but becomes natural after you've written a few
+Clojure programs.
 
 ## Notation
 
@@ -119,15 +128,12 @@ Sometimes we will put the result on a new line:
 ;=> "1337"
 ~~~
 
-<aside class="alert alert-info">
-`str` is a function that turns its argument to a string. If given multiple
+*Aside:* `str` is a function that turns its argument to a string. If given multiple
 arguments, it concatenates the results:
 
 ~~~{.clojure}
 (str "Over " 9000 "!") ;=> "Over 9000!"
 ~~~
-
-</aside>
 
 When the resulting value is too long to display on one line, we will mark the
 continuation lines with a leading `;` like this:

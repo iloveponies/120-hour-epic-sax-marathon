@@ -1,10 +1,10 @@
 import Text.Pandoc
 import System.Environment (getArgs)
 
-handleExercises format (Para ((Emph [Str "Exercise"]):rest))
+handleExercises format (Para (title@(Emph [Str "Exercise", Str ":"]):rest))
     = case format of
         "html" -> Para $ [ RawInline "html" $ "<section class=\"alert alert-success\">"
-                         , Emph [Str "Exercise"]
+                         , title
                          ] ++ rest ++ [ RawInline "html" $ "</section>" ]
 handleExercises _ x = x
 
