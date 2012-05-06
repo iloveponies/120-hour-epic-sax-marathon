@@ -13,6 +13,11 @@
 
 ## The shell game
 
+While there is nothing that forces you to use the shell for Clojure
+programming, it is extremely useful to know your way around as shell, no
+matter what kind of programming you do. We will use the shell as our primary
+mechanism of working with project builds, REPL interaction and other things.
+
 <section class="alert alert-error">
 TODO: What do we need to talk about here?
 </section>
@@ -31,14 +36,18 @@ Foo barb ar.
 building the project, declaring and fetching dependencies, opening an
 interactive session inside the project, and other things.
 
-We use Leiningen version 2 on this course. Your computer has it installed.
+We use Leiningen version 2 on this course. It should be already installed on
+your computer.
 
 You can run Leiningen with the `lein` command. Leiningen will print a succinct
 help listing about the commands it understands.
 
-<section class="alert alert-error">
-TODO: Leiningenin komennot
-</section>
+Command         Description
+-------         -----------
+compile         Compile the project and report any compilation errors.
+midje           Run all [Midje] tests.
+repl            Open an interactive Clojure session.
+new             Create a new Clojure project.
 
 ## The <abbr title="Read-Eval-Print-Loop">REPL</abbr> or read-eval-print-loop
 
@@ -62,3 +71,4 @@ Leiningen, then try it in the session launched with `java` directly.
 
 [Git]: http://git-scm.com
 [Leiningen]: https://github.com/technomancy/leiningen
+[Midje]: https://github.com/marick/Midje
