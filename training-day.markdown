@@ -490,6 +490,8 @@ return if (x < 0) "-" else "+"; // Illegal Java!
 
 </section>
 
+TODO: Talk about `true` and `false`.
+
 ## Conditional evaluation
 
 In any case, *only* the appropriate expression is evaluated. So the following
