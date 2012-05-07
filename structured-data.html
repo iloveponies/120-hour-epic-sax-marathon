@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="120 hour epic">
+  <title>Structured data</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="css/base.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+<header>
+<h1 class="title">Structured data</h1>
+<h2 class="author">120 hour epic</h2>
+<h3 class="date">sax marathon</h3>
+</header>
+<section class="level2" id="synopsis">
+<h2>Synopsis</h2>
+<p>In which we learn to work with structured data.</p>
+<ul>
+<li>Names</li>
+<li>Sequences</li>
+<li>Vectors</li>
+<li>Maps</li>
+</ul>
+</section>
+<section class="level2" id="let-there-be-names">
+<h2>Let there be names</h2>
+<p>We often want to give a piece of data name, either because the act of naming gives clarity to the code, or because we want to refer to the data many times. As we have seen, global names are declared with <code>def</code>. Local names, on the other hand, are declared with <code>let</code>.</p>
+<p>As an example, let's define a function for calculating the length of a triangle's hypotenuse, given the length of its two legs:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hypotenuse </span>[x y]
+  (<span class="kw">let</span> [xx (<span class="kw">*</span> x x)
+        yy (<span class="kw">*</span> y y)]
+    (Math/sqrt (<span class="kw">+</span> xx yy))))</code></pre>
+<p><code>let</code> introduces one or more names and a scope for them:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [name1 value1
+      name2 value2
+      ...]
+  (expression1)
+  (expression2)
+  ...)</code></pre>
+<p>The names introduced by <code>let</code> are visible in all the expressions after them, under <code>let</code>. A name is not visible to code outside the body of the <code>let</code> it is defined in.</p>
+</section>
+<section class="level2" id="simple-values">
+<h2>Simple values</h2>
+<p>Now that we know how to give names to values, let's look at what kind of values Clojure supports.</p>
+<p>Scalar values are the regular, singular simple values like <code>42</code>, <code>&quot;foo&quot;</code> or <code>true</code>. The following table describes some of them.</p>
+<table>
+<col style="width: 20%" /><col style="width: 26%" /><col style="width: 52%" /><thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Examples</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Numbers</td>
+<td style="text-align: left;"><code>42</code>, <code>3/2</code>, <code>2.1</code></td>
+<td style="text-align: left;">Numbers include integers, fractions, and floats.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Strings</td>
+<td style="text-align: left;">&quot;foo&quot;</td>
+<td style="text-align: left;">Foo.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Characters</td>
+<td style="text-align: left;"><code>\x</code>, <code>\y</code>, <code>\√</code></td>
+<td style="text-align: left;">A single characer is written with a preceding <code>\</code>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Keywords</td>
+<td style="text-align: left;"><code>:foo</code>, <code>:?</code></td>
+<td style="text-align: left;">How do you describe keywords?</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="level2" id="vectors">
+<h2>Vectors</h2>
+<p>Clojure has support for a rich set of collections.</p>
+<p>A <em>vector</em> is a collection that can be indexed with integers, like an array in other languages. It can contain values of different types.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">[<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]                 <span class="co">;=&gt; [1 2 3]</span>
+[<span class="kw">:foo</span> <span class="dv">42</span> <span class="st">&quot;bar&quot;</span> (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">3</span>)] <span class="co">;=&gt; [:foo 42 &quot;bar&quot; 5]</span></code></pre>
+<p>You can index a vector with <code>get</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> [<span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span> <span class="st">&quot;c&quot;</span>] <span class="dv">1</span>) <span class="co">;=&gt; &quot;b&quot;</span></code></pre>
+<p>Vectors are immutable: once you have a vector, <em>you can not change it</em>. You can, however, easily create new vectors based on a vector:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">conj</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] <span class="dv">4</span>)          <span class="co">;=&gt; [1 2 3 4]</span>
+(<span class="kw">assoc</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>] <span class="dv">2</span> <span class="st">&quot;foo&quot;</span>) <span class="co">;=&gt; [1 2 &quot;foo&quot; 4]</span></code></pre>
+<p><code>conj</code> adds a value to a collection. Its behaviour depends on the type of collection: with vectors, it adds the value to the end of the vector.</p>
+<p><code>assoc</code> associates a new value for the given key in the collection. Vector's keys are its indexes. So here we create a new vector based on the previous one, with &quot;foo&quot; at index 2. The original vector doesn't change in either of these operations.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [original [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]
+      new      (<span class="kw">assoc</span> original <span class="dv">2</span> <span class="st">&quot;foo&quot;</span>)]
+  original)
+<span class="co">;=&gt; [1 2 3 4]</span></code></pre>
+</section>
+<section class="level2" id="maps">
+<h2>Maps</h2>
+<p>Where a vector associates integers to values, a map is not restricted to integer keys. You can use any kind of value as a key. A map is written with <code>{}</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">{<span class="st">&quot;foo&quot;</span> <span class="dv">42</span>, <span class="st">&quot;bar&quot;</span> <span class="dv">666</span>}
+{<span class="st">&quot;mehmeh&quot;</span> (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">5</span>)
+ <span class="st">&quot;rupatipor&quot;</span> <span class="st">&quot;ropopo&quot;</span>}</code></pre>
+<p>A map is indexed with the <code>get</code> function:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [ages {<span class="st">&quot;Juhana&quot;</span> <span class="dv">3</span>
+            <span class="st">&quot;Ilmari&quot;</span> <span class="dv">42</span>
+            <span class="st">&quot;King of All Cosmos&quot;</span> -<span class="dv">6</span>}]
+  (<span class="kw">get</span> ages <span class="st">&quot;King of All Cosmos&quot;</span>))
+<span class="co">;=&gt; -6</span></code></pre>
+<p>In idiomatic Clojure programs, the keys of a map are often <em>keywords</em>. Keywords are a convenient way of naming keys for values in associative collections such as maps. They are written with a preceding <code>:</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> my-book </span>{<span class="kw">:title</span> <span class="st">&quot;My little book of ponies&quot;</span>
+              <span class="kw">:description</span> <span class="st">&quot;Learn all about ponies!&quot;</span>})
+
+(<span class="kw">get</span> my-book <span class="kw">:title)</span> <span class="co">;=&gt; &quot;My little book of ponies&quot;</span></code></pre>
+<p>Keywords are even more convenient than this. They work as functions that access collections:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">:description</span> my-book) <span class="co">;=&gt;  &quot;Learn all about ponies!&quot;</span></code></pre>
+<p>When used as a function and given a collection, a keyword looks itself up in the collection and returns the value associated with it.</p>
+<p><code>assoc</code> works with a map:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">assoc</span> my-book <span class="kw">:price</span> <span class="st">&quot;NINE GIGAZILLION ERDÖS&quot;</span>)
+<span class="co">;=&gt; {:title &quot;My little book of ponies&quot;</span>
+<span class="co">;    :description &quot;Learn all about ponies!&quot;</span>
+<span class="co">;    :price &quot;NINE GIGAZILLION ERDÖS&quot;}</span></code></pre>
+<p>The keys and values of a map can be of any data type, and one map can contain any number of different data types as both keys and values.</p>
+<section class="alert alert-success">
+<p>Let's define a map that represents a book:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> cities </span>{<span class="kw">:author</span> <span class="st">&quot;China Miéville&quot;</span> <span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>})</code></pre>
+<p>Write the function <code>(title-length book)</code> that counts the length of the book's title. Use <code>let</code> to extract the title.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(title-length cities) <span class="co">;=&gt; 21</span></code></pre>
+</section>
+</section>
+<section class="level2" id="sequences">
+<h2>Sequences</h2>
+<p>Do we want to speak about sequences here?</p>
+</section>
+<section class="level2" id="lists">
+<h2>Lists</h2>
+<p>Should we talk about lists?</p>
+<p>Lists are :</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>)
+(<span class="kw">get</span> <span class="st">&quot;Foobar&quot;</span> <span class="dv">3</span>)</code></pre>
+<p>When a list is evaluated, the first element (the <em>head</em>) is resolved to a function and called, with the other items given to the function as arguments.</p>
+</section>
+<section class="level2" id="cant-change-this">
+<h2>Can't change this</h2>
+<p>Collections are immutable.</p>
+</section>
+<section class="level2" id="yummy-innards">
+<h2>Yummy innards</h2>
+<p>Destructuring.</p>
+</section>
+</div>
+</div>
+</div>
+</body>
+</html>
