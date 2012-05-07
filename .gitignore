@@ -1,1 +1,3 @@
 .redo/
+!*.hs
+filters/

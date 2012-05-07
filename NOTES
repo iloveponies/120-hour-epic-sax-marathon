@@ -1,0 +1,34 @@
+- (boolean "jee")
+- keywords
+    - are functions
+- ->
+- filter, map
+- fn
+- distinct
+
+# Data sources
+
+- reittiopas
+- gööttenburi
+- boargamegeek
+- twithaar
+- immmmmdb
+
+Do this shit next:
+- sekvenssit?
+  - vec/vector
+- vektorit:
+  - [a b c] -syntaksi
+  - get
+  - pilkku [1,2,3]
+  - conj
+  - assoc
+  - destrukturointi
+- map (data structure)
+  - {:a ":)" :b "booyaa"}
+  - :keywordit
+  - käytä pilkkua {:a ":)", :b 13}
+    - tai rivinvaihtoa
+  - assoc/get
+  - conj
+  - structured data

@@ -33,7 +33,12 @@ h2 {
     font-size: 18px;
 }
 
-h1, h2 {
+h3 {
+    font-size: 14px;
+    line-height: 28px;
+}
+
+h1, h2, h3 {
     font-weight: normal;
 }
 
@@ -74,5 +79,5 @@ table code {
 }
 
 code, pre {
-  font-family: Menlo, Monaco, Consolas, "DejaVu Sans", monospace;
+  font-family: Menlo, Monaco, Consolas, "Ubuntu Mono", "DejaVu Mono", monospace;
 }

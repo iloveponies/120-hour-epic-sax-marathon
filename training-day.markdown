@@ -4,29 +4,37 @@
 
 ## Synopsis
 
-> In which we learn to butt.
+A whirlwind tour of the basics of Clojure, including:
 
 - Using the REPL
-- Prefix syntax (+, -, /, \*)
-- Editor
-- Declaring functions
+- Prefix syntax
+- Defining functions
 - `if` and truthiness
 - Everything is an expression / has a value
 
 ## Interactive Clojure
 
-To start an interactive Clojure session, type `lein repl` in the terminal.
+To start an interactive Clojure session, type `lein2 repl` in the terminal.
 
 It should look something like this:
 
 ```
-REPL started; server listening on localhost port 3099
+nREPL server started on port 41612
+Welcome to REPL-y!
+Clojure 1.3.0
+    Exit: Control+D or (exit) or (quit)
+Commands: (help)
+    Docs: (doc function-name-here)
+          (find-doc "part-of-name-here")
+  Source: (source function-name-here)
+          (sourcery function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+Examples from clojuredocs.org:
+          (clojuredocs name-here)
+          (clojuredocs "ns-here" "name-here")
+nil
 user=>
 ```
-
-<section class="alert alert-error">
-TODO: tarkista et varmasti näyttää windozella samalta
-</section>
 
 If you type `(+ 1 2)` and press the return key, you should see this:
 
@@ -41,23 +49,19 @@ see something different, please let us know by raising your hand.
 
 ## Prefix Syntax
 
-> I used to be an adventurer like you, but then I took an arrow in the knee.
-
 As you can see above, instead of writing `1 + 2` to calculate the sum of one
 and two, we write `(+ 1 2)`. This syntax applies everywhere in Clojure. In
-fact, Clojure has no operators at all. For an example, in languages such as
-Java or C, arithmetic operations are usually written in the mathematical
-notation called *infix form*:
+fact, Clojure has no operators at all. In languages such as Java or C,
+arithmetic operations are usually written in the mathematical notation called
+*infix form*. Clojure, on the other hand, uses *prefix form* for its syntax.
+The next table shows what mathematical expressions look like in these two
+syntaxes.
 
 Java           Clojure
 -------        -------
 `2 + 3`        `(+ 2 3)`
 `42 * 7`       `(* 42 7)`
 `2 - 78 * 35`  `(- 2 (* 78 35))`
-
-<!-- `* -->
-
-This syntax is called *prefix form*. All Clojure syntax is of this basic form.
 
 Let's input these definitions in our Clojure session to see how they work:
 
@@ -70,22 +74,22 @@ user=> (- 2 (* 78 35))
 -2728
 ~~~
 
-
-<section class="exercise alert alert-success">
 *Exercise:* Write the following expression in the Clojure prefix syntax: $(2 *
 3) + 4$. Try evaluating it in the interactive session. The result should be
 10.
-</section>
 
-As an example, let's take a look at getting a single character from a string
-in Clojure and Java. In Clojure, we can use the `get` function for this:
+A function call in Clojure is exactly the same as the arithmetic operations
+above. As an example, let's take a look at getting a single character from a
+string in Clojure and Java. In Clojure, we can use the `get` function for
+this:
 
 ~~~ {.clojure}
 (get "Clojure" 2) ;=> \o
 ~~~
 
 The result is the character `o`, printed in Clojure's literal character
-syntax.
+syntax. (That is, `\o` in Clojure code means the single character `o`. In
+Java, you would write a literal character as `'o'`.)
 
 In Java, we reorder things a bit: the first parameter goes *before* the method
 name, and the parentheses are moved *after* the method name:
@@ -94,8 +98,10 @@ name, and the parentheses are moved *after* the method name:
 "Java".charAt(2); //=> v
 ~~~
 
-The Clojure prefix syntax might take some time to get used to, but becomes
-natural after you've written a few programs in it.
+In Clojure, the function name always goes first, and the parameters come after
+it, including the object, if such is present. The Clojure syntax might take
+some time to get used to, but becomes natural after you've written a few
+Clojure programs.
 
 ## Notation
 
@@ -122,15 +128,12 @@ Sometimes we will put the result on a new line:
 ;=> "1337"
 ~~~
 
-<aside class="alert alert-info">
-`str` is a function that turns its argument to a string. If given multiple
+*Aside:* `str` is a function that turns its argument to a string. If given multiple
 arguments, it concatenates the results:
 
 ~~~{.clojure}
 (str "Over " 9000 "!") ;=> "Over 9000!"
 ~~~
-
-</aside>
 
 When the resulting value is too long to display on one line, we will mark the
 continuation lines with a leading `;` like this:
@@ -156,8 +159,6 @@ user=> (+ 3 4) ; I am a comment
 ~~~
 
 ## Files and Namespaces
-
-> In space no one can hear you quark.
 
 Code in Clojure projects is structured into separate files. Usually each file
 corresponds to a namespace identified by the file's path. For an example, the
@@ -233,17 +234,21 @@ structuring any kind of non-trivial programs, we will want to group code into
 *functions*.
 
 Functions are written in source files, and we have one ready, `hello.clj`, so
-let's write the following function definition in that file. Functions are
-defined with `defn`:
+let's write the following function definition in that file. We'll write the
+function `(hello who)`, which returns an English greeting for the user.
+
+Functions are defined with `defn`:
 
 ~~~ {.clojure}
 (defn hello [who]
   (str "Hello, " who "!"))
 ~~~
 
-Write this function to the `hello.clj` file.
+Write this function to the `hello.clj` file found in the `src` directory that
+we created previously.
 
-Let's look at that again, now with running commentary alongside:
+Let's take another look at that function, now with running commentary
+alongside, to make sure we understand its parts.
 
 ~~~ {.clojure}
 (defn                       ; Start a function definition:
@@ -253,8 +258,12 @@ Let's look at that again, now with running commentary alongside:
 ~~~
 
 Here `hello` is the name of the function, `[who]` is the parameter list, and
-the expression on the second line is the body of the function. For comparison,
-our function looks like this in Java:
+the expression on the second line is the body of the function. The return
+value of the function is the value of the last expression inside the function
+body. In this case, it is the value of the `(str "Hello, " who "!")`
+expression.
+
+For comparison, our function looks like this in Java:
 
 ~~~ {.java}
 String hello(String who) {
@@ -262,7 +271,11 @@ String hello(String who) {
 }
 ~~~
 
-Now, let's try calling our function:
+Note that in Clojure, there is no `return` keyword; the return value of a
+function is always the value of the last expression in the function body.
+
+Now, let's try calling our function (assuming you have now added it to the
+`hello.clj` file and saved the file):
 
 ~~~ {.clojure}
 user=> (use 'example.hello :reload)
@@ -309,23 +322,73 @@ first ten lines or so of the file look like this:
   (:use training-day
         midje.sweet))
 
-(facts
+(facts "square"
   (square 2) => 4
   (square 3) => 9)
 ~~~
 
 You can ignore the namespace declaration (`(ns …)`) for now. Look at the
-`facts` expression. It declares some properties of the `square` function. In
-fact, `square` is our first exercise! After writing the implementation of
-`square` in `src/training_day.clj`, run `lein2 midje` again to see if your
-implementation agrees with the facts declared in our test file.
+`facts` expression. It declares some facts of the `square` function. A
+fact, in Midje, is an expression `expr => expected-value`, saying:
+"Evaluating `expr` should return `expected-value`". Our two tests (or
+facts) say, then, that `(square 2)` should return `4` and `(square 3)`
+should return 9.
+
+If you take a look at the file `src/training-day.clj`, you will see that we've
+provided a stub for the `square` function:
+
+~~~ {.clojure}
+(defn square [n]
+  ":(")
+~~~
+
+Our stub simply returns the string `":("` for all values of `n`. This will
+obviously not pass the tests, which we should now verify.
+
+## Running tests
+
+Midje tests are run from the command line, from the root directory of the
+project. In that directory, the command `lein2 midje` will run all the tests
+(or, in other words, verify all the properties) in the project. (Tests are
+usually put under the `test/` directory under the project root.)
+
+Try running the tests now to see that our dummy stub of `square` indeed does
+fail its tests:
+
+~~~
+$ lein2 midje
+...Lots of information about fetched dependencies...
+...
+...and eventually:
+
+FAIL "square" at (training_day_test.clj:6)
+    Expected: 4
+      Actual: ":("
+
+FAIL "square" at (training_day_test.clj:7)
+    Expected: 9
+      Actual: ":("
+
+...and lots more...
+~~~
+
+There are various other functions with properties, whose failures you also see
+here, but the important output, for our purposes, are the failures with the
+text `"square"` in them. They indicate that our stub function fails the tests
+as expected, because the string `":("` is not `4` or `9`.
+
+The first exercise, then, is to implement `square`.
+
+After writing the implementation of `square` in `src/training_day.clj`, run
+`lein2 midje` again to see if your implementation agrees with the facts
+declared in our test file.
 
 <section class="exercise alert alert-success">
 
-*Exercise:*
-Write a function `square` that takes a number as a parameter and multiplies it with itself.
+*Exercise:* Write the function `square` that takes a number as a parameter and
+multiplies it with itself.
 
-~~~{.clojure}
+~~~ {.clojure}
 (square 2) ;=> 4
 (square 3) ;=> 9
 ~~~
@@ -352,27 +415,98 @@ TODO: lein-shit ja testien ajaminen
 
 > Any program is only as good as it is useful. <small>Linus Torvalds</small>
 
-~~~{.clojure}
-(if (my-father? darth-vader)
-  (lose-hand me)
-  (gain-hat me))
+Any non-trivial program needs conditionals. Clojure's `if` looks like the
+following:
+
+~~~ {.clojure}
+(if (my-father? darth-vader)  ; Conditional
+  (lose-hand me)              ; If true
+  (gain-hat me))              ; If false
 ~~~
 
-~~~{.clojure}
+`if` (usually) takes three parameters: the conditional clause, the *then*
+body and the *else* body. If the first parameter - the conditional clause - is
+true, the *then* body is evaluated. Otherwise, the *else* body is evaluated.
+
+In functional programming, and specifically in Clojure, everything is an
+expression. This is a way of saying that everything has a value. Concretely,
+`if` has a return value; the value is the value of the evaluated body (either
+the *then* or the *else* body).
+
+As an example, let's define the function `(sign x)`, which returns the string
+`"-"` if `x` is negative and otherwise `"+"`. The function looks like the
+following:
+
+~~~ {.clojure}
 (defn sign [x]
-  (if (< 0 x)
+  (if (< x 0)
     "-"
     "+"))
 ~~~
 
-~~~{.clojure}
-user=> (use 'if-then-else :reload)
-nil
-user=> (sign -42)
-"-"
-user=> (sign 0)
-"+"
+The function definition has one expression, which is an `if` expression. The
+value of the function is the value of the `if` expression, because it is the
+last expression in the function body. The value of the `if` expression is
+either `"-"` or `"+"`, depending on the value of the parameter `x`.
+
+You can paste the function into the REPL and try calling it with various
+values of `x`:
+
+~~~ {.clojure}
+(sign  2) ;=> "+"
+(sign -2) ;=> "-"
+(sign  0) ;=> "+"
 ~~~
+
+There is no need for a `return` clause -- there is no such keyword in Clojure
+-- because the return value of a function is always the value of the last
+expression in the body of the function.
+
+<section class="alert alert-info">
+
+`if`, does *not* have a return value in a language like Java. In other words,
+it is not an expression, but a clause. Because everything is an expression in
+Clojure, there is no equivalent construct to Java's `if` in it.
+
+For illustration, you could use Java's `if` to implement `sign`:
+
+~~~ {.java}
+String sign(int x) {
+    if (x < 0)
+        return "-";
+    else
+        return "+";
+}
+~~~
+
+Note that you need to use the `return` keyword to indicate when to return from
+the method. Compare this to Clojure, where the last expression's value will be
+the function's return value. Because Java's `if` does not return a value, you
+can not say:
+
+~~~ {.java}
+return if (x < 0) "-" else "+"; // Illegal Java!
+~~~
+
+</section>
+
+TODO: Talk about `true` and `false`.
+
+## Conditional evaluation
+
+In any case, *only* the appropriate expression is evaluated. So the following
+is not an error:
+
+~~~ {.clojure}
+(if true
+  42
+  (/ 1 0))
+~~~
+
+If evaluated, `(/ 1 0)` would throw an `ArithmeticException` due to the
+division by zero. However, the `if` expression does not evaluate the division
+at all, because the conditional clause is true and only the *then* body, `42`,
+is evaluated.
 
 <section class="exercise alert alert-success">
 
@@ -393,7 +527,7 @@ Write the function `(fizzbuzz n)` that returns
 - `"buzz"` when `n` is divisible by 5,
 - but *only* `"gotcha!"` when `n` is divisible by 15.
 
-~~~{.clojure}
+~~~ {.clojure}
 (fizzbuzz 45) ;=> "gotcha!"
 (fizzbuzz 48) ;=> "fizz"
 (fizzbuzz 70) ;=> "buzz"
@@ -402,11 +536,15 @@ Write the function `(fizzbuzz n)` that returns
 </section>
 
 <section class="alert alert-error">
+TODO: parempi tiedostojärjestelmä
+</section>
+
+<section class="alert alert-error">
 TODO: literate clojure
 </section>
 
 <section class="alert alert-error">
-TODO?: lein projektit
+TODO?: lein2 projektit
 </section>
 
 [Git]: http://git-scm.com
