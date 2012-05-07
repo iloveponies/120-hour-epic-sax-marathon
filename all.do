@@ -1,4 +1,4 @@
-FORMATS="html pdf"
+FORMATS="html"
 FILES="$(ls *.markdown)"
 
 for format in $FORMATS; do
