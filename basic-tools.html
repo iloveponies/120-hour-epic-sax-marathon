@@ -24,26 +24,75 @@
 <h2 class="author">120 hour epic</h2>
 <h3 class="date">sax marathon</h3>
 </header>
-<h2 id="synopis">Synopis</h2>
+<section class="level2" id="synopis">
+<h2>Synopis</h2>
 <ul>
 <li>Shell
 <ul>
-<li>sh</li>
-<li>ps</li>
+<li>Unix: sh</li>
+<li>Windows: ps</li>
 </ul></li>
 <li>Leiningen</li>
 <li>Clojure REPL</li>
 <li>Git</li>
 </ul>
-<h2 id="the-shell-game">The shell game</h2>
-<h2 id="you-can-have-a-butler">You can have a butler</h2>
-<h2 id="repl-or-read-eval-print-loop">REPL or read-eval-print-loop</h2>
-<h2 id="version-control-with-linus-torvalds">Version control with Linus Torvalds</h2>
+</section>
+<section class="level2" id="the-shell-game">
+<h2>The shell game</h2>
+<p>While there is nothing that forces you to use the shell for Clojure programming, it is extremely useful to know your way around as shell, no matter what kind of programming you do. We will use the shell as our primary mechanism of working with project builds, REPL interaction and other things.</p>
+<p><section class="alert alert-error"> TODO: What do we need to talk about here? </section></p>
+<section class="level3" id="sh">
+<h3>sh</h3>
+<p>Foo barb ar.</p>
+</section>
+<section class="level3" id="powershell">
+<h3>PowerShell</h3>
+<p>Foo barb ar.</p>
+</section>
+</section>
+<section class="level2" id="your-very-own-butler">
+<h2>Your very own butler</h2>
+<p><a href="https://github.com/technomancy/leiningen">Leiningen</a> is a project management tool for Clojure projects. It handles building the project, declaring and fetching dependencies, opening an interactive session inside the project, and other things.</p>
+<p>We use Leiningen version 2 on this course. It should be already installed on your computer.</p>
+<p>You can run Leiningen with the <code>lein</code> command. Leiningen will print a succinct help listing about the commands it understands.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">compile</td>
+<td style="text-align: left;">Compile the project and report any compilation errors.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">midje</td>
+<td style="text-align: left;">Run all <a href="https://github.com/marick/Midje">Midje</a> tests.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">repl</td>
+<td style="text-align: left;">Open an interactive Clojure session.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">new</td>
+<td style="text-align: left;">Create a new Clojure project.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="level2" id="the-repl-or-read-eval-print-loop">
+<h2>The <abbr title="Read-Eval-Print-Loop">REPL</abbr> or read-eval-print-loop</h2>
+<p>One of the great features of Clojure (and other languages such as Ruby, Haskell or Python) is the REPL, or read-eval-print-loop. The REPL is an interactive session -- very similar to the system shell --</p>
+<p><aside class="alert alert-info"> We use Leiningen to launch the interactive session for convenience only. We could just as well have run <code>java -cp &quot;.:/path/to/clojure.jar&quot; clojure.main</code> for the same effect. (On Windows, replace the <code>:</code> with <code>;</code>.) Typing <code>lein repl</code> is just a bit nicer. Additionally, Leiningen provides commandline editing functions that running Clojure directly wouldn't. Try typing <i class="icon-arrow-up"></i> in the interactive session launched by Leiningen, then try it in the session launched with <code>java</code> directly.</aside></p>
+</section>
+<section class="level2" id="version-control-with-linus-torvalds">
+<h2>Version control with Linus Torvalds</h2>
 <blockquote>
 <p>When in doubt, do exactly the opposite of CVS. <small>Linus Torvalds</small></p>
 </blockquote>
-<p><aside class="alert alert-info"> <em>Note:</em> We use Leiningen to launch the interactive session for convenience only. We could just as well have run <code>java -cp &quot;.:/path/to/clojure.jar&quot; clojure.main</code> for the same effect. (On Windows, replace the <code>:</code> with <code>;</code>.) Typing <code>lein repl</code> is just a bit nicer. Additionally, Leiningen provides commandline editing functions that running Clojure directly wouldn't. Try typing <i class="icon-arrow-up"></i> in the interactive session launched by Leiningen, then try it in the session launched with <code>java</code> directly. </aside></p>
-<p>lein-midje -plugarin asennuksen jälkeen pitää ajaa lein deps, että &quot;lein midje&quot; toimii PAITSI lein2:ssa toimii.</p>
+</section>
 </div>
 </div>
 </div>

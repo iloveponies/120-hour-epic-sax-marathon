@@ -43,34 +43,45 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 class="author">120 hour epic</h2>
 <h3 class="date">sax marathon</h3>
 </header>
-<h2 id="synopsis">Synopsis</h2>
-<blockquote>
-<p>In which we learn to butt.</p>
-</blockquote>
+<section class="level2" id="synopsis">
+<h2>Synopsis</h2>
+<p>A whirlwind tour of the basics of Clojure, including:</p>
 <ul>
 <li>Using the REPL</li>
-<li>Prefix syntax (+, -, /, *)</li>
-<li>Editor</li>
-<li>Declaring functions</li>
+<li>Prefix syntax</li>
+<li>Defining functions</li>
 <li><code>if</code> and truthiness</li>
 <li>Everything is an expression / has a value</li>
 </ul>
-<h2 id="interactive-clojure">Interactive Clojure</h2>
-<p>To start an interactive Clojure session, type <code>lein repl</code> in the terminal.</p>
+</section>
+<section class="level2" id="interactive-clojure">
+<h2>Interactive Clojure</h2>
+<p>To start an interactive Clojure session, type <code>lein2 repl</code> in the terminal.</p>
 <p>It should look something like this:</p>
-<pre><code>REPL started; server listening on localhost port 3099
+<pre><code>nREPL server started on port 41612
+Welcome to REPL-y!
+Clojure 1.3.0
+    Exit: Control+D or (exit) or (quit)
+Commands: (help)
+    Docs: (doc function-name-here)
+          (find-doc &quot;part-of-name-here&quot;)
+  Source: (source function-name-here)
+          (sourcery function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+Examples from clojuredocs.org:
+          (clojuredocs name-here)
+          (clojuredocs &quot;ns-here&quot; &quot;name-here&quot;)
+nil
 user=&gt;</code></pre>
-<p><section class="alert alert-error"> TODO: tarkista et varmasti näyttää windozella samalta </section></p>
 <p>If you type <code>(+ 1 2)</code> and press the return key, you should see this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>)
 <span class="dv">3</span>
 user=&gt;</code></pre>
 <p>Clojure evaluated the expression <code>(+ 1 2)</code> and printed its value, <code>3</code>. If you see something different, please let us know by raising your hand.</p>
-<h2 id="prefix-syntax">Prefix Syntax</h2>
-<blockquote>
-<p>I used to be an adventurer like you, but then I took an arrow in the knee.</p>
-</blockquote>
-<p>As you can see above, instead of writing <code>1 + 2</code> to calculate the sum of one and two, we write <code>(+ 1 2)</code>. This syntax applies everywhere in Clojure. In fact, Clojure has no operators at all. For an example, in languages such as Java or C, arithmetic operations are usually written in the mathematical notation called <em>infix form</em>:</p>
+</section>
+<section class="level2" id="prefix-syntax">
+<h2>Prefix Syntax</h2>
+<p>As you can see above, instead of writing <code>1 + 2</code> to calculate the sum of one and two, we write <code>(+ 1 2)</code>. This syntax applies everywhere in Clojure. In fact, Clojure has no operators at all. In languages such as Java or C, arithmetic operations are usually written in the mathematical notation called <em>infix form</em>. Clojure, on the other hand, uses <em>prefix form</em> for its syntax. The next table shows what mathematical expressions look like in these two syntaxes.</p>
 <table>
 <thead>
 <tr class="header">
@@ -93,9 +104,6 @@ user=&gt;</code></pre>
 </tr>
 </tbody>
 </table>
-<!-- `* -->
-
-<p>This syntax is called <em>prefix form</em>. All Clojure syntax is of this basic form.</p>
 <p>Let's input these definitions in our Clojure session to see how they work:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">3</span>)
 <span class="dv">5</span>
@@ -103,14 +111,16 @@ user=&gt; (<span class="kw">*</span> <span class="dv">42</span> <span class="dv"
 <span class="dv">294</span>
 user=&gt; (<span class="kw">-</span> <span class="dv">2</span> (<span class="kw">*</span> <span class="dv">78</span> <span class="dv">35</span>))
 -<span class="dv">2728</span></code></pre>
-<p><section class="exercise alert alert-success"> <em>Exercise:</em> Write the following expression in the Clojure prefix syntax: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mn>2</mn><mo>*</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>4</mn></mrow></math>. Try evaluating it in the interactive session. The result should be 10. </section></p>
-<p>As an example, let's take a look at getting a single character from a string in Clojure and Java. In Clojure, we can use the <code>get</code> function for this:</p>
+<p><section class="alert alert-success"><em>Exercise:</em> Write the following expression in the Clojure prefix syntax: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mn>2</mn><mo>*</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>4</mn></mrow></math>. Try evaluating it in the interactive session. The result should be 10.</section></p>
+<p>A function call in Clojure is exactly the same as the arithmetic operations above. As an example, let's take a look at getting a single character from a string in Clojure and Java. In Clojure, we can use the <code>get</code> function for this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> <span class="st">&quot;Clojure&quot;</span> <span class="dv">2</span>) <span class="co">;=&gt; \o</span></code></pre>
-<p>The result is the character <code>o</code>, printed in Clojure's literal character syntax.</p>
+<p>The result is the character <code>o</code>, printed in Clojure's literal character syntax. (That is, <code>\o</code> in Clojure code means the single character <code>o</code>. In Java, you would write a literal character as <code>'o'</code>.)</p>
 <p>In Java, we reorder things a bit: the first parameter goes <em>before</em> the method name, and the parentheses are moved <em>after</em> the method name:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="st">&quot;Java&quot;</span>.<span class="fu">charAt</span>(<span class="dv">2</span>); <span class="co">//=&gt; v</span></code></pre>
-<p>The Clojure prefix syntax might take some time to get used to, but becomes natural after you've written a few programs in it.</p>
-<h2 id="notation">Notation</h2>
+<p>In Clojure, the function name always goes first, and the parameters come after it, including the object, if such is present. The Clojure syntax might take some time to get used to, but becomes natural after you've written a few Clojure programs.</p>
+</section>
+<section class="level2" id="notation">
+<h2>Notation</h2>
 <p>In our example code, we often want to show the result of an expression when it is evaluated. Instead of showing what evaluating the expression in the interactive session looks like:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)
 <span class="dv">7</span></code></pre>
@@ -119,9 +129,8 @@ user=&gt; (<span class="kw">-</span> <span class="dv">2</span> (<span class="kw"
 <p>Sometimes we will put the result on a new line:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="dv">1337</span>)
 <span class="co">;=&gt; &quot;1337&quot;</span></code></pre>
-<p><aside class="alert alert-info"> <code>str</code> is a function that turns its argument to a string. If given multiple arguments, it concatenates the results:</p>
+<p><aside class="alert alert-info"> <code>str</code> is a function that turns its argument to a string. If given multiple arguments, it concatenates the results:</aside></p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="st">&quot;Over &quot;</span> <span class="dv">9000</span> <span class="st">&quot;!&quot;</span>) <span class="co">;=&gt; &quot;Over 9000!&quot;</span></code></pre>
-</aside>
 <p>When the resulting value is too long to display on one line, we will mark the continuation lines with a leading <code>;</code> like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">take</span> <span class="dv">20</span> (<span class="kw">cycle</span> [<span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>]))
 <span class="co">;=&gt; (&quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot;</span>
@@ -133,10 +142,9 @@ user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">
 <span class="dv">7</span>
 user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="co">; I am a comment</span>
 <span class="dv">7</span></code></pre>
-<h2 id="files-and-namespaces">Files and Namespaces</h2>
-<blockquote>
-<p>In space no one can hear you quark.</p>
-</blockquote>
+</section>
+<section class="level2" id="files-and-namespaces">
+<h2>Files and Namespaces</h2>
 <p>Code in Clojure projects is structured into separate files. Usually each file corresponds to a namespace identified by the file's path. For an example, the file <code>foo/bar/baz.clj</code> contains the namespace <code>foo.bar.baz</code>. This is slightly different from Java, where directories correspond to namespaces (packages) and files under a directory usually contain a single class in the given package.</p>
 <p>Let's create the basic structure for a project to get a feeling for how this works. As you read the description below, execute the same steps on your own computer.</p>
 <p>Suppose we start a project called <code>foobar</code>. First, we create the basic directory structure with an example file:</p>
@@ -164,22 +172,27 @@ nil       <span class="co">; ← result of use</span></code></pre>
 java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">:1)</span></code></pre>
 <p><code>'</code> is an alias for the <code>quote</code> special form, which we will talk more about later.</p>
 </aside>
-<h2 id="functions">Functions</h2>
+</section>
+<section class="level2" id="functions">
+<h2>Functions</h2>
 <p>So far we've worked with expressions and simple names defined with <code>def</code>. For structuring any kind of non-trivial programs, we will want to group code into <em>functions</em>.</p>
-<p>Functions are written in source files, and we have one ready, <code>hello.clj</code>, so let's write the following function definition in that file. Functions are defined with <code>defn</code>:</p>
+<p>Functions are written in source files, and we have one ready, <code>hello.clj</code>, so let's write the following function definition in that file. We'll write the function <code>(hello who)</code>, which returns an English greeting for the user.</p>
+<p>Functions are defined with <code>defn</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hello </span>[who]
   (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))</code></pre>
-<p>Write this function to the <code>hello.clj</code> file.</p>
-<p>Let's look at that again, now with running commentary alongside:</p>
+<p>Write this function to the <code>hello.clj</code> file found in the <code>src</code> directory that we created previously.</p>
+<p>Let's take another look at that function, now with running commentary alongside, to make sure we understand its parts.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu">                       </span><span class="co">; Start a function definition:</span>
   hello                     <span class="co">; name</span>
   [who]                     <span class="co">; parameters inside brackets</span>
   (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))  <span class="co">; body</span></code></pre>
-<p>Here <code>hello</code> is the name of the function, <code>[who]</code> is the parameter list, and the expression on the second line is the body of the function. For comparison, our function looks like this in Java:</p>
+<p>Here <code>hello</code> is the name of the function, <code>[who]</code> is the parameter list, and the expression on the second line is the body of the function. The return value of the function is the value of the last expression inside the function body. In this case, it is the value of the <code>(str &quot;Hello, &quot; who &quot;!&quot;)</code> expression.</p>
+<p>For comparison, our function looks like this in Java:</p>
 <pre class="sourceCode java"><code class="sourceCode java">String <span class="fu">hello</span>(String who) {
     <span class="kw">return</span> <span class="st">&quot;Hello, &quot;</span> + who + <span class="st">&quot;!&quot;</span>;
 }</code></pre>
-<p>Now, let's try calling our function:</p>
+<p>Note that in Clojure, there is no <code>return</code> keyword; the return value of a function is always the value of the last expression in the function body.</p>
+<p>Now, let's try calling our function (assuming you have now added it to the <code>hello.clj</code> file and saved the file):</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;example.hello <span class="kw">:reload)</span>
 user=&gt; (hello <span class="st">&quot;Metropolia&quot;</span>)
 <span class="st">&quot;Hello, Metropolia!&quot;</span></code></pre>
@@ -188,7 +201,9 @@ user=&gt; (hello <span class="st">&quot;Metropolia&quot;</span>)
 <span class="co">;=&gt; (str &quot;Hello, &quot; &quot;Metropolia&quot; &quot;!&quot;)</span>
 <span class="co">;=&gt; &quot;Hello, Metropolia!&quot;</span></code></pre>
 <p>We now know all the basics of structuring Clojure programs.</p>
-<h2 id="we-come-gifting-bears">We come gifting bears</h2>
+</section>
+<section class="level2" id="we-come-gifting-bears">
+<h2>We come gifting bears</h2>
 <p>We will now move to a Leiningen-based project structure instead of the one we manually created above. It contains unit tests for the exercises that will follow. No worries, though: you can use <a href="http://git-scm.com">Git</a> to get a ready-made structure we have lovingly hand-crafted just for you:</p>
 <pre><code>$ git clone https://github.com/iloveponies/training-day.git
 Cloning into &#39;training-day&#39;…
@@ -201,12 +216,38 @@ TODO: failing test output</code></pre>
   (<span class="kw">:use</span> training-day
         midje.sweet))
 
-(facts
+(facts <span class="st">&quot;square&quot;</span>
   (square <span class="dv">2</span>) =&gt; <span class="dv">4</span>
   (square <span class="dv">3</span>) =&gt; <span class="dv">9</span>)</code></pre>
-<p>You can ignore the namespace declaration (<code>(ns …)</code>) for now. Look at the <code>facts</code> expression. It declares some properties of the <code>square</code> function. In fact, <code>square</code> is our first exercise! After writing the implementation of <code>square</code> in <code>src/training_day.clj</code>, run <code>lein2 midje</code> again to see if your implementation agrees with the facts declared in our test file.</p>
+<p>You can ignore the namespace declaration (<code>(ns …)</code>) for now. Look at the <code>facts</code> expression. It declares some facts of the <code>square</code> function. A fact, in Midje, is an expression <code>expr =&gt; expected-value</code>, saying: &quot;Evaluating <code>expr</code> should return <code>expected-value</code>&quot;. Our two tests (or facts) say, then, that <code>(square 2)</code> should return <code>4</code> and <code>(square 3)</code> should return 9.</p>
+<p>If you take a look at the file <code>src/training-day.clj</code>, you will see that we've provided a stub for the <code>square</code> function:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> square </span>[n]
+  <span class="st">&quot;:(&quot;</span>)</code></pre>
+<p>Our stub simply returns the string <code>&quot;:(&quot;</code> for all values of <code>n</code>. This will obviously not pass the tests, which we should now verify.</p>
+</section>
+<section class="level2" id="running-tests">
+<h2>Running tests</h2>
+<p>Midje tests are run from the command line, from the root directory of the project. In that directory, the command <code>lein2 midje</code> will run all the tests (or, in other words, verify all the properties) in the project. (Tests are usually put under the <code>test/</code> directory under the project root.)</p>
+<p>Try running the tests now to see that our dummy stub of <code>square</code> indeed does fail its tests:</p>
+<pre><code>$ lein2 midje
+...Lots of information about fetched dependencies...
+...
+...and eventually:
+
+FAIL &quot;square&quot; at (training_day_test.clj:6)
+    Expected: 4
+      Actual: &quot;:(&quot;
+
+FAIL &quot;square&quot; at (training_day_test.clj:7)
+    Expected: 9
+      Actual: &quot;:(&quot;
+
+...and lots more...</code></pre>
+<p>There are various other functions with properties, whose failures you also see here, but the important output, for our purposes, are the failures with the text <code>&quot;square&quot;</code> in them. They indicate that our stub function fails the tests as expected, because the string <code>&quot;:(&quot;</code> is not <code>4</code> or <code>9</code>.</p>
+<p>The first exercise, then, is to implement <code>square</code>.</p>
+<p>After writing the implementation of <code>square</code> in <code>src/training_day.clj</code>, run <code>lein2 midje</code> again to see if your implementation agrees with the facts declared in our test file.</p>
 <section class="exercise alert alert-success">
-<p><em>Exercise:</em> Write a function <code>square</code> that takes a number as a parameter and multiplies it with itself.</p>
+<p><section class="alert alert-success"><em>Exercise:</em> Write the function <code>square</code> that takes a number as a parameter and multiplies it with itself.</section></p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(square <span class="dv">2</span>) <span class="co">;=&gt; 4</span>
 (square <span class="dv">3</span>) <span class="co">;=&gt; 9</span></code></pre>
 </section>
@@ -214,23 +255,50 @@ TODO: failing test output</code></pre>
 <p><section class="alert alert-error"> TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri </section></p>
 <p><section class="alert alert-error"> TODO: doc </section></p>
 <p><section class="alert alert-error"> TODO: lein-shit ja testien ajaminen </section></p>
-<h2 id="if-then-else">If then else</h2>
+</section>
+<section class="level2" id="if-then-else">
+<h2>If then else</h2>
 <blockquote>
 <p>Any program is only as good as it is useful. <small>Linus Torvalds</small></p>
 </blockquote>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> (my-father? darth-vader)
-  (lose-hand me)
-  (gain-hat me))</code></pre>
+<p>Any non-trivial program needs conditionals. Clojure's <code>if</code> looks like the following:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> (my-father? darth-vader)  <span class="co">; Conditional</span>
+  (lose-hand me)              <span class="co">; If true</span>
+  (gain-hat me))              <span class="co">; If false</span></code></pre>
+<p><code>if</code> (usually) takes three parameters: the conditional clause, the <em>then</em> body and the <em>else</em> body. If the first parameter - the conditional clause - is true, the <em>then</em> body is evaluated. Otherwise, the <em>else</em> body is evaluated.</p>
+<p>In functional programming, and specifically in Clojure, everything is an expression. This is a way of saying that everything has a value. Concretely, <code>if</code> has a return value; the value is the value of the evaluated body (either the <em>then</em> or the <em>else</em> body).</p>
+<p>As an example, let's define the function <code>(sign x)</code>, which returns the string <code>&quot;-&quot;</code> if <code>x</code> is negative and otherwise <code>&quot;+&quot;</code>. The function looks like the following:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sign </span>[x]
-  (<span class="kw">if</span> (<span class="kw">&lt;</span> <span class="dv">0</span> x)
+  (<span class="kw">if</span> (<span class="kw">&lt;</span> x <span class="dv">0</span>)
     <span class="st">&quot;-&quot;</span>
     <span class="st">&quot;+&quot;</span>))</code></pre>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;if-then-else <span class="kw">:reload)</span>
-nil
-user=&gt; (sign -<span class="dv">42</span>)
-<span class="st">&quot;-&quot;</span>
-user=&gt; (sign <span class="dv">0</span>)
-<span class="st">&quot;+&quot;</span></code></pre>
+<p>The function definition has one expression, which is an <code>if</code> expression. The value of the function is the value of the <code>if</code> expression, because it is the last expression in the function body. The value of the <code>if</code> expression is either <code>&quot;-&quot;</code> or <code>&quot;+&quot;</code>, depending on the value of the parameter <code>x</code>.</p>
+<p>You can paste the function into the REPL and try calling it with various values of <code>x</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(sign  <span class="dv">2</span>) <span class="co">;=&gt; &quot;+&quot;</span>
+(sign -<span class="dv">2</span>) <span class="co">;=&gt; &quot;-&quot;</span>
+(sign  <span class="dv">0</span>) <span class="co">;=&gt; &quot;+&quot;</span></code></pre>
+<p>There is no need for a <code>return</code> clause -- there is no such keyword in Clojure -- because the return value of a function is always the value of the last expression in the body of the function.</p>
+<section class="alert alert-info">
+<p><code>if</code>, does <em>not</em> have a return value in a language like Java. In other words, it is not an expression, but a clause. Because everything is an expression in Clojure, there is no equivalent construct to Java's <code>if</code> in it.</p>
+<p>For illustration, you could use Java's <code>if</code> to implement <code>sign</code>:</p>
+<pre class="sourceCode java"><code class="sourceCode java">String <span class="fu">sign</span>(<span class="dt">int</span> x) {
+    <span class="kw">if</span> (x &lt; <span class="dv">0</span>)
+        <span class="kw">return</span> <span class="st">&quot;-&quot;</span>;
+    <span class="kw">else</span>
+        <span class="kw">return</span> <span class="st">&quot;+&quot;</span>;
+}</code></pre>
+<p>Note that you need to use the <code>return</code> keyword to indicate when to return from the method. Compare this to Clojure, where the last expression's value will be the function's return value. Because Java's <code>if</code> does not return a value, you can not say:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">return</span> <span class="kw">if</span> (x &lt; <span class="dv">0</span>) <span class="st">&quot;-&quot;</span> <span class="kw">else</span> <span class="st">&quot;+&quot;</span>; <span class="co">// Illegal Java!</span></code></pre>
+</section>
+<p>TODO: Talk about <code>true</code> and <code>false</code>.</p>
+</section>
+<section class="level2" id="conditional-evaluation">
+<h2>Conditional evaluation</h2>
+<p>In any case, <em>only</em> the appropriate expression is evaluated. So the following is not an error:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> true
+  <span class="dv">42</span>
+  (<span class="kw">/</span> <span class="dv">1</span> <span class="dv">0</span>))</code></pre>
+<p>If evaluated, <code>(/ 1 0)</code> would throw an <code>ArithmeticException</code> due to the division by zero. However, the <code>if</code> expression does not evaluate the division at all, because the conditional clause is true and only the <em>then</em> body, <code>42</code>, is evaluated.</p>
 <section class="exercise alert alert-success">
 <p>Write the function <code>(abs n)</code>, which returns the absolute value of <code>n</code>, i.e. if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi><mo>&lt;</mo><mn>0</mn></mrow></math>, the value of <code>(abs n)</code> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>−</mo><mi>n</mi></mrow></math>, and otherwise <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi></mrow></math>.</p>
 </section>
@@ -246,8 +314,10 @@ user=&gt; (sign <span class="dv">0</span>)
 (fizzbuzz <span class="dv">48</span>) <span class="co">;=&gt; &quot;fizz&quot;</span>
 (fizzbuzz <span class="dv">70</span>) <span class="co">;=&gt; &quot;buzz&quot;</span></code></pre>
 </section>
+<p><section class="alert alert-error"> TODO: parempi tiedostojärjestelmä </section></p>
 <p><section class="alert alert-error"> TODO: literate clojure </section></p>
-<p><section class="alert alert-error"> TODO?: lein projektit </section></p>
+<p><section class="alert alert-error"> TODO?: lein2 projektit </section></p>
+</section>
 </div>
 </div>
 </div>
