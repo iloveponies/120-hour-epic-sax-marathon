@@ -266,7 +266,22 @@ FAIL &quot;square&quot; at (training_day_test.clj:7)
   (lose-hand me)              <span class="co">; If true</span>
   (gain-hat me))              <span class="co">; If false</span></code></pre>
 <p><code>if</code> (usually) takes three parameters: the conditional clause, the <em>then</em> body and the <em>else</em> body. If the first parameter - the conditional clause - is true, the <em>then</em> body is evaluated. Otherwise, the <em>else</em> body is evaluated.</p>
-<p>In functional programming, and specifically in Clojure, everything is an expression. This is a way of saying that everything has a value. Concretely, <code>if</code> has a return value; the value is the value of the evaluated body (either the <em>then</em> or the <em>else</em> body).</p>
+<p>Clojure has two boolean values: <code>true</code> and <code>false</code>. However, all values can be used in a boolean context like <code>if</code>. Everything except <code>nil</code> and <code>false</code> act as <code>true</code>. For example, all of the following are valid Clojure:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;yes&quot;</span> <span class="st">&quot;no&quot;</span>) <span class="co">;=&gt; &quot;yes&quot;</span>
+(<span class="kw">if</span> <span class="dv">0</span>     <span class="st">&quot;yes&quot;</span> <span class="st">&quot;no&quot;</span>) <span class="co">;=&gt; &quot;yes&quot;</span>
+(<span class="kw">if</span> []    <span class="st">&quot;yes&quot;</span> <span class="st">&quot;no&quot;</span>) <span class="co">;=&gt; &quot;yes&quot;</span>
+(<span class="kw">if</span> false <span class="st">&quot;yes&quot;</span> <span class="st">&quot;no&quot;</span>) <span class="co">;=&gt; &quot;no&quot;</span>
+(<span class="kw">if</span> nil   <span class="st">&quot;yes&quot;</span> <span class="st">&quot;no&quot;</span>) <span class="co">;=&gt; &quot;no&quot;</span></code></pre>
+<p><code>nil</code> is Clojure's <code>null</code> value. We'll talk about it later.</p>
+<p>Any value can be turned into <code>true</code> or <code>false</code> with the <code>boolean</code> function:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">boolean</span> <span class="st">&quot;foo&quot;</span>)   <span class="co">;=&gt; true</span>
+(<span class="kw">boolean</span> nil)     <span class="co">;=&gt; false</span>
+(<span class="kw">boolean</span> (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">3</span>)) <span class="co">;=&gt; true</span>
+(<span class="kw">boolean</span> true)    <span class="co">;=&gt; true</span>
+(<span class="kw">boolean</span> false)   <span class="co">;=&gt; false</span></code></pre>
+<p><section class="alert alert-success"><em>Exercise:</em> Implement <code>(my-boolean x)</code>, which works like the built-in <code>boolean</code> function: for <code>nil</code> and <code>false</code>, it returns <code>false</code>, and for all other values it returns <code>true</code>. You can use <code>if</code> in its implementation.</section></p>
+<p>TODO: This could be moved to a place where we actually return boolean values.</p>
+<p>In functional programming, and specifically in Clojure, everything is an expression. This is a way of saying that everything has a usable value. Concretely, <code>if</code> has a return value; the value is the value of the evaluated body (either the <em>then</em> or the <em>else</em> body).</p>
 <p>As an example, let's define the function <code>(sign x)</code>, which returns the string <code>&quot;-&quot;</code> if <code>x</code> is negative and otherwise <code>&quot;+&quot;</code>. The function looks like the following:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sign </span>[x]
   (<span class="kw">if</span> (<span class="kw">&lt;</span> x <span class="dv">0</span>)
@@ -290,7 +305,6 @@ FAIL &quot;square&quot; at (training_day_test.clj:7)
 <p>Note that you need to use the <code>return</code> keyword to indicate when to return from the method. Compare this to Clojure, where the last expression's value will be the function's return value. Because Java's <code>if</code> does not return a value, you can not say:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">return</span> <span class="kw">if</span> (x &lt; <span class="dv">0</span>) <span class="st">&quot;-&quot;</span> <span class="kw">else</span> <span class="st">&quot;+&quot;</span>; <span class="co">// Illegal Java!</span></code></pre>
 </section>
-<p>TODO: Talk about <code>true</code> and <code>false</code>.</p>
 </section>
 <section class="level2" id="conditional-evaluation">
 <h2>Conditional evaluation</h2>
