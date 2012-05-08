@@ -428,10 +428,40 @@ following:
 body and the *else* body. If the first parameter - the conditional clause - is
 true, the *then* body is evaluated. Otherwise, the *else* body is evaluated.
 
+Clojure has two boolean values: `true` and `false`. However, all values can be
+used in a boolean context like `if`. Everything except `nil` and `false` act as
+`true`. For example, all of the following are valid Clojure:
+
+~~~ {.clojure}
+(if "foo" "yes" "no") ;=> "yes"
+(if 0     "yes" "no") ;=> "yes"
+(if []    "yes" "no") ;=> "yes"
+(if false "yes" "no") ;=> "no"
+(if nil   "yes" "no") ;=> "no"
+~~~
+
+`nil` is Clojure's `null` value. We'll talk about it later.
+
+Any value can be turned into `true` or `false` with the `boolean` function:
+
+~~~ {.clojure}
+(boolean "foo")   ;=> true
+(boolean nil)     ;=> false
+(boolean (+ 2 3)) ;=> true
+(boolean true)    ;=> true
+(boolean false)   ;=> false
+~~~
+
+*Exercise:* Implement `(my-boolean x)`, which works like the built-in
+`boolean` function: for `nil` and `false`, it returns `false`, and for all
+other values it returns `true`. You can use `if` in its implementation.
+
+TODO: This could be moved to a place where we actually return boolean values.
+
 In functional programming, and specifically in Clojure, everything is an
-expression. This is a way of saying that everything has a value. Concretely,
-`if` has a return value; the value is the value of the evaluated body (either
-the *then* or the *else* body).
+expression. This is a way of saying that everything has a usable value.
+Concretely, `if` has a return value; the value is the value of the evaluated
+body (either the *then* or the *else* body).
 
 As an example, let's define the function `(sign x)`, which returns the string
 `"-"` if `x` is negative and otherwise `"+"`. The function looks like the
@@ -489,8 +519,6 @@ return if (x < 0) "-" else "+"; // Illegal Java!
 ~~~
 
 </section>
-
-TODO: Talk about `true` and `false`.
 
 ## Conditional evaluation
 
