@@ -50,8 +50,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Using the REPL</li>
 <li>Prefix syntax</li>
 <li>Defining functions</li>
-<li><code>if</code> and truthiness</li>
-<li>Everything is an expression / has a value</li>
 </ul>
 </section>
 <section class="level2" id="interactive-clojure">
@@ -102,6 +100,10 @@ user=&gt;</code></pre>
 <td style="text-align: left;"><code>2 - 78 * 35</code></td>
 <td style="text-align: left;"><code>(- 2 (* 78 35))</code></td>
 </tr>
+<tr class="even">
+<td style="text-align: left;"><code>1 + 2 + 3 + 4</code></td>
+<td style="text-align: left;"><code>(+ 1 2 3 4)</code></td>
+</tr>
 </tbody>
 </table>
 <p>Let's input these definitions in our Clojure session to see how they work:</p>
@@ -110,9 +112,11 @@ user=&gt;</code></pre>
 user=&gt; (<span class="kw">*</span> <span class="dv">42</span> <span class="dv">7</span>)
 <span class="dv">294</span>
 user=&gt; (<span class="kw">-</span> <span class="dv">2</span> (<span class="kw">*</span> <span class="dv">78</span> <span class="dv">35</span>))
--<span class="dv">2728</span></code></pre>
+-<span class="dv">2728</span>
+user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>)
+<span class="dv">10</span></code></pre>
 <p><section class="alert alert-success"><em>Exercise:</em> Write the following expression in the Clojure prefix syntax: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mn>2</mn><mo>*</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>4</mn></mrow></math>. Try evaluating it in the interactive session. The result should be 10.</section></p>
-<p>A function call in Clojure is exactly the same as the arithmetic operations above. As an example, let's take a look at getting a single character from a string in Clojure and Java. In Clojure, we can use the <code>get</code> function for this:</p>
+<p>The arithmetic operations above are, in fact, function calls. That is, <code>+</code> is actually a function (called <code>+</code>), as are <code>*</code> and <code>-</code>. All function calls in Clojure look the same: <code>(function-name argument-1 argument-2 ...)</code>. As an example of a non-arithmetic function, let's take a look at getting a single character from a string in Clojure and Java. In Clojure, we can use the <code>get</code> function for this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> <span class="st">&quot;Clojure&quot;</span> <span class="dv">2</span>) <span class="co">;=&gt; \o</span></code></pre>
 <p>The result is the character <code>o</code>, printed in Clojure's literal character syntax. (That is, <code>\o</code> in Clojure code means the single character <code>o</code>. In Java, you would write a literal character as <code>'o'</code>.)</p>
 <p>In Java, we reorder things a bit: the first parameter goes <em>before</em> the method name, and the parentheses are moved <em>after</em> the method name:</p>
@@ -204,14 +208,14 @@ user=&gt; (hello <span class="st">&quot;Metropolia&quot;</span>)
 </section>
 <section class="level2" id="we-come-gifting-bears">
 <h2>We come gifting bears</h2>
-<p>We will now move to a Leiningen-based project structure instead of the one we manually created above. It contains unit tests for the exercises that will follow. No worries, though: you can use <a href="http://git-scm.com">Git</a> to get a ready-made structure we have lovingly hand-crafted just for you:</p>
+<p>We will now move to a Leiningen-based project structure instead of the one we manually created above. It contains unit tests for the exercises that will follow. No worries, though: you can use [Git] to get a ready-made structure we have lovingly hand-crafted just for you:</p>
 <pre><code>$ git clone https://github.com/iloveponies/training-day.git
 Cloning into &#39;training-day&#39;…
 …more output…
 $ cd training-day
 $ lein2 midje
 TODO: failing test output</code></pre>
-<p>Our project uses the <a href="https://github.com/marick/Midje">Midje</a> testing library. Let's take a look at what kind of tests the project contains. Open the file <code>test/training_day_test.clj</code>. The first ten lines or so of the file look like this:</p>
+<p>Our project uses the [Midje] testing library. Let's take a look at what kind of tests the project contains. Open the file <code>test/training_day_test.clj</code>. The first ten lines or so of the file look like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">ns</span> training-day-test
   (<span class="kw">:use</span> training-day
         midje.sweet))
@@ -255,82 +259,6 @@ FAIL &quot;square&quot; at (training_day_test.clj:7)
 <p><section class="alert alert-error"> TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri </section></p>
 <p><section class="alert alert-error"> TODO: doc </section></p>
 <p><section class="alert alert-error"> TODO: lein-shit ja testien ajaminen </section></p>
-</section>
-<section class="level2" id="if-then-else">
-<h2>If then else</h2>
-<blockquote>
-<p>Any program is only as good as it is useful. <small>Linus Torvalds</small></p>
-</blockquote>
-<p>Any non-trivial program needs conditionals. Clojure's <code>if</code> looks like the following:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> (my-father? darth-vader)  <span class="co">; Conditional</span>
-  (lose-hand me)              <span class="co">; If true</span>
-  (gain-hat me))              <span class="co">; If false</span></code></pre>
-<p><code>if</code> (usually) takes three parameters: the conditional clause, the <em>then</em> body and the <em>else</em> body. If the first parameter - the conditional clause - is true, the <em>then</em> body is evaluated. Otherwise, the <em>else</em> body is evaluated.</p>
-<p>Clojure has two boolean values: <code>true</code> and <code>false</code>. However, all values can be used in a boolean context like <code>if</code>. Everything except <code>nil</code> and <code>false</code> act as <code>true</code>. For example, all of the following are valid Clojure:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;yes&quot;</span> <span class="st">&quot;no&quot;</span>) <span class="co">;=&gt; &quot;yes&quot;</span>
-(<span class="kw">if</span> <span class="dv">0</span>     <span class="st">&quot;yes&quot;</span> <span class="st">&quot;no&quot;</span>) <span class="co">;=&gt; &quot;yes&quot;</span>
-(<span class="kw">if</span> []    <span class="st">&quot;yes&quot;</span> <span class="st">&quot;no&quot;</span>) <span class="co">;=&gt; &quot;yes&quot;</span>
-(<span class="kw">if</span> false <span class="st">&quot;yes&quot;</span> <span class="st">&quot;no&quot;</span>) <span class="co">;=&gt; &quot;no&quot;</span>
-(<span class="kw">if</span> nil   <span class="st">&quot;yes&quot;</span> <span class="st">&quot;no&quot;</span>) <span class="co">;=&gt; &quot;no&quot;</span></code></pre>
-<p><code>nil</code> is Clojure's <code>null</code> value. We'll talk about it later.</p>
-<p>Any value can be turned into <code>true</code> or <code>false</code> with the <code>boolean</code> function:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">boolean</span> <span class="st">&quot;foo&quot;</span>)   <span class="co">;=&gt; true</span>
-(<span class="kw">boolean</span> nil)     <span class="co">;=&gt; false</span>
-(<span class="kw">boolean</span> (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">3</span>)) <span class="co">;=&gt; true</span>
-(<span class="kw">boolean</span> true)    <span class="co">;=&gt; true</span>
-(<span class="kw">boolean</span> false)   <span class="co">;=&gt; false</span></code></pre>
-<p><section class="alert alert-success"><em>Exercise:</em> Implement <code>(my-boolean x)</code>, which works like the built-in <code>boolean</code> function: for <code>nil</code> and <code>false</code>, it returns <code>false</code>, and for all other values it returns <code>true</code>. You can use <code>if</code> in its implementation.</section></p>
-<p>TODO: This could be moved to a place where we actually return boolean values.</p>
-<p>In functional programming, and specifically in Clojure, everything is an expression. This is a way of saying that everything has a usable value. Concretely, <code>if</code> has a return value; the value is the value of the evaluated body (either the <em>then</em> or the <em>else</em> body).</p>
-<p>As an example, let's define the function <code>(sign x)</code>, which returns the string <code>&quot;-&quot;</code> if <code>x</code> is negative and otherwise <code>&quot;+&quot;</code>. The function looks like the following:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sign </span>[x]
-  (<span class="kw">if</span> (<span class="kw">&lt;</span> x <span class="dv">0</span>)
-    <span class="st">&quot;-&quot;</span>
-    <span class="st">&quot;+&quot;</span>))</code></pre>
-<p>The function definition has one expression, which is an <code>if</code> expression. The value of the function is the value of the <code>if</code> expression, because it is the last expression in the function body. The value of the <code>if</code> expression is either <code>&quot;-&quot;</code> or <code>&quot;+&quot;</code>, depending on the value of the parameter <code>x</code>.</p>
-<p>You can paste the function into the REPL and try calling it with various values of <code>x</code>:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(sign  <span class="dv">2</span>) <span class="co">;=&gt; &quot;+&quot;</span>
-(sign -<span class="dv">2</span>) <span class="co">;=&gt; &quot;-&quot;</span>
-(sign  <span class="dv">0</span>) <span class="co">;=&gt; &quot;+&quot;</span></code></pre>
-<p>There is no need for a <code>return</code> clause -- there is no such keyword in Clojure -- because the return value of a function is always the value of the last expression in the body of the function.</p>
-<section class="alert alert-info">
-<p><code>if</code>, does <em>not</em> have a return value in a language like Java. In other words, it is not an expression, but a clause. Because everything is an expression in Clojure, there is no equivalent construct to Java's <code>if</code> in it.</p>
-<p>For illustration, you could use Java's <code>if</code> to implement <code>sign</code>:</p>
-<pre class="sourceCode java"><code class="sourceCode java">String <span class="fu">sign</span>(<span class="dt">int</span> x) {
-    <span class="kw">if</span> (x &lt; <span class="dv">0</span>)
-        <span class="kw">return</span> <span class="st">&quot;-&quot;</span>;
-    <span class="kw">else</span>
-        <span class="kw">return</span> <span class="st">&quot;+&quot;</span>;
-}</code></pre>
-<p>Note that you need to use the <code>return</code> keyword to indicate when to return from the method. Compare this to Clojure, where the last expression's value will be the function's return value. Because Java's <code>if</code> does not return a value, you can not say:</p>
-<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">return</span> <span class="kw">if</span> (x &lt; <span class="dv">0</span>) <span class="st">&quot;-&quot;</span> <span class="kw">else</span> <span class="st">&quot;+&quot;</span>; <span class="co">// Illegal Java!</span></code></pre>
-</section>
-</section>
-<section class="level2" id="conditional-evaluation">
-<h2>Conditional evaluation</h2>
-<p>In any case, <em>only</em> the appropriate expression is evaluated. So the following is not an error:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> true
-  <span class="dv">42</span>
-  (<span class="kw">/</span> <span class="dv">1</span> <span class="dv">0</span>))</code></pre>
-<p>If evaluated, <code>(/ 1 0)</code> would throw an <code>ArithmeticException</code> due to the division by zero. However, the <code>if</code> expression does not evaluate the division at all, because the conditional clause is true and only the <em>then</em> body, <code>42</code>, is evaluated.</p>
-<section class="exercise alert alert-success">
-<p>Write the function <code>(abs n)</code>, which returns the absolute value of <code>n</code>, i.e. if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi><mo>&lt;</mo><mn>0</mn></mrow></math>, the value of <code>(abs n)</code> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>−</mo><mi>n</mi></mrow></math>, and otherwise <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi></mrow></math>.</p>
-</section>
-<p><section class="alert alert-error"> TODO: <code>mod</code> </section></p>
-<section class="exercise alert alert-success">
-<p>Write the function <code>(fizzbuzz n)</code> that returns</p>
-<ul>
-<li><code>&quot;fizz&quot;</code> when <code>n</code> is divisible by 3,</li>
-<li><code>&quot;buzz&quot;</code> when <code>n</code> is divisible by 5,</li>
-<li>but <em>only</em> <code>&quot;gotcha!&quot;</code> when <code>n</code> is divisible by 15.</li>
-</ul>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(fizzbuzz <span class="dv">45</span>) <span class="co">;=&gt; &quot;gotcha!&quot;</span>
-(fizzbuzz <span class="dv">48</span>) <span class="co">;=&gt; &quot;fizz&quot;</span>
-(fizzbuzz <span class="dv">70</span>) <span class="co">;=&gt; &quot;buzz&quot;</span></code></pre>
-</section>
-<p><section class="alert alert-error"> TODO: parempi tiedostojärjestelmä </section></p>
-<p><section class="alert alert-error"> TODO: literate clojure </section></p>
-<p><section class="alert alert-error"> TODO?: lein2 projektit </section></p>
 </section>
 </div>
 </div>

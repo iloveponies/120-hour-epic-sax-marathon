@@ -141,6 +141,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
       new      (<span class="kw">assoc</span> original <span class="dv">2</span> <span class="st">&quot;foo&quot;</span>)]
   original)
 <span class="co">;=&gt; [1 2 3 4]</span></code></pre>
+<p><code>count</code> returns the size of a collection:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">count</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; 4</span>
+(<span class="kw">count</span> [])        <span class="co">;=&gt; 0</span></code></pre>
 </section>
 <section class="level2" id="postmodernism">
 <h2>Postmodernism</h2>
@@ -176,25 +179,41 @@ code > span.er { color: #ff0000; font-weight: bold; }
   (<span class="kw">get</span> ages <span class="st">&quot;King of All Cosmos&quot;</span>))
 <span class="co">;=&gt; -6</span></code></pre>
 <p>In idiomatic Clojure programs, the keys of a map are often <em>keywords</em>. Keywords are a convenient way of naming keys for values in associative collections such as maps. They are written with a preceding <code>:</code>.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> my-book </span>{<span class="kw">:title</span> <span class="st">&quot;My little book of ponies&quot;</span>
-              <span class="kw">:description</span> <span class="st">&quot;Learn all about ponies!&quot;</span>})
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> book </span>{<span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>
+           <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
 
-(<span class="kw">get</span> my-book <span class="kw">:title)</span> <span class="co">;=&gt; &quot;My little book of ponies&quot;</span></code></pre>
+(<span class="kw">get</span> book <span class="kw">:title)</span> <span class="co">;=&gt; &quot;The City and the City&quot;</span></code></pre>
 <p>Keywords are even more convenient than this. They work as functions that access collections:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">:description</span> my-book) <span class="co">;=&gt;  &quot;Learn all about ponies!&quot;</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">:title</span> book) <span class="co">;=&gt; &quot;The City and the City&quot;</span></code></pre>
 <p>When used as a function and given a collection, a keyword looks itself up in the collection and returns the value associated with it.</p>
 <p><code>assoc</code> works with a map:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">assoc</span> my-book <span class="kw">:price</span> <span class="st">&quot;NINE GIGAZILLION ERDÖS&quot;</span>)
-<span class="co">;=&gt; {:title &quot;My little book of ponies&quot;</span>
-<span class="co">;    :description &quot;Learn all about ponies!&quot;</span>
-<span class="co">;    :price &quot;NINE GIGAZILLION ERDÖS&quot;}</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">assoc</span> book <span class="kw">:awards</span> [<span class="st">&quot;Hugo&quot;</span>, <span class="st">&quot;World Fantasy Award&quot;</span>, <span class="st">&quot;Arthur C. Clarke Award&quot;</span>, <span class="st">&quot;British Science Fiction Award&quot;</span>])
+<span class="co">;=&gt; {:author {:birth-year 1972, :name &quot;China Miéville&quot;}</span>
+<span class="co">;    :awards [&quot;Hugo&quot; &quot;World Fantasy Award&quot; &quot;Arthur C. Clarke Award&quot; &quot;British Science Fiction Award&quot;]</span>
+<span class="co">;    :title &quot;The City and the City&quot;}</span></code></pre>
 <p>The keys and values of a map can be of any data type, and one map can contain any number of different data types as both keys and values.</p>
+<p><code>count</code> returns the size of a map, which is determined by how many keys it has:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">count</span> {<span class="kw">:a</span> <span class="dv">42</span>, <span class="kw">:b</span> <span class="st">&quot;foo&quot;</span>, <span class="kw">:c</span> <span class="dv">1337</span>}) <span class="co">;=&gt; 3</span>
+(<span class="kw">count</span> {})                         <span class="co">;=&gt; 0</span></code></pre>
 <p>TODO: Talk about destructuring maps at some point.</p>
+<p>Let's define a couple of books like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> cities </span>{<span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>
+             <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
+(<span class="kw">def</span><span class="fu"> wild-seed </span>{<span class="kw">:title</span> <span class="st">&quot;Wild Seed&quot;</span>,
+                <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Octavia E. Butler&quot;</span>
+                         <span class="kw">:birth-year</span> <span class="dv">1947</span>
+                         <span class="kw">:death-year</span> <span class="dv">2006</span>}})</code></pre>
 <section class="alert alert-success">
-<p>Let's define a map that represents a book:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> cities </span>{<span class="kw">:author</span> <span class="st">&quot;China Miéville&quot;</span> <span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>})</code></pre>
+<p>Write the function <code>(alive? author)</code> which takes an author map and returns <code>true</code> if the <code>author</code> is alive, otherwise <code>false</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(alive? (<span class="kw">:author</span> cities))    <span class="co">;=&gt; true</span>
+(alive? (<span class="kw">:author</span> wild-seed)) <span class="co">;=&gt; false</span></code></pre>
+</section>
+<section class="alert alert-success">
 <p>Write the function <code>(title-length book)</code> that counts the length of the book's title. Use <code>let</code> to extract the title.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(title-length cities) <span class="co">;=&gt; 21</span></code></pre>
+<p>You can use <code>count</code> to find out the length of a string:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">count</span> <span class="st">&quot;foo&quot;</span>) <span class="co">;=&gt; 3</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(title-length cities)    <span class="co">;=&gt; 21</span>
+(title-length wild-seed) <span class="co">;=&gt; 9</span></code></pre>
 <p>TODO: kirjakamaa: vektorillinen kirjoja ja niihin liittyviä apufunktioita, paloittele Conania tänne sekaan.</p>
 </section>
 </section>
