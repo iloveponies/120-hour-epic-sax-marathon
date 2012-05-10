@@ -294,10 +294,12 @@ You can use `count` to find out the length of a string:
 (title-length wild-seed) ;=> 9
 ~~~
 
+</section>
+
 TODO: kirjakamaa: vektorillinen kirjoja ja niihin liittyviä apufunktioita,
 paloittele Conania tänne sekaan.
 
-</section>
+TODO: map, filter, sekvenssit, fn, mapv, filterv, sovelletaan cirjoihin
 
 ## Sequences
 
