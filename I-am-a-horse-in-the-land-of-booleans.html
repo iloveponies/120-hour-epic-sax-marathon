@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="120 hour epic">
+  <title>I am a horse in the land of booleans</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="css/base.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+<header>
+<h1 class="title">I am a horse in the land of booleans</h1>
+<h2 class="author">120 hour epic</h2>
+<h3 class="date">sax marathon</h3>
+</header>
+<blockquote>
+<p>Any program is only as good as it is useful. <small>Linus Torvalds</small></p>
+</blockquote>
+<section class="level2" id="synopsis">
+<h2>Synopsis</h2>
+<ul>
+<li><code>if</code> and truthiness</li>
+<li>Everything is an expression / has a value</li>
+</ul>
+</section>
+<section class="level2" id="if-then-else">
+<h2>If then else</h2>
+<p>Any non-trivial program needs conditionals. Clojure's <code>if</code> looks like the following:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> (my-father? darth-vader)  <span class="co">; Conditional</span>
+  (lose-hand me)              <span class="co">; If true</span>
+  (gain-hat me))              <span class="co">; If false</span></code></pre>
+<p><code>if</code> (usually) takes three parameters: the conditional clause, the <em>then</em> body and the <em>else</em> body. If the first parameter - the conditional clause - is true, the <em>then</em> body is evaluated. Otherwise, the <em>else</em> body is evaluated.</p>
+<p>Clojure has two boolean values: <code>true</code> and <code>false</code>. However, all values can be used in a boolean context like <code>if</code>. Everything except <code>nil</code> and <code>false</code> act as <code>true</code>. For example, all of the following are valid Clojure:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;truthy&quot;</span> <span class="st">&quot;falsey&quot;</span>) <span class="co">;=&gt; &quot;truthy&quot;</span>
+(<span class="kw">if</span> <span class="dv">0</span>     <span class="st">&quot;truthy&quot;</span> <span class="st">&quot;falsey&quot;</span>) <span class="co">;=&gt; &quot;truthy&quot;</span>
+(<span class="kw">if</span> []    <span class="st">&quot;truthy&quot;</span> <span class="st">&quot;falsey&quot;</span>) <span class="co">;=&gt; &quot;truthy&quot;</span>
+(<span class="kw">if</span> false <span class="st">&quot;truthy&quot;</span> <span class="st">&quot;falsey&quot;</span>) <span class="co">;=&gt; &quot;falsey&quot;</span>
+(<span class="kw">if</span> nil   <span class="st">&quot;truthy&quot;</span> <span class="st">&quot;falsey&quot;</span>) <span class="co">;=&gt; &quot;falsey&quot;</span></code></pre>
+<p><code>nil</code> is Clojure's <code>null</code> value. We'll talk about it later.</p>
+<p>To make it easier to talk about values in boolean context, we define the following terminology:</p>
+<ul>
+<li><p>If a value is considered true in boolean context, we call it <code>truthy</code>.</p></li>
+<li><p>If a value is considered false, we call it <code>falsey</code>.</p></li>
+</ul>
+<p>Any value can be turned into <code>true</code> or <code>false</code> with the <code>boolean</code> function:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">boolean</span> <span class="st">&quot;foo&quot;</span>)   <span class="co">;=&gt; true</span>
+(<span class="kw">boolean</span> nil)     <span class="co">;=&gt; false</span>
+(<span class="kw">boolean</span> (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">3</span>)) <span class="co">;=&gt; true</span>
+(<span class="kw">boolean</span> true)    <span class="co">;=&gt; true</span>
+(<span class="kw">boolean</span> false)   <span class="co">;=&gt; false</span></code></pre>
+<p><section class="alert alert-success"><em>Exercise:</em> Implement <code>(my-boolean x)</code>, which works like the built-in <code>boolean</code> function: for <code>nil</code> and <code>false</code>, it returns <code>false</code>, and for all other values it returns <code>true</code>. You can use <code>if</code> in its implementation.</section></p>
+<p>TODO: This could be moved to a place where we actually return boolean values.</p>
+<p>In functional programming, and specifically in Clojure, everything is an expression. This is a way of saying that everything has a usable value. Concretely, <code>if</code> has a return value; the value is the value of the evaluated body (either the <em>then</em> or the <em>else</em> body).</p>
+<p>As an example, let's define the function <code>(sign x)</code>, which returns the string <code>&quot;-&quot;</code> if <code>x</code> is negative and otherwise <code>&quot;+&quot;</code>. The function looks like the following:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sign </span>[x]
+  (<span class="kw">if</span> (<span class="kw">&lt;</span> x <span class="dv">0</span>)
+    <span class="st">&quot;-&quot;</span>
+    <span class="st">&quot;+&quot;</span>))</code></pre>
+<p>The function definition has one expression, which is an <code>if</code> expression. The value of the function is the value of the <code>if</code> expression, because it is the last expression in the function body. The value of the <code>if</code> expression is either <code>&quot;-&quot;</code> or <code>&quot;+&quot;</code>, depending on the value of the parameter <code>x</code>.</p>
+<p>You can paste the function into the REPL and try calling it with various values of <code>x</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(sign  <span class="dv">2</span>) <span class="co">;=&gt; &quot;+&quot;</span>
+(sign -<span class="dv">2</span>) <span class="co">;=&gt; &quot;-&quot;</span>
+(sign  <span class="dv">0</span>) <span class="co">;=&gt; &quot;+&quot;</span></code></pre>
+<p>There is no need for a <code>return</code> clause -- there is no such keyword in Clojure -- because the return value of a function is always the value of the last expression in the body of the function.</p>
+<section class="alert alert-info">
+<p><code>if</code>, does <em>not</em> have a return value in a language like Java. In other words, it is not an expression, but a clause. Because everything is an expression in Clojure, there is no equivalent construct to Java's <code>if</code> in it.</p>
+<p>For illustration, you could use Java's <code>if</code> to implement <code>sign</code>:</p>
+<pre class="sourceCode java"><code class="sourceCode java">String <span class="fu">sign</span>(<span class="dt">int</span> x) {
+    <span class="kw">if</span> (x &lt; <span class="dv">0</span>)
+        <span class="kw">return</span> <span class="st">&quot;-&quot;</span>;
+    <span class="kw">else</span>
+        <span class="kw">return</span> <span class="st">&quot;+&quot;</span>;
+}</code></pre>
+<p>Note that you need to use the <code>return</code> keyword to indicate when to return from the method. Compare this to Clojure, where the last expression's value will be the function's return value. Because Java's <code>if</code> does not return a value, you can not say:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">return</span> <span class="kw">if</span> (x &lt; <span class="dv">0</span>) <span class="st">&quot;-&quot;</span> <span class="kw">else</span> <span class="st">&quot;+&quot;</span>; <span class="co">// Illegal Java!</span></code></pre>
+</section>
+</section>
+<section class="level2" id="conditional-evaluation">
+<h2>Conditional evaluation</h2>
+<p>In any case, <em>only</em> the appropriate expression is evaluated. So the following is not an error:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> true
+  <span class="dv">42</span>
+  (<span class="kw">/</span> <span class="dv">1</span> <span class="dv">0</span>))</code></pre>
+<p>If evaluated, <code>(/ 1 0)</code> would throw an <code>ArithmeticException</code> due to the division by zero. However, the <code>if</code> expression does not evaluate the division at all, because the conditional clause is true and only the <em>then</em> body, <code>42</code>, is evaluated.</p>
+<section class="exercise alert alert-success">
+<p>Write the function <code>(abs n)</code>, which returns the absolute value of <code>n</code>, i.e. if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi><mo>&lt;</mo><mn>0</mn></mrow></math>, the value of <code>(abs n)</code> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>−</mo><mi>n</mi></mrow></math>, and otherwise <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi></mrow></math>.</p>
+</section>
+<p><section class="alert alert-error"> TODO: <code>mod</code> </section></p>
+<section class="exercise alert alert-success">
+<p>Write the function <code>(fizzbuzz n)</code> that returns</p>
+<ul>
+<li><code>&quot;fizz&quot;</code> when <code>n</code> is divisible by 3,</li>
+<li><code>&quot;buzz&quot;</code> when <code>n</code> is divisible by 5,</li>
+<li>but <em>only</em> <code>&quot;gotcha!&quot;</code> when <code>n</code> is divisible by 15.</li>
+</ul>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(fizzbuzz <span class="dv">45</span>) <span class="co">;=&gt; &quot;gotcha!&quot;</span>
+(fizzbuzz <span class="dv">48</span>) <span class="co">;=&gt; &quot;fizz&quot;</span>
+(fizzbuzz <span class="dv">70</span>) <span class="co">;=&gt; &quot;buzz&quot;</span></code></pre>
+</section>
+</section>
+<section class="level2" id="boolean-functions">
+<h2>Boolean Functions</h2>
+<p>The common boolean functions in Clojure are <code>and</code>, <code>or</code> and <code>not</code>. These roughly match the <code>&amp;&amp;</code>, <code>||</code> and <code>!</code> operators of languages like Java.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">and</span> true true)   <span class="co">;=&gt; true</span>
+(<span class="kw">and</span> true false)  <span class="co">;=&gt; false</span>
+
+(<span class="kw">or</span>  true false)  <span class="co">;=&gt; true</span>
+(<span class="kw">or</span>  false false) <span class="co">;=&gt; false</span>
+
+(<span class="kw">not</span> true)        <span class="co">;=&gt; false</span>
+(<span class="kw">not</span> false)       <span class="co">;=&gt; true</span></code></pre>
+<p><code>and</code> and <code>or</code> take an arbitrary amount of arguments:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">and</span> true)                      <span class="co">;=&gt; true</span>
+(<span class="kw">and</span> true true true)            <span class="co">;=&gt; true</span>
+(<span class="kw">and</span> true true true true false) <span class="co">;=&gt; false</span>
+(<span class="kw">and</span>)                           <span class="co">;=&gt; true</span>
+
+(<span class="kw">or</span> false false false false true) <span class="co">;=&gt; true</span>
+(<span class="kw">or</span> false false false)            <span class="co">;=&gt; false</span>
+(<span class="kw">or</span>)                              <span class="co">;=&gt; nil</span></code></pre>
+<p>In addition to booleans, <code>and</code>, <code>or</code> and <code>not</code> accept non-boolean values as arguments as well. (Remember that <code>false</code> and <code>nil</code> are falsey and everything else is truthy.)</p>
+<p><code>and</code> returns truthy if all of its arguments are truthy:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">and</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>)   =&gt; <span class="st">&quot;bar&quot;</span>
+(<span class="kw">and</span> <span class="st">&quot;foo&quot;</span>  false)  =&gt; false
+(<span class="kw">and</span>  <span class="dv">10</span>    nil)    =&gt; nil</code></pre>
+<p><code>or</code> returns truthy if any of its arguments are falsey:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">or</span>  <span class="st">&quot;foo&quot;</span>  false)  =&gt; <span class="st">&quot;foo&quot;</span>
+(<span class="kw">or</span>   <span class="dv">42</span>    true)   =&gt; <span class="dv">42</span></code></pre>
+<p><code>not</code> returns <code>true</code> if its argument is falsey and <code>false</code> if its argument is truthy:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">not</span> <span class="st">&quot;foo&quot;</span>)         =&gt; false
+(<span class="kw">not</span> nil)           =&gt; true
+(<span class="kw">not</span> [])            =&gt; false</code></pre>
+<p>This behaviour might look surprising, but it is consistent. What's happening is that if all the arguments to <code>and</code> are truthy, it returns the value of the last argument. Otherwise, it returns the value of the first falsey argument. Conversely, <code>or</code> returns either the first truthy value or the last falsey value.</p>
+<p>While it might seem odd that boolean functions return non-boolean values, remember that all values in Clojure in fact act as boolean values. This behaviour is useful in many situations. For an example, it allows you to provide default values for variables when taking input:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> server-port </span>(<span class="kw">or</span> (commandline-parameters <span class="kw">:port)</span> <span class="dv">80</span>))</code></pre>
+<p>TODO: tehtävä näistä</p>
+<p><section class="alert alert-error"> TODO: parempi tiedostojärjestelmä </section></p>
+<p><section class="alert alert-error"> TODO: literate clojure </section></p>
+<p><section class="alert alert-error"> TODO?: lein2 projektit </section></p>
+</section>
+</div>
+</div>
+</div>
+</body>
+</html>
