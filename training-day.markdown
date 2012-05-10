@@ -9,8 +9,6 @@ A whirlwind tour of the basics of Clojure, including:
 - Using the REPL
 - Prefix syntax
 - Defining functions
-- `if` and truthiness
-- Everything is an expression / has a value
 
 ## Interactive Clojure
 
@@ -57,11 +55,12 @@ arithmetic operations are usually written in the mathematical notation called
 The next table shows what mathematical expressions look like in these two
 syntaxes.
 
-Java           Clojure
--------        -------
-`2 + 3`        `(+ 2 3)`
-`42 * 7`       `(* 42 7)`
-`2 - 78 * 35`  `(- 2 (* 78 35))`
+Java            Clojure
+-------         -------
+`2 + 3`         `(+ 2 3)`
+`42 * 7`        `(* 42 7)`
+`2 - 78 * 35`   `(- 2 (* 78 35))`
+`1 + 2 + 3 + 4` `(+ 1 2 3 4)`
 
 Let's input these definitions in our Clojure session to see how they work:
 
@@ -72,16 +71,20 @@ user=> (* 42 7)
 294
 user=> (- 2 (* 78 35))
 -2728
+user=> (+ 1 2 3 4)
+10
 ~~~
 
 *Exercise:* Write the following expression in the Clojure prefix syntax: $(2 *
 3) + 4$. Try evaluating it in the interactive session. The result should be
 10.
 
-A function call in Clojure is exactly the same as the arithmetic operations
-above. As an example, let's take a look at getting a single character from a
-string in Clojure and Java. In Clojure, we can use the `get` function for
-this:
+The arithmetic operations above are, in fact, function calls. That is, `+` is
+actually a function (called `+`), as are `*` and `-`. All function calls in
+Clojure look the same: `(function-name argument-1 argument-2 ...)`. As an
+example of a non-arithmetic function, let's take a look at getting a single
+character from a string in Clojure and Java. In Clojure, we can use the `get`
+function for this:
 
 ~~~ {.clojure}
 (get "Clojure" 2) ;=> \o
@@ -410,170 +413,3 @@ TODO: doc
 <section class="alert alert-error">
 TODO: lein-shit ja testien ajaminen
 </section>
-
-## If then else
-
-> Any program is only as good as it is useful. <small>Linus Torvalds</small>
-
-Any non-trivial program needs conditionals. Clojure's `if` looks like the
-following:
-
-~~~ {.clojure}
-(if (my-father? darth-vader)  ; Conditional
-  (lose-hand me)              ; If true
-  (gain-hat me))              ; If false
-~~~
-
-`if` (usually) takes three parameters: the conditional clause, the *then*
-body and the *else* body. If the first parameter - the conditional clause - is
-true, the *then* body is evaluated. Otherwise, the *else* body is evaluated.
-
-Clojure has two boolean values: `true` and `false`. However, all values can be
-used in a boolean context like `if`. Everything except `nil` and `false` act as
-`true`. For example, all of the following are valid Clojure:
-
-~~~ {.clojure}
-(if "foo" "yes" "no") ;=> "yes"
-(if 0     "yes" "no") ;=> "yes"
-(if []    "yes" "no") ;=> "yes"
-(if false "yes" "no") ;=> "no"
-(if nil   "yes" "no") ;=> "no"
-~~~
-
-`nil` is Clojure's `null` value. We'll talk about it later.
-
-Any value can be turned into `true` or `false` with the `boolean` function:
-
-~~~ {.clojure}
-(boolean "foo")   ;=> true
-(boolean nil)     ;=> false
-(boolean (+ 2 3)) ;=> true
-(boolean true)    ;=> true
-(boolean false)   ;=> false
-~~~
-
-*Exercise:* Implement `(my-boolean x)`, which works like the built-in
-`boolean` function: for `nil` and `false`, it returns `false`, and for all
-other values it returns `true`. You can use `if` in its implementation.
-
-TODO: This could be moved to a place where we actually return boolean values.
-
-In functional programming, and specifically in Clojure, everything is an
-expression. This is a way of saying that everything has a usable value.
-Concretely, `if` has a return value; the value is the value of the evaluated
-body (either the *then* or the *else* body).
-
-As an example, let's define the function `(sign x)`, which returns the string
-`"-"` if `x` is negative and otherwise `"+"`. The function looks like the
-following:
-
-~~~ {.clojure}
-(defn sign [x]
-  (if (< x 0)
-    "-"
-    "+"))
-~~~
-
-The function definition has one expression, which is an `if` expression. The
-value of the function is the value of the `if` expression, because it is the
-last expression in the function body. The value of the `if` expression is
-either `"-"` or `"+"`, depending on the value of the parameter `x`.
-
-You can paste the function into the REPL and try calling it with various
-values of `x`:
-
-~~~ {.clojure}
-(sign  2) ;=> "+"
-(sign -2) ;=> "-"
-(sign  0) ;=> "+"
-~~~
-
-There is no need for a `return` clause -- there is no such keyword in Clojure
--- because the return value of a function is always the value of the last
-expression in the body of the function.
-
-<section class="alert alert-info">
-
-`if`, does *not* have a return value in a language like Java. In other words,
-it is not an expression, but a clause. Because everything is an expression in
-Clojure, there is no equivalent construct to Java's `if` in it.
-
-For illustration, you could use Java's `if` to implement `sign`:
-
-~~~ {.java}
-String sign(int x) {
-    if (x < 0)
-        return "-";
-    else
-        return "+";
-}
-~~~
-
-Note that you need to use the `return` keyword to indicate when to return from
-the method. Compare this to Clojure, where the last expression's value will be
-the function's return value. Because Java's `if` does not return a value, you
-can not say:
-
-~~~ {.java}
-return if (x < 0) "-" else "+"; // Illegal Java!
-~~~
-
-</section>
-
-## Conditional evaluation
-
-In any case, *only* the appropriate expression is evaluated. So the following
-is not an error:
-
-~~~ {.clojure}
-(if true
-  42
-  (/ 1 0))
-~~~
-
-If evaluated, `(/ 1 0)` would throw an `ArithmeticException` due to the
-division by zero. However, the `if` expression does not evaluate the division
-at all, because the conditional clause is true and only the *then* body, `42`,
-is evaluated.
-
-<section class="exercise alert alert-success">
-
-Write the function `(abs n)`, which returns the absolute value of `n`, i.e. if
-$n < 0$, the value of `(abs n)` is $- n$, and otherwise $n$.
-
-</section>
-
-<section class="alert alert-error">
-TODO: `mod`
-</section>
-
-<section class="exercise alert alert-success">
-
-Write the function `(fizzbuzz n)` that returns
-
-- `"fizz"` when `n` is divisible by 3,
-- `"buzz"` when `n` is divisible by 5,
-- but *only* `"gotcha!"` when `n` is divisible by 15.
-
-~~~ {.clojure}
-(fizzbuzz 45) ;=> "gotcha!"
-(fizzbuzz 48) ;=> "fizz"
-(fizzbuzz 70) ;=> "buzz"
-~~~
-
-</section>
-
-<section class="alert alert-error">
-TODO: parempi tiedostojärjestelmä
-</section>
-
-<section class="alert alert-error">
-TODO: literate clojure
-</section>
-
-<section class="alert alert-error">
-TODO?: lein2 projektit
-</section>
-
-[Git]: http://git-scm.com
-[Midje]: https://github.com/marick/Midje
