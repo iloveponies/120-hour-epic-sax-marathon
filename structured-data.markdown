@@ -136,6 +136,13 @@ operations.
 ;=> [1 2 3 4]
 ~~~
 
+`count` returns the size of a collection:
+
+~~~ {.clojure}
+(count [1 2 3 4]) ;=> 4
+(count [])        ;=> 0
+~~~
+
 ## Postmodernism
 
 Another way of extracting values from a vector is by *destructuring* it:
@@ -210,17 +217,17 @@ Keywords are a convenient way of naming keys for values in associative
 collections such as maps. They are written with a preceding `:`.
 
 ~~~ {.clojure}
-(def my-book {:title "My little book of ponies"
-              :description "Learn all about ponies!"})
+(def book {:title "The City and the City"
+           :author {:name "China Miéville", :birth-year 1972}})
 
-(get my-book :title) ;=> "My little book of ponies"
+(get book :title) ;=> "The City and the City"
 ~~~
 
 Keywords are even more convenient than this. They work as functions that
 access collections:
 
 ~~~ {.clojure}
-(:description my-book) ;=>  "Learn all about ponies!"
+(:title book) ;=> "The City and the City"
 ~~~
 
 When used as a function and given a collection, a keyword looks itself up in
@@ -229,30 +236,62 @@ the collection and returns the value associated with it.
 `assoc` works with a map:
 
 ~~~ {.clojure}
-(assoc my-book :price "NINE GIGAZILLION ERDÖS")
-;=> {:title "My little book of ponies"
-;    :description "Learn all about ponies!"
-;    :price "NINE GIGAZILLION ERDÖS"}
+(assoc book :awards ["Hugo", "World Fantasy Award", "Arthur C. Clarke Award", "British Science Fiction Award"])
+;=> {:author {:birth-year 1972, :name "China Miéville"}
+;    :awards ["Hugo" "World Fantasy Award" "Arthur C. Clarke Award" "British Science Fiction Award"]
+;    :title "The City and the City"}
 ~~~
 
 The keys and values of a map can be of any data type, and one map can contain
 any number of different data types as both keys and values.
 
+`count` returns the size of a map, which is determined by how many keys it
+has:
+
+~~~ {.clojure}
+(count {:a 42, :b "foo", :c 1337}) ;=> 3
+(count {})                         ;=> 0
+~~~
+
 TODO: Talk about destructuring maps at some point.
+
+Let's define a couple of books like this:
+
+~~~ {.clojure}
+(def cities {:title "The City and the City"
+             :author {:name "China Miéville", :birth-year 1972}})
+(def wild-seed {:title "Wild Seed",
+                :author {:name "Octavia E. Butler"
+                         :birth-year 1947
+                         :death-year 2006}})
+~~~
 
 <section class="alert alert-success">
 
-Let's define a map that represents a book:
+Write the function `(alive? author)` which takes an author map and returns
+`true` if the `author` is alive, otherwise `false`.
 
 ~~~ {.clojure}
-(def cities {:author "China Miéville" :title "The City and the City"})
+(alive? (:author cities))    ;=> true
+(alive? (:author wild-seed)) ;=> false
 ~~~
+
+</section>
+
+<section class="alert alert-success">
 
 Write the function `(title-length book)` that counts the length of the book's
 title. Use `let` to extract the title.
 
+You can use `count` to find out the length of a string:
+
 ~~~ {.clojure}
-(title-length cities) ;=> 21
+(count "foo") ;=> 3
+~~~
+
+~~~ {.clojure}
+(title-length cities)    ;=> 21
+(title-length wild-seed) ;=> 9
 ~~~
 
 TODO: kirjakamaa: vektorillinen kirjoja ja niihin liittyviä apufunktioita,
