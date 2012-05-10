@@ -301,6 +301,9 @@ paloittele Conania tänne sekaan.
 
 TODO: map, filter, sekvenssit, fn, mapv, filterv, sovelletaan cirjoihin
 
+TODO: do this stuff with a json api: see org.clojure/data.json and e.g.
+api.clojuredocs.org
+
 ## Sequences
 
 Do we want to speak about sequences here?
