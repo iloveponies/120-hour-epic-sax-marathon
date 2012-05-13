@@ -374,6 +374,9 @@ And that's basically almost maybe exactly what `defn` does!
 ((fn [x] (+ x 42)) 8) ;=> 50
 ~~~
 
+`fn` is particularly useful with `let` to define local helper functions inside
+a function, like we did in `all-author-names`.
+
 ~~~ {.clojure}
 (all-author-names books) ;=> #{"China Miéville" "Octavia E. Butler"}
 ~~~
@@ -383,6 +386,23 @@ used the `set` function to construct a set from a vector:
 
 ~~~ {.clojure}
 (set ["po" "po" 42 "po"]) ;=> #{"po" 42}
+~~~
+
+~~~ {.clojure}
+(def games #{"Portal", "Planescape: Torment",
+             "Machinarium", "Alpha Protocol"})
+
+(contains? games "Portal") ;=> true
+(contains? games "RAGE")   ;=> false
+(contains? games 42)       ;=> false
+~~~
+
+Glorious recap:
+
+~~~ {.clojure}
+(defn all-author-names [books]
+  (let [author-name (fn [book] (:name (:author book)))]
+    (set (map author-name books))))
 ~~~
 
 
