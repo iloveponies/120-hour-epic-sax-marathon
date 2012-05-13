@@ -296,6 +296,96 @@ You can use `count` to find out the length of a string:
 
 </section>
 
+## Serial grave digging
+
+We know how to extract information from a single book or author. However, we
+often want to extract information from a collection of items. As an example,
+given a collection of books, we want the names of all the authors:
+
+~~~ {.clojure}
+(def embassytown {:title "Embassytown",
+                  :author {:name "China Miéville",
+                           :birth-year 1972}})
+
+(def books [cities, wild-seed, embassytown])
+
+(all-author-names books) ;=> #{"China Miéville" "Octavia E. Butler"}
+~~~
+
+How should we implement `all-author-names`?
+
+TODO: Introduce this
+
+~~~ {.clojure}
+(defn all-author-names [books]
+  (let [author-name (fn [book] (:name (:author book)))]
+    (set (map author-name books))))
+~~~
+
+`fn` defines an anonymous function.
+
+~~~ {.clojure}
+user=> ((fn [x] (* x x)) 4)
+16
+~~~
+
+`map` transforms a collection by calling a function on every item. The
+resulting collection (TODO: sequence) will have the items returned by the
+function.
+
+~~~ {.clojure}
+(defn munge [x]
+  (+ x 42))
+
+(map munge [1 2 3 4])
+;=> ((munge 1) (munge 2) (munge 3) (munge 4)) ; [note below]
+;=> ( 43        44        45        46)
+~~~
+
+*Note:* You can not paste the `((munge 1) ...)` line into the REPL. It is not
+quite valid Clojure due to the unfortunate textual representation of
+sequences.
+
+The return value of `map` is a *sequence*, which differs from vectors at this
+point mostly by how they print: vectors use `[]` and sequences `()`.
+
+`map` takes the given collection, goes through it item by item, calls the
+given function on each item, and constructs a new collection from the return
+values of the function calls.
+
+~~~ {.clojure}
+(defn munge [x]
+  (+ x 42))
+~~~
+
+can be written with `fn`:
+
+~~~ {.clojure}
+(def munge
+  (fn [x]
+    (+ x 42)))
+
+(munge 8) ;=> 50
+~~~
+
+And that's basically almost maybe exactly what `defn` does!
+
+~~~ {.clojure}
+((fn [x] (+ x 42)) 8) ;=> 50
+~~~
+
+~~~ {.clojure}
+(all-author-names books) ;=> #{"China Miéville" "Octavia E. Butler"}
+~~~
+
+The `#{...}` syntax means a *set*: a collection with no duplicate elements. We
+used the `set` function to construct a set from a vector:
+
+~~~ {.clojure}
+(set ["po" "po" 42 "po"]) ;=> #{"po" 42}
+~~~
+
+
 TODO: kirjakamaa: vektorillinen kirjoja ja niihin liittyviä apufunktioita,
 paloittele Conania tänne sekaan.
 
