@@ -37,6 +37,18 @@ Learn the structural weaknesses of dragons.
 - Vectors
 - Maps
 
+## [Recursion]
+
+Down the rabbit hole.
+
+- The one function to rule them all
+
+## [State]
+
+## [Java]
+
+## [Web APIs, JSON, all that hipster shit][hipsters]
+
 <footer>
 lol
 </footer>
@@ -45,3 +57,7 @@ lol
 [Training day]: training-day.html
 [Structured data]: structured-data.html
 [I am a horse in the land of booleans]: I-am-a-horse-in-the-land-of-booleans.html
+[Recursion]: recursion.html
+[State]: state.html
+[Java]: java.html
+[hipsters]: hipsters.html
