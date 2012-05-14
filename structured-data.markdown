@@ -296,10 +296,258 @@ You can use `count` to find out the length of a string:
 
 </section>
 
+## Serial grave digging
+
+We know how to extract information from a single book or author. However, we
+often want to extract information from a collection of items. As an example,
+given a collection of books, we want the names of all the authors:
+
+~~~ {.clojure}
+(def embassytown {:title "Embassytown",
+                  :author {:name "China Miéville",
+                           :birth-year 1972}})
+
+(def books [cities, wild-seed, embassytown])
+
+(all-author-names books) ;=> #{"China Miéville" "Octavia E. Butler"}
+~~~
+
+How should we implement `all-author-names`?
+
+TODO: Introduce this
+
+~~~ {.clojure}
+(defn all-author-names [books]
+  (let [author-name (fn [book] (:name (:author book)))]
+    (set (map author-name books))))
+~~~
+
+Now there's a lot of new stuff there, so we'll take a detour to learn them
+before continuing with our book library.
+
+### Anonymous functions
+
+`fn` defines an anonymous function.
+
+~~~ {.clojure}
+user=> (fn [x] (* x x))
+#<user$eval1189$fn__1190 user$eval1189$fn__1190@5627f221>
+~~~
+
+Okay, se we get a function. This can be called like any other function:
+
+~~~ {.clojure}
+user=> ((fn [x] (* x x)) 4)
+16
+~~~
+
+Using it like this is pretty awkward, usually we want our functions to have a
+name instead.
+
+~~~ {.clojure}
+(def square
+  (fn [x] (* x x)))
+(square 4) ;=> 16
+~~~
+
+This is pretty much how defn works, though it does more, like handles
+doc-strings that you can find with `doc`.
+
+Anonymous functions are useful when you want short helper functions. You can
+give them names with a `let` and they will only be visible in that context.
+
+In the function `all-author-names`, that we can't fully understand yet, we
+wanted a helper function that the name of the author of a book:
+
+~~~ {.clojure}
+(defn all-author-names [books]
+  (let [author-name (fn [book] (:name (:author book)))]
+    (set (map author-name books))))
+~~~
+
+So we want that `author-name` works like this:
+
+~~~ {.clojure}
+(def wild-seed {:title "Wild Seed",
+                :author {:name "Octavia E. Butler"
+                         :birth-year 1947
+                         :death-year 2006}})
+
+(author-name wild-seed) ;=> "Octavia E. Butler"
+~~~
+
+And that's what the above definition does. But since it is defined inside
+`all-author-names`, it is only visible inside that function.
+
+TODO: fn-sormiharjoittelua, tehtävä tai pari, mahollisesti letin kanssa
+
+Theres another elephant in the living room, so let's look at this `map`
+function next.
+
+### Sequences
+
+Before talking about `map`, we need to introduce a concept: the *sequence*.
+Many of Clojure's functions that operate on vectors and other collections
+actually operate on sequences. The `(seq collection)` function returns a
+sequence constructed from a collection, such as a vector or a map.
+
+Sequences have the following operations:
+
+- `(first sequence)` returns the first element of the sequence.
+
+- `(rest sequence)` returns the sequence without its first element.
+
+- `(cons item sequence)` returns a new sequence where `item` is the first
+element and `sequence` is the rest.
+
+~~~ {.clojure}
+(seq [1 2 3]) ;=> (1 2 3)
+(first (seq [1 2 3])) ;=> 1
+(rest (seq [1 2 3)) ;=> (2 3)
+(cons 0 (seq [1 2 3])) ;=> (0 1 2 3)
+~~~
+
+Here you can see the printed form of sequences, the elements inside `(` and
+`)`. This has the consequence that copying `(1 2 3)` back to the REPL tries to
+call `1` as a function. The result is that you can not use the printed form of
+a sequence as a value like you could with vectors and maps.
+
+Actually, the sequence functions call `seq` on their collection parameters
+themselves, so we can just write the above examples like this:
+
+~~~ {.clojure}
+(first [1 2 3])  ;=> 1
+(rest [1 2 3])   ;=> (2 3)
+(cons 0 [1 2 3]) ;=> (0 1 2 3)
+~~~
+
+TODO: sekvenssitehtävä tänne
+
+### Map
+
+`(map f coll)` takes two parameters, a function and a sequencable collection.
+It calls the function on each element of the sequence and returns a sequence
+of the return values.
+
+TODO: lispmap
+
+~~~ {.clojure}
+(defn munge [x]
+  (+ x 42))
+
+(map munge [1 2 3 4])
+;=> ((munge 1) (munge 2) (munge 3) (munge 4)) ; [note below]
+;=> ( 43        44        45        46)
+~~~
+
+*Note:* You can't paste the result line (or the middle one) to the REPL, as it
+is the printed form of a sequence.
+
+TODO: vitusti tehtäviä!!!111
+
+We can now almost undestand the definition of `all-author-names`.
+
+~~~ {.clojure}
+(defn all-author-names [books]
+  (let [author-name (fn [book] (:name (:author book)))]
+    (set (map author-name books))))
+~~~
+
+Let's try it out without the mysterious `set`.
+
+So we had these example books:
+
+~~~ {.clojure}
+(def cities {:title "The City and the City"
+             :author {:name "China Miéville", :birth-year 1972}})
+(def wild-seed {:title "Wild Seed",
+                :author {:name "Octavia E. Butler"
+                         :birth-year 1947
+                         :death-year 2006}})
+(def embassytown {:title "Embassytown",
+                  :author {:name "China Miéville",
+                           :birth-year 1972}})
+
+(def books [cities, wild-seed, embassytown])
+~~~
+
+And if we define the `all-author-names` without `set`.
+
+~~~ {.clojure}
+(defn all-author-names [books]
+  (let [author-name (fn [book] (:name (:author book)))]
+    (map author-name books)))
+~~~
+
+Here is how it would work:
+
+~~~ {.clojure}
+(all-author-names books) ;=> ("China Miéville" "Octavia E. Butler" "China Miéville")
+~~~
+
+We had two books by China Miéville, so his name is in the resulting sequence
+twice. But when we want to see the authors, we are usually not interested in
+duplicates. So lets turn the sequence into a data structure that supports
+this.
+
+### Set
+
+Our last major data structure is set. It is an unordered collection of items
+without duplicates.
+
+~~~ {.clojure}
+(set ["^^" "^^" "^__*__^"]) ;=> #{"^__*__^" "^^"}
+~~~
+
+The textual form of sets is `#{an-elem another-elem ...}` and you can convert
+another collection into a set with the function `set`.
+
+Sets have three basic operations. You can check whether a set contains an
+element with the function `contains?`:
+
+~~~ {.clojure}
+(def games #{"Portal", "Planescape: Torment",
+             "Machinarium", "Alpha Protocol"})
+
+(contains? games "Portal") ;=> true
+(contains? games "RAGE")   ;=> false
+(contains? games 42)       ;=> false
+~~~
+
+xxxxxx marks the SPOT
+
+TODO:conj
+
+TODO:disj
+
+TODO: wrap this shit together
+
+~~~ {.clojure}
+(all-author-names books) ;=> #{"China Miéville" "Octavia E. Butler"}
+~~~
+
+The `#{...}` syntax means a *set*: a collection with no duplicate elements. We
+used the `set` function to construct a set from a vector:
+
+~~~ {.clojure}
+(set ["po" "po" 42 "po"]) ;=> #{"po" 42}
+~~~
+
+Glorious recap:
+
+~~~ {.clojure}
+(defn all-author-names [books]
+  (let [author-name (fn [book] (:name (:author book)))]
+    (set (map author-name books))))
+~~~
+
+TODO: filter, mapv, filterv, lisää sovellutusta
+
 TODO: kirjakamaa: vektorillinen kirjoja ja niihin liittyviä apufunktioita,
 paloittele Conania tänne sekaan.
 
-TODO: map, filter, sekvenssit, fn, mapv, filterv, sovelletaan cirjoihin
+TODO: do this stuff with a json api: see org.clojure/data.json and e.g.
+api.clojuredocs.org
 
 ## Sequences
 
