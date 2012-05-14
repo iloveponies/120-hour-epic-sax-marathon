@@ -215,10 +215,138 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(title-length cities)    <span class="co">;=&gt; 21</span>
 (title-length wild-seed) <span class="co">;=&gt; 9</span></code></pre>
 </section>
-<p>TODO: kirjakamaa: vektorillinen kirjoja ja niihin liittyviä apufunktioita, paloittele Conania tänne sekaan.</p>
-<p>TODO: map, filter, sekvenssit, fn, mapv, filterv, sovelletaan cirjoihin</p>
 </section>
-<section class="level2" id="sequences">
+<section class="level2" id="serial-grave-digging">
+<h2>Serial grave digging</h2>
+<p>We know how to extract information from a single book or author. However, we often want to extract information from a collection of items. As an example, given a collection of books, we want the names of all the authors:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> embassytown </span>{<span class="kw">:title</span> <span class="st">&quot;Embassytown&quot;</span>,
+                  <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>,
+                           <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
+
+(<span class="kw">def</span><span class="fu"> books </span>[cities, wild-seed, embassytown])
+
+(all-author-names books) <span class="co">;=&gt; #{&quot;China Miéville&quot; &quot;Octavia E. Butler&quot;}</span></code></pre>
+<p>How should we implement <code>all-author-names</code>?</p>
+<p>TODO: Introduce this</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
+  (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
+    (<span class="kw">set</span> (<span class="kw">map</span> author-name books))))</code></pre>
+<p>Now there's a lot of new stuff there, so we'll take a detour to learn them before continuing with our book library.</p>
+<section class="level3" id="anonymous-functions">
+<h3>Anonymous functions</h3>
+<p><code>fn</code> defines an anonymous function.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">fn</span> [x] (<span class="kw">*</span> x x))
+#&lt;user$eval1189$fn__1190 user$eval1189$fn__1190<span class="kw">@5627f221&gt;</span></code></pre>
+<p>Okay, se we get a function. This can be called like any other function:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; ((<span class="kw">fn</span> [x] (<span class="kw">*</span> x x)) <span class="dv">4</span>)
+<span class="dv">16</span></code></pre>
+<p>Using it like this is pretty awkward, usually we want our functions to have a name instead.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> square</span>
+  (<span class="kw">fn</span> [x] (<span class="kw">*</span> x x)))
+(square <span class="dv">4</span>) <span class="co">;=&gt; 16</span></code></pre>
+<p>This is pretty much how defn works, though it does more, like handles doc-strings that you can find with <code>doc</code>.</p>
+<p>Anonymous functions are useful when you want short helper functions. You can give them names with a <code>let</code> and they will only be visible in that context.</p>
+<p>In the function <code>all-author-names</code>, that we can't fully understand yet, we wanted a helper function that the name of the author of a book:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
+  (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
+    (<span class="kw">set</span> (<span class="kw">map</span> author-name books))))</code></pre>
+<p>So we want that <code>author-name</code> works like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> wild-seed </span>{<span class="kw">:title</span> <span class="st">&quot;Wild Seed&quot;</span>,
+                <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Octavia E. Butler&quot;</span>
+                         <span class="kw">:birth-year</span> <span class="dv">1947</span>
+                         <span class="kw">:death-year</span> <span class="dv">2006</span>}})
+
+(author-name wild-seed) <span class="co">;=&gt; &quot;Octavia E. Butler&quot;</span></code></pre>
+<p>And that's what the above definition does. But since it is defined inside <code>all-author-names</code>, it is only visible inside that function.</p>
+<p>TODO: fn-sormiharjoittelua, tehtävä tai pari, mahollisesti letin kanssa</p>
+<p>Theres another elephant in the living room, so let's look at this <code>map</code> function next.</p>
+</section>
+<section class="level3" id="sequences">
+<h3>Sequences</h3>
+<p>Before talking about <code>map</code>, we need to introduce a concept: the <em>sequence</em>. Many of Clojure's functions that operate on vectors and other collections actually operate on sequences. The <code>(seq collection)</code> function returns a sequence constructed from a collection, such as a vector or a map.</p>
+<p>Sequences have the following operations:</p>
+<ul>
+<li><p><code>(first sequence)</code> returns the first element of the sequence.</p></li>
+<li><p><code>(rest sequence)</code> returns the sequence without its first element.</p></li>
+<li><p><code>(cons item sequence)</code> returns a new sequence where <code>item</code> is the first element and <code>sequence</code> is the rest.</p></li>
+</ul>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; (1 2 3)</span>
+(<span class="kw">first</span> (<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])) <span class="co">;=&gt; 1</span>
+(<span class="kw">rest</span> (<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)) <span class="co">;=&gt; (2 3)</span>
+(<span class="kw">cons</span> <span class="dv">0</span> (<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])) <span class="co">;=&gt; (0 1 2 3)</span></code></pre>
+<p>Here you can see the printed form of sequences, the elements inside <code>(</code> and <code>)</code>. This has the consequence that copying <code>(1 2 3)</code> back to the REPL tries to call <code>1</code> as a function. The result is that you can not use the printed form of a sequence as a value like you could with vectors and maps.</p>
+<p>Actually, the sequence functions call <code>seq</code> on their collection parameters themselves, so we can just write the above examples like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">first</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])  <span class="co">;=&gt; 1</span>
+(<span class="kw">rest</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])   <span class="co">;=&gt; (2 3)</span>
+(<span class="kw">cons</span> <span class="dv">0</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; (0 1 2 3)</span></code></pre>
+<p>TODO: sekvenssitehtävä tänne</p>
+</section>
+<section class="level3" id="map">
+<h3>Map</h3>
+<p><code>(map f coll)</code> takes two parameters, a function and a sequencable collection. It calls the function on each element of the sequence and returns a sequence of the return values.</p>
+<p>TODO: lispmap</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> munge </span>[x]
+  (<span class="kw">+</span> x <span class="dv">42</span>))
+
+(<span class="kw">map</span> munge [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>])
+<span class="co">;=&gt; ((munge 1) (munge 2) (munge 3) (munge 4)) ; [note below]</span>
+<span class="co">;=&gt; ( 43        44        45        46)</span></code></pre>
+<p><aside class="alert alert-error"> You can't paste the result line (or the middle one) to the REPL, as it is the printed form of a sequence.</aside></p>
+<p>TODO: vitusti tehtäviä!!!111</p>
+<p>We can now almost undestand the definition of <code>all-author-names</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
+  (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
+    (<span class="kw">set</span> (<span class="kw">map</span> author-name books))))</code></pre>
+<p>Let's try it out without the mysterious <code>set</code>.</p>
+<p>So we had these example books:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> cities </span>{<span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>
+             <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
+(<span class="kw">def</span><span class="fu"> wild-seed </span>{<span class="kw">:title</span> <span class="st">&quot;Wild Seed&quot;</span>,
+                <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Octavia E. Butler&quot;</span>
+                         <span class="kw">:birth-year</span> <span class="dv">1947</span>
+                         <span class="kw">:death-year</span> <span class="dv">2006</span>}})
+(<span class="kw">def</span><span class="fu"> embassytown </span>{<span class="kw">:title</span> <span class="st">&quot;Embassytown&quot;</span>,
+                  <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>,
+                           <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
+
+(<span class="kw">def</span><span class="fu"> books </span>[cities, wild-seed, embassytown])</code></pre>
+<p>And if we define the <code>all-author-names</code> without <code>set</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
+  (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
+    (<span class="kw">map</span> author-name books)))</code></pre>
+<p>Here is how it would work:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(all-author-names books) <span class="co">;=&gt; (&quot;China Miéville&quot; &quot;Octavia E. Butler&quot; &quot;China Miéville&quot;)</span></code></pre>
+<p>We had two books by China Miéville, so his name is in the resulting sequence twice. But when we want to see the authors, we are usually not interested in duplicates. So lets turn the sequence into a data structure that supports this.</p>
+</section>
+<section class="level3" id="set">
+<h3>Set</h3>
+<p>Our last major data structure is set. It is an unordered collection of items without duplicates.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">set</span> [<span class="st">&quot;^^&quot;</span> <span class="st">&quot;^^&quot;</span> <span class="st">&quot;^__*__^&quot;</span>]) <span class="co">;=&gt; #{&quot;^__*__^&quot; &quot;^^&quot;}</span></code></pre>
+<p>The textual form of sets is <code>#{an-elem another-elem ...}</code> and you can convert another collection into a set with the function <code>set</code>.</p>
+<p>Sets have three basic operations. You can check whether a set contains an element with the function <code>contains?</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> games </span>#{<span class="st">&quot;Portal&quot;</span>, <span class="st">&quot;Planescape: Torment&quot;</span>,
+             <span class="st">&quot;Machinarium&quot;</span>, <span class="st">&quot;Alpha Protocol&quot;</span>})
+
+(<span class="kw">contains?</span> games <span class="st">&quot;Portal&quot;</span>) <span class="co">;=&gt; true</span>
+(<span class="kw">contains?</span> games <span class="st">&quot;RAGE&quot;</span>)   <span class="co">;=&gt; false</span>
+(<span class="kw">contains?</span> games <span class="dv">42</span>)       <span class="co">;=&gt; false</span></code></pre>
+<p>xxxxxx marks the SPOT</p>
+<p>TODO:conj</p>
+<p>TODO:disj</p>
+<p>TODO: wrap this shit together</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(all-author-names books) <span class="co">;=&gt; #{&quot;China Miéville&quot; &quot;Octavia E. Butler&quot;}</span></code></pre>
+<p>The <code>#{...}</code> syntax means a <em>set</em>: a collection with no duplicate elements. We used the <code>set</code> function to construct a set from a vector:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">set</span> [<span class="st">&quot;po&quot;</span> <span class="st">&quot;po&quot;</span> <span class="dv">42</span> <span class="st">&quot;po&quot;</span>]) <span class="co">;=&gt; #{&quot;po&quot; 42}</span></code></pre>
+<p>Glorious recap:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
+  (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
+    (<span class="kw">set</span> (<span class="kw">map</span> author-name books))))</code></pre>
+<p>TODO: filter, mapv, filterv, lisää sovellutusta</p>
+<p>TODO: kirjakamaa: vektorillinen kirjoja ja niihin liittyviä apufunktioita, paloittele Conania tänne sekaan.</p>
+<p>TODO: do this stuff with a json api: see org.clojure/data.json and e.g. api.clojuredocs.org</p>
+</section>
+</section>
+<section class="level2" id="sequences-1">
 <h2>Sequences</h2>
 <p>Do we want to speak about sequences here?</p>
 </section>
