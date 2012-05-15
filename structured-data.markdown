@@ -45,7 +45,8 @@ defined in.
 
 TODO: Example
 
-*Exercise:* The following function does a thing:
+<exercise>
+The following function does a thing:
 
 ~~~ {.clojure}
 (defn do-a-thing [x]
@@ -54,6 +55,7 @@ TODO: Example
 
 Change the function `do-a-thing` so that it uses `let` to give a name to the
 common expression `(+ x x)` in its body.
+</exercise>
 
 TODO: let is let\*
 
@@ -102,7 +104,8 @@ You can index a vector with `get`:
 (get ["x"] 0)          ;=> "x"
 ~~~
 
-*Exercise:* Write the function `(spiff v)` that takes a vector and returns the
+<exercise>
+Write the function `(spiff v)` that takes a vector and returns the
 sum of the first and third elements of the vector. What happens when you pass
 in a vector that is too short?
 
@@ -112,6 +115,7 @@ in a vector that is too short?
 (spiff  [1 2])         ;=> ?
 (spiff  [])            ;=> ?
 ~~~
+</exercise>
 
 Vectors are immutable: once you have a vector, *you can not change it*. You
 can, however, easily create new vectors based on a vector:
@@ -187,8 +191,10 @@ destructuring the parameters.
 
 TODO: `&`, nested destructuring, `:as`, `(let [[x] [1 2]])`
 
-*Exercise:* Rewrite our earlier function `spiff` by destructuring its
+<exercise>
+Rewrite our earlier function `spiff` by destructuring its
 parameters.
+</exercise>
 
 ## Maps
 
@@ -401,10 +407,12 @@ Sequences have the following operations:
 element and `sequence` is the rest.
 
 ~~~ {.clojure}
-(seq [1 2 3]) ;=> (1 2 3)
-(first (seq [1 2 3])) ;=> 1
-(rest (seq [1 2 3)) ;=> (2 3)
-(cons 0 (seq [1 2 3])) ;=> (0 1 2 3)
+(seq [1 2 3])                          ;=> (1 2 3)
+(seq {:a 42 :b "foo" :c ["ur" "dad"]})
+;=> ([:a 42] [:c ["ur" "dad"]] [:b "foo"])
+(first (seq [1 2 3]))                  ;=> 1
+(rest (seq [1 2 3))                    ;=> (2 3)
+(cons 0 (seq [1 2 3]))                 ;=> (0 1 2 3)
 ~~~
 
 Here you can see the printed form of sequences, the elements inside `(` and
@@ -421,9 +429,13 @@ themselves, so we can just write the above examples like this:
 (cons 0 [1 2 3]) ;=> (0 1 2 3)
 ~~~
 
+<exercise>
+Something on sequences.
+</exercise>
+
 TODO: sekvenssitehtävä tänne
 
-### Map
+### The map function
 
 `(map f coll)` takes two parameters, a function and a sequencable collection.
 It calls the function on each element of the sequence and returns a sequence
@@ -443,19 +455,36 @@ TODO: lispmap
 *Note:* You can't paste the result line (or the middle one) to the REPL, as it
 is the printed form of a sequence.
 
-TODO: vitusti tehtäviä!!!111
-
-We can now almost undestand the definition of `all-author-names`.
+<exercise>
+Write the function `(element-lengths collection)` that returns the
+lengths of every item in `collection`.
 
 ~~~ {.clojure}
-(defn all-author-names [books]
-  (let [author-name (fn [book] (:name (:author book)))]
-    (set (map author-name books))))
+(element-lengths ["foo" "bar" "" "quux"])  ;=> (3 3 0 4)
+(element-lengths ["x" [:a :b :c] {:y 42}]) ;=> (1 3 1)
+~~~
+</exercise>
+
+<exercise>
+Use `map` to write the function `(second-elements collection)` that takes a
+vector of vectors and returns a sequence of the second elements.
+
+~~~ {.clojure}
+(second-elements [[1 2] [2 3] [3 4]]) ;=> (2 3 4)
+(second-elements [[1 2 3 4] [1] ["a" "s" "d" "f"]])
+;=> (2 nil "s")
 ~~~
 
-Let's try it out without the mysterious `set`.
+Remember that you can use `get` to index a vector.
 
-So we had these example books:
+Use `fn` and `let` to create a helper function and use it with `map`.
+</exercise>
+
+<exercise>
+Write the function `(titles books)` that takes a collection of books and
+returns their titles.
+
+Using our earlier examples:
 
 ~~~ {.clojure}
 (def cities {:title "The City and the City"
@@ -471,7 +500,48 @@ So we had these example books:
 (def books [cities, wild-seed, embassytown])
 ~~~
 
-And if we define the `all-author-names` without `set`.
+`titles` should work like this:
+
+~~~
+(titles [cities]) ;=> ("The City and the City" )
+(titles books)    ;=> ("The City and the City" "Wild Seed" "Embassytown")
+~~~
+
+Remember that you can use `:keywords` as functions.
+
+~~~ {.clojure}
+(:name {:name "MEEEE", :secret "Awesome"}) ;=>  "MEEEE"
+~~~
+
+</exercise>
+
+We can now almost undestand the definition of `all-author-names`.
+
+~~~ {.clojure}
+(defn all-author-names [books]
+  (let [author-name (fn [book] (:name (:author book)))]
+    (set (map author-name books))))
+~~~
+
+Let's try it out without the mysterious `set`.
+
+We had these example books:
+
+~~~ {.clojure}
+(def cities {:title "The City and the City"
+             :author {:name "China Miéville", :birth-year 1972}})
+(def wild-seed {:title "Wild Seed",
+                :author {:name "Octavia E. Butler"
+                         :birth-year 1947
+                         :death-year 2006}})
+(def embassytown {:title "Embassytown",
+                  :author {:name "China Miéville",
+                           :birth-year 1972}})
+
+(def books [cities, wild-seed, embassytown])
+~~~
+
+And if we define `all-author-names` without `set`, we have:
 
 ~~~ {.clojure}
 (defn all-author-names [books]
@@ -479,7 +549,7 @@ And if we define the `all-author-names` without `set`.
     (map author-name books)))
 ~~~
 
-Here is how it would work:
+Here is how it works:
 
 ~~~ {.clojure}
 (all-author-names books) ;=> ("China Miéville" "Octavia E. Butler" "China Miéville")
@@ -497,13 +567,15 @@ without duplicates.
 
 ~~~ {.clojure}
 (set ["^^" "^^" "^__*__^"]) ;=> #{"^__*__^" "^^"}
+(set [1 2 3 1 1 1 3 3 2 1]) ;=> #{1 2 3}
 ~~~
 
 The textual form of sets is `#{an-elem another-elem ...}` and you can convert
 another collection into a set with the function `set`.
 
-Sets have three basic operations. You can check whether a set contains an
-element with the function `contains?`:
+Sets have three basic operations:
+
+You can check whether a set contains an element with the function `contains?`:
 
 ~~~ {.clojure}
 (def games #{"Portal", "Planescape: Torment",
@@ -514,24 +586,27 @@ element with the function `contains?`:
 (contains? games 42)       ;=> false
 ~~~
 
+`(conj set elem)` adds elem to `set` if it does not already have `elem`:
+
+~~~ {.clojure}
+(conj #{:a :b :c} :EEEEE) ;=> #{:a :c :b :EEEEE}
+(conj #{:a :b :c} :a)     ;=> #{:a :c :b}
+(conj #{:a :b :c} :d :e)  ;=> #{:a :c :b :d :e}
+~~~
+
+Finally, `(disj set elem)` removes `elem` from `set` if it contains `elem`:
+
+~~~ {.clojure}
+(disj #{:a :b :c} :c) ;=> #{:a :b}
+(disj #{:a :b :c} :EEEEE) ;=> #{:a :c :b}
+(disj #{:a :b :c} :c :a) ;=> #{:b}
+~~~
+
+TODO: LOL joku settitehtävä tähän?
+
 xxxxxx marks the SPOT
 
-TODO:conj
-
-TODO:disj
-
 TODO: wrap this shit together
-
-~~~ {.clojure}
-(all-author-names books) ;=> #{"China Miéville" "Octavia E. Butler"}
-~~~
-
-The `#{...}` syntax means a *set*: a collection with no duplicate elements. We
-used the `set` function to construct a set from a vector:
-
-~~~ {.clojure}
-(set ["po" "po" 42 "po"]) ;=> #{"po" 42}
-~~~
 
 Glorious recap:
 
@@ -539,6 +614,12 @@ Glorious recap:
 (defn all-author-names [books]
   (let [author-name (fn [book] (:name (:author book)))]
     (set (map author-name books))))
+~~~
+
+TODO;: KIRJALISTAT TÄHÄNQI
+
+~~~ {.clojure}
+(all-author-names books) ;=> #{"China Miéville" "Octavia E. Butler"}
 ~~~
 
 TODO: filter, mapv, filterv, lisää sovellutusta

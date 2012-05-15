@@ -2,7 +2,7 @@
 @import "bootstrap-responsive.css";
 
 .container-fluid {
-    max-width: 560px;
+    max-width: 700px;
     margin: auto;
     margin-top: 40px;
 }
@@ -61,6 +61,15 @@ img[alt="photo of ilmari"] {
 
 ul {
     margin-left: 0;
+}
+
+nav {
+    margin-top: 28px;
+}
+
+nav ul {
+    margin-left: 1em;
+    list-style: none;
 }
 
 .exercise ul {
