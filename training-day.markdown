@@ -75,9 +75,11 @@ user=> (+ 1 2 3 4)
 10
 ~~~
 
-*Exercise:* Write the following expression in the Clojure prefix syntax: $(2 *
+<exercise>
+Write the following expression in the Clojure prefix syntax: $(2 *
 3) + 4$. Try evaluating it in the interactive session. The result should be
 10.
+</exercise>
 
 The arithmetic operations above are, in fact, function calls. That is, `+` is
 actually a function (called `+`), as are `*` and `-`. All function calls in
@@ -386,17 +388,15 @@ After writing the implementation of `square` in `src/training_day.clj`, run
 `lein2 midje` again to see if your implementation agrees with the facts
 declared in our test file.
 
-<section class="exercise alert alert-success">
-
-*Exercise:* Write the function `square` that takes a number as a parameter and
+<exercise>
+Write the function `square` that takes a number as a parameter and
 multiplies it with itself.
 
 ~~~ {.clojure}
 (square 2) ;=> 4
 (square 3) ;=> 9
 ~~~
-
-</section>
+</exercise>
 
 <section class="alert alert-error">
 TODO: markdown-esikääntäjä tehtävänannoille
