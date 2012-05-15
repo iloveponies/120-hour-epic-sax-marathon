@@ -1,5 +1,5 @@
 SRC=$2.markdown
-DEPS="header.html template.html"
+DEPS="header.html before.html after.html"
 FILTER_SOURCES=$(echo filters/*.hs)
 FILTER_BINS=$(echo $FILTER_SOURCES | sed 's/.hs//g')
 FILTEREXPR=$(echo $FILTER_BINS | tr ' ' '|')
@@ -18,8 +18,8 @@ pandoc                                \
     --smart                           \
     --standalone                      \
     --mathml                          \
-    --table-of-contents               \
-    --template          template.html \
+    --include-before   before.html    \
+    --include-after    after.html     \
     --include-in-header header.html   \
     --css css/base.css                \
     --out "$3"
