@@ -129,9 +129,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
    <span class="kw">:else</span>
      false))                     <span class="co">; it wasn&#39;t a number so we have our answer</span></code></pre>
 <p>Here the recursion stops if we hit the base case (empty collection) or if we find a non-number.</p>
-<p><sub>~</sub> {.clojure (only-numbers? [1 2 3 4]) ;=&gt; true (only-numbers? [1 2 :D 3 4]) ;=&gt; false <sub>~</sub></p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(only-numbers? [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>])    <span class="co">;=&gt; true</span>
+(only-numbers? [<span class="dv">1</span> <span class="dv">2</span> <span class="kw">:D</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; false</span></code></pre>
 <p>Let's have a closer look at the evaluation of the second line:</p>
-<p><sub>~</sub> {.clojure (only-numbers? [1 2 :D 3 4]) ;=&gt; (only-numbers? [2 :D 3 4]) ; since (number? 1) ;=&gt; true, we now need to check ; if all the rest are numbers ;=&gt; (only-numbers? [:D 3 4]) ; since (number? 2) ;=&gt; true ;=&gt; false ; since (number? :D) ;=&gt; false <sub>~</sub></p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">   (only-numbers? [<span class="dv">1</span> <span class="dv">2</span> <span class="kw">:D</span> <span class="dv">3</span> <span class="dv">4</span>])
+<span class="co">;=&gt; (only-numbers? [2 :D 3 4])</span>
+    <span class="co">; (number? 1) ;=&gt; true, so we now need to check if all the rest are numbers.</span>
+<span class="co">;=&gt; (only-numbers? [:D 3 4]) ; because (number? 2) ;=&gt; true</span>
+<span class="co">;=&gt; false                    ; because (number? :D) ;=&gt; false</span></code></pre>
 <p><section class="alert alert-success"> Write the function <code>(sequence-contains? elem collection)</code> that returns <code>true</code> if the given sequence contains the given value, otherwise <code>false</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(sequence-contains? <span class="dv">3</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; true</span>
 (sequence-contains? <span class="dv">3</span> [<span class="dv">4</span> <span class="dv">7</span> <span class="dv">9</span>]) <span class="co">;=&gt; false</span>

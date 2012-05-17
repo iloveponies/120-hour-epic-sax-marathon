@@ -35,7 +35,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
 <body>
-
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span12">
 <header>
 <h1 class="title">Structured data</h1>
 <h2 class="author">120 hour epic</h2>
@@ -53,12 +55,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section class="level2" id="let-there-be-names">
 <h2>Let there be names</h2>
-<p>We often want to give a piece of data name, either because the act of naming gives clarity to the code, or because we want to refer to the data many times. As we have seen, global names are declared with <code>def</code>. Local names, on the other hand, are declared with <code>let</code>.</p>
+<p>We often want to give a piece of data name, either because the act of naming gives clarity to the code, or because we want to refer to the data many times. As we have seen, package global names are declared with <code>def</code>. A function or value that is needed only inside one function can be given a <em>local name</em> with <code>let</code>.</p>
 <p>As an example, let's define a function for calculating the length of a triangle's hypotenuse, given the length of its two legs:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hypotenuse </span>[x y]
   (<span class="kw">let</span> [xx (<span class="kw">*</span> x x)
         yy (<span class="kw">*</span> y y)]
     (Math/sqrt (<span class="kw">+</span> xx yy))))</code></pre>
+<p>Here we give the expressions <code>(* x x)</code> and <code>(* y y)</code> the local names <code>xx</code> and <code>yy</code>, respectively. They are visible only inside <code>hypotenuse</code>.</p>
 <p><code>let</code> introduces one or more names and a scope for them:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [name1 value1
       name2 value2
@@ -73,7 +76,17 @@ code > span.er { color: #ff0000; font-weight: bold; }
   (Math/pow (<span class="kw">+</span> x x) (<span class="kw">+</span> x x)))</code></pre>
 <p>Change the function <code>do-a-thing</code> so that it uses <code>let</code> to give a name to the common expression <code>(+ x x)</code> in its body.</p>
 </section>
-<p>TODO: let is let*</p>
+<p>The names declared in a <code>let</code> expression can refer to previous names in the same expression:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [a <span class="dv">42</span>
+      b (<span class="kw">+</span> a <span class="dv">8</span>)]
+  [a b])
+<span class="co">;=&gt; [42 50]</span></code></pre>
+<p>In the example above, <code>b</code> can refer to <code>a</code> because <code>a</code> is declared before it. On the other hand, <code>a</code> can not refer to b:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [a (<span class="kw">+</span> b <span class="dv">42</span>)
+      b <span class="dv">8</span>]
+  [a b])
+<span class="co">; CompilerException java.lang.RuntimeException: Unable to resolve symbol:</span>
+<span class="co">; b in this context, compiling:(NO_SOURCE_PATH:1) </span></code></pre>
 </section>
 <section class="level2" id="simple-values">
 <h2>Simple values</h2>
@@ -95,8 +108,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </tr>
 <tr class="even">
 <td style="text-align: left;">Strings</td>
-<td style="text-align: left;">&quot;foo&quot;</td>
-<td style="text-align: left;">Foo.</td>
+<td style="text-align: left;"><code>&quot;foo&quot;</code></td>
+<td style="text-align: left;">Text values.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Characters</td>
@@ -106,7 +119,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <tr class="even">
 <td style="text-align: left;">Keywords</td>
 <td style="text-align: left;"><code>:foo</code>, <code>:?</code></td>
-<td style="text-align: left;">How do you describe keywords?</td>
+<td style="text-align: left;">Values often used as map keys.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Booleans</td>
@@ -118,53 +131,58 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section class="level2" id="vectors">
 <h2>Vectors</h2>
-<p>Clojure has support for a rich set of collections.</p>
+<p>The other kind of data structure, in addition to scalars, that a programming language usually supports are collections. Clojure has support for a rich set of collection data structures.</p>
 <p>A <em>vector</em> is a collection that can be indexed with integers, like an array in other languages. It can contain values of different types.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">[<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]                 <span class="co">;=&gt; [1 2 3]</span>
 [<span class="kw">:foo</span> <span class="dv">42</span> <span class="st">&quot;bar&quot;</span> (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">3</span>)] <span class="co">;=&gt; [:foo 42 &quot;bar&quot; 5]</span></code></pre>
-<p>You can index a vector with <code>get</code>:</p>
+<p>A vector is written with surrounding brackets, <code>[]</code>, and the elements are written inside, separated by whitespace and optionally commas (<code>,</code>).</p>
+<p>Vectors are indexed with the <code>get</code> function:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> [<span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span> <span class="st">&quot;c&quot;</span>] <span class="dv">1</span>)  <span class="co">;=&gt; &quot;b&quot;</span>
 (<span class="kw">get</span> [<span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span> <span class="st">&quot;c&quot;</span>] <span class="dv">15</span>) <span class="co">;=&gt; nil</span>
 (<span class="kw">get</span> [<span class="st">&quot;x&quot;</span>] <span class="dv">0</span>)          <span class="co">;=&gt; &quot;x&quot;</span></code></pre>
+<p>Trying to index a vector beyond its size does <em>not</em> throw an exception. The special value <code>nil</code> is returned, instead.</p>
 <p><section class="alert alert-success"> Write the function <code>(spiff v)</code> that takes a vector and returns the sum of the first and third elements of the vector. What happens when you pass in a vector that is too short?</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(spiff  [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])       <span class="co">;=&gt; 4</span>
 (spiff  [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>]) <span class="co">;=&gt; 4</span>
 (spiff  [<span class="dv">1</span> <span class="dv">2</span>])         <span class="co">;=&gt; ?</span>
 (spiff  [])            <span class="co">;=&gt; ?</span></code></pre>
 </section>
+<section class="level3" id="basic-vector-operations">
+<h3>Basic vector operations</h3>
 <p>Vectors are immutable: once you have a vector, <em>you can not change it</em>. You can, however, easily create new vectors based on a vector:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">conj</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] <span class="dv">4</span>)          <span class="co">;=&gt; [1 2 3 4]</span>
 (<span class="kw">assoc</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>] <span class="dv">2</span> <span class="st">&quot;foo&quot;</span>) <span class="co">;=&gt; [1 2 &quot;foo&quot; 4]</span></code></pre>
-<p><code>conj</code> adds a value to a collection. Its behaviour depends on the type of collection: with vectors, it adds the value to the end of the vector.</p>
-<p><code>assoc</code> associates a new value for the given key in the collection. A vector's indexes are its keys. Above, we create a new vector based on the previous one, with &quot;foo&quot; at index 2. The original vector doesn't change in either of these operations.</p>
+<p><code>conj</code> adds a value to a collection. Its behaviour depends on the type of collection: with vectors, it adds the value to the end of the vector. To be exact, <code>conj</code> does <em>not</em> change the given vector. Instead, it returns a new vector, based on the given vector, with the new element appended to this new vector.</p>
+<p><code>assoc</code> associates a new value for the given key in the collection. A vector's indexes are its keys. Above, we create a new vector based on the previous one, with <code>&quot;foo&quot;</code> at index <code>2</code>. The original vector doesn't change in either of these operations:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [original [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]
       new      (<span class="kw">assoc</span> original <span class="dv">2</span> <span class="st">&quot;foo&quot;</span>)]
   original)
 <span class="co">;=&gt; [1 2 3 4]</span></code></pre>
-<p><code>count</code> returns the size of a collection:</p>
+<p>Finally, <code>count</code> returns the size of a collection:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">count</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; 4</span>
 (<span class="kw">count</span> [])        <span class="co">;=&gt; 0</span></code></pre>
 </section>
-<section class="level2" id="postmodernism">
-<h2>Postmodernism</h2>
+<section class="level3" id="vectors-a-postmodern-deconstruction">
+<h3>Vectors: A Postmodern Deconstruction</h3>
 <p>Another way of extracting values from a vector is by <em>destructuring</em> it:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [[x y z] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>]]
   (<span class="kw">str</span> x y z))
 <span class="co">;=&gt; &quot;123&quot;</span></code></pre>
-<p>Here, instead of giving a name to the vector <code>[1 2 3 4 5 6]</code>, we indicate with the brackets in <code>[x y z]</code> that we want to destructure the vector instead. Inside the brackets, we give names to the first three elements of the vector.</p>
-<p><code>let</code> is not the only context destructuring works in. You can also destructure function parameters directly. For an example, take the following function:</p>
+<p>Here, instead of giving a name to the vector <code>[1 2 3 4 5 6]</code>, we indicate with the brackets in <code>[x y z]</code> that we want to destructure the vector instead. Inside the brackets, we give names to the first three elements of the vector. <code>x</code> will be given the value of the first element, <code>1</code>; <code>b</code> will be <code>2</code> and <code>c</code> will be <code>3</code>. The concatenation of these values that <code>str</code> returns is <code>&quot;123&quot;</code>.</p>
+<p>You can destructure function parameters directly. For an example, take the following function:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum-pairs </span>[first-pair second-pair]
   [(<span class="kw">+</span> (<span class="kw">first</span>  first-pair) (<span class="kw">first</span>  second-pair))
    (<span class="kw">+</span> (<span class="kw">second</span> first-pair) (<span class="kw">second</span> second-pair))])</code></pre>
 <p>The function takes two vectors and sums their first pairwise elements:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(sum-pairs [<span class="dv">42</span> <span class="dv">5</span>] [-<span class="dv">42</span> -<span class="dv">5</span>])     <span class="co">;=&gt; [0 0]</span>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(sum-pairs [<span class="dv">42</span> <span class="dv">5</span>]   [-<span class="dv">42</span> -<span class="dv">5</span>])   <span class="co">;=&gt; [0 0]</span>
 (sum-pairs [<span class="dv">64</span> <span class="dv">256</span>] [-<span class="dv">51</span> -<span class="dv">219</span>]) <span class="co">;=&gt; [13 37]</span></code></pre>
 <p><code>sum-pair</code> is not very pretty to look at. We can spiff it up by taking out the elements of its parameter vectors by destructuring them:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum-pairs </span>[[x1 y1] [x2 y2]]
   [(<span class="kw">+</span> x1 x2) (<span class="kw">+</span> y1 y2)])</code></pre>
-<p><code>sum-pairs</code> still takes two parameter vectors, but now it does not give names to its parameters. Instead, it gives names to their first two elements by destructuring the parameters.</p>
+<p><code>sum-pairs</code> still takes two parameter vectors, but now it does not give names to its parameters. Instead, it gives names to their first two elements by destructuring the parameters. We could have also destructured the parameters with a <code>let</code>.</p>
 <p>TODO: <code>&amp;</code>, nested destructuring, <code>:as</code>, <code>(let [[x] [1 2]])</code></p>
 <p><section class="alert alert-success"> Rewrite our earlier function <code>spiff</code> by destructuring its parameters.</p>
+</section>
 </section>
 </section>
 <section class="level2" id="maps">
@@ -400,6 +418,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 (<span class="kw">get</span> <span class="st">&quot;Foobar&quot;</span> <span class="dv">3</span>)</code></pre>
 <p>When a list is evaluated, the first element (the <em>head</em>) is resolved to a function and called, with the other items given to the function as arguments.</p>
 </section>
-
+</div>
+</div>
+</div>
 </body>
 </html>
