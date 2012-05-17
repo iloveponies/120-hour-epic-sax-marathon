@@ -2,7 +2,7 @@
 @import "bootstrap-responsive.css";
 
 .container-fluid {
-    max-width: 700px;
+    max-width: 580px;
     margin: auto;
     margin-top: 40px;
 }
@@ -23,6 +23,10 @@ header p {
     color: #777;
 }
 
+h1, h2, h3 {
+    font-weight: normal;
+}
+
 h1 {
     line-height: 48px;
 }
@@ -36,10 +40,7 @@ h2 {
 h3 {
     font-size: 14px;
     line-height: 28px;
-}
-
-h1, h2, h3 {
-    font-weight: normal;
+    font-weight: bold;
 }
 
 p::after {

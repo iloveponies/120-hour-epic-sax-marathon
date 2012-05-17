@@ -15,8 +15,9 @@ In which we learn to work with structured data.
 
 We often want to give a piece of data name, either because the act of naming
 gives clarity to the code, or because we want to refer to the data many times.
-As we have seen, global names are declared with `def`. Local names, on the
-other hand, are declared with `let`.
+As we have seen, package global names are declared with `def`. A function or
+value that is needed only inside one function can be given a *local name* with
+`let`.
 
 As an example, let's define a function for calculating the length of a
 triangle's hypotenuse, given the length of its two legs:
@@ -27,6 +28,9 @@ triangle's hypotenuse, given the length of its two legs:
         yy (* y y)]
     (Math/sqrt (+ xx yy))))
 ~~~
+
+Here we give the expressions `(* x x)` and `(* y y)` the local names `xx` and
+`yy`, respectively. They are visible only inside `hypotenuse`.
 
 `let` introduces one or more names and a scope for them:
 
@@ -57,7 +61,26 @@ Change the function `do-a-thing` so that it uses `let` to give a name to the
 common expression `(+ x x)` in its body.
 </exercise>
 
-TODO: let is let\*
+The names declared in a `let` expression can refer to previous names in the
+same expression:
+
+~~~ {.clojure}
+(let [a 42
+      b (+ a 8)]
+  [a b])
+;=> [42 50]
+~~~
+
+In the example above, `b` can refer to `a` because `a` is declared before it.
+On the other hand, `a` can not refer to b:
+
+~~~ {.clojure}
+(let [a (+ b 42)
+      b 8]
+  [a b])
+; CompilerException java.lang.RuntimeException: Unable to resolve symbol:
+; b in this context, compiling:(NO_SOURCE_PATH:1) 
+~~~
 
 ## Simple values
 
@@ -73,12 +96,12 @@ Type            Examples             Description
 Numbers         `42`, `3/2`, `2.1`   Numbers include integers, fractions,
                                      and floats.
 
-Strings         "foo"                Foo.
+Strings         `"foo"`              Text values.
 
 Characters      `\x`, `\y`, `\√`     A single characer is written with a
                                      preceding `\`.
 
-Keywords        `:foo`, `:?`         How do you describe keywords?
+Keywords        `:foo`, `:?`         Values often used as map keys.
 
 Booleans        `true`, `false`      Boolean values.
 
@@ -86,7 +109,9 @@ Booleans        `true`, `false`      Boolean values.
 
 ## Vectors
 
-Clojure has support for a rich set of collections.
+The other kind of data structure, in addition to scalars, that a programming
+language usually supports are collections. Clojure has support for a rich set
+of collection data structures.
 
 A *vector* is a collection that can be indexed with integers, like an array in
 other languages. It can contain values of different types.
@@ -96,13 +121,19 @@ other languages. It can contain values of different types.
 [:foo 42 "bar" (+ 2 3)] ;=> [:foo 42 "bar" 5]
 ~~~
 
-You can index a vector with `get`:
+A vector is written with surrounding brackets, `[]`, and the elements are
+written inside, separated by whitespace and optionally commas (`,`).
+
+Vectors are indexed with the `get` function:
 
 ~~~ {.clojure}
 (get ["a" "b" "c"] 1)  ;=> "b"
 (get ["a" "b" "c"] 15) ;=> nil
 (get ["x"] 0)          ;=> "x"
 ~~~
+
+Trying to index a vector beyond its size does *not* throw an exception.
+The special value `nil` is returned, instead.
 
 <exercise>
 Write the function `(spiff v)` that takes a vector and returns the
@@ -117,6 +148,8 @@ in a vector that is too short?
 ~~~
 </exercise>
 
+### Basic vector operations
+
 Vectors are immutable: once you have a vector, *you can not change it*. You
 can, however, easily create new vectors based on a vector:
 
@@ -126,12 +159,15 @@ can, however, easily create new vectors based on a vector:
 ~~~
 
 `conj` adds a value to a collection. Its behaviour depends on the type of
-collection: with vectors, it adds the value to the end of the vector.
+collection: with vectors, it adds the value to the end of the vector. To be
+exact, `conj` does *not* change the given vector. Instead, it returns a new
+vector, based on the given vector, with the new element appended to this new
+vector.
 
 `assoc` associates a new value for the given key in the collection. A vector's
 indexes are its keys. Above, we create a new vector based on the previous one,
-with "foo" at index 2. The original vector doesn't change in either of these
-operations.
+with `"foo"` at index `2`. The original vector doesn't change in either of
+these operations:
 
 ~~~ {.clojure}
 (let [original [1 2 3 4]
@@ -140,14 +176,14 @@ operations.
 ;=> [1 2 3 4]
 ~~~
 
-`count` returns the size of a collection:
+Finally, `count` returns the size of a collection:
 
 ~~~ {.clojure}
 (count [1 2 3 4]) ;=> 4
 (count [])        ;=> 0
 ~~~
 
-## Postmodernism
+### Vectors: A Postmodern Deconstruction
 
 Another way of extracting values from a vector is by *destructuring* it:
 
@@ -160,9 +196,11 @@ Another way of extracting values from a vector is by *destructuring* it:
 Here, instead of giving a name to the vector `[1 2 3 4 5 6]`, we indicate with
 the brackets in `[x y z]` that we want to destructure the vector instead.
 Inside the brackets, we give names to the first three elements of the vector.
+`x` will be given the value of the first element, `1`; `b` will be `2` and `c`
+will be `3`. The concatenation of these values that `str` returns is `"123"`.
 
-`let` is not the only context destructuring works in. You can also destructure
-function parameters directly. For an example, take the following function:
+You can destructure function parameters directly. For an example, take the
+following function:
 
 ~~~ {.clojure}
 (defn sum-pairs [first-pair second-pair]
@@ -173,7 +211,7 @@ function parameters directly. For an example, take the following function:
 The function takes two vectors and sums their first pairwise elements:
 
 ~~~ {.clojure}
-(sum-pairs [42 5] [-42 -5])     ;=> [0 0]
+(sum-pairs [42 5]   [-42 -5])   ;=> [0 0]
 (sum-pairs [64 256] [-51 -219]) ;=> [13 37]
 ~~~
 
@@ -187,7 +225,8 @@ elements of its parameter vectors by destructuring them:
 
 `sum-pairs` still takes two parameter vectors, but now it does not give names
 to its parameters. Instead, it gives names to their first two elements by
-destructuring the parameters.
+destructuring the parameters. We could have also destructured the parameters
+with a `let`.
 
 TODO: `&`, nested destructuring, `:as`, `(let [[x] [1 2]])`
 
