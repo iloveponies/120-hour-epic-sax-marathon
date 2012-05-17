@@ -168,21 +168,19 @@ return `false`.
 Here the recursion stops if we hit the base case (empty collection) or if we
 find a non-number.
 
-~~~ {.clojure
+~~~ {.clojure}
 (only-numbers? [1 2 3 4])    ;=> true
 (only-numbers? [1 2 :D 3 4]) ;=> false
 ~~~
 
 Let's have a closer look at the evaluation of the second line:
 
-~~~ {.clojure
+~~~ {.clojure}
    (only-numbers? [1 2 :D 3 4])
 ;=> (only-numbers? [2 :D 3 4])
-    ; since (number? 1) ;=> true, we now need to check
-    ; if all the rest are numbers
-;=> (only-numbers? [:D 3 4])
-    ; since (number? 2) ;=> true
-;=> false   ; since (number? :D) ;=> false
+    ; (number? 1) ;=> true, so we now need to check if all the rest are numbers.
+;=> (only-numbers? [:D 3 4]) ; because (number? 2) ;=> true
+;=> false                    ; because (number? :D) ;=> false
 ~~~
 
 <exercise>
