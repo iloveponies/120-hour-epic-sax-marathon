@@ -120,6 +120,8 @@ user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">
 <span class="dv">10</span></code></pre>
 <p><section class="alert alert-success"> Write the following expression in the Clojure prefix syntax: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mn>2</mn><mo>*</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>4</mn></mrow></math>. Try evaluating it in the interactive session. The result should be 10.</p>
 </section>
+<p><section class="alert alert-success"> Write the expression <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>3</mn><mo>+</mo><mn>4</mn><mo>+</mo><mn>5</mn><mo>+</mo><mn>6</mn></mrow></math> in Clojure syntax. Evaluate it.</p>
+</section>
 <p>The arithmetic operations above are, in fact, function calls. That is, <code>+</code> is actually a function (called <code>+</code>), as are <code>*</code> and <code>-</code>. All function calls in Clojure look the same: <code>(function-name argument-1 argument-2 ...)</code>. As an example of a non-arithmetic function, let’s take a look at getting a single character from a string in Clojure and Java. In Clojure, we can use the <code>get</code> function for this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> <span class="st">&quot;Clojure&quot;</span> <span class="dv">2</span>) <span class="co">;=&gt; \o</span></code></pre>
 <p>The result is the character <code>o</code>, printed in Clojure’s literal character syntax. (That is, <code>\o</code> in Clojure code means the single character <code>o</code>. In Java, you would write a literal character as <code>'o'</code>.)</p>
@@ -230,7 +232,7 @@ TODO: failing test output</code></pre>
 (facts <span class="st">&quot;square&quot;</span>
   (square <span class="dv">2</span>) =&gt; <span class="dv">4</span>
   (square <span class="dv">3</span>) =&gt; <span class="dv">9</span>)</code></pre>
-<p>You can ignore the namespace declaration (<code>(ns …)</code>) for now. Look at the <code>facts</code> expression. It declares some facts of the <code>square</code> function. A fact, in Midje, is an expression <code>expr =&gt; expected-value</code>, saying: <q>Evaluating <code>expr</code> should return <code>expected-value</code></q>. Our two tests (or facts) say, then, that <code>(square 2)</code> should return <code>4</code> and <code>(square 3)</code> should return 9.</p>
+<p>The <code>facts</code> form declares some facts of the <code>square</code> function. A fact, in Midje, is an expression <code>expr =&gt; expected-value</code>, saying <q>Evaluating <code>expr</code> should return <code>expected-value</code></q>. Our two tests (or facts) say that <code>(square 2)</code> should return <code>4</code> and <code>(square 3)</code> should return 9.</p>
 <p>If you take a look at the file <code>src/training-day.clj</code>, you will see that we’ve provided a stub for the <code>square</code> function:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> square </span>[n]
   <span class="st">&quot;:(&quot;</span>)</code></pre>
