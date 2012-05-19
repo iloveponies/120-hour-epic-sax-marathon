@@ -80,6 +80,10 @@ Write the following expression in the Clojure prefix syntax: $(2 * 3) + 4$.
 Try evaluating it in the interactive session. The result should be 10.
 </exercise>
 
+<exercise>
+Write the expression $3 + 4 + 5 + 6$ in Clojure syntax. Evaluate it.
+</exercise>
+
 The arithmetic operations above are, in fact, function calls. That is, `+` is
 actually a function (called `+`), as are `*` and `-`. All function calls in
 Clojure look the same: `(function-name argument-1 argument-2 ...)`. As an
@@ -333,12 +337,10 @@ first ten lines or so of the file look like this:
   (square 3) => 9)
 ~~~
 
-You can ignore the namespace declaration (`(ns …)`) for now. Look at the
-`facts` expression. It declares some facts of the `square` function. A
-fact, in Midje, is an expression `expr => expected-value`, saying:
-"Evaluating `expr` should return `expected-value`". Our two tests (or
-facts) say, then, that `(square 2)` should return `4` and `(square 3)`
-should return 9.
+The `facts` form declares some facts of the `square` function. A fact, in
+Midje, is an expression `expr => expected-value`, saying "Evaluating `expr`
+should return `expected-value`". Our two tests (or facts) say that `(square
+2)` should return `4` and `(square 3)` should return 9.
 
 If you take a look at the file `src/training-day.clj`, you will see that we've
 provided a stub for the `square` function:
