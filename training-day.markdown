@@ -401,19 +401,11 @@ multiplies it with itself.
 </exercise>
 
 <alert>
-TODO: markdown-esikääntäjä tehtävänannoille
-</alert>
-
-<alert>
 TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri
 </alert>
 
 <alert>
 TODO: doc
-</alert>
-
-<alert>
-TODO: lein-shit ja testien ajaminen
 </alert>
 
 [Midje]: https://github.com/marick/Midje
