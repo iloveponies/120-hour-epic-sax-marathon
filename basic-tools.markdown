@@ -75,14 +75,17 @@ development.
 ## Your very own butler
 
 [Leiningen] is a project management tool for Clojure projects. It handles
-building the project, declaring and fetching dependencies, opening an
-interactive session inside the project, and other things.
+various tasks related to projects, including building the project, declaring
+and fetching dependencies, opening an interactive session inside the project,
+and other such things.
 
-We use Leiningen version 2 on this course. It should be already installed on
-your computer.
+We use Leiningen version 2 preview on this course. It is installed on the
+virtual machine.
 
 You can run Leiningen with the `lein` command. Leiningen will print a succinct
 help listing about the commands it understands.
+
+The table below contains some important Leiningen commands.
 
 Command         Description
 -------         -----------
@@ -99,9 +102,7 @@ interactive session, which allows you to type in expressions and see
 immediately their return values after evaluation. We will start using the REPL
 immediately in the first chapter on Clojure itself.
 
-<footer>
-[Proceed, young padawan.][next]
-</footer>
+[Proceed, young padawan. →][next]
 
 [Git]: http://git-scm.com
 [Leiningen]: https://github.com/technomancy/leiningen
