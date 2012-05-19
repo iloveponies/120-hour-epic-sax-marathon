@@ -50,14 +50,8 @@ p::after {
 }
 
 img {
-    width: 60px;
-    height: 60px;
-    margin-right: 8px;
-    border: 1px solid rgba(1,1,1,0);
-}
-
-img[alt="photo of ilmari"] {
-    border: 1px solid #000;
+    width: 80%;
+    margin: 1em;
 }
 
 ul {

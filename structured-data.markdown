@@ -136,15 +136,15 @@ Trying to index a vector beyond its size does *not* throw an exception.
 The special value `nil` is returned, instead.
 
 <exercise>
-Write the function `(spiff v)` that takes a vector and returns the
-sum of the first and third elements of the vector. What happens when you pass
-in a vector that is too short?
+Write the function `(spiff v)` that takes a vector and returns the sum of the
+first and third elements of the vector. What happens when you pass in a vector
+that is too short?
 
 ~~~ {.clojure}
-(spiff  [1 2 3])       ;=> 4
-(spiff  [1 2 3 4 5 6]) ;=> 4
-(spiff  [1 2])         ;=> ?
-(spiff  [])            ;=> ?
+(spiff [1 2 3])       ;=> 4
+(spiff [1 2 3 4 5 6]) ;=> 4
+(spiff [1 2])         ;=> ?
+(spiff [])            ;=> ?
 ~~~
 </exercise>
 
@@ -232,7 +232,7 @@ TODO: `&`, nested destructuring, `:as`, `(let [[x] [1 2]])`
 
 <exercise>
 Rewrite our earlier function `spiff` by destructuring its
-parameters.
+parameters. Call this new function `spiff-destructuring`.
 </exercise>
 
 ## Maps
@@ -446,12 +446,12 @@ Sequences have the following operations:
 element and `sequence` is the rest.
 
 ~~~ {.clojure}
-(seq [1 2 3])                          ;=> (1 2 3)
+(seq [1 2 3])          ;=> (1 2 3)
 (seq {:a 42 :b "foo" :c ["ur" "dad"]})
-;=> ([:a 42] [:c ["ur" "dad"]] [:b "foo"])
-(first (seq [1 2 3]))                  ;=> 1
-(rest (seq [1 2 3))                    ;=> (2 3)
-(cons 0 (seq [1 2 3]))                 ;=> (0 1 2 3)
+                       ;=> ([:a 42] [:c ["ur" "dad"]] [:b "foo"])
+(first (seq [1 2 3]))  ;=> 1
+(rest (seq [1 2 3))    ;=> (2 3)
+(cons 0 (seq [1 2 3])) ;=> (0 1 2 3)
 ~~~
 
 Here you can see the printed form of sequences, the elements inside `(` and
@@ -476,9 +476,9 @@ TODO: sekvenssitehtävä tänne
 
 ### The map function
 
-`(map f coll)` takes two parameters, a function and a sequencable collection.
-It calls the function on each element of the sequence and returns a sequence
-of the return values.
+`(map function collection)` takes two parameters, a function and a sequencable
+collection.  It calls the function on each element of the sequence and returns
+a sequence of the return values.
 
 TODO: lispmap
 
@@ -661,28 +661,68 @@ TODO;: KIRJALISTAT TÄHÄNQI
 (all-author-names books) ;=> #{"China Miéville" "Octavia E. Butler"}
 ~~~
 
-TODO: filter, mapv, filterv, lisää sovellutusta
+## Filtering sequences
 
-TODO: kirjakamaa: vektorillinen kirjoja ja niihin liittyviä apufunktioita,
-paloittele Conania tänne sekaan.
+Another common function besides `map` is `filter`. It is used to select some
+elements of a sequence and disregard the rest:
+
+~~~ {.clojure}
+(filter pos? [-4 6 -2 7 -8 3]) ;=> (6 7 3)
+(filter (fn [x] (> (count x) 2)) ["ff" "f" "ffffff" "fff"])
+;=> ("ffffff" "fff")
+~~~
+
+`(filter predicate collection)` takes two parameters, a function and a
+sequencable collection. It calls the function on each element of the sequence
+and returns a sequence of the values from the collection for which the function
+returned a truthy value. In the above example the values `(6 7 3)` were
+selected because for them `pos?` returned true; for the others it returned
+false, a falsey value, and they were filtered out.
+
+<exercise>
+Write the function `(books-by-author author books)`.
+
+~~~ {.clojure}
+(books-by-author "China Miéville" books)
+;=> ({cities} {...})
+~~~
+</exercise>
+
+<exercise>
+Implement `(book-titles-by-author author books)`, which returns the book
+titles of the books by the given author.
+
+Use `books-by-author` as a helper function.
+</exercise>
+
+<exercise>
+Implement `(author-names authors)`, which returns all the author names in a
+set.
+</exercise>
+
+<exercise>
+Implement `(authors books)`, which returns all the authors in a set.
+</exercise>
+
+<exercise>
+Using the two previous functions, implement `(books->author-names books)`,
+which returns all the books' authors' names in a set.
+</exercise>
+
+### Keeping your vectors
+
+`map` and `filter` always return sequences, regardless of the collection type
+given as a parameter. Sometimes, however, you want the result to be a vector.
+For an example, you may want to index the vector afterwards. In this
+situation, you can use `mapv` and `filterv`, which are variants of `map` and
+`filter` that always return vectors.
+
+~~~ {.clojure}
+(mapv ... [...])    ;=> [...]
+(filterv pos? [-4 6 -2 7 -8 3])  ;=> [6 7 3]
+(filterv pos? #{-4 6 -2 7 -8 3}) ;=> [3 6 7]
+(mapv ... #{...})   ;=> [...]
+~~~
 
 TODO: do this stuff with a json api: see org.clojure/data.json and e.g.
 api.clojuredocs.org
-
-## Sequences
-
-Do we want to speak about sequences here?
-
-## Lists
-
-Should we talk about lists?
-
-Lists are :
-
-~~~ {.clojure}
-(+ 1 2)
-(get "Foobar" 3)
-~~~
-
-When a list is evaluated, the first element (the *head*) is resolved to a
-function and called, with the other items given to the function as arguments.

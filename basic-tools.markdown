@@ -4,12 +4,33 @@
 
 ## Synopis
 
+- The development environment
 - Shell
-    - Unix: sh
-    - Windows: ps
 - Leiningen
 - Clojure REPL
-- Git
+- Version control with Git
+
+## The development environment
+
+We have created a virtual machine running [Ubuntu] 12.04, with Clojure and
+[Vim] configured as the editor. After you have booted the computer to Windows
+7, the virtual machine can be found in VirtualBox. If you do not see "Ubuntu
+12.04" in the list of virtual machines in VirtualBox, you can add it with the
+"Add" button. The machine can be found under the path
+`C:\Temp\VirtualBox\Machines\clojure-VirtualBox`. Select the `.vbox` file in that
+directory to add the virtual machine to VirtualBox's list.
+
+<div style="text-align: center;">
+<a href="img/ClojureBox.png">
+![ClojureBox](img/ClojureBox.png)
+</a>
+</div>
+
+Start the virtual machine with the "Start" button. After starting the virtual
+machine, it should log you in automatically to the desktop. The user name is
+`clojure` and the password is `iloveponies`, should you need them.
+
+Please tell us if you have a problem launching the virtual machine.
 
 ## The shell game
 
@@ -18,17 +39,33 @@ programming, it is extremely useful to know your way around as shell, no
 matter what kind of programming you do. We will use the shell as our primary
 mechanism of working with project builds, REPL interaction and other things.
 
-<section class="alert alert-error">
-TODO: What do we need to talk about here?
-</section>
+The shell is used with a program called Terminal. You can launch it by
+clicking on the Terminal button. TODO: fix.
 
-### sh
+## sh
 
-Foo barb ar.
+Your home directory is located under the path `/home/clojure/`. The shell
+opens this directory by default. Its short name is `~`. You can use `ls` to
+list the files in the current directory.
 
-### PowerShell
+~~~
+clojure@clojure-VirtualBox:~$ ls
+bin      Documents  examples.desktop  Pictures  stale      Videos
+Desktop  Downloads  Music             Public    Templates  workspace
+~~~
 
-Foo barb ar.
+The `cd` command changes directories:
+
+~~~
+clojure@clojure-VirtualBox:~$ cd Documents/
+clojure@clojure-VirtualBox:~/Documents$ ls
+clojure@clojure-VirtualBox:~/Documents$
+~~~
+
+The `Documents` directory is empty.
+
+`evim` launches the Vim editor, which is preconfigured for easy Clojure
+development.
 
 ## Your very own butler
 
@@ -53,20 +90,17 @@ new             Create a new Clojure project.
 
 One of the great features of Clojure (and other languages such as Ruby,
 Haskell or Python) is the REPL, or read-eval-print-loop. The REPL is an
-interactive session -- very similar to the system shell -- 
+interactive session, which allows you to type in expressions and see
+immediately their return values after evaluation. We will start using the REPL
+immediately in the first chapter on Clojure itself.
 
-*Aside:* We use Leiningen to launch the interactive session for convenience
-only. We could just as well have run `java -cp ".:/path/to/clojure.jar"
-clojure.main` for the same effect. (On Windows, replace the `:` with `;`.)
-Typing `lein repl` is just a bit nicer.  Additionally, Leiningen provides
-commandline editing functions that running Clojure directly wouldn't. Try
-typing <i class="icon-arrow-up"></i> in the interactive session launched by
-Leiningen, then try it in the session launched with `java` directly.
-
-## Version control with Linus Torvalds
-
-> When in doubt, do exactly the opposite of CVS. <small>Linus Torvalds</small>
+<footer>
+[Proceed, young padawan.][next]
+</footer>
 
 [Git]: http://git-scm.com
 [Leiningen]: https://github.com/technomancy/leiningen
 [Midje]: https://github.com/marick/Midje
+[Ubuntu]: http://ubuntu.com
+[Vim]: http://vim.org
+[next]: training-day.html
