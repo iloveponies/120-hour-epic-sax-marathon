@@ -1,7 +1,7 @@
-#!/usr/bin/env perl -p
+#!/usr/bin/perl -p
 
 BEGIN {
-    use v5.14;
+    use v5.12;
     use warnings;
 
     our %tags = (
