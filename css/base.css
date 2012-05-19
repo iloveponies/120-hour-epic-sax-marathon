@@ -49,9 +49,21 @@ p::after {
     content: "";
 }
 
-img {
+figure {
     width: 80%;
     margin: 1em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure img {
+    width: 100%;
+}
+
+figcaption {
+    text-align: center;
+    color: #666;
+    margin-top: 0.5em;
 }
 
 ul {
