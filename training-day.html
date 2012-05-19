@@ -257,11 +257,13 @@ FAIL &quot;square&quot; at (training_day_test.clj:7)
 <p>There are various other functions with properties, whose failures you also see here, but the important output, for our purposes, are the failures with the text <code>&quot;square&quot;</code> in them. They indicate that our stub function fails the tests as expected, because the string <code>&quot;:(&quot;</code> is not <code>4</code> or <code>9</code>.</p>
 <p>The first exercise, then, is to implement <code>square</code>.</p>
 <p>After writing the implementation of <code>square</code> in <code>src/training_day.clj</code>, run <code>lein midje</code> again to see if your implementation agrees with the facts declared in our test file.</p>
-<p><section class="alert alert-success"> Write the function <code>square</code> that takes a number as a parameter and multiplies it with itself.</p>
+<p><section class="alert alert-success"> Write the function <code>(square x)</code> that takes a number as a parameter and multiplies it with itself.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(square <span class="dv">2</span>) <span class="co">;=&gt; 4</span>
 (square <span class="dv">3</span>) <span class="co">;=&gt; 9</span></code></pre>
 </section>
-<p><section class="alert alert-error"> TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri</p>
+<p><section class="alert alert-success"> Write the function <code>(average a b)</code>, which returns the average of its two parameters:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(average <span class="dv">2</span> <span class="dv">4</span>) <span class="co">;=&gt; 3</span>
+(average <span class="dv">1</span> <span class="dv">2</span>) <span class="co">;=&gt; 3/2</span></code></pre>
 </section>
 <p><section class="alert alert-error"> TODO: doc</p>
 </section>
