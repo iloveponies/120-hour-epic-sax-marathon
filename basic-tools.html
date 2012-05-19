@@ -27,28 +27,40 @@
 <section class="level2" id="synopis">
 <h2>Synopis</h2>
 <ul>
-<li>Shell
-<ul>
-<li>Unix: sh</li>
-<li>Windows: ps</li>
-</ul></li>
+<li>The development environment</li>
+<li>Shell</li>
 <li>Leiningen</li>
 <li>Clojure REPL</li>
-<li>Git</li>
+<li>Version control with Git</li>
 </ul>
+</section>
+<section class="level2" id="the-development-environment">
+<h2>The development environment</h2>
+<p>We have created a virtual machine running <a href="http://ubuntu.com">Ubuntu</a> 12.04, with Clojure and <a href="http://vim.org">Vim</a> configured as the editor. After you have booted the computer to Windows 7, the virtual machine can be found in VirtualBox. If you do not see &quot;Ubuntu 12.04&quot; in the list of virtual machines in VirtualBox, you can add it with the &quot;Add&quot; button. The machine can be found under the path <code>C:\Temp\VirtualBox\Machines\clojure-VirtualBox</code>. Select the <code>.vbox</code> file in that directory to add the virtual machine to VirtualBox's list.</p>
+<div style="text-align: center;">
+<a href="img/ClojureBox.png"> <img src="img/ClojureBox.png" alt="ClojureBox"> </a>
+</div>
+
+<p>Start the virtual machine with the &quot;Start&quot; button. After starting the virtual machine, it should log you in automatically to the desktop. The user name is <code>clojure</code> and the password is <code>iloveponies</code>, should you need them.</p>
+<p>Please tell us if you have a problem launching the virtual machine.</p>
 </section>
 <section class="level2" id="the-shell-game">
 <h2>The shell game</h2>
 <p>While there is nothing that forces you to use the shell for Clojure programming, it is extremely useful to know your way around as shell, no matter what kind of programming you do. We will use the shell as our primary mechanism of working with project builds, REPL interaction and other things.</p>
-<p><section class="alert alert-error"> TODO: What do we need to talk about here? </section></p>
-<section class="level3" id="sh">
-<h3>sh</h3>
-<p>Foo barb ar.</p>
+<p>The shell is used with a program called Terminal. You can launch it by clicking on the Terminal button. TODO: fix.</p>
 </section>
-<section class="level3" id="powershell">
-<h3>PowerShell</h3>
-<p>Foo barb ar.</p>
-</section>
+<section class="level2" id="sh">
+<h2>sh</h2>
+<p>Your home directory is located under the path <code>/home/clojure/</code>. The shell opens this directory by default. Its short name is <code>~</code>. You can use <code>ls</code> to list the files in the current directory.</p>
+<pre><code>clojure@clojure-VirtualBox:~$ ls
+bin      Documents  examples.desktop  Pictures  stale      Videos
+Desktop  Downloads  Music             Public    Templates  workspace</code></pre>
+<p>The <code>cd</code> command changes directories:</p>
+<pre><code>clojure@clojure-VirtualBox:~$ cd Documents/
+clojure@clojure-VirtualBox:~/Documents$ ls
+clojure@clojure-VirtualBox:~/Documents$</code></pre>
+<p>The <code>Documents</code> directory is empty.</p>
+<p><code>evim</code> launches the Vim editor, which is preconfigured for easy Clojure development.</p>
 </section>
 <section class="level2" id="your-very-own-butler">
 <h2>Your very own butler</h2>
@@ -84,14 +96,8 @@
 </section>
 <section class="level2" id="the-repl-or-read-eval-print-loop">
 <h2>The <abbr title="Read-Eval-Print-Loop">REPL</abbr> or read-eval-print-loop</h2>
-<p>One of the great features of Clojure (and other languages such as Ruby, Haskell or Python) is the REPL, or read-eval-print-loop. The REPL is an interactive session -- very similar to the system shell --</p>
-<p><aside class="alert alert-info"> We use Leiningen to launch the interactive session for convenience only. We could just as well have run <code>java -cp &quot;.:/path/to/clojure.jar&quot; clojure.main</code> for the same effect. (On Windows, replace the <code>:</code> with <code>;</code>.) Typing <code>lein repl</code> is just a bit nicer. Additionally, Leiningen provides commandline editing functions that running Clojure directly wouldn't. Try typing <i class="icon-arrow-up"></i> in the interactive session launched by Leiningen, then try it in the session launched with <code>java</code> directly.</aside></p>
-</section>
-<section class="level2" id="version-control-with-linus-torvalds">
-<h2>Version control with Linus Torvalds</h2>
-<blockquote>
-<p>When in doubt, do exactly the opposite of CVS. <small>Linus Torvalds</small></p>
-</blockquote>
+<p>One of the great features of Clojure (and other languages such as Ruby, Haskell or Python) is the REPL, or read-eval-print-loop. The REPL is an interactive session, which allows you to type in expressions and see immediately their return values after evaluation. We will start using the REPL immediately in the first chapter on Clojure itself.</p>
+<p><footer> <a href="training-day.html">Proceed, young padawan.</a> </footer></p>
 </section>
 </div>
 </div>

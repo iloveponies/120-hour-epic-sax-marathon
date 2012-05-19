@@ -142,10 +142,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 (<span class="kw">get</span> [<span class="st">&quot;x&quot;</span>] <span class="dv">0</span>)          <span class="co">;=&gt; &quot;x&quot;</span></code></pre>
 <p>Trying to index a vector beyond its size does <em>not</em> throw an exception. The special value <code>nil</code> is returned, instead.</p>
 <p><section class="alert alert-success"> Write the function <code>(spiff v)</code> that takes a vector and returns the sum of the first and third elements of the vector. What happens when you pass in a vector that is too short?</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(spiff  [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])       <span class="co">;=&gt; 4</span>
-(spiff  [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>]) <span class="co">;=&gt; 4</span>
-(spiff  [<span class="dv">1</span> <span class="dv">2</span>])         <span class="co">;=&gt; ?</span>
-(spiff  [])            <span class="co">;=&gt; ?</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(spiff [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])       <span class="co">;=&gt; 4</span>
+(spiff [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>]) <span class="co">;=&gt; 4</span>
+(spiff [<span class="dv">1</span> <span class="dv">2</span>])         <span class="co">;=&gt; ?</span>
+(spiff [])            <span class="co">;=&gt; ?</span></code></pre>
 </section>
 <section class="level3" id="basic-vector-operations">
 <h3>Basic vector operations</h3>
@@ -181,7 +181,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
   [(<span class="kw">+</span> x1 x2) (<span class="kw">+</span> y1 y2)])</code></pre>
 <p><code>sum-pairs</code> still takes two parameter vectors, but now it does not give names to its parameters. Instead, it gives names to their first two elements by destructuring the parameters. We could have also destructured the parameters with a <code>let</code>.</p>
 <p>TODO: <code>&amp;</code>, nested destructuring, <code>:as</code>, <code>(let [[x] [1 2]])</code></p>
-<p><section class="alert alert-success"> Rewrite our earlier function <code>spiff</code> by destructuring its parameters.</p>
+<p><section class="alert alert-success"> Rewrite our earlier function <code>spiff</code> by destructuring its parameters. Call this new function <code>spiff-destructuring</code>.</p>
 </section>
 </section>
 </section>
@@ -289,12 +289,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><p><code>(rest sequence)</code> returns the sequence without its first element.</p></li>
 <li><p><code>(cons item sequence)</code> returns a new sequence where <code>item</code> is the first element and <code>sequence</code> is the rest.</p></li>
 </ul>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])                          <span class="co">;=&gt; (1 2 3)</span>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])          <span class="co">;=&gt; (1 2 3)</span>
 (<span class="kw">seq</span> {<span class="kw">:a</span> <span class="dv">42</span> <span class="kw">:b</span> <span class="st">&quot;foo&quot;</span> <span class="kw">:c</span> [<span class="st">&quot;ur&quot;</span> <span class="st">&quot;dad&quot;</span>]})
-<span class="co">;=&gt; ([:a 42] [:c [&quot;ur&quot; &quot;dad&quot;]] [:b &quot;foo&quot;])</span>
-(<span class="kw">first</span> (<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]))                  <span class="co">;=&gt; 1</span>
-(<span class="kw">rest</span> (<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))                    <span class="co">;=&gt; (2 3)</span>
-(<span class="kw">cons</span> <span class="dv">0</span> (<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]))                 <span class="co">;=&gt; (0 1 2 3)</span></code></pre>
+                       <span class="co">;=&gt; ([:a 42] [:c [&quot;ur&quot; &quot;dad&quot;]] [:b &quot;foo&quot;])</span>
+(<span class="kw">first</span> (<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]))  <span class="co">;=&gt; 1</span>
+(<span class="kw">rest</span> (<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))    <span class="co">;=&gt; (2 3)</span>
+(<span class="kw">cons</span> <span class="dv">0</span> (<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])) <span class="co">;=&gt; (0 1 2 3)</span></code></pre>
 <p>Here you can see the printed form of sequences, the elements inside <code>(</code> and <code>)</code>. This has the consequence that copying <code>(1 2 3)</code> back to the REPL tries to call <code>1</code> as a function. The result is that you can not use the printed form of a sequence as a value like you could with vectors and maps.</p>
 <p>Actually, the sequence functions call <code>seq</code> on their collection parameters themselves, so we can just write the above examples like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">first</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])  <span class="co">;=&gt; 1</span>
@@ -306,7 +306,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section class="level3" id="the-map-function">
 <h3>The map function</h3>
-<p><code>(map f coll)</code> takes two parameters, a function and a sequencable collection. It calls the function on each element of the sequence and returns a sequence of the return values.</p>
+<p><code>(map function collection)</code> takes two parameters, a function and a sequencable collection. It calls the function on each element of the sequence and returns a sequence of the return values.</p>
 <p>TODO: lispmap</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> munge </span>[x]
   (<span class="kw">+</span> x <span class="dv">42</span>))
@@ -401,22 +401,37 @@ code > span.er { color: #ff0000; font-weight: bold; }
     (<span class="kw">set</span> (<span class="kw">map</span> author-name books))))</code></pre>
 <p>TODO;: KIRJALISTAT TÄHÄNQI</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(all-author-names books) <span class="co">;=&gt; #{&quot;China Miéville&quot; &quot;Octavia E. Butler&quot;}</span></code></pre>
-<p>TODO: filter, mapv, filterv, lisää sovellutusta</p>
-<p>TODO: kirjakamaa: vektorillinen kirjoja ja niihin liittyviä apufunktioita, paloittele Conania tänne sekaan.</p>
+</section>
+</section>
+<section class="level2" id="filtering-sequences">
+<h2>Filtering sequences</h2>
+<p>Another common function besides <code>map</code> is <code>filter</code>. It is used to select some elements of a sequence and disregard the rest:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">filter</span> <span class="kw">pos?</span> [-<span class="dv">4</span> <span class="dv">6</span> -<span class="dv">2</span> <span class="dv">7</span> -<span class="dv">8</span> <span class="dv">3</span>]) <span class="co">;=&gt; (6 7 3)</span>
+(<span class="kw">filter</span> (<span class="kw">fn</span> [x] (<span class="kw">&gt;</span> (<span class="kw">count</span> x) <span class="dv">2</span>)) [<span class="st">&quot;ff&quot;</span> <span class="st">&quot;f&quot;</span> <span class="st">&quot;ffffff&quot;</span> <span class="st">&quot;fff&quot;</span>])
+<span class="co">;=&gt; (&quot;ffffff&quot; &quot;fff&quot;)</span></code></pre>
+<p><code>(filter predicate collection)</code> takes two parameters, a function and a sequencable collection. It calls the function on each element of the sequence and returns a sequence of the values from the collection for which the function returned a truthy value. In the above example the values <code>(6 7 3)</code> were selected because for them <code>pos?</code> returned true; for the others it returned false, a falsey value, and they were filtered out.</p>
+<p><section class="alert alert-success"> Write the function <code>(books-by-author author books)</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(books-by-author <span class="st">&quot;China Miéville&quot;</span> books)
+<span class="co">;=&gt; ({cities} {...})</span></code></pre>
+</section>
+<p><section class="alert alert-success"> Implement <code>(book-titles-by-author author books)</code>, which returns the book titles of the books by the given author.</p>
+<p>Use <code>books-by-author</code> as a helper function.</p>
+</section>
+<p><section class="alert alert-success"> Implement <code>(author-names authors)</code>, which returns all the author names in a set.</p>
+</section>
+<p><section class="alert alert-success"> Implement <code>(authors books)</code>, which returns all the authors in a set.</p>
+</section>
+<p><section class="alert alert-success"> Using the two previous functions, implement <code>(books-&gt;author-names books)</code>, which returns all the books' authors' names in a set.</p>
+</section>
+<section class="level3" id="keeping-your-vectors">
+<h3>Keeping your vectors</h3>
+<p><code>map</code> and <code>filter</code> always return sequences, regardless of the collection type given as a parameter. Sometimes, however, you want the result to be a vector. For an example, you may want to index the vector afterwards. In this situation, you can use <code>mapv</code> and <code>filterv</code>, which are variants of <code>map</code> and <code>filter</code> that always return vectors.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(mapv ... [...])    <span class="co">;=&gt; [...]</span>
+(filterv <span class="kw">pos?</span> [-<span class="dv">4</span> <span class="dv">6</span> -<span class="dv">2</span> <span class="dv">7</span> -<span class="dv">8</span> <span class="dv">3</span>])  <span class="co">;=&gt; [6 7 3]</span>
+(filterv <span class="kw">pos?</span> #{-<span class="dv">4</span> <span class="dv">6</span> -<span class="dv">2</span> <span class="dv">7</span> -<span class="dv">8</span> <span class="dv">3</span>}) <span class="co">;=&gt; [3 6 7]</span>
+(mapv ... #{...})   <span class="co">;=&gt; [...]</span></code></pre>
 <p>TODO: do this stuff with a json api: see org.clojure/data.json and e.g. api.clojuredocs.org</p>
 </section>
-</section>
-<section class="level2" id="sequences-1">
-<h2>Sequences</h2>
-<p>Do we want to speak about sequences here?</p>
-</section>
-<section class="level2" id="lists">
-<h2>Lists</h2>
-<p>Should we talk about lists?</p>
-<p>Lists are :</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>)
-(<span class="kw">get</span> <span class="st">&quot;Foobar&quot;</span> <span class="dv">3</span>)</code></pre>
-<p>When a list is evaluated, the first element (the <em>head</em>) is resolved to a function and called, with the other items given to the function as arguments.</p>
 </section>
 </div>
 </div>

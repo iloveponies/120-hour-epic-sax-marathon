@@ -54,21 +54,21 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section class="level2" id="interactive-clojure">
 <h2>Interactive Clojure</h2>
-<p>To start an interactive Clojure session, type <code>lein2 repl</code> in the terminal.</p>
+<p>To start an interactive Clojure session, type <code>lein repl</code> in the terminal.</p>
 <p>It should look something like this:</p>
-<pre><code>nREPL server started on port 41612
+<pre><code>nREPL server started on port 50443
 Welcome to REPL-y!
-Clojure 1.3.0
+Clojure 1.4.0
     Exit: Control+D or (exit) or (quit)
-Commands: (help)
+Commands: (user/help)
     Docs: (doc function-name-here)
           (find-doc &quot;part-of-name-here&quot;)
   Source: (source function-name-here)
-          (sourcery function-name-here)
+          (user/sourcery function-name-here)
  Javadoc: (javadoc java-object-or-class-here)
-Examples from clojuredocs.org:
-          (clojuredocs name-here)
-          (clojuredocs &quot;ns-here&quot; &quot;name-here&quot;)
+Examples from clojuredocs.org: [clojuredocs or cdoc]
+          (user/clojuredocs name-here)
+          (user/clojuredocs &quot;ns-here&quot; &quot;name-here&quot;)
 nil
 user=&gt;</code></pre>
 <p>If you type <code>(+ 1 2)</code> and press the return key, you should see this:</p>
@@ -121,7 +121,7 @@ user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> <span class="st">&quot;Clojure&quot;</span> <span class="dv">2</span>) <span class="co">;=&gt; \o</span></code></pre>
 <p>The result is the character <code>o</code>, printed in Clojure's literal character syntax. (That is, <code>\o</code> in Clojure code means the single character <code>o</code>. In Java, you would write a literal character as <code>'o'</code>.)</p>
 <p>In Java, we reorder things a bit: the first parameter goes <em>before</em> the method name, and the parentheses are moved <em>after</em> the method name:</p>
-<pre class="sourceCode java"><code class="sourceCode java"><span class="st">&quot;Java&quot;</span>.<span class="fu">charAt</span>(<span class="dv">2</span>); <span class="co">//=&gt; v</span></code></pre>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="st">&quot;Java&quot;</span>.<span class="fu">charAt</span>(<span class="dv">2</span>); <span class="co">//=&gt; &#39;v&#39;</span></code></pre>
 <p>In Clojure, the function name always goes first, and the parameters come after it, including the object, if such is present. The Clojure syntax might take some time to get used to, but becomes natural after you've written a few Clojure programs.</p>
 </section>
 <section class="level2" id="notation">
@@ -134,8 +134,9 @@ user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">
 <p>Sometimes we will put the result on a new line:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="dv">1337</span>)
 <span class="co">;=&gt; &quot;1337&quot;</span></code></pre>
-<p><aside class="alert alert-info"> <code>str</code> is a function that turns its argument to a string. If given multiple arguments, it concatenates the results:</aside></p>
+<p><section class="alert alert-info"> <code>str</code> is a function that turns its argument to a string. If given multiple arguments, it concatenates the results:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="st">&quot;Over &quot;</span> <span class="dv">9000</span> <span class="st">&quot;!&quot;</span>) <span class="co">;=&gt; &quot;Over 9000!&quot;</span></code></pre>
+</section>
 <p>When the resulting value is too long to display on one line, we will mark the continuation lines with a leading <code>;</code> like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">take</span> <span class="dv">20</span> (<span class="kw">cycle</span> [<span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>]))
 <span class="co">;=&gt; (&quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot;</span>
@@ -163,7 +164,7 @@ user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">
 <p>Namespaces are declared with <code>ns</code>.</p>
 <p>Now, we go to the directory <code>foobar</code> in a terminal and start an interactive session there:</p>
 <pre><code>$ cd foobar
-$ lein2 repl
+$ lein repl
 …
 user=&gt;</code></pre>
 <p>We can now load the <code>hello.clj</code> file into the session:</p>
@@ -171,12 +172,11 @@ user=&gt;</code></pre>
 O HAI!    <span class="co">; ← (println &quot;O HAI!&quot;)</span>
 nil       <span class="co">; ← result of use</span></code></pre>
 <p>This loaded the file <code>hello.clj</code> into the interactive session. Doing this, it evaluated everything in the file, which is why we see the printed line. The result of <code>use</code> itself is <code>nil</code>, a special value like Java's <code>null</code>.</p>
-<aside class="alert alert-error">
-<p>The <code>'</code> before the namespace name in a <code>use</code> is important. If you forget it, you will get an error like this:</p>
+<p><section class="alert alert-error"> The <code>'</code> before the namespace name in a <code>use</code> is important. If you forget it, you will get an error like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> example.hello)
 java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">:1)</span></code></pre>
 <p><code>'</code> is an alias for the <code>quote</code> special form, which we will talk more about later.</p>
-</aside>
+</section>
 </section>
 <section class="level2" id="functions">
 <h2>Functions</h2>
@@ -209,14 +209,17 @@ user=&gt; (hello <span class="st">&quot;Metropolia&quot;</span>)
 </section>
 <section class="level2" id="we-come-gifting-bears">
 <h2>We come gifting bears</h2>
+<blockquote>
+<p>When in doubt, do exactly the opposite of CVS. <small>Linus Torvalds</small></p>
+</blockquote>
 <p>We will now move to a Leiningen-based project structure instead of the one we manually created above. It contains unit tests for the exercises that will follow. No worries, though: you can use [Git] to get a ready-made structure we have lovingly hand-crafted just for you:</p>
 <pre><code>$ git clone https://github.com/iloveponies/training-day.git
 Cloning into &#39;training-day&#39;…
 …more output…
 $ cd training-day
-$ lein2 midje
+$ lein midje
 TODO: failing test output</code></pre>
-<p>Our project uses the [Midje] testing library. Let's take a look at what kind of tests the project contains. Open the file <code>test/training_day_test.clj</code>. The first ten lines or so of the file look like this:</p>
+<p>Our project uses the <a href="https://github.com/marick/Midje">Midje</a> testing library. Let's take a look at what kind of tests the project contains. Open the file <code>test/training_day_test.clj</code>. The first ten lines or so of the file look like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">ns</span> training-day-test
   (<span class="kw">:use</span> training-day
         midje.sweet))
@@ -232,9 +235,9 @@ TODO: failing test output</code></pre>
 </section>
 <section class="level2" id="running-tests">
 <h2>Running tests</h2>
-<p>Midje tests are run from the command line, from the root directory of the project. In that directory, the command <code>lein2 midje</code> will run all the tests (or, in other words, verify all the properties) in the project. (Tests are usually put under the <code>test/</code> directory under the project root.)</p>
+<p>Midje tests are run from the command line, from the root directory of the project. In that directory, the command <code>lein midje</code> will run all the tests (or, in other words, verify all the properties) in the project. (Tests are usually put under the <code>test/</code> directory under the project root.)</p>
 <p>Try running the tests now to see that our dummy stub of <code>square</code> indeed does fail its tests:</p>
-<pre><code>$ lein2 midje
+<pre><code>$ lein midje
 ...Lots of information about fetched dependencies...
 ...
 ...and eventually:
@@ -250,15 +253,19 @@ FAIL &quot;square&quot; at (training_day_test.clj:7)
 ...and lots more...</code></pre>
 <p>There are various other functions with properties, whose failures you also see here, but the important output, for our purposes, are the failures with the text <code>&quot;square&quot;</code> in them. They indicate that our stub function fails the tests as expected, because the string <code>&quot;:(&quot;</code> is not <code>4</code> or <code>9</code>.</p>
 <p>The first exercise, then, is to implement <code>square</code>.</p>
-<p>After writing the implementation of <code>square</code> in <code>src/training_day.clj</code>, run <code>lein2 midje</code> again to see if your implementation agrees with the facts declared in our test file.</p>
+<p>After writing the implementation of <code>square</code> in <code>src/training_day.clj</code>, run <code>lein midje</code> again to see if your implementation agrees with the facts declared in our test file.</p>
 <p><section class="alert alert-success"> Write the function <code>square</code> that takes a number as a parameter and multiplies it with itself.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(square <span class="dv">2</span>) <span class="co">;=&gt; 4</span>
 (square <span class="dv">3</span>) <span class="co">;=&gt; 9</span></code></pre>
 </section>
-<p><section class="alert alert-error"> TODO: markdown-esikääntäjä tehtävänannoille </section></p>
-<p><section class="alert alert-error"> TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri </section></p>
-<p><section class="alert alert-error"> TODO: doc </section></p>
-<p><section class="alert alert-error"> TODO: lein-shit ja testien ajaminen </section></p>
+<p><section class="alert alert-error"> TODO: markdown-esikääntäjä tehtävänannoille</p>
+</section>
+<p><section class="alert alert-error"> TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri</p>
+</section>
+<p><section class="alert alert-error"> TODO: doc</p>
+</section>
+<p><section class="alert alert-error"> TODO: lein-shit ja testien ajaminen</p>
+</section>
 </section>
 </div>
 </div>
