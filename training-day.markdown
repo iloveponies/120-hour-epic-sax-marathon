@@ -76,9 +76,8 @@ user=> (+ 1 2 3 4)
 ~~~
 
 <exercise>
-Write the following expression in the Clojure prefix syntax: $(2 *
-3) + 4$. Try evaluating it in the interactive session. The result should be
-10.
+Write the following expression in the Clojure prefix syntax: $(2 * 3) + 4$.
+Try evaluating it in the interactive session. The result should be 10.
 </exercise>
 
 The arithmetic operations above are, in fact, function calls. That is, `+` is
