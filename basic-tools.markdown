@@ -20,11 +20,11 @@ We have created a virtual machine running [Ubuntu] 12.04, with Clojure and
 `C:\Temp\VirtualBox\Machines\clojure-VirtualBox`. Select the `.vbox` file in that
 directory to add the virtual machine to VirtualBox's list.
 
-<div style="text-align: center;">
 <a href="img/ClojureBox.png">
-![ClojureBox](img/ClojureBox.png)
+
+![Ubuntu 12.04 with the Vim editor.](img/ClojureBox.png)
+
 </a>
-</div>
 
 Start the virtual machine with the "Start" button. After starting the virtual
 machine, it should log you in automatically to the desktop. The user name is
