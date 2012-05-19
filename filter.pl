@@ -11,13 +11,11 @@ BEGIN {
     );
 }
 
-my $x = $_;
-
 for my $tag (keys %tags) {
     my $class = $tags{$tag};
 
-    $x =~ s#<$tag>#<section class="alert alert-$class">#;
-    $x =~ s#</$tag>#\n</section>#;
+    s#<$tag>#<section class="alert alert-$class">#;
+    s#</$tag>#\n</section>#;
 }
 
-print $x;
+print;
