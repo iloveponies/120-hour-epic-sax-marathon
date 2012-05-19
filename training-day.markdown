@@ -12,27 +12,27 @@ A whirlwind tour of the basics of Clojure, including:
 
 ## Interactive Clojure
 
-To start an interactive Clojure session, type `lein2 repl` in the terminal.
+To start an interactive Clojure session, type `lein repl` in the terminal.
 
 It should look something like this:
 
-```
-nREPL server started on port 41612
+~~~
+nREPL server started on port 50443
 Welcome to REPL-y!
-Clojure 1.3.0
+Clojure 1.4.0
     Exit: Control+D or (exit) or (quit)
-Commands: (help)
+Commands: (user/help)
     Docs: (doc function-name-here)
           (find-doc "part-of-name-here")
   Source: (source function-name-here)
-          (sourcery function-name-here)
+          (user/sourcery function-name-here)
  Javadoc: (javadoc java-object-or-class-here)
-Examples from clojuredocs.org:
-          (clojuredocs name-here)
-          (clojuredocs "ns-here" "name-here")
+Examples from clojuredocs.org: [clojuredocs or cdoc]
+          (user/clojuredocs name-here)
+          (user/clojuredocs "ns-here" "name-here")
 nil
 user=>
-```
+~~~
 
 If you type `(+ 1 2)` and press the return key, you should see this:
 
@@ -100,7 +100,7 @@ In Java, we reorder things a bit: the first parameter goes *before* the method
 name, and the parentheses are moved *after* the method name:
 
 ~~~{.java}
-"Java".charAt(2); //=> v
+"Java".charAt(2); //=> 'v'
 ~~~
 
 In Clojure, the function name always goes first, and the parameters come after
@@ -133,12 +133,14 @@ Sometimes we will put the result on a new line:
 ;=> "1337"
 ~~~
 
-*Aside:* `str` is a function that turns its argument to a string. If given multiple
+<info>
+`str` is a function that turns its argument to a string. If given multiple
 arguments, it concatenates the results:
 
 ~~~{.clojure}
 (str "Over " 9000 "!") ;=> "Over 9000!"
 ~~~
+</info>
 
 When the resulting value is too long to display on one line, we will mark the
 continuation lines with a leading `;` like this:
@@ -200,7 +202,7 @@ session there:
 
 ~~~
 $ cd foobar
-$ lein2 repl
+$ lein repl
 …
 user=>
 ~~~
@@ -217,8 +219,7 @@ This loaded the file `hello.clj` into the interactive session. Doing this, it
 evaluated everything in the file, which is why we see the printed line. The
 result of `use` itself is `nil`, a special value like Java's `null`.
 
-<aside class="alert alert-error">
-
+<alert>
 The `'` before the namespace name in a `use` is important. If you forget it,
 you will get an error like this:
 
@@ -229,8 +230,7 @@ java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE:1)
 
 `'` is an alias for the  `quote` special form, which we will talk more about
 later.
-
-</aside>
+</alert>
 
 ## Functions
 
@@ -304,6 +304,8 @@ We now know all the basics of structuring Clojure programs.
 
 ## We come gifting bears
 
+> When in doubt, do exactly the opposite of CVS. <small>Linus Torvalds</small>
+
 We will now move to a Leiningen-based project structure instead of the one we
 manually created above. It contains unit tests for the exercises that will
 follow. No worries, though: you can use [Git] to get a ready-made structure we
@@ -314,7 +316,7 @@ $ git clone https://github.com/iloveponies/training-day.git
 Cloning into 'training-day'…
 …more output…
 $ cd training-day
-$ lein2 midje
+$ lein midje
 TODO: failing test output
 ~~~
 
@@ -353,7 +355,7 @@ obviously not pass the tests, which we should now verify.
 ## Running tests
 
 Midje tests are run from the command line, from the root directory of the
-project. In that directory, the command `lein2 midje` will run all the tests
+project. In that directory, the command `lein midje` will run all the tests
 (or, in other words, verify all the properties) in the project. (Tests are
 usually put under the `test/` directory under the project root.)
 
@@ -361,7 +363,7 @@ Try running the tests now to see that our dummy stub of `square` indeed does
 fail its tests:
 
 ~~~
-$ lein2 midje
+$ lein midje
 ...Lots of information about fetched dependencies...
 ...
 ...and eventually:
@@ -385,7 +387,7 @@ as expected, because the string `":("` is not `4` or `9`.
 The first exercise, then, is to implement `square`.
 
 After writing the implementation of `square` in `src/training_day.clj`, run
-`lein2 midje` again to see if your implementation agrees with the facts
+`lein midje` again to see if your implementation agrees with the facts
 declared in our test file.
 
 <exercise>
@@ -398,18 +400,20 @@ multiplies it with itself.
 ~~~
 </exercise>
 
-<section class="alert alert-error">
+<alert>
 TODO: markdown-esikääntäjä tehtävänannoille
-</section>
+</alert>
 
-<section class="alert alert-error">
+<alert>
 TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri
-</section>
+</alert>
 
-<section class="alert alert-error">
+<alert>
 TODO: doc
-</section>
+</alert>
 
-<section class="alert alert-error">
+<alert>
 TODO: lein-shit ja testien ajaminen
-</section>
+</alert>
+
+[Midje]: https://github.com/marick/Midje
