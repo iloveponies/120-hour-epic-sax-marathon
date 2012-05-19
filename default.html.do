@@ -1,17 +1,10 @@
 SRC=$2.markdown
-DEPS="header.html before.html after.html"
+DEPS="header.html before.html after.html filter.pl"
 
 redo-ifchange "$SRC" $DEPS
 
-perl -p -e 's/<exercise>/<section class="alert alert-success">/;' \
-        -e "s#</exercise>#\n</section>#"                          \
-    "$SRC" | \
-perl -p -e 's/<alert>/<section class="alert alert-error">/;'      \
-        -e "s#</alert>#\n</section>#"                           | \
-perl -p -e 's/<info>/<section class="alert alert-info">/;'      \
-        -e "s#</info>#\n</section>#"                           | \
+./filter.pl "$SRC" | \
 pandoc                                \
-    --from markdown                   \
     --to html5                        \
     --section-divs                    \
     --smart                           \
