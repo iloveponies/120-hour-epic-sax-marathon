@@ -56,7 +56,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section class="level2" id="let-there-be-names">
 <h2>Let there be names</h2>
 <p>We often want to give a piece of data name, either because the act of naming gives clarity to the code, or because we want to refer to the data many times. As we have seen, package global names are declared with <code>def</code>. A function or value that is needed only inside one function can be given a <em>local name</em> with <code>let</code>.</p>
-<p>As an example, let's define a function for calculating the length of a triangle's hypotenuse, given the length of its two legs:</p>
+<p>As an example, let’s define a function for calculating the length of a triangle’s hypotenuse, given the length of its two legs:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hypotenuse </span>[x y]
   (<span class="kw">let</span> [xx (<span class="kw">*</span> x x)
         yy (<span class="kw">*</span> y y)]
@@ -90,7 +90,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section class="level2" id="simple-values">
 <h2>Simple values</h2>
-<p>Now that we know how to give names to values, let's look at what kind of values Clojure supports.</p>
+<p>Now that we know how to give names to values, let’s look at what kind of values Clojure supports.</p>
 <p>Scalar values are the regular, singular simple values like <code>42</code>, <code>&quot;foo&quot;</code> or <code>true</code>. The following table describes some of them.</p>
 <table>
 <col style="width: 20%" /><col style="width: 26%" /><col style="width: 52%" /><thead>
@@ -153,7 +153,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">conj</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] <span class="dv">4</span>)          <span class="co">;=&gt; [1 2 3 4]</span>
 (<span class="kw">assoc</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>] <span class="dv">2</span> <span class="st">&quot;foo&quot;</span>) <span class="co">;=&gt; [1 2 &quot;foo&quot; 4]</span></code></pre>
 <p><code>conj</code> adds a value to a collection. Its behaviour depends on the type of collection: with vectors, it adds the value to the end of the vector. To be exact, <code>conj</code> does <em>not</em> change the given vector. Instead, it returns a new vector, based on the given vector, with the new element appended to this new vector.</p>
-<p><code>assoc</code> associates a new value for the given key in the collection. A vector's indexes are its keys. Above, we create a new vector based on the previous one, with <code>&quot;foo&quot;</code> at index <code>2</code>. The original vector doesn't change in either of these operations:</p>
+<p><code>assoc</code> associates a new value for the given key in the collection. A vector’s indexes are its keys. Above, we create a new vector based on the previous one, with <code>&quot;foo&quot;</code> at index <code>2</code>. The original vector doesn’t change in either of these operations:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [original [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]
       new      (<span class="kw">assoc</span> original <span class="dv">2</span> <span class="st">&quot;foo&quot;</span>)]
   original)
@@ -215,7 +215,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">count</span> {<span class="kw">:a</span> <span class="dv">42</span>, <span class="kw">:b</span> <span class="st">&quot;foo&quot;</span>, <span class="kw">:c</span> <span class="dv">1337</span>}) <span class="co">;=&gt; 3</span>
 (<span class="kw">count</span> {})                         <span class="co">;=&gt; 0</span></code></pre>
 <p>TODO: Talk about destructuring maps at some point.</p>
-<p>Let's define a couple of books like this:</p>
+<p>Let’s define a couple of books like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> cities </span>{<span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>
              <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
 (<span class="kw">def</span><span class="fu"> wild-seed </span>{<span class="kw">:title</span> <span class="st">&quot;Wild Seed&quot;</span>,
@@ -228,7 +228,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 (alive? (<span class="kw">:author</span> wild-seed)) <span class="co">;=&gt; false</span></code></pre>
 </section>
 <section class="alert alert-success">
-<p>Write the function <code>(title-length book)</code> that counts the length of the book's title. Use <code>let</code> to extract the title.</p>
+<p>Write the function <code>(title-length book)</code> that counts the length of the book’s title. Use <code>let</code> to extract the title.</p>
 <p>You can use <code>count</code> to find out the length of a string:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">count</span> <span class="st">&quot;foo&quot;</span>) <span class="co">;=&gt; 3</span></code></pre>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(title-length cities)    <span class="co">;=&gt; 21</span>
@@ -250,7 +250,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
   (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
     (<span class="kw">set</span> (<span class="kw">map</span> author-name books))))</code></pre>
-<p>Now there's a lot of new stuff there, so we'll take a detour to learn them before continuing with our book library.</p>
+<p>Now there’s a lot of new stuff there, so we’ll take a detour to learn them before continuing with our book library.</p>
 <section class="level3" id="anonymous-functions">
 <h3>Anonymous functions</h3>
 <p><code>fn</code> defines an anonymous function.</p>
@@ -265,7 +265,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 (square <span class="dv">4</span>) <span class="co">;=&gt; 16</span></code></pre>
 <p>This is pretty much how defn works, though it does more, like handles doc-strings that you can find with <code>doc</code>.</p>
 <p>Anonymous functions are useful when you want short helper functions. You can give them names with a <code>let</code> and they will only be visible in that context.</p>
-<p>In the function <code>all-author-names</code>, that we can't fully understand yet, we wanted a helper function that the name of the author of a book:</p>
+<p>In the function <code>all-author-names</code>, that we can’t fully understand yet, we wanted a helper function that the name of the author of a book:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
   (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
     (<span class="kw">set</span> (<span class="kw">map</span> author-name books))))</code></pre>
@@ -276,13 +276,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
                          <span class="kw">:death-year</span> <span class="dv">2006</span>}})
 
 (author-name wild-seed) <span class="co">;=&gt; &quot;Octavia E. Butler&quot;</span></code></pre>
-<p>And that's what the above definition does. But since it is defined inside <code>all-author-names</code>, it is only visible inside that function.</p>
+<p>And that’s what the above definition does. But since it is defined inside <code>all-author-names</code>, it is only visible inside that function.</p>
 <p>TODO: fn-sormiharjoittelua, tehtävä tai pari, mahollisesti letin kanssa</p>
-<p>Theres another elephant in the living room, so let's look at this <code>map</code> function next.</p>
+<p>Theres another elephant in the living room, so let’s look at this <code>map</code> function next.</p>
 </section>
 <section class="level3" id="sequences">
 <h3>Sequences</h3>
-<p>Before talking about <code>map</code>, we need to introduce a concept: the <em>sequence</em>. Many of Clojure's functions that operate on vectors and other collections actually operate on sequences. The <code>(seq collection)</code> function returns a sequence constructed from a collection, such as a vector or a map.</p>
+<p>Before talking about <code>map</code>, we need to introduce a concept: the <em>sequence</em>. Many of Clojure’s functions that operate on vectors and other collections actually operate on sequences. The <code>(seq collection)</code> function returns a sequence constructed from a collection, such as a vector or a map.</p>
 <p>Sequences have the following operations:</p>
 <ul>
 <li><p><code>(first sequence)</code> returns the first element of the sequence.</p></li>
@@ -314,7 +314,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 (<span class="kw">map</span> munge [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>])
 <span class="co">;=&gt; ((munge 1) (munge 2) (munge 3) (munge 4)) ; [note below]</span>
 <span class="co">;=&gt; ( 43        44        45        46)</span></code></pre>
-<p><aside class="alert alert-error"> You can't paste the result line (or the middle one) to the REPL, as it is the printed form of a sequence.</aside></p>
+<p><em>Note:</em> You can’t paste the result line (or the middle one) to the REPL, as it is the printed form of a sequence.</p>
 <p><section class="alert alert-success"> Write the function <code>(element-lengths collection)</code> that returns the lengths of every item in <code>collection</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(element-lengths [<span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span> <span class="st">&quot;&quot;</span> <span class="st">&quot;quux&quot;</span>])  <span class="co">;=&gt; (3 3 0 4)</span>
 (element-lengths [<span class="st">&quot;x&quot;</span> [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c]</span> {<span class="kw">:y</span> <span class="dv">42</span>}]) <span class="co">;=&gt; (1 3 1)</span></code></pre>
@@ -349,7 +349,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
   (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
     (<span class="kw">set</span> (<span class="kw">map</span> author-name books))))</code></pre>
-<p>Let's try it out without the mysterious <code>set</code>.</p>
+<p>Let’s try it out without the mysterious <code>set</code>.</p>
 <p>We had these example books:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> cities </span>{<span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>
              <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
@@ -421,7 +421,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <p><section class="alert alert-success"> Implement <code>(authors books)</code>, which returns all the authors in a set.</p>
 </section>
-<p><section class="alert alert-success"> Using the two previous functions, implement <code>(books-&gt;author-names books)</code>, which returns all the books' authors' names in a set.</p>
+<p><section class="alert alert-success"> Using the two previous functions, implement <code>(books-&gt;author-names books)</code>, which returns all the books’ authors’ names in a set.</p>
 </section>
 <section class="level3" id="keeping-your-vectors">
 <h3>Keeping your vectors</h3>
@@ -430,7 +430,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 (filterv <span class="kw">pos?</span> [-<span class="dv">4</span> <span class="dv">6</span> -<span class="dv">2</span> <span class="dv">7</span> -<span class="dv">8</span> <span class="dv">3</span>])  <span class="co">;=&gt; [6 7 3]</span>
 (filterv <span class="kw">pos?</span> #{-<span class="dv">4</span> <span class="dv">6</span> -<span class="dv">2</span> <span class="dv">7</span> -<span class="dv">8</span> <span class="dv">3</span>}) <span class="co">;=&gt; [3 6 7]</span>
 (mapv ... #{...})   <span class="co">;=&gt; [...]</span></code></pre>
-<p>TODO: do this stuff with a json api: see org.clojure/data.json and e.g. api.clojuredocs.org</p>
+<p>TODO: do this stuff with a json api: see org.clojure/data.json and e.g. api.clojuredocs.org</p>
 </section>
 </section>
 </div>
