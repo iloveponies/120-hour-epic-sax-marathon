@@ -48,6 +48,11 @@ Your home directory is located under the path `/home/clojure/`. The shell
 opens this directory by default. Its short name is `~`. You can use `ls` to
 list the files in the current directory.
 
+The shell's *prompt* to the left of the cursor shows your username, the
+computer's name, and the current directory: `username@hostname:directory$`.
+The `:` and `$` characters are separators. The commands you write are printed
+after this prompt.
+
 ~~~
 clojure@clojure-VirtualBox:~$ ls
 bin      Documents  examples.desktop  Pictures  stale      Videos
