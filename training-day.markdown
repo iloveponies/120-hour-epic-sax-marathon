@@ -391,7 +391,7 @@ After writing the implementation of `square` in `src/training_day.clj`, run
 declared in our test file.
 
 <exercise>
-Write the function `square` that takes a number as a parameter and
+Write the function `(square x)` that takes a number as a parameter and
 multiplies it with itself.
 
 ~~~ {.clojure}
@@ -400,9 +400,15 @@ multiplies it with itself.
 ~~~
 </exercise>
 
-<alert>
-TODO: joku muukin tehtävä funktioista tähän tai kohta, esim useampi parametri
-</alert>
+<exercise>
+Write the function `(average a b)`, which returns the average of its two
+parameters:
+
+~~~ {.clojure}
+(average 2 4) ;=> 3
+(average 1 2) ;=> 3/2
+~~~
+</exercise>
 
 <alert>
 TODO: doc
