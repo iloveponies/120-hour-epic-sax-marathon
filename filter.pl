@@ -1,4 +1,4 @@
-#!/usr/bin/env perl -n
+#!/usr/bin/env perl -p
 
 BEGIN {
     use v5.14;
@@ -17,5 +17,3 @@ for my $tag (keys %tags) {
     s#<$tag>#<section class="alert alert-$class">#;
     s#</$tag>#\n</section>#;
 }
-
-print;
