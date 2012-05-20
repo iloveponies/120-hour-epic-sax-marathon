@@ -16,9 +16,9 @@ We have created a virtual machine running [Ubuntu] 12.04, with Clojure and
 [Vim] configured as the editor. After you have booted the computer to Windows
 7, the virtual machine can be found in VirtualBox. If you do not see "Ubuntu
 12.04" in the list of virtual machines in VirtualBox, you can add it with the
-"Add" button. The machine can be found under the path
-`C:\Temp\VirtualBox\Machines\clojure-VirtualBox`. Select the `.vbox` file in that
-directory to add the virtual machine to VirtualBox's list.
+menu action "Machine" -> "Add". The machine can be found under the path
+`C:\Temp\VirtualBox\Machines\ClojureBox`. Select the `.vbox` file in
+that directory to add the virtual machine to VirtualBox's list.
 
 <a href="img/ClojureBox.png">
 
@@ -35,9 +35,9 @@ Please tell us if you have a problem launching the virtual machine.
 ## The shell game
 
 While there is nothing that forces you to use the shell for Clojure
-programming, it is extremely useful to know your way around as shell, no
+programming, it is extremely useful to know your way around in the shell, no
 matter what kind of programming you do. We will use the shell as our primary
-mechanism of working with project builds, REPL interaction and other things.
+mechanism of working with clojure projects, REPL interaction and other things.
 
 The shell is used with a program called Terminal. You can launch it by
 clicking on the Terminal button, shown in the picture below.
@@ -69,12 +69,16 @@ The `:` and `$` characters are separators. The commands you write are printed
 after this prompt.
 
 ~~~
+username   hostname    directory
+   |          |            |
+   v          v            v
+clojure@clojure-VirtualBox:~$
 clojure@clojure-VirtualBox:~$ ls
 bin      Documents  examples.desktop  Pictures  stale      Videos
 Desktop  Downloads  Music             Public    Templates  workspace
 ~~~
 
-The `cd` command changes directories:
+The `cd directory` command changes directories:
 
 ~~~
 clojure@clojure-VirtualBox:~$ cd Documents/
@@ -83,6 +87,18 @@ clojure@clojure-VirtualBox:~/Documents$
 ~~~
 
 The `Documents` directory is empty.
+
+`..` is the name of the parent directory:
+
+~~~
+use cd .. here
+~~~
+
+Just `cd` goes to the home directory:
+
+~~~
+use cd here
+~~~
 
 `evim` launches the Vim editor, which is preconfigured for easy Clojure
 development.
