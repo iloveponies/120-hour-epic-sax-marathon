@@ -266,21 +266,22 @@ Cloning into &#39;training-day&#39;...
 remote: Counting objects: 18, done.
 remote: Compressing objects: 100% (10/10), done.
 remote: Total 18 (delta 5), reused 17 (delta 4)
-Unpacking objects: 100% (18/18), done.
-clojure@clojure-VirtualBox:~$ cd training-day/</code></pre>
+Unpacking objects: 100% (18/18), done.</code></pre>
 <p>You now have your own copy of the project that we will use for writing the exercises in this chapter.</p>
-<p>Let’s run the unit tests first. This will output a <em>lot</em> of somewhat superfluous information while Leiningen downloads the project dependencies, so you will see more output printed than what is shown below:</p>
-<pre><code>clojure@clojure-VirtualBox:~/training-day$ lein midje
-Could not find metadata lein-midje:lein-midje:2.0.0-SNAPSHOT/maven-metadata.xml in central (http://repo1.maven.org/maven2)
+<p>Let’s run the unit tests first. This will output a <em>lot</em> of somewhat superfluous information while Leiningen downloads the project dependencies, so you will see more output printed than what is shown below. This output is printed only once, so subsequent runs will not be so chatty.</p>
+<pre><code>clojure@clojure-VirtualBox:~$ cd training-day/
+clojure@clojure-VirtualBox:~/training-day$ lein midje</code></pre>
+<p>Leiningen tells us it’s downloading the whole internet:</p>
+<pre><code>Could not find metadata lein-midje:lein-midje:2.0.0-SNAPSHOT/maven-metadata.xml in central (http://repo1.maven.org/maven2)
 Retrieving lein-midje/lein-midje/2.0.0-SNAPSHOT/maven-metadata.xml (1k)
     from http://clojars.org/repo/
 Could not find metadata lein-midje:lein-midje:2.0.0-SNAPSHOT/maven-metadata.xml in stuart (http://stuartsierra.com/maven2)
 Could not find artifact midje:midje:pom:1.4.0 in central (http://repo1.maven.org/maven2)
 Retrieving midje/midje/1.4.0/midje-1.4.0.pom (5k)from http://clojars.org/repo/
 
-…Wait while Leiningen downloads the whole internet…
-
-FAIL &quot;square&quot; at (training_day_test.clj:6)
+…Skip…</code></pre>
+<p>And finally, the output we are interested in:</p>
+<pre><code>FAIL &quot;square&quot; at (training_day_test.clj:6)
     Expected: 4
       Actual: &quot;:(&quot;
 
@@ -309,27 +310,15 @@ clojure@clojure-VirtualBox:~/training-day$</code></pre>
 <p>If you take a look at the file <code>src/training-day.clj</code>, you will see that we’ve provided a stub for the <code>square</code> function:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> square </span>[n]
   <span class="st">&quot;:(&quot;</span>)</code></pre>
-<p>Our stub simply returns the string <code>&quot;:(&quot;</code> for all values of <code>n</code>. This will obviously not pass the tests, which we should now verify.</p>
-</section>
-<section class="level2" id="running-tests">
-<h2>Running tests</h2>
-<p>Midje tests are run from the command line, from the root directory of the project. In that directory, the command <code>lein midje</code> will run all the tests (or, in other words, verify all the properties) in the project. (Tests are usually put under the <code>test/</code> directory under the project root.)</p>
-<p>Try running the tests now to see that our dummy stub of <code>square</code> indeed does fail its tests:</p>
-<pre><code>$ lein midje
-...Lots of information about fetched dependencies...
-...
-...and eventually:
-
-FAIL &quot;square&quot; at (training_day_test.clj:6)
+<p>Our stub simply returns the string <code>&quot;:(&quot;</code> for all values of <code>n</code>. This does not pass the tests, which we saw above. The relevant output was:</p>
+<pre><code>FAIL &quot;square&quot; at (training_day_test.clj:6)
     Expected: 4
       Actual: &quot;:(&quot;
 
 FAIL &quot;square&quot; at (training_day_test.clj:7)
     Expected: 9
-      Actual: &quot;:(&quot;
-
-...and lots more...</code></pre>
-<p>There are various other functions with properties, whose failures you also see here, but the important output, for our purposes, are the failures with the text <code>&quot;square&quot;</code> in them. They indicate that our stub function fails the tests as expected, because the string <code>&quot;:(&quot;</code> is not <code>4</code> or <code>9</code>.</p>
+      Actual: &quot;:(&quot;</code></pre>
+<p>The <code>FAIL</code> lines indicate that our stub function fails the tests as expected, because the string <code>&quot;:(&quot;</code> is not <code>4</code> or <code>9</code>.</p>
 <p>The first exercise, then, is to implement <code>square</code>.</p>
 <p>After writing the implementation of <code>square</code> in <code>src/training_day.clj</code>, run <code>lein midje</code> again to see if your implementation agrees with the facts declared in our test file.</p>
 <section class="alert alert-success">
