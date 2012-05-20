@@ -237,9 +237,30 @@ provide default values for variables when taking input:
 (def server-port (or (commandline-parameters :port) 80))
 ~~~
 
-<alert>
-TODO: tehtävä näistä
-</alert>
+<exercise>
+Write the function `(teen? age)`, which returns truthy if `age` is at least 13
+and at most 19. Use only one comparison operator and give it three arguments.
+
+~~~ {.clojure}
+(teen? 12) ;=> false
+(teen? 13) ;=> true
+(teen? 15) ;=> true
+(teen? 19) ;=> true
+(teen? 20) ;=> false
+(teen? 27) ;=> false
+~~~
+</exercise>
+
+<exercise>
+Write the function `(not-teen? age)`, which returns true when teen? return
+false and false otherwise.
+
+(not-teen? 13) ;=> false
+(not-teen? 25) ;=> true
+(not-teen? 12) ;=> true
+(not-teen? 19) ;=> false
+(not-teen? 20) ;=> true
+</exercise>
 
 [Git]: http://git-scm.com
 [Midje]: https://github.com/marick/Midje
