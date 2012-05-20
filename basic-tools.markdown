@@ -69,8 +69,8 @@ after this prompt.
 
 ~~~
 username   hostname    directory
-   |          |            |
-   v          v            v
+   ┃          ┃            ┃
+   ▽          ▽            ▽
 clojure@clojure-VirtualBox:~$
 ~~~
 
