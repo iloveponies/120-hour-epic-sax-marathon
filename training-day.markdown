@@ -479,9 +479,21 @@ parameters:
 ~~~
 </exercise>
 
-<alert>
-TODO: doc
-</alert>
+
+<info>
+You can use `doc function` to see some documentation for `function`:
+
+~~~
+user=> (doc max)
+-------------------------
+clojure.core/max
+([x] [x y] [x y & more])
+  Returns the greatest of the nums.
+nil
+~~~
+</info>
+
+[Proceed to the horse feast! →](I-am-a-horse-in-the-land-of-booleans.html)
 
 [Midje]: https://github.com/marick/Midje
 [Git]: http://git-scm.com
