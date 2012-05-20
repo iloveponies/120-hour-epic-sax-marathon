@@ -17,6 +17,7 @@ To start an interactive Clojure session, type `lein repl` in the terminal.
 It should look something like this:
 
 ~~~
+clojure@clojure-VirtualBox:~$ lein repl
 nREPL server started on port 50443
 Welcome to REPL-y!
 Clojure 1.4.0
