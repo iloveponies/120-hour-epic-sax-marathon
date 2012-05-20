@@ -14,7 +14,7 @@ A whirlwind tour of the basics of Clojure, including:
 
 To start an interactive Clojure session, type `lein repl` in the terminal.
 
-It should look something like this:
+It should look like this:
 
 ~~~
 clojure@clojure-VirtualBox:~$ lein repl
@@ -111,6 +111,11 @@ In Clojure, the function name always goes first, and the parameters come after
 it, including the object, if such is present. The Clojure syntax might take
 some time to get used to, but becomes natural after you've written a few
 Clojure programs.
+
+<exercise>
+Write a Clojure expression that, using `get` gets the first character in
+the string `"abrakadabra"`.
+</exercise>
 
 ## Notation
 
