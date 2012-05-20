@@ -185,6 +185,17 @@ Suppose we start a project called `foobar`. First, we create the basic
 directory structure with an example file:
 
 ~~~
+clojure@clojure-VirtualBox:~$ mkdir foobar
+clojure@clojure-VirtualBox:~$ cd foobar
+clojure@clojure-VirtualBox:~/foobar$ mkdir example
+clojure@clojure-VirtualBox:~/foobar$ cd example/
+clojure@clojure-VirtualBox:~/foobar/example$ evim hello.clj
+clojure@clojure-VirtualBox:~/foobar/example$
+~~~
+
+This will result in the following directory structure:
+
+~~~
 . foobar
 +-. example/
   +- hello.clj
@@ -199,15 +210,28 @@ namespace `example.hello`:
 (println "O HAI!")
 ~~~
 
-Namespaces are declared with `ns`.
+Namespaces are declared with `ns`. Write this in EVim and save the file.
 
-Now, we go to the directory `foobar` in a terminal and start an interactive
-session there:
+We can now go back to the `foobar` directory and start an interactive Clojure
+session in the project:
 
 ~~~
-$ cd foobar
-$ lein repl
-…
+clojure@clojure-VirtualBox:~/foobar/example$ cd ..
+clojure@clojure-VirtualBox:~/foobar$ lein repl
+nREPL server started on port 39455
+Welcome to REPL-y!
+Clojure 1.4.0
+    Exit: Control+D or (exit) or (quit)
+Commands: (user/help)
+    Docs: (doc function-name-here)
+          (find-doc "part-of-name-here")
+  Source: (source function-name-here)
+          (user/sourcery function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+Examples from clojuredocs.org: [clojuredocs or cdoc]
+          (user/clojuredocs name-here)
+          (user/clojuredocs "ns-here" "name-here")
+nil
 user=>
 ~~~
 
