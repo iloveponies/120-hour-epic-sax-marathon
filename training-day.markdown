@@ -484,3 +484,4 @@ TODO: doc
 </alert>
 
 [Midje]: https://github.com/marick/Midje
+[Git]: http://git-scm.com
