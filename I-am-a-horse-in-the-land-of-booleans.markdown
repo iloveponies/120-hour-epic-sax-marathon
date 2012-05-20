@@ -255,11 +255,13 @@ and at most 19. Use only one comparison operator and give it three arguments.
 Write the function `(not-teen? age)`, which returns true when teen? return
 false and false otherwise.
 
+~~~ {.clojure}
 (not-teen? 13) ;=> false
 (not-teen? 25) ;=> true
 (not-teen? 12) ;=> true
 (not-teen? 19) ;=> false
 (not-teen? 20) ;=> true
+~~~
 </exercise>
 
 [Git]: http://git-scm.com
