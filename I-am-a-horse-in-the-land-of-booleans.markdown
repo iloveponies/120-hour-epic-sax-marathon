@@ -142,10 +142,6 @@ Write the function `(abs n)`, which returns the absolute value of `n`, i.e. if
 $n < 0$, the value of `(abs n)` is $- n$, and otherwise $n$.
 </exercise>
 
-<alert>
-TODO: `mod`
-</alert>
-
 <exercise>
 Write the function `(fizzbuzz n)` that returns
 
@@ -153,6 +149,13 @@ Write the function `(fizzbuzz n)` that returns
 - `"buzz"` when `n` is divisible by 5,
 - `"gotcha!"` when `n` is divisible by 15, and
 - the empty string `""` otherwise.
+
+`(mod num div)` returns `0` if `div` divides `num` exactly:
+
+~~~ {.clojure}
+(mod 10 5) ;=> 0
+(mod 3 2)  ;=> 1
+~~~
 
 ~~~ {.clojure}
 (fizzbuzz 2)  ;=> ""
