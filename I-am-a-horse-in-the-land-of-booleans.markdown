@@ -151,9 +151,11 @@ Write the function `(fizzbuzz n)` that returns
 
 - `"fizz"` when `n` is divisible by 3,
 - `"buzz"` when `n` is divisible by 5,
-- but *only* `"gotcha!"` when `n` is divisible by 15.
+- `"gotcha!"` when `n` is divisible by 15, and
+- the empty string `""` otherwise.
 
 ~~~ {.clojure}
+(fizzbuzz 2)  ;=> ""
 (fizzbuzz 45) ;=> "gotcha!"
 (fizzbuzz 48) ;=> "fizz"
 (fizzbuzz 70) ;=> "buzz"
