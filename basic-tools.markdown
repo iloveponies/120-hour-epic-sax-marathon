@@ -46,10 +46,16 @@ clicking on the Terminal button, shown in the picture below.
 
 The icons shown in the screenshot are, in order:
 
-1. Dash, which opens the program launcher.
-2. Home Folder, which opens a file browser.
-3. Terminal, which opens a shell session.
-4. Workspaces, which allows you to organize windows into multiple workspaces.
+<div class="dl-horizontal">
+Dash
+:   Program launcher.
+Home Folder
+:   File browser.
+Terminal
+:   Shell session.
+Workspaces
+:   Organize windows into multiple workspaces.
+</div>
 
 ## sh
 
