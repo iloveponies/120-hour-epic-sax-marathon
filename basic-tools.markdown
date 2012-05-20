@@ -40,7 +40,16 @@ matter what kind of programming you do. We will use the shell as our primary
 mechanism of working with project builds, REPL interaction and other things.
 
 The shell is used with a program called Terminal. You can launch it by
-clicking on the Terminal button. TODO: fix.
+clicking on the Terminal button, shown in the picture below.
+
+![Launcher icons](img/Terminal.png)
+
+The icons shown in the screenshot are, in order:
+
+1. Dash, which opens the program launcher.
+2. Home Folder, which opens a file browser.
+3. Terminal, which opens a shell session.
+4. Workspaces, which allows you to organize windows into multiple workspaces.
 
 ## sh
 
