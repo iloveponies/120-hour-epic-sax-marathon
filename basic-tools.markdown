@@ -137,13 +137,7 @@ midje           Run all [Midje] tests.
 repl            Open an interactive Clojure session.
 new             Create a new Clojure project.
 
-## The <abbr title="Read-Eval-Print-Loop">REPL</abbr> or read-eval-print-loop
-
-One of the great features of Clojure (and other languages such as Ruby,
-Haskell or Python) is the REPL, or read-eval-print-loop. The REPL is an
-interactive session, which allows you to type in expressions and see
-immediately their return values after evaluation. We will start using the REPL
-immediately in the first chapter on Clojure itself.
+Now that we have introduced the most basic tools, we can start programming.
 
 [Proceed, young padawan. →][next]
 
