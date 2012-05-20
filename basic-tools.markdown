@@ -60,8 +60,7 @@ Workspaces
 ## sh
 
 Your home directory is located under the path `/home/clojure/`. The shell
-opens this directory by default. Its short name is `~`. You can use `ls` to
-list the files in the current directory.
+opens this directory by default. Its short name is `~`.
 
 The shell's *prompt* to the left of the cursor shows your username, the
 computer's name, and the current directory: `username@hostname:directory$`.
@@ -73,12 +72,17 @@ username   hostname    directory
    |          |            |
    v          v            v
 clojure@clojure-VirtualBox:~$
+~~~
+
+You can use `ls` to list the files in the current directory.
+
+~~~
 clojure@clojure-VirtualBox:~$ ls
 bin      Documents  examples.desktop  Pictures  stale      Videos
 Desktop  Downloads  Music             Public    Templates  workspace
 ~~~
 
-The `cd directory` command changes directories:
+`cd directory` changes directories:
 
 ~~~
 clojure@clojure-VirtualBox:~$ cd Documents/
