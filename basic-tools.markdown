@@ -37,7 +37,7 @@ Please tell us if you have a problem launching the virtual machine.
 While there is nothing that forces you to use the shell for Clojure
 programming, it is extremely useful to know your way around in the shell, no
 matter what kind of programming you do. We will use the shell as our primary
-mechanism of working with clojure projects, REPL interaction and other things.
+mechanism of working with Clojure projects, REPL interaction and other things.
 
 The shell is used with a program called Terminal. You can launch it by
 clicking on the Terminal button, shown in the picture below.
