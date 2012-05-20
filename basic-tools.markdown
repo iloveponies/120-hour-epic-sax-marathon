@@ -16,9 +16,9 @@ We have created a virtual machine running [Ubuntu] 12.04, with Clojure and
 [Vim] configured as the editor. After you have booted the computer to Windows
 7, the virtual machine can be found in VirtualBox. If you do not see "Ubuntu
 12.04" in the list of virtual machines in VirtualBox, you can add it with the
-"Add" button. The machine can be found under the path
-`C:\Temp\VirtualBox\Machines\clojure-VirtualBox`. Select the `.vbox` file in that
-directory to add the virtual machine to VirtualBox's list.
+menu action "Machine" -> "Add". The machine can be found under the path
+`C:\Temp\VirtualBox\Machines\ClojureBox`. Select the `.vbox` file in
+that directory to add the virtual machine to VirtualBox's list.
 
 <a href="img/ClojureBox.png">
 
@@ -35,18 +35,32 @@ Please tell us if you have a problem launching the virtual machine.
 ## The shell game
 
 While there is nothing that forces you to use the shell for Clojure
-programming, it is extremely useful to know your way around as shell, no
+programming, it is extremely useful to know your way around in the shell, no
 matter what kind of programming you do. We will use the shell as our primary
-mechanism of working with project builds, REPL interaction and other things.
+mechanism of working with Clojure projects, REPL interaction and other things.
 
 The shell is used with a program called Terminal. You can launch it by
-clicking on the Terminal button. TODO: fix.
+clicking on the Terminal button, shown in the picture below.
+
+![Launcher icons](img/Terminal.png)
+
+The icons shown in the screenshot are, in order:
+
+<div class="dl-horizontal">
+Dash
+:   Program launcher.
+Home Folder
+:   File browser.
+Terminal
+:   Shell session.
+Workspaces
+:   Organize windows into multiple workspaces.
+</div>
 
 ## sh
 
 Your home directory is located under the path `/home/clojure/`. The shell
-opens this directory by default. Its short name is `~`. You can use `ls` to
-list the files in the current directory.
+opens this directory by default. Its short name is `~`.
 
 The shell's *prompt* to the left of the cursor shows your username, the
 computer's name, and the current directory: `username@hostname:directory$`.
@@ -54,12 +68,21 @@ The `:` and `$` characters are separators. The commands you write are printed
 after this prompt.
 
 ~~~
-clojure@clojure-VirtualBox:~$ ls
-bin      Documents  examples.desktop  Pictures  stale      Videos
-Desktop  Downloads  Music             Public    Templates  workspace
+username   hostname    directory
+   |          |            |
+   V          V            V
+clojure@clojure-VirtualBox:~$
 ~~~
 
-The `cd` command changes directories:
+You can use `ls` to list the files in the current directory.
+
+~~~
+clojure@clojure-VirtualBox:~$ ls
+bin      Documents  example           Music     Public     Videos
+Desktop  Downloads  examples.desktop  Pictures  Templates  workspace
+~~~
+
+`cd directory` changes directories:
 
 ~~~
 clojure@clojure-VirtualBox:~$ cd Documents/
@@ -69,8 +92,45 @@ clojure@clojure-VirtualBox:~/Documents$
 
 The `Documents` directory is empty.
 
-`evim` launches the Vim editor, which is preconfigured for easy Clojure
-development.
+`..` is the name of the parent directory:
+
+~~~
+clojure@clojure-VirtualBox:~/example/directory$ cd ..
+clojure@clojure-VirtualBox:~/example$ 
+~~~
+
+Just `cd` goes to the home directory:
+
+~~~
+clojure@clojure-VirtualBox:~/example/directory$ cd 
+clojure@clojure-VirtualBox:~$
+~~~
+
+`mkdir` creates a new directory:
+
+~~~
+clojure@clojure-VirtualBox:~$ mkdir example
+clojure@clojure-VirtualBox:~$ cd example/
+~~~
+
+## Editor
+
+We have preconfigured the Vim editor for working with Clojure. You can launch
+it from the shell with `evim`.
+
+<a href="img/EvimLaunch.png">
+
+![Launching EVim.](img/EvimLaunch.png)
+
+</a>
+
+We will use EVim to write Clojure programs in the next chapter. You can open a
+file with EVim by giving the file name to the `evim` command:
+
+~~~
+clojure@clojure-VirtualBox:~/example$ evim example.clj
+clojure@clojure-VirtualBox:~/example$
+~~~
 
 ## Your very own butler
 
@@ -94,13 +154,7 @@ midje           Run all [Midje] tests.
 repl            Open an interactive Clojure session.
 new             Create a new Clojure project.
 
-## The <abbr title="Read-Eval-Print-Loop">REPL</abbr> or read-eval-print-loop
-
-One of the great features of Clojure (and other languages such as Ruby,
-Haskell or Python) is the REPL, or read-eval-print-loop. The REPL is an
-interactive session, which allows you to type in expressions and see
-immediately their return values after evaluation. We will start using the REPL
-immediately in the first chapter on Clojure itself.
+Now that we have introduced the most basic tools, we can start programming.
 
 [Proceed, young padawan. →][next]
 

@@ -95,8 +95,7 @@ There is no need for a `return` clause -- there is no such keyword in Clojure
 -- because the return value of a function is always the value of the last
 expression in the body of the function.
 
-<section class="alert alert-info">
-
+<alert>
 `if`, does *not* have a return value in a language like Java. In other words,
 it is not an expression, but a clause. Because everything is an expression in
 Clojure, there is no equivalent construct to Java's `if` in it.
@@ -120,8 +119,7 @@ can not say:
 ~~~ {.java}
 return if (x < 0) "-" else "+"; // Illegal Java!
 ~~~
-
-</section>
+</alert>
 
 ## Conditional evaluation
 
@@ -139,32 +137,33 @@ division by zero. However, the `if` expression does not evaluate the division
 at all, because the conditional clause is true and only the *then* body, `42`,
 is evaluated.
 
-<section class="exercise alert alert-success">
-
+<exercise>
 Write the function `(abs n)`, which returns the absolute value of `n`, i.e. if
 $n < 0$, the value of `(abs n)` is $- n$, and otherwise $n$.
+</exercise>
 
-</section>
-
-<section class="alert alert-error">
-TODO: `mod`
-</section>
-
-<section class="exercise alert alert-success">
-
+<exercise>
 Write the function `(fizzbuzz n)` that returns
 
 - `"fizz"` when `n` is divisible by 3,
 - `"buzz"` when `n` is divisible by 5,
-- but *only* `"gotcha!"` when `n` is divisible by 15.
+- `"gotcha!"` when `n` is divisible by 15, and
+- the empty string `""` otherwise.
+
+`(mod num div)` returns `0` if `div` divides `num` exactly:
 
 ~~~ {.clojure}
+(mod 10 5) ;=> 0
+(mod 3 2)  ;=> 1
+~~~
+
+~~~ {.clojure}
+(fizzbuzz 2)  ;=> ""
 (fizzbuzz 45) ;=> "gotcha!"
 (fizzbuzz 48) ;=> "fizz"
 (fizzbuzz 70) ;=> "buzz"
 ~~~
-
-</section>
+</exercise>
 
 ## Boolean Functions
 
@@ -238,19 +237,30 @@ provide default values for variables when taking input:
 (def server-port (or (commandline-parameters :port) 80))
 ~~~
 
-TODO: tehtävä näistä
+<exercise>
+Write the function `(teen? age)`, which returns truthy if `age` is at least 13
+and at most 19. Use only one comparison operator and give it three arguments.
 
-<section class="alert alert-error">
-TODO: parempi tiedostojärjestelmä
-</section>
+~~~ {.clojure}
+(teen? 12) ;=> false
+(teen? 13) ;=> true
+(teen? 15) ;=> true
+(teen? 19) ;=> true
+(teen? 20) ;=> false
+(teen? 27) ;=> false
+~~~
+</exercise>
 
-<section class="alert alert-error">
-TODO: literate clojure
-</section>
+<exercise>
+Write the function `(not-teen? age)`, which returns true when teen? return
+false and false otherwise.
 
-<section class="alert alert-error">
-TODO?: lein2 projektit
-</section>
+(not-teen? 13) ;=> false
+(not-teen? 25) ;=> true
+(not-teen? 12) ;=> true
+(not-teen? 19) ;=> false
+(not-teen? 20) ;=> true
+</exercise>
 
 [Git]: http://git-scm.com
 [Midje]: https://github.com/marick/Midje

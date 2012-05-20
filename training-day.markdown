@@ -14,9 +14,10 @@ A whirlwind tour of the basics of Clojure, including:
 
 To start an interactive Clojure session, type `lein repl` in the terminal.
 
-It should look something like this:
+It should look like this:
 
 ~~~
+clojure@clojure-VirtualBox:~$ lein repl
 nREPL server started on port 50443
 Welcome to REPL-y!
 Clojure 1.4.0
@@ -111,6 +112,11 @@ it, including the object, if such is present. The Clojure syntax might take
 some time to get used to, but becomes natural after you've written a few
 Clojure programs.
 
+<exercise>
+Write a Clojure expression that, using `get` gets the first character in
+the string `"abrakadabra"`.
+</exercise>
+
 ## Notation
 
 In our example code, we often want to show the result of an expression
@@ -184,6 +190,17 @@ Suppose we start a project called `foobar`. First, we create the basic
 directory structure with an example file:
 
 ~~~
+clojure@clojure-VirtualBox:~$ mkdir foobar
+clojure@clojure-VirtualBox:~$ cd foobar
+clojure@clojure-VirtualBox:~/foobar$ mkdir example
+clojure@clojure-VirtualBox:~/foobar$ cd example/
+clojure@clojure-VirtualBox:~/foobar/example$ evim hello.clj
+clojure@clojure-VirtualBox:~/foobar/example$
+~~~
+
+This will result in the following directory structure:
+
+~~~
 . foobar
 +-. example/
   +- hello.clj
@@ -198,15 +215,28 @@ namespace `example.hello`:
 (println "O HAI!")
 ~~~
 
-Namespaces are declared with `ns`.
+Namespaces are declared with `ns`. Write this in EVim and save the file.
 
-Now, we go to the directory `foobar` in a terminal and start an interactive
-session there:
+We can now go back to the `foobar` directory and start an interactive Clojure
+session in the project:
 
 ~~~
-$ cd foobar
-$ lein repl
-…
+clojure@clojure-VirtualBox:~/foobar/example$ cd ..
+clojure@clojure-VirtualBox:~/foobar$ lein repl
+nREPL server started on port 39455
+Welcome to REPL-y!
+Clojure 1.4.0
+    Exit: Control+D or (exit) or (quit)
+Commands: (user/help)
+    Docs: (doc function-name-here)
+          (find-doc "part-of-name-here")
+  Source: (source function-name-here)
+          (user/sourcery function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+Examples from clojuredocs.org: [clojuredocs or cdoc]
+          (user/clojuredocs name-here)
+          (user/clojuredocs "ns-here" "name-here")
+nil
 user=>
 ~~~
 
@@ -315,12 +345,70 @@ follow. No worries, though: you can use [Git] to get a ready-made structure we
 have lovingly hand-crafted just for you:
 
 ~~~
-$ git clone https://github.com/iloveponies/training-day.git
-Cloning into 'training-day'…
-…more output…
-$ cd training-day
-$ lein midje
-TODO: failing test output
+clojure@clojure-VirtualBox:~$ git clone https://github.com/iloveponies/training-day.git
+Cloning into 'training-day'...
+remote: Counting objects: 18, done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 18 (delta 5), reused 17 (delta 4)
+Unpacking objects: 100% (18/18), done.
+clojure@clojure-VirtualBox:~$ cd training-day/
+~~~
+
+You now have your own copy of the project that we will use for writing the
+exercises in this chapter.
+
+Let's run the unit tests first. This will output a *lot* of somewhat
+superfluous information while Leiningen downloads the project dependencies, so
+you will see more output printed than what is shown below:
+
+~~~
+clojure@clojure-VirtualBox:~/training-day$ lein midje
+Could not find metadata lein-midje:lein-midje:2.0.0-SNAPSHOT/maven-metadata.xml in central (http://repo1.maven.org/maven2)
+Retrieving lein-midje/lein-midje/2.0.0-SNAPSHOT/maven-metadata.xml (1k)
+    from http://clojars.org/repo/
+Could not find metadata lein-midje:lein-midje:2.0.0-SNAPSHOT/maven-metadata.xml in stuart (http://stuartsierra.com/maven2)
+Could not find artifact midje:midje:pom:1.4.0 in central (http://repo1.maven.org/maven2)
+Retrieving midje/midje/1.4.0/midje-1.4.0.pom (5k)from http://clojars.org/repo/
+
+…Wait while Leiningen downloads the whole internet…
+
+FAIL "square" at (training_day_test.clj:6)
+    Expected: 4
+      Actual: ":("
+
+FAIL "square" at (training_day_test.clj:7)
+    Expected: 9
+      Actual: ":("
+
+FAIL "abs" at (training_day_test.clj:10)
+    Expected: 2
+      Actual: ":("
+
+FAIL "abs" at (training_day_test.clj:11)
+    Expected: 42
+      Actual: ":("
+
+FAIL "fizzbuzz" at (training_day_test.clj:14)
+    Expected: "gotcha!"
+      Actual: ":("
+
+FAIL "fizzbuzz" at (training_day_test.clj:15)
+    Expected: "fizz"
+      Actual: ":("
+
+FAIL "fizzbuzz" at (training_day_test.clj:16)
+    Expected: "buzz"
+      Actual: ":("
+
+FAIL "average" at (training_day_test.clj:19)
+    Expected: 3
+      Actual: ":("
+
+FAIL "average" at (training_day_test.clj:20)
+    Expected: 3/2
+      Actual: ":("
+FAILURE: 9 facts were not confirmed.
+clojure@clojure-VirtualBox:~/training-day$
 ~~~
 
 Our project uses the [Midje] testing library. Let's take a look at what kind

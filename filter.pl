@@ -1,7 +1,7 @@
-#!/usr/bin/env perl -p
+#!/usr/bin/perl -p
 
 BEGIN {
-    use v5.14;
+    use v5.12;
     use warnings;
 
     our %tags = (
@@ -9,11 +9,20 @@ BEGIN {
         alert    => 'error',
         info     => 'info'
     );
+
+    our %titles = (
+        exercise => "Exercise",
+        alert    => "Watch out!",
+        info     => "Note"
+    );
 }
 
 for my $tag (keys %tags) {
     my $class = $tags{$tag};
 
-    s#<$tag>#<section class="alert alert-$class">#;
+    my $replacement = qq[<section class="alert alert-$class">
+<h3>$titles{$tag}</h3>];
+
+    s#<$tag>#$replacement#;
     s#</$tag>#\n</section>#;
 }
