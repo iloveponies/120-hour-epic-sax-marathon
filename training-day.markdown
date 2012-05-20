@@ -380,26 +380,6 @@ FAIL "square" at (training_day_test.clj:7)
     Expected: 9
       Actual: ":("
 
-FAIL "abs" at (training_day_test.clj:10)
-    Expected: 2
-      Actual: ":("
-
-FAIL "abs" at (training_day_test.clj:11)
-    Expected: 42
-      Actual: ":("
-
-FAIL "fizzbuzz" at (training_day_test.clj:14)
-    Expected: "gotcha!"
-      Actual: ":("
-
-FAIL "fizzbuzz" at (training_day_test.clj:15)
-    Expected: "fizz"
-      Actual: ":("
-
-FAIL "fizzbuzz" at (training_day_test.clj:16)
-    Expected: "buzz"
-      Actual: ":("
-
 FAIL "average" at (training_day_test.clj:19)
     Expected: 3
       Actual: ":("
