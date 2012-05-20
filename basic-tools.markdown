@@ -91,17 +91,29 @@ The `Documents` directory is empty.
 `..` is the name of the parent directory:
 
 ~~~
-use cd .. here
+clojure@clojure-VirtualBox:~/example/directory$ cd ..
+clojure@clojure-VirtualBox:~/example$ 
 ~~~
 
 Just `cd` goes to the home directory:
 
 ~~~
-use cd here
+clojure@clojure-VirtualBox:~/example/directory$ cd 
+clojure@clojure-VirtualBox:~$
 ~~~
 
-`evim` launches the Vim editor, which is preconfigured for easy Clojure
-development.
+## Editor
+
+We have preconfigured the Vim editor for working with Clojure. You can launch
+it from the shell with `evim`.
+
+<a href="img/EvimLaunch.png">
+
+![Launching EVim.](img/EvimLaunch.png)
+
+</a>
+
+We will use EVim to write Clojure programs in the next chapter.
 
 ## Your very own butler
 
