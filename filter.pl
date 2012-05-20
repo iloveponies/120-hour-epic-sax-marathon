@@ -20,8 +20,7 @@ BEGIN {
 for my $tag (keys %tags) {
     my $class = $tags{$tag};
 
-    my $replacement = qq[<section class="alert alert-$class">
-<h3>$titles{$tag}</h3>];
+    my $replacement = qq[<section class="alert alert-$class"><h3>$titles{$tag}</h3>];
 
     s#<$tag>#$replacement#;
     s#</$tag>#\n</section>#;
