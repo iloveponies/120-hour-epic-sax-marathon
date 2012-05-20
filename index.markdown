@@ -49,10 +49,6 @@ Down the rabbit hole.
 
 ## [Web APIs, JSON, all that hipster shit][hipsters]
 
-<footer>
-lol
-</footer>
-
 [Basic tools]: basic-tools.html
 [Training day]: training-day.html
 [Structured data]: structured-data.html

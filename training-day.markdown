@@ -493,5 +493,7 @@ nil
 ~~~
 </info>
 
+[Proceed to the horse feast! →](I-am-a-horse-in-the-land-of-booleans.html)
+
 [Midje]: https://github.com/marick/Midje
 [Git]: http://git-scm.com
