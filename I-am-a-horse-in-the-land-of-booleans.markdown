@@ -41,9 +41,9 @@ used in a boolean context like `if`. Everything except `nil` and `false` act as
 To make it easier to talk about values in boolean context, we define the
 following terminology:
 
-- If a value is considered true in boolean context, we call it `truthy`.
+- If a value is considered true in boolean context, we call it *truthy*.
 
-- If a value is considered false, we call it `falsey`.
+- If a value is considered false, we call it *falsey*.
 
 Any value can be turned into `true` or `false` with the `boolean` function:
 
