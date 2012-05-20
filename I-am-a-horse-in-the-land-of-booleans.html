@@ -92,7 +92,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 (sign -<span class="dv">2</span>) <span class="co">;=&gt; &quot;-&quot;</span>
 (sign  <span class="dv">0</span>) <span class="co">;=&gt; &quot;+&quot;</span></code></pre>
 <p>There is no need for a <code>return</code> clause – there is no such keyword in Clojure – because the return value of a function is always the value of the last expression in the body of the function.</p>
-<section class="alert alert-info">
+<section class="alert alert-error">
+<h3>
+Watch out!
+</h3>
 <p><code>if</code>, does <em>not</em> have a return value in a language like Java. In other words, it is not an expression, but a clause. Because everything is an expression in Clojure, there is no equivalent construct to Java’s <code>if</code> in it.</p>
 <p>For illustration, you could use Java’s <code>if</code> to implement <code>sign</code>:</p>
 <pre class="sourceCode java"><code class="sourceCode java">String <span class="fu">sign</span>(<span class="dt">int</span> x) {
@@ -112,18 +115,28 @@ code > span.er { color: #ff0000; font-weight: bold; }
   <span class="dv">42</span>
   (<span class="kw">/</span> <span class="dv">1</span> <span class="dv">0</span>))</code></pre>
 <p>If evaluated, <code>(/ 1 0)</code> would throw an <code>ArithmeticException</code> due to the division by zero. However, the <code>if</code> expression does not evaluate the division at all, because the conditional clause is true and only the <em>then</em> body, <code>42</code>, is evaluated.</p>
-<section class="exercise alert alert-success">
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
 <p>Write the function <code>(abs n)</code>, which returns the absolute value of <code>n</code>, i.e. if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi><mo>&lt;</mo><mn>0</mn></mrow></math>, the value of <code>(abs n)</code> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>−</mo><mi>n</mi></mrow></math>, and otherwise <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi></mrow></math>.</p>
 </section>
-<p><section class="alert alert-error"> TODO: <code>mod</code> </section></p>
-<section class="exercise alert alert-success">
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
 <p>Write the function <code>(fizzbuzz n)</code> that returns</p>
 <ul>
 <li><code>&quot;fizz&quot;</code> when <code>n</code> is divisible by 3,</li>
 <li><code>&quot;buzz&quot;</code> when <code>n</code> is divisible by 5,</li>
-<li>but <em>only</em> <code>&quot;gotcha!&quot;</code> when <code>n</code> is divisible by 15.</li>
+<li><code>&quot;gotcha!&quot;</code> when <code>n</code> is divisible by 15, and</li>
+<li>the empty string <code>&quot;&quot;</code> otherwise.</li>
 </ul>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(fizzbuzz <span class="dv">45</span>) <span class="co">;=&gt; &quot;gotcha!&quot;</span>
+<p><code>(mod num div)</code> returns <code>0</code> if <code>div</code> divides <code>num</code> exactly:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">mod</span> <span class="dv">10</span> <span class="dv">5</span>) <span class="co">;=&gt; 0</span>
+(<span class="kw">mod</span> <span class="dv">3</span> <span class="dv">2</span>)  <span class="co">;=&gt; 1</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(fizzbuzz <span class="dv">2</span>)  <span class="co">;=&gt; &quot;&quot;</span>
+(fizzbuzz <span class="dv">45</span>) <span class="co">;=&gt; &quot;gotcha!&quot;</span>
 (fizzbuzz <span class="dv">48</span>) <span class="co">;=&gt; &quot;fizz&quot;</span>
 (fizzbuzz <span class="dv">70</span>) <span class="co">;=&gt; &quot;buzz&quot;</span></code></pre>
 </section>
@@ -163,10 +176,25 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>This behaviour might look surprising, but it is consistent. What’s happening is that if all the arguments to <code>and</code> are truthy, it returns the value of the last argument. Otherwise, it returns the value of the first falsey argument. Conversely, <code>or</code> returns either the first truthy value or the last falsey value.</p>
 <p>While it might seem odd that boolean functions return non-boolean values, remember that all values in Clojure in fact act as boolean values. This behaviour is useful in many situations. For an example, it allows you to provide default values for variables when taking input:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> server-port </span>(<span class="kw">or</span> (commandline-parameters <span class="kw">:port)</span> <span class="dv">80</span>))</code></pre>
-<p>TODO: tehtävä näistä</p>
-<p><section class="alert alert-error"> TODO: parempi tiedostojärjestelmä </section></p>
-<p><section class="alert alert-error"> TODO: literate clojure </section></p>
-<p><section class="alert alert-error"> TODO?: lein2 projektit </section></p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the function <code>(teen? age)</code>, which returns truthy if <code>age</code> is at least 13 and at most 19. Use only one comparison operator and give it three arguments.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(teen? <span class="dv">12</span>) <span class="co">;=&gt; false</span>
+(teen? <span class="dv">13</span>) <span class="co">;=&gt; true</span>
+(teen? <span class="dv">15</span>) <span class="co">;=&gt; true</span>
+(teen? <span class="dv">19</span>) <span class="co">;=&gt; true</span>
+(teen? <span class="dv">20</span>) <span class="co">;=&gt; false</span>
+(teen? <span class="dv">27</span>) <span class="co">;=&gt; false</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the function <code>(not-teen? age)</code>, which returns true when teen? return false and false otherwise.</p>
+<p>(not-teen? 13) ;=&gt; false (not-teen? 25) ;=&gt; true (not-teen? 12) ;=&gt; true (not-teen? 19) ;=&gt; false (not-teen? 20) ;=&gt; true</p>
+</section>
 </section>
 </div>
 </div>

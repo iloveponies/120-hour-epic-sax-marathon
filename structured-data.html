@@ -71,7 +71,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
   ...)</code></pre>
 <p>The names introduced by <code>let</code> are visible in all the expressions after them, under <code>let</code>. A name is not visible to code outside the body of the <code>let</code> it is defined in.</p>
 <p>TODO: Example</p>
-<p><section class="alert alert-success"> The following function does a thing:</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>The following function does a thing:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> do-a-thing </span>[x]
   (Math/pow (<span class="kw">+</span> x x) (<span class="kw">+</span> x x)))</code></pre>
 <p>Change the function <code>do-a-thing</code> so that it uses <code>let</code> to give a name to the common expression <code>(+ x x)</code> in its body.</p>
@@ -141,7 +145,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 (<span class="kw">get</span> [<span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span> <span class="st">&quot;c&quot;</span>] <span class="dv">15</span>) <span class="co">;=&gt; nil</span>
 (<span class="kw">get</span> [<span class="st">&quot;x&quot;</span>] <span class="dv">0</span>)          <span class="co">;=&gt; &quot;x&quot;</span></code></pre>
 <p>Trying to index a vector beyond its size does <em>not</em> throw an exception. The special value <code>nil</code> is returned, instead.</p>
-<p><section class="alert alert-success"> Write the function <code>(spiff v)</code> that takes a vector and returns the sum of the first and third elements of the vector. What happens when you pass in a vector that is too short?</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the function <code>(spiff v)</code> that takes a vector and returns the sum of the first and third elements of the vector. What happens when you pass in a vector that is too short?</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(spiff [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])       <span class="co">;=&gt; 4</span>
 (spiff [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>]) <span class="co">;=&gt; 4</span>
 (spiff [<span class="dv">1</span> <span class="dv">2</span>])         <span class="co">;=&gt; ?</span>
@@ -181,7 +189,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
   [(<span class="kw">+</span> x1 x2) (<span class="kw">+</span> y1 y2)])</code></pre>
 <p><code>sum-pairs</code> still takes two parameter vectors, but now it does not give names to its parameters. Instead, it gives names to their first two elements by destructuring the parameters. We could have also destructured the parameters with a <code>let</code>.</p>
 <p>TODO: <code>&amp;</code>, nested destructuring, <code>:as</code>, <code>(let [[x] [1 2]])</code></p>
-<p><section class="alert alert-success"> Rewrite our earlier function <code>spiff</code> by destructuring its parameters. Call this new function <code>spiff-destructuring</code>.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Rewrite our earlier function <code>spiff</code> by destructuring its parameters. Call this new function <code>spiff-destructuring</code>.</p>
 </section>
 </section>
 </section>
@@ -300,7 +312,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">first</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])  <span class="co">;=&gt; 1</span>
 (<span class="kw">rest</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])   <span class="co">;=&gt; (2 3)</span>
 (<span class="kw">cons</span> <span class="dv">0</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; (0 1 2 3)</span></code></pre>
-<p><section class="alert alert-success"> Something on sequences.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Something on sequences.</p>
 </section>
 <p>TODO: sekvenssitehtävä tänne</p>
 </section>
@@ -315,18 +331,30 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="co">;=&gt; ((munge 1) (munge 2) (munge 3) (munge 4)) ; [note below]</span>
 <span class="co">;=&gt; ( 43        44        45        46)</span></code></pre>
 <p><em>Note:</em> You can’t paste the result line (or the middle one) to the REPL, as it is the printed form of a sequence.</p>
-<p><section class="alert alert-success"> Write the function <code>(element-lengths collection)</code> that returns the lengths of every item in <code>collection</code>.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the function <code>(element-lengths collection)</code> that returns the lengths of every item in <code>collection</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(element-lengths [<span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span> <span class="st">&quot;&quot;</span> <span class="st">&quot;quux&quot;</span>])  <span class="co">;=&gt; (3 3 0 4)</span>
 (element-lengths [<span class="st">&quot;x&quot;</span> [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c]</span> {<span class="kw">:y</span> <span class="dv">42</span>}]) <span class="co">;=&gt; (1 3 1)</span></code></pre>
 </section>
-<p><section class="alert alert-success"> Use <code>map</code> to write the function <code>(second-elements collection)</code> that takes a vector of vectors and returns a sequence of the second elements.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Use <code>map</code> to write the function <code>(second-elements collection)</code> that takes a vector of vectors and returns a sequence of the second elements.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(second-elements [[<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">2</span> <span class="dv">3</span>] [<span class="dv">3</span> <span class="dv">4</span>]]) <span class="co">;=&gt; (2 3 4)</span>
 (second-elements [[<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>] [<span class="dv">1</span>] [<span class="st">&quot;a&quot;</span> <span class="st">&quot;s&quot;</span> <span class="st">&quot;d&quot;</span> <span class="st">&quot;f&quot;</span>]])
 <span class="co">;=&gt; (2 nil &quot;s&quot;)</span></code></pre>
 <p>Remember that you can use <code>get</code> to index a vector.</p>
 <p>Use <code>fn</code> and <code>let</code> to create a helper function and use it with <code>map</code>.</p>
 </section>
-<p><section class="alert alert-success"> Write the function <code>(titles books)</code> that takes a collection of books and returns their titles.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the function <code>(titles books)</code> that takes a collection of books and returns their titles.</p>
 <p>Using our earlier examples:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> cities </span>{<span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>
              <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
@@ -410,18 +438,38 @@ code > span.er { color: #ff0000; font-weight: bold; }
 (<span class="kw">filter</span> (<span class="kw">fn</span> [x] (<span class="kw">&gt;</span> (<span class="kw">count</span> x) <span class="dv">2</span>)) [<span class="st">&quot;ff&quot;</span> <span class="st">&quot;f&quot;</span> <span class="st">&quot;ffffff&quot;</span> <span class="st">&quot;fff&quot;</span>])
 <span class="co">;=&gt; (&quot;ffffff&quot; &quot;fff&quot;)</span></code></pre>
 <p><code>(filter predicate collection)</code> takes two parameters, a function and a sequencable collection. It calls the function on each element of the sequence and returns a sequence of the values from the collection for which the function returned a truthy value. In the above example the values <code>(6 7 3)</code> were selected because for them <code>pos?</code> returned true; for the others it returned false, a falsey value, and they were filtered out.</p>
-<p><section class="alert alert-success"> Write the function <code>(books-by-author author books)</code>.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the function <code>(books-by-author author books)</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(books-by-author <span class="st">&quot;China Miéville&quot;</span> books)
 <span class="co">;=&gt; ({cities} {...})</span></code></pre>
 </section>
-<p><section class="alert alert-success"> Implement <code>(book-titles-by-author author books)</code>, which returns the book titles of the books by the given author.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Implement <code>(book-titles-by-author author books)</code>, which returns the book titles of the books by the given author.</p>
 <p>Use <code>books-by-author</code> as a helper function.</p>
 </section>
-<p><section class="alert alert-success"> Implement <code>(author-names authors)</code>, which returns all the author names in a set.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Implement <code>(author-names authors)</code>, which returns all the author names in a set.</p>
 </section>
-<p><section class="alert alert-success"> Implement <code>(authors books)</code>, which returns all the authors in a set.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Implement <code>(authors books)</code>, which returns all the authors in a set.</p>
 </section>
-<p><section class="alert alert-success"> Using the two previous functions, implement <code>(books-&gt;author-names books)</code>, which returns all the books’ authors’ names in a set.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Using the two previous functions, implement <code>(books-&gt;author-names books)</code>, which returns all the books’ authors’ names in a set.</p>
 </section>
 <section class="level3" id="keeping-your-vectors">
 <h3>Keeping your vectors</h3>

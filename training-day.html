@@ -58,8 +58,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section class="level2" id="interactive-clojure">
 <h2>Interactive Clojure</h2>
 <p>To start an interactive Clojure session, type <code>lein repl</code> in the terminal.</p>
-<p>It should look something like this:</p>
-<pre><code>nREPL server started on port 50443
+<p>It should look like this:</p>
+<pre><code>clojure@clojure-VirtualBox:~$ lein repl
+nREPL server started on port 50443
 Welcome to REPL-y!
 Clojure 1.4.0
     Exit: Control+D or (exit) or (quit)
@@ -118,9 +119,17 @@ user=&gt; (<span class="kw">-</span> <span class="dv">2</span> (<span class="kw"
 -<span class="dv">2728</span>
 user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>)
 <span class="dv">10</span></code></pre>
-<p><section class="alert alert-success"> Write the following expression in the Clojure prefix syntax: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mn>2</mn><mo>*</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>4</mn></mrow></math>. Try evaluating it in the interactive session. The result should be 10.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the following expression in the Clojure prefix syntax: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mn>2</mn><mo>*</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>4</mn></mrow></math>. Try evaluating it in the interactive session. The result should be 10.</p>
 </section>
-<p><section class="alert alert-success"> Write the expression <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>3</mn><mo>+</mo><mn>4</mn><mo>+</mo><mn>5</mn><mo>+</mo><mn>6</mn></mrow></math> in Clojure syntax. Evaluate it.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the expression <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>3</mn><mo>+</mo><mn>4</mn><mo>+</mo><mn>5</mn><mo>+</mo><mn>6</mn></mrow></math> in Clojure syntax. Evaluate it.</p>
 </section>
 <p>The arithmetic operations above are, in fact, function calls. That is, <code>+</code> is actually a function (called <code>+</code>), as are <code>*</code> and <code>-</code>. All function calls in Clojure look the same: <code>(function-name argument-1 argument-2 ...)</code>. As an example of a non-arithmetic function, let’s take a look at getting a single character from a string in Clojure and Java. In Clojure, we can use the <code>get</code> function for this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> <span class="st">&quot;Clojure&quot;</span> <span class="dv">2</span>) <span class="co">;=&gt; \o</span></code></pre>
@@ -128,6 +137,12 @@ user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">
 <p>In Java, we reorder things a bit: the first parameter goes <em>before</em> the method name, and the parentheses are moved <em>after</em> the method name:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="st">&quot;Java&quot;</span>.<span class="fu">charAt</span>(<span class="dv">2</span>); <span class="co">//=&gt; &#39;v&#39;</span></code></pre>
 <p>In Clojure, the function name always goes first, and the parameters come after it, including the object, if such is present. The Clojure syntax might take some time to get used to, but becomes natural after you’ve written a few Clojure programs.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write a Clojure expression that, using <code>get</code> gets the first character in the string <code>&quot;abrakadabra&quot;</code>.</p>
+</section>
 </section>
 <section class="level2" id="notation">
 <h2>Notation</h2>
@@ -139,7 +154,11 @@ user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">
 <p>Sometimes we will put the result on a new line:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="dv">1337</span>)
 <span class="co">;=&gt; &quot;1337&quot;</span></code></pre>
-<p><section class="alert alert-info"> <code>str</code> is a function that turns its argument to a string. If given multiple arguments, it concatenates the results:</p>
+<section class="alert alert-info">
+<h3>
+Note
+</h3>
+<p><code>str</code> is a function that turns its argument to a string. If given multiple arguments, it concatenates the results:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="st">&quot;Over &quot;</span> <span class="dv">9000</span> <span class="st">&quot;!&quot;</span>) <span class="co">;=&gt; &quot;Over 9000!&quot;</span></code></pre>
 </section>
 <p>When the resulting value is too long to display on one line, we will mark the continuation lines with a leading <code>;</code> like this:</p>
@@ -159,6 +178,13 @@ user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">
 <p>Code in Clojure projects is structured into separate files. Usually each file corresponds to a namespace identified by the file’s path. For an example, the file <code>foo/bar/baz.clj</code> contains the namespace <code>foo.bar.baz</code>. This is slightly different from Java, where directories correspond to namespaces (packages) and files under a directory usually contain a single class in the given package.</p>
 <p>Let’s create the basic structure for a project to get a feeling for how this works. As you read the description below, execute the same steps on your own computer.</p>
 <p>Suppose we start a project called <code>foobar</code>. First, we create the basic directory structure with an example file:</p>
+<pre><code>clojure@clojure-VirtualBox:~$ mkdir foobar
+clojure@clojure-VirtualBox:~$ cd foobar
+clojure@clojure-VirtualBox:~/foobar$ mkdir example
+clojure@clojure-VirtualBox:~/foobar$ cd example/
+clojure@clojure-VirtualBox:~/foobar/example$ evim hello.clj
+clojure@clojure-VirtualBox:~/foobar/example$</code></pre>
+<p>This will result in the following directory structure:</p>
 <pre><code>. foobar
 +-. example/
   +- hello.clj</code></pre>
@@ -166,18 +192,35 @@ user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">ns</span> example.hello)
 
 (<span class="kw">println</span> <span class="st">&quot;O HAI!&quot;</span>)</code></pre>
-<p>Namespaces are declared with <code>ns</code>.</p>
-<p>Now, we go to the directory <code>foobar</code> in a terminal and start an interactive session there:</p>
-<pre><code>$ cd foobar
-$ lein repl
-…
+<p>Namespaces are declared with <code>ns</code>. Write this in EVim and save the file.</p>
+<p>We can now go back to the <code>foobar</code> directory and start an interactive Clojure session in the project:</p>
+<pre><code>clojure@clojure-VirtualBox:~/foobar/example$ cd ..
+clojure@clojure-VirtualBox:~/foobar$ lein repl
+nREPL server started on port 39455
+Welcome to REPL-y!
+Clojure 1.4.0
+    Exit: Control+D or (exit) or (quit)
+Commands: (user/help)
+    Docs: (doc function-name-here)
+          (find-doc &quot;part-of-name-here&quot;)
+  Source: (source function-name-here)
+          (user/sourcery function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+Examples from clojuredocs.org: [clojuredocs or cdoc]
+          (user/clojuredocs name-here)
+          (user/clojuredocs &quot;ns-here&quot; &quot;name-here&quot;)
+nil
 user=&gt;</code></pre>
 <p>We can now load the <code>hello.clj</code> file into the session:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;example.hello)
 O HAI!    <span class="co">; ← (println &quot;O HAI!&quot;)</span>
 nil       <span class="co">; ← result of use</span></code></pre>
 <p>This loaded the file <code>hello.clj</code> into the interactive session. Doing this, it evaluated everything in the file, which is why we see the printed line. The result of <code>use</code> itself is <code>nil</code>, a special value like Java’s <code>null</code>.</p>
-<p><section class="alert alert-error"> The <code>'</code> before the namespace name in a <code>use</code> is important. If you forget it, you will get an error like this:</p>
+<section class="alert alert-error">
+<h3>
+Watch out!
+</h3>
+<p>The <code>'</code> before the namespace name in a <code>use</code> is important. If you forget it, you will get an error like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> example.hello)
 java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">:1)</span></code></pre>
 <p><code>'</code> is an alias for the <code>quote</code> special form, which we will talk more about later.</p>
@@ -218,12 +261,62 @@ user=&gt; (hello <span class="st">&quot;Metropolia&quot;</span>)
 <p>When in doubt, do exactly the opposite of CVS. <small>Linus Torvalds</small></p>
 </blockquote>
 <p>We will now move to a Leiningen-based project structure instead of the one we manually created above. It contains unit tests for the exercises that will follow. No worries, though: you can use [Git] to get a ready-made structure we have lovingly hand-crafted just for you:</p>
-<pre><code>$ git clone https://github.com/iloveponies/training-day.git
-Cloning into &#39;training-day&#39;…
-…more output…
-$ cd training-day
-$ lein midje
-TODO: failing test output</code></pre>
+<pre><code>clojure@clojure-VirtualBox:~$ git clone https://github.com/iloveponies/training-day.git
+Cloning into &#39;training-day&#39;...
+remote: Counting objects: 18, done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 18 (delta 5), reused 17 (delta 4)
+Unpacking objects: 100% (18/18), done.
+clojure@clojure-VirtualBox:~$ cd training-day/</code></pre>
+<p>You now have your own copy of the project that we will use for writing the exercises in this chapter.</p>
+<p>Let’s run the unit tests first. This will output a <em>lot</em> of somewhat superfluous information while Leiningen downloads the project dependencies, so you will see more output printed than what is shown below:</p>
+<pre><code>clojure@clojure-VirtualBox:~/training-day$ lein midje
+Could not find metadata lein-midje:lein-midje:2.0.0-SNAPSHOT/maven-metadata.xml in central (http://repo1.maven.org/maven2)
+Retrieving lein-midje/lein-midje/2.0.0-SNAPSHOT/maven-metadata.xml (1k)
+    from http://clojars.org/repo/
+Could not find metadata lein-midje:lein-midje:2.0.0-SNAPSHOT/maven-metadata.xml in stuart (http://stuartsierra.com/maven2)
+Could not find artifact midje:midje:pom:1.4.0 in central (http://repo1.maven.org/maven2)
+Retrieving midje/midje/1.4.0/midje-1.4.0.pom (5k)from http://clojars.org/repo/
+
+…Wait while Leiningen downloads the whole internet…
+
+FAIL &quot;square&quot; at (training_day_test.clj:6)
+    Expected: 4
+      Actual: &quot;:(&quot;
+
+FAIL &quot;square&quot; at (training_day_test.clj:7)
+    Expected: 9
+      Actual: &quot;:(&quot;
+
+FAIL &quot;abs&quot; at (training_day_test.clj:10)
+    Expected: 2
+      Actual: &quot;:(&quot;
+
+FAIL &quot;abs&quot; at (training_day_test.clj:11)
+    Expected: 42
+      Actual: &quot;:(&quot;
+
+FAIL &quot;fizzbuzz&quot; at (training_day_test.clj:14)
+    Expected: &quot;gotcha!&quot;
+      Actual: &quot;:(&quot;
+
+FAIL &quot;fizzbuzz&quot; at (training_day_test.clj:15)
+    Expected: &quot;fizz&quot;
+      Actual: &quot;:(&quot;
+
+FAIL &quot;fizzbuzz&quot; at (training_day_test.clj:16)
+    Expected: &quot;buzz&quot;
+      Actual: &quot;:(&quot;
+
+FAIL &quot;average&quot; at (training_day_test.clj:19)
+    Expected: 3
+      Actual: &quot;:(&quot;
+
+FAIL &quot;average&quot; at (training_day_test.clj:20)
+    Expected: 3/2
+      Actual: &quot;:(&quot;
+FAILURE: 9 facts were not confirmed.
+clojure@clojure-VirtualBox:~/training-day$</code></pre>
 <p>Our project uses the <a href="https://github.com/marick/Midje">Midje</a> testing library. Let’s take a look at what kind of tests the project contains. Open the file <code>test/training_day_test.clj</code>. The first ten lines or so of the file look like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">ns</span> training-day-test
   (<span class="kw">:use</span> training-day
@@ -259,15 +352,27 @@ FAIL &quot;square&quot; at (training_day_test.clj:7)
 <p>There are various other functions with properties, whose failures you also see here, but the important output, for our purposes, are the failures with the text <code>&quot;square&quot;</code> in them. They indicate that our stub function fails the tests as expected, because the string <code>&quot;:(&quot;</code> is not <code>4</code> or <code>9</code>.</p>
 <p>The first exercise, then, is to implement <code>square</code>.</p>
 <p>After writing the implementation of <code>square</code> in <code>src/training_day.clj</code>, run <code>lein midje</code> again to see if your implementation agrees with the facts declared in our test file.</p>
-<p><section class="alert alert-success"> Write the function <code>(square x)</code> that takes a number as a parameter and multiplies it with itself.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the function <code>(square x)</code> that takes a number as a parameter and multiplies it with itself.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(square <span class="dv">2</span>) <span class="co">;=&gt; 4</span>
 (square <span class="dv">3</span>) <span class="co">;=&gt; 9</span></code></pre>
 </section>
-<p><section class="alert alert-success"> Write the function <code>(average a b)</code>, which returns the average of its two parameters:</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the function <code>(average a b)</code>, which returns the average of its two parameters:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(average <span class="dv">2</span> <span class="dv">4</span>) <span class="co">;=&gt; 3</span>
 (average <span class="dv">1</span> <span class="dv">2</span>) <span class="co">;=&gt; 3/2</span></code></pre>
 </section>
-<p><section class="alert alert-error"> TODO: doc</p>
+<section class="alert alert-error">
+<h3>
+Watch out!
+</h3>
+<p>TODO: doc</p>
 </section>
 </section>
 </div>
