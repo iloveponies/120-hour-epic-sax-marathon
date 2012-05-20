@@ -95,8 +95,7 @@ There is no need for a `return` clause -- there is no such keyword in Clojure
 -- because the return value of a function is always the value of the last
 expression in the body of the function.
 
-<section class="alert alert-info">
-
+<alert>
 `if`, does *not* have a return value in a language like Java. In other words,
 it is not an expression, but a clause. Because everything is an expression in
 Clojure, there is no equivalent construct to Java's `if` in it.
@@ -120,8 +119,7 @@ can not say:
 ~~~ {.java}
 return if (x < 0) "-" else "+"; // Illegal Java!
 ~~~
-
-</section>
+</alert>
 
 ## Conditional evaluation
 
@@ -139,19 +137,16 @@ division by zero. However, the `if` expression does not evaluate the division
 at all, because the conditional clause is true and only the *then* body, `42`,
 is evaluated.
 
-<section class="exercise alert alert-success">
-
+<exercise>
 Write the function `(abs n)`, which returns the absolute value of `n`, i.e. if
 $n < 0$, the value of `(abs n)` is $- n$, and otherwise $n$.
+</exercise>
 
-</section>
-
-<section class="alert alert-error">
+<alert>
 TODO: `mod`
-</section>
+</alert>
 
-<section class="exercise alert alert-success">
-
+<exercise>
 Write the function `(fizzbuzz n)` that returns
 
 - `"fizz"` when `n` is divisible by 3,
@@ -163,8 +158,7 @@ Write the function `(fizzbuzz n)` that returns
 (fizzbuzz 48) ;=> "fizz"
 (fizzbuzz 70) ;=> "buzz"
 ~~~
-
-</section>
+</exercise>
 
 ## Boolean Functions
 
@@ -238,19 +232,9 @@ provide default values for variables when taking input:
 (def server-port (or (commandline-parameters :port) 80))
 ~~~
 
+<alert>
 TODO: tehtävä näistä
-
-<section class="alert alert-error">
-TODO: parempi tiedostojärjestelmä
-</section>
-
-<section class="alert alert-error">
-TODO: literate clojure
-</section>
-
-<section class="alert alert-error">
-TODO?: lein2 projektit
-</section>
+</alert>
 
 [Git]: http://git-scm.com
 [Midje]: https://github.com/marick/Midje
