@@ -78,8 +78,8 @@ You can use `ls` to list the files in the current directory.
 
 ~~~
 clojure@clojure-VirtualBox:~$ ls
-bin      Documents  examples.desktop  Pictures  stale      Videos
-Desktop  Downloads  Music             Public    Templates  workspace
+bin      Documents  example           Music     Public     Videos
+Desktop  Downloads  examples.desktop  Pictures  Templates  workspace
 ~~~
 
 `cd directory` changes directories:
