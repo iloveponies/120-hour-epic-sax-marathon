@@ -106,6 +106,13 @@ clojure@clojure-VirtualBox:~/example/directory$ cd
 clojure@clojure-VirtualBox:~$
 ~~~
 
+`mkdir` creates a new directory:
+
+~~~
+clojure@clojure-VirtualBox:~$ mkdir example
+clojure@clojure-VirtualBox:~$ cd example/
+~~~
+
 ## Editor
 
 We have preconfigured the Vim editor for working with Clojure. You can launch
@@ -117,7 +124,13 @@ it from the shell with `evim`.
 
 </a>
 
-We will use EVim to write Clojure programs in the next chapter.
+We will use EVim to write Clojure programs in the next chapter. You can open a
+file with EVim by giving the file name to the `evim` command:
+
+~~~
+clojure@clojure-VirtualBox:~/example$ evim example.clj
+clojure@clojure-VirtualBox:~/example$
+~~~
 
 ## Your very own butler
 
