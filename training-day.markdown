@@ -351,7 +351,6 @@ remote: Counting objects: 18, done.
 remote: Compressing objects: 100% (10/10), done.
 remote: Total 18 (delta 5), reused 17 (delta 4)
 Unpacking objects: 100% (18/18), done.
-clojure@clojure-VirtualBox:~$ cd training-day/
 ~~~
 
 You now have your own copy of the project that we will use for writing the
@@ -359,10 +358,17 @@ exercises in this chapter.
 
 Let's run the unit tests first. This will output a *lot* of somewhat
 superfluous information while Leiningen downloads the project dependencies, so
-you will see more output printed than what is shown below:
+you will see more output printed than what is shown below. This output is
+printed only once, so subsequent runs will not be so chatty.
 
 ~~~
+clojure@clojure-VirtualBox:~$ cd training-day/
 clojure@clojure-VirtualBox:~/training-day$ lein midje
+~~~
+
+Leiningen tells us it's downloading the whole internet:
+
+~~~
 Could not find metadata lein-midje:lein-midje:2.0.0-SNAPSHOT/maven-metadata.xml in central (http://repo1.maven.org/maven2)
 Retrieving lein-midje/lein-midje/2.0.0-SNAPSHOT/maven-metadata.xml (1k)
     from http://clojars.org/repo/
@@ -370,8 +376,12 @@ Could not find metadata lein-midje:lein-midje:2.0.0-SNAPSHOT/maven-metadata.xml 
 Could not find artifact midje:midje:pom:1.4.0 in central (http://repo1.maven.org/maven2)
 Retrieving midje/midje/1.4.0/midje-1.4.0.pom (5k)from http://clojars.org/repo/
 
-…Wait while Leiningen downloads the whole internet…
+…Skip…
+~~~
 
+And finally, the output we are interested in:
+
+~~~
 FAIL "square" at (training_day_test.clj:6)
     Expected: 4
       Actual: ":("
@@ -418,25 +428,10 @@ provided a stub for the `square` function:
   ":(")
 ~~~
 
-Our stub simply returns the string `":("` for all values of `n`. This will
-obviously not pass the tests, which we should now verify.
-
-## Running tests
-
-Midje tests are run from the command line, from the root directory of the
-project. In that directory, the command `lein midje` will run all the tests
-(or, in other words, verify all the properties) in the project. (Tests are
-usually put under the `test/` directory under the project root.)
-
-Try running the tests now to see that our dummy stub of `square` indeed does
-fail its tests:
+Our stub simply returns the string `":("` for all values of `n`. This does not
+pass the tests, which we saw above. The relevant output was:
 
 ~~~
-$ lein midje
-...Lots of information about fetched dependencies...
-...
-...and eventually:
-
 FAIL "square" at (training_day_test.clj:6)
     Expected: 4
       Actual: ":("
@@ -444,14 +439,10 @@ FAIL "square" at (training_day_test.clj:6)
 FAIL "square" at (training_day_test.clj:7)
     Expected: 9
       Actual: ":("
-
-...and lots more...
 ~~~
 
-There are various other functions with properties, whose failures you also see
-here, but the important output, for our purposes, are the failures with the
-text `"square"` in them. They indicate that our stub function fails the tests
-as expected, because the string `":("` is not `4` or `9`.
+The `FAIL` lines indicate that our stub function fails the tests as expected,
+because the string `":("` is not `4` or `9`.
 
 The first exercise, then, is to implement `square`.
 

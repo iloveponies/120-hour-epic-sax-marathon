@@ -24,3 +24,12 @@ Do this shit next:
 -nimentä:
  -kymysmerkki?
  -viiva-pitkissä-nimissä
+
+- Korjattavaa:
+  - Training Dayssä puhutaan liian pitkään namespaceistä ja
+    tiedostoista yms ennen kun pääsee koodaamaan. Vois lomittaa jotenkin sillai, et
+    kerrotaan alkuun "täältä saa koodipohjat, näin voit ajaa testejä" ja sit
+    kerrottas yksityiskohtia.
+  - Vaihtoehtosesti vois myös olla jotain 4clojure-henkisiä tehtäviä, joissa
+    vois vaan kirjottaa koodia laatikkoon ja sitä testattas. Vaatis toki vähän
+    duunia.
