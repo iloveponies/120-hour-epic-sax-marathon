@@ -172,14 +172,6 @@ Values can be compared for equality with `=`:
 (= "foo" "bar")    ;=> false
 ~~~
 
-`=` can compare structures:
-
-~~~ {.clojure}
-(= [1 2 3] [1 2 3]) ;=> true
-(= {:a 42} {:a 42}) ;=> true
-(= {:a 42} {:b 2}) ;=> false
-~~~
-
 Numerical values should be compared with `==`:
 
 ~~~ {.clojure}
