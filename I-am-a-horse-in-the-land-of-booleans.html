@@ -145,10 +145,6 @@ Exercise
 <p>Values can be compared for equality with <code>=</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">=</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;foo&quot;</span>)    <span class="co">;=&gt; true</span>
 (<span class="kw">=</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>)    <span class="co">;=&gt; false</span></code></pre>
-<p><code>=</code> can compare structures:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">=</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; true</span>
-(<span class="kw">=</span> {<span class="kw">:a</span> <span class="dv">42</span>} {<span class="kw">:a</span> <span class="dv">42</span>}) <span class="co">;=&gt; true</span>
-(<span class="kw">=</span> {<span class="kw">:a</span> <span class="dv">42</span>} {<span class="kw">:b</span> <span class="dv">2</span>}) <span class="co">;=&gt; false</span></code></pre>
 <p>Numerical values should be compared with <code>==</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">==</span> <span class="dv">42</span>  <span class="dv">42</span>) <span class="co">;=&gt; true</span>
 (<span class="kw">==</span> <span class="fl">5.0</span>  <span class="dv">5</span>) <span class="co">;=&gt; true</span>
