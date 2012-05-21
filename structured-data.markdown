@@ -11,6 +11,14 @@ In which we learn to work with structured data.
 - Vectors
 - Maps
 
+<info>
+The following web pages are good references to Clojure builtins and data
+structures:
+
+- [ClojureDocs]
+- [Clojure cheatsheet][cheat]
+</info>
+
 ## Let there be names
 
 We often want to give a piece of data name, either because the act of naming
@@ -54,6 +62,14 @@ user=> (let [x 42]
 user=> x
 CompilerException java.lang.RuntimeException:
 Unable to resolve symbol: x in this context, compiling:(NO_SOURCE_PATH:0) 
+~~~
+
+Note the indentation in `let`: the names inside the brackets are all aligned
+together, and the expressions are indented with two spaces.
+
+~~~ {.clojure}
+(let [x 42]
+  (indented x))
 ~~~
 
 <exercise>
@@ -720,3 +736,6 @@ situation, you can use `mapv` and `filterv`, which are variants of `map` and
 (filterv pos? #{-4 6 -2 7 -8 3}) ;=> [3 6 7]
 (mapv ... #{...})   ;=> [...]
 ~~~
+
+[cheat]: http://clojure.org/cheatsheet
+[ClojureDocs]: http://clojuredocs.org
