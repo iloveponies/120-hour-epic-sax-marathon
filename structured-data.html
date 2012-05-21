@@ -339,12 +339,6 @@ Exercise
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">first</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])  <span class="co">;=&gt; 1</span>
 (<span class="kw">rest</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])   <span class="co">;=&gt; (2 3)</span>
 (<span class="kw">cons</span> <span class="dv">0</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; (0 1 2 3)</span></code></pre>
-<section class="alert alert-success">
-<h3>
-Exercise
-</h3>
-<p>TODO: exercise</p>
-</section>
 </section>
 <section class="level3" id="the-map-function">
 <h3>The map function</h3>
@@ -445,7 +439,14 @@ Exercise
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:c)</span> <span class="co">;=&gt; #{:a :b}</span>
 (<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:EEEEE)</span> <span class="co">;=&gt; #{:a :c :b}</span>
 (<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:c</span> <span class="kw">:a)</span> <span class="co">;=&gt; #{:b}</span></code></pre>
-<p>TODO: joku settitehtävä tähän</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the function <code>(toggle a-set elem)</code> that removes <code>elem</code> from <code>a-set</code> if it exists in the set, and adds it to the set otherwise.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:d)</span> <span class="co">;=&gt; #{:a :c :b :d}</span>
+(toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:a)</span> <span class="co">;=&gt; #{:c :b}</span></code></pre>
+</section>
 <p>Now we can understand the whole implementation of <code>all-author-names</code>. We use - <code>fn</code> to introduce a helper function, - keywords to index the books, - <code>let</code> to give a name to our helper function, - <code>map</code> to apply the helper function to all the given books, and - construct a set with the <code>set</code> function to get rid of duplicates.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
   (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
