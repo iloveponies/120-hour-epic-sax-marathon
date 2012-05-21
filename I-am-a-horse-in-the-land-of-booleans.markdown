@@ -59,8 +59,6 @@ Any value can be turned into `true` or `false` with the `boolean` function:
 `boolean` function: for `nil` and `false`, it returns `false`, and for all
 other values it returns `true`. You can use `if` in its implementation.
 
-TODO: This could be moved to a place where we actually return boolean values.
-
 In functional programming, and specifically in Clojure, everything is an
 expression. This is a way of saying that everything has a usable value.
 Concretely, `if` has a return value; the value is the value of the evaluated
@@ -164,6 +162,61 @@ Write the function `(fizzbuzz n)` that returns
 (fizzbuzz 70) ;=> "buzz"
 ~~~
 </exercise>
+
+## Comparing values
+
+Values can be compared for equality with `=`:
+
+~~~ {.clojure}
+(= "foo" "foo")    ;=> true
+(= "foo" "bar")    ;=> false
+~~~
+
+`=` can compare structures:
+
+~~~ {.clojure}
+(= [1 2 3] [1 2 3]) ;=> true
+(= {:a 42} {:a 42}) ;=> true
+(= {:a 42} {:b 2}) ;=> false
+~~~
+
+Numerical values should be compared with `==`:
+
+~~~ {.clojure}
+(== 42  42) ;=> true
+(== 5.0  5) ;=> true
+(=  5.0  5) ;=> false !
+~~~
+
+Note the difference between `=` and `==`: `==` disregards the actual
+type of the numeric value, whereas `=` requires that the type numbers
+are of the same type.
+
+Less-than, greater-than and other such comparisons can be done with
+the regular `<`, `>`, `<=` and `>=` operators:
+
+~~~ {.clojure}
+(< 1 2)   ;=> true
+(> 1 2)   ;=> false
+(<= 52 2) ;=> false
+~~~
+
+## Comparing many values
+
+All the comparison functions above take an arbitrary amount of
+arguments. For an example, to compare if three variables are equal,
+one can give them to `=`:
+
+~~~ {.clojure}
+(= x y z) ;=> true if and only if x = y = z
+~~~
+
+The other comparison operators work similarly. You can easily check if
+given variables are in ascending order:
+
+~~~ {.clojure}
+(< x y z q) ;=> true if and only if x < y < z < q
+~~~
 
 ## Boolean Functions
 
