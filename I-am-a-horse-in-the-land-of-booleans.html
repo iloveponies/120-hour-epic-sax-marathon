@@ -79,7 +79,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 (<span class="kw">boolean</span> true)    <span class="co">;=&gt; true</span>
 (<span class="kw">boolean</span> false)   <span class="co">;=&gt; false</span></code></pre>
 <p><em>Exercise:</em> Implement <code>(my-boolean x)</code>, which works like the built-in <code>boolean</code> function: for <code>nil</code> and <code>false</code>, it returns <code>false</code>, and for all other values it returns <code>true</code>. You can use <code>if</code> in its implementation.</p>
-<p>TODO: This could be moved to a place where we actually return boolean values.</p>
 <p>In functional programming, and specifically in Clojure, everything is an expression. This is a way of saying that everything has a usable value. Concretely, <code>if</code> has a return value; the value is the value of the evaluated body (either the <em>then</em> or the <em>else</em> body).</p>
 <p>As an example, let’s define the function <code>(sign x)</code>, which returns the string <code>&quot;-&quot;</code> if <code>x</code> is negative and otherwise <code>&quot;+&quot;</code>. The function looks like the following:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sign </span>[x]
@@ -140,6 +139,32 @@ Exercise
 (fizzbuzz <span class="dv">48</span>) <span class="co">;=&gt; &quot;fizz&quot;</span>
 (fizzbuzz <span class="dv">70</span>) <span class="co">;=&gt; &quot;buzz&quot;</span></code></pre>
 </section>
+</section>
+<section class="level2" id="comparing-values">
+<h2>Comparing values</h2>
+<p>Values can be compared for equality with <code>=</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">=</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;foo&quot;</span>)    <span class="co">;=&gt; true</span>
+(<span class="kw">=</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>)    <span class="co">;=&gt; false</span></code></pre>
+<p><code>=</code> can compare structures:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">=</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; true</span>
+(<span class="kw">=</span> {<span class="kw">:a</span> <span class="dv">42</span>} {<span class="kw">:a</span> <span class="dv">42</span>}) <span class="co">;=&gt; true</span>
+(<span class="kw">=</span> {<span class="kw">:a</span> <span class="dv">42</span>} {<span class="kw">:b</span> <span class="dv">2</span>}) <span class="co">;=&gt; false</span></code></pre>
+<p>Numerical values should be compared with <code>==</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">==</span> <span class="dv">42</span>  <span class="dv">42</span>) <span class="co">;=&gt; true</span>
+(<span class="kw">==</span> <span class="fl">5.0</span>  <span class="dv">5</span>) <span class="co">;=&gt; true</span>
+(<span class="kw">=</span>  <span class="fl">5.0</span>  <span class="dv">5</span>) <span class="co">;=&gt; false !</span></code></pre>
+<p>Note the difference between <code>=</code> and <code>==</code>: <code>==</code> disregards the actual type of the numeric value, whereas <code>=</code> requires that the type numbers are of the same type.</p>
+<p>Less-than, greater-than and other such comparisons can be done with the regular <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code> and <code>&gt;=</code> operators:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">&lt;</span> <span class="dv">1</span> <span class="dv">2</span>)   <span class="co">;=&gt; true</span>
+(<span class="kw">&gt;</span> <span class="dv">1</span> <span class="dv">2</span>)   <span class="co">;=&gt; false</span>
+(<span class="kw">&lt;=</span> <span class="dv">52</span> <span class="dv">2</span>) <span class="co">;=&gt; false</span></code></pre>
+</section>
+<section class="level2" id="comparing-many-values">
+<h2>Comparing many values</h2>
+<p>All the comparison functions above take an arbitrary amount of arguments. For an example, to compare if three variables are equal, one can give them to <code>=</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">=</span> x y z) <span class="co">;=&gt; true if and only if x = y = z</span></code></pre>
+<p>The other comparison operators work similarly. You can easily check if given variables are in ascending order:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">&lt;</span> x y z q) <span class="co">;=&gt; true if and only if x &lt; y &lt; z &lt; q</span></code></pre>
 </section>
 <section class="level2" id="boolean-functions">
 <h2>Boolean Functions</h2>
