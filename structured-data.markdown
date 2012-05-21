@@ -492,10 +492,6 @@ themselves, so we can just write the above examples like this:
 (cons 0 [1 2 3]) ;=> (0 1 2 3)
 ~~~
 
-<exercise>
-TODO: exercise
-</exercise>
-
 ### The map function
 
 `(map function collection)` takes two parameters, a function and a sequencable
@@ -662,7 +658,15 @@ Finally, `(disj set elem)` removes `elem` from `set` if it contains `elem`:
 (disj #{:a :b :c} :c :a) ;=> #{:b}
 ~~~
 
-TODO: joku settitehtävä tähän
+<exercise>
+Write the function `(toggle a-set elem)` that removes `elem` from
+`a-set` if it exists in the set, and adds it to the set otherwise.
+
+~~~ {.clojure}
+(toggle #{:a :b :c} :d) ;=> #{:a :c :b :d}
+(toggle #{:a :b :c} :a) ;=> #{:c :b}
+~~~
+</exercise>
 
 Now we can understand the whole implementation of `all-author-names`. We use
 - `fn` to introduce a helper function,
