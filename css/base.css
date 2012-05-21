@@ -97,3 +97,7 @@ table code {
 code, pre {
   font-family: Menlo, Monaco, Consolas, "Ubuntu Mono", "DejaVu Mono", monospace;
 }
+
+.top-nav {
+    color: #666;
+}

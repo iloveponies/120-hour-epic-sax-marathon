@@ -13,7 +13,7 @@ BEGIN {
     our %titles = (
         exercise => "Exercise",
         alert    => "Watch out!",
-        info     => "Note"
+        info     => "Hint"
     );
 }
 
