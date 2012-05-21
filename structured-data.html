@@ -70,7 +70,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
   (expression2)
   ...)</code></pre>
 <p>The names introduced by <code>let</code> are visible in all the expressions after them, under <code>let</code>. A name is not visible to code outside the body of the <code>let</code> it is defined in.</p>
-<p>TODO: Example</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">let</span> [x <span class="dv">42</span>]
+         (<span class="kw">+</span> x x))
+<span class="co">;=&gt; 84</span>
+user=&gt; x
+CompilerException java.lang.RuntimeException:
+Unable to <span class="kw">resolve</span> symbol: x in this context, compiling<span class="kw">:(NO_SOURCE_PATH:0)</span> </code></pre>
 <section class="alert alert-success">
 <h3>
 Exercise
@@ -135,7 +140,7 @@ Exercise
 </section>
 <section class="level2" id="vectors">
 <h2>Vectors</h2>
-<p>The other kind of data structure, in addition to scalars, that a programming language usually supports are collections. Clojure has support for a rich set of collection data structures.</p>
+<p>Collections are the other kind of data structure, in addition to scalars, that are crucial to programming. Clojure has support for a rich set of collection data structures. We’ll go over the most important structures in this chapter.</p>
 <p>A <em>vector</em> is a collection that can be indexed with integers, like an array in other languages. It can contain values of different types.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">[<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]                 <span class="co">;=&gt; [1 2 3]</span>
 [<span class="kw">:foo</span> <span class="dv">42</span> <span class="st">&quot;bar&quot;</span> (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">3</span>)] <span class="co">;=&gt; [:foo 42 &quot;bar&quot; 5]</span></code></pre>
@@ -188,7 +193,6 @@ Exercise
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum-pairs </span>[[x1 y1] [x2 y2]]
   [(<span class="kw">+</span> x1 x2) (<span class="kw">+</span> y1 y2)])</code></pre>
 <p><code>sum-pairs</code> still takes two parameter vectors, but now it does not give names to its parameters. Instead, it gives names to their first two elements by destructuring the parameters. We could have also destructured the parameters with a <code>let</code>.</p>
-<p>TODO: <code>&amp;</code>, nested destructuring, <code>:as</code>, <code>(let [[x] [1 2]])</code></p>
 <section class="alert alert-success">
 <h3>
 Exercise
@@ -226,7 +230,6 @@ Exercise
 <p><code>count</code> returns the size of a map, which is determined by how many keys it has:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">count</span> {<span class="kw">:a</span> <span class="dv">42</span>, <span class="kw">:b</span> <span class="st">&quot;foo&quot;</span>, <span class="kw">:c</span> <span class="dv">1337</span>}) <span class="co">;=&gt; 3</span>
 (<span class="kw">count</span> {})                         <span class="co">;=&gt; 0</span></code></pre>
-<p>TODO: Talk about destructuring maps at some point.</p>
 <p>Let’s define a couple of books like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> cities </span>{<span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>
              <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
@@ -235,11 +238,17 @@ Exercise
                          <span class="kw">:birth-year</span> <span class="dv">1947</span>
                          <span class="kw">:death-year</span> <span class="dv">2006</span>}})</code></pre>
 <section class="alert alert-success">
+<h3>
+Exercise
+</h3>
 <p>Write the function <code>(alive? author)</code> which takes an author map and returns <code>true</code> if the <code>author</code> is alive, otherwise <code>false</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(alive? (<span class="kw">:author</span> cities))    <span class="co">;=&gt; true</span>
 (alive? (<span class="kw">:author</span> wild-seed)) <span class="co">;=&gt; false</span></code></pre>
 </section>
 <section class="alert alert-success">
+<h3>
+Exercise
+</h3>
 <p>Write the function <code>(title-length book)</code> that counts the length of the book’s title. Use <code>let</code> to extract the title.</p>
 <p>You can use <code>count</code> to find out the length of a string:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">count</span> <span class="st">&quot;foo&quot;</span>) <span class="co">;=&gt; 3</span></code></pre>
@@ -258,7 +267,7 @@ Exercise
 
 (all-author-names books) <span class="co">;=&gt; #{&quot;China Miéville&quot; &quot;Octavia E. Butler&quot;}</span></code></pre>
 <p>How should we implement <code>all-author-names</code>?</p>
-<p>TODO: Introduce this</p>
+<p>We’ll give the implementation now, and introduce the new concepts used one by one. The implementation looks like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
   (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
     (<span class="kw">set</span> (<span class="kw">map</span> author-name books))))</code></pre>
@@ -316,14 +325,12 @@ Exercise
 <h3>
 Exercise
 </h3>
-<p>Something on sequences.</p>
+<p>TODO: exercise</p>
 </section>
-<p>TODO: sekvenssitehtävä tänne</p>
 </section>
 <section class="level3" id="the-map-function">
 <h3>The map function</h3>
 <p><code>(map function collection)</code> takes two parameters, a function and a sequencable collection. It calls the function on each element of the sequence and returns a sequence of the return values.</p>
-<p>TODO: lispmap</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> munge </span>[x]
   (<span class="kw">+</span> x <span class="dv">42</span>))
 
@@ -373,11 +380,11 @@ Exercise
 <p>Remember that you can use <code>:keywords</code> as functions.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">:name</span> {<span class="kw">:name</span> <span class="st">&quot;MEEEE&quot;</span>, <span class="kw">:secret</span> <span class="st">&quot;Awesome&quot;</span>}) <span class="co">;=&gt;  &quot;MEEEE&quot;</span></code></pre>
 </section>
-<p>We can now almost undestand the definition of <code>all-author-names</code>.</p>
+<p>We can now almost undestand the definition of <code>all-author-names</code>. Remember that our implementation looked like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
   (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
     (<span class="kw">set</span> (<span class="kw">map</span> author-name books))))</code></pre>
-<p>Let’s try it out without the mysterious <code>set</code>.</p>
+<p>The final piece is the <code>set</code> function, which we haven’t introduced yet. However, let’s try the function without <code>set</code>, first.</p>
 <p>We had these example books:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> cities </span>{<span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>
              <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
@@ -420,14 +427,12 @@ Exercise
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:c)</span> <span class="co">;=&gt; #{:a :b}</span>
 (<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:EEEEE)</span> <span class="co">;=&gt; #{:a :c :b}</span>
 (<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:c</span> <span class="kw">:a)</span> <span class="co">;=&gt; #{:b}</span></code></pre>
-<p>TODO: LOL joku settitehtävä tähän?</p>
-<p>xxxxxx marks the SPOT</p>
-<p>TODO: wrap this shit together</p>
-<p>Glorious recap:</p>
+<p>TODO: joku settitehtävä tähän</p>
+<p>Now we can understand the whole implementation of <code>all-author-names</code>. We use - <code>fn</code> to introduce a helper function, - keywords to index the books, - <code>let</code> to give a name to our helper function, - <code>map</code> to apply the helper function to all the given books, and - construct a set with the <code>set</code> function to get rid of duplicates.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
   (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
     (<span class="kw">set</span> (<span class="kw">map</span> author-name books))))</code></pre>
-<p>TODO;: KIRJALISTAT TÄHÄNQI</p>
+<p>Calling our function returns the desired set:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(all-author-names books) <span class="co">;=&gt; #{&quot;China Miéville&quot; &quot;Octavia E. Butler&quot;}</span></code></pre>
 </section>
 </section>
@@ -443,8 +448,7 @@ Exercise
 Exercise
 </h3>
 <p>Write the function <code>(books-by-author author books)</code>.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(books-by-author <span class="st">&quot;China Miéville&quot;</span> books)
-<span class="co">;=&gt; ({cities} {...})</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(books-by-author <span class="st">&quot;China Miéville&quot;</span> books) <span class="co">;=&gt; (cities embassytown)</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
