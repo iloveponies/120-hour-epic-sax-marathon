@@ -47,7 +47,14 @@ The names introduced by `let` are visible in all the expressions after them,
 under `let`. A name is not visible to code outside the body of the `let` it is
 defined in.
 
-TODO: Example
+~~~ {.clojure}
+user=> (let [x 42]
+         (+ x x))
+;=> 84
+user=> x
+CompilerException java.lang.RuntimeException:
+Unable to resolve symbol: x in this context, compiling:(NO_SOURCE_PATH:0) 
+~~~
 
 <exercise>
 The following function does a thing:
@@ -109,9 +116,9 @@ Booleans        `true`, `false`      Boolean values.
 
 ## Vectors
 
-The other kind of data structure, in addition to scalars, that a programming
-language usually supports are collections. Clojure has support for a rich set
-of collection data structures.
+Collections are the other kind of data structure, in addition to scalars, that
+are crucial to programming. Clojure has support for a rich set of collection
+data structures. We'll go over the most important structures in this chapter.
 
 A *vector* is a collection that can be indexed with integers, like an array in
 other languages. It can contain values of different types.
@@ -228,8 +235,6 @@ to its parameters. Instead, it gives names to their first two elements by
 destructuring the parameters. We could have also destructured the parameters
 with a `let`.
 
-TODO: `&`, nested destructuring, `:as`, `(let [[x] [1 2]])`
-
 <exercise>
 Rewrite our earlier function `spiff` by destructuring its
 parameters. Call this new function `spiff-destructuring`.
@@ -298,8 +303,6 @@ has:
 (count {})                         ;=> 0
 ~~~
 
-TODO: Talk about destructuring maps at some point.
-
 Let's define a couple of books like this:
 
 ~~~ {.clojure}
@@ -311,8 +314,7 @@ Let's define a couple of books like this:
                          :death-year 2006}})
 ~~~
 
-<section class="alert alert-success">
-
+<exercise>
 Write the function `(alive? author)` which takes an author map and returns
 `true` if the `author` is alive, otherwise `false`.
 
@@ -320,11 +322,9 @@ Write the function `(alive? author)` which takes an author map and returns
 (alive? (:author cities))    ;=> true
 (alive? (:author wild-seed)) ;=> false
 ~~~
+</exercise>
 
-</section>
-
-<section class="alert alert-success">
-
+<exercise>
 Write the function `(title-length book)` that counts the length of the book's
 title. Use `let` to extract the title.
 
@@ -338,8 +338,7 @@ You can use `count` to find out the length of a string:
 (title-length cities)    ;=> 21
 (title-length wild-seed) ;=> 9
 ~~~
-
-</section>
+</exercise>
 
 ## Serial grave digging
 
@@ -359,7 +358,8 @@ given a collection of books, we want the names of all the authors:
 
 How should we implement `all-author-names`?
 
-TODO: Introduce this
+We'll give the implementation now, and introduce the new concepts used one by
+one. The implementation looks like this:
 
 ~~~ {.clojure}
 (defn all-author-names [books]
@@ -469,18 +469,14 @@ themselves, so we can just write the above examples like this:
 ~~~
 
 <exercise>
-Something on sequences.
+TODO: exercise
 </exercise>
-
-TODO: sekvenssitehtävä tänne
 
 ### The map function
 
 `(map function collection)` takes two parameters, a function and a sequencable
 collection.  It calls the function on each element of the sequence and returns
 a sequence of the return values.
-
-TODO: lispmap
 
 ~~~ {.clojure}
 (defn munge [x]
@@ -551,10 +547,10 @@ Remember that you can use `:keywords` as functions.
 ~~~ {.clojure}
 (:name {:name "MEEEE", :secret "Awesome"}) ;=>  "MEEEE"
 ~~~
-
 </exercise>
 
-We can now almost undestand the definition of `all-author-names`.
+We can now almost undestand the definition of `all-author-names`. Remember
+that our implementation looked like this:
 
 ~~~ {.clojure}
 (defn all-author-names [books]
@@ -562,7 +558,8 @@ We can now almost undestand the definition of `all-author-names`.
     (set (map author-name books))))
 ~~~
 
-Let's try it out without the mysterious `set`.
+The final piece is the `set` function, which we haven't introduced yet.
+However, let's try the function without `set`, first.
 
 We had these example books:
 
@@ -641,13 +638,14 @@ Finally, `(disj set elem)` removes `elem` from `set` if it contains `elem`:
 (disj #{:a :b :c} :c :a) ;=> #{:b}
 ~~~
 
-TODO: LOL joku settitehtävä tähän?
+TODO: joku settitehtävä tähän
 
-xxxxxx marks the SPOT
-
-TODO: wrap this shit together
-
-Glorious recap:
+Now we can understand the whole implementation of `all-author-names`. We use
+- `fn` to introduce a helper function,
+- keywords to index the books,
+- `let` to give a name to our helper function,
+- `map` to apply the helper function to all the given books, and
+- construct a set with the `set` function to get rid of duplicates.
 
 ~~~ {.clojure}
 (defn all-author-names [books]
@@ -655,7 +653,7 @@ Glorious recap:
     (set (map author-name books))))
 ~~~
 
-TODO;: KIRJALISTAT TÄHÄNQI
+Calling our function returns the desired set:
 
 ~~~ {.clojure}
 (all-author-names books) ;=> #{"China Miéville" "Octavia E. Butler"}
@@ -683,8 +681,7 @@ false, a falsey value, and they were filtered out.
 Write the function `(books-by-author author books)`.
 
 ~~~ {.clojure}
-(books-by-author "China Miéville" books)
-;=> ({cities} {...})
+(books-by-author "China Miéville" books) ;=> (cities embassytown)
 ~~~
 </exercise>
 
