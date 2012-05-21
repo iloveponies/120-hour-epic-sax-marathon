@@ -721,12 +721,12 @@ Use `books-by-author` as a helper function.
 </exercise>
 
 <exercise>
-Implement `(author-names authors)`, which returns all the author names in a
-set.
+Implement `(authors books)`, which returns all the authors in a set.
 </exercise>
 
 <exercise>
-Implement `(authors books)`, which returns all the authors in a set.
+Implement `(author-names authors)`, which returns all the author names in a
+set.
 </exercise>
 
 <exercise>
