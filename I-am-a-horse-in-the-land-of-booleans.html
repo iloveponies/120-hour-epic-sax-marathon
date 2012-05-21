@@ -166,7 +166,7 @@ Exercise
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">and</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>)   =&gt; <span class="st">&quot;bar&quot;</span>
 (<span class="kw">and</span> <span class="st">&quot;foo&quot;</span>  false)  =&gt; false
 (<span class="kw">and</span>  <span class="dv">10</span>    nil)    =&gt; nil</code></pre>
-<p><code>or</code> returns truthy if any of its arguments are falsey:</p>
+<p><code>or</code> returns truthy if any of its arguments is truthy:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">or</span>  <span class="st">&quot;foo&quot;</span>  false)  =&gt; <span class="st">&quot;foo&quot;</span>
 (<span class="kw">or</span>   <span class="dv">42</span>    true)   =&gt; <span class="dv">42</span></code></pre>
 <p><code>not</code> returns <code>true</code> if its argument is falsey and <code>false</code> if its argument is truthy:</p>
