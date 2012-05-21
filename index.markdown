@@ -43,11 +43,13 @@ Down the rabbit hole.
 
 - The one function to rule them all
 
-## [State]
+## State
 
-## [Java]
+## Java
 
-## [Web APIs, JSON, all that hipster shit][hipsters]
+## Web APIs, JSON
+
+## Magical Mystery Tour
 
 [Basic tools]: basic-tools.html
 [Training day]: training-day.html
