@@ -19,6 +19,14 @@ structures:
 - [Clojure cheatsheet][cheat]
 </info>
 
+## Get the project
+
+Clone the project for this chapter:
+
+~~~
+git clone https://github.com/iloveponies/structured-data.git
+~~~
+
 ## Let there be names
 
 We often want to give a piece of data name, either because the act of naming

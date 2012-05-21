@@ -9,6 +9,14 @@
 - `if` and truthiness
 - Everything is an expression / has a value
 
+## Get the project
+
+Clone the project for this chapter:
+
+~~~
+git clone https://github.com/iloveponies/i-am-a-horse-in-the-land-of-booleans.git
+~~~
+
 ## If then else
 
 Any non-trivial program needs conditionals. Clojure's `if` looks like the
