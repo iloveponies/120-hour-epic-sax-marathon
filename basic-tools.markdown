@@ -13,12 +13,18 @@
 ## The development environment
 
 We have created a virtual machine running [Ubuntu] 12.04, with Clojure and
-[Vim] configured as the editor. After you have booted the computer to Windows
-7, the virtual machine can be found in VirtualBox. If you do not see "Ubuntu
-12.04" in the list of virtual machines in VirtualBox, you can add it with the
-menu action "Machine" -> "Add". The machine can be found under the path
-`C:\Temp\VirtualBox\Machines\ClojureBox`. Select the `.vbox` file in
-that directory to add the virtual machine to VirtualBox's list.
+[Vim] configured as the editor.
+
+The virtual machine can be found on the computers in U204. You can also
+[download the virtual machine][vm] and run it on your own computer. You will
+need to install [VirtualBox] to run it.
+
+After you have booted the computer to Windows 7, the virtual machine can be
+found in VirtualBox. If you do not see "Ubuntu 12.04" in the list of virtual
+machines in VirtualBox, you can add it with the menu action "Machine" ->
+"Add". The machine can be found under the path
+`C:\Temp\VirtualBox\Machines\ClojureBox`. Select the `.vbox` file in that
+directory to add the virtual machine to VirtualBox's list.
 
 <a href="img/ClojureBox.png">
 
@@ -164,3 +170,5 @@ Now that we have introduced the most basic tools, we can start programming.
 [Ubuntu]: http://ubuntu.com
 [Vim]: http://vim.org
 [next]: training-day.html
+[vm]: http://cs.helsinki.fi/ilmari.vacklin/ClojureBox.zip
+[VirtualBox]: http://virtualbox.org
