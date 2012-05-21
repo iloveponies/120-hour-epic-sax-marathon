@@ -52,6 +52,16 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Vectors</li>
 <li>Maps</li>
 </ul>
+<section class="alert alert-info">
+<h3>
+Hint
+</h3>
+<p>The following web pages are good references to Clojure builtins and data structures:</p>
+<ul>
+<li><a href="http://clojuredocs.org">ClojureDocs</a></li>
+<li><a href="http://clojure.org/cheatsheet">Clojure cheatsheet</a></li>
+</ul>
+</section>
 </section>
 <section class="level2" id="let-there-be-names">
 <h2>Let there be names</h2>
@@ -76,6 +86,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 user=&gt; x
 CompilerException java.lang.RuntimeException:
 Unable to <span class="kw">resolve</span> symbol: x in this context, compiling<span class="kw">:(NO_SOURCE_PATH:0)</span> </code></pre>
+<p>Note the indentation in <code>let</code>: the names inside the brackets are all aligned together, and the expressions are indented with two spaces.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [x <span class="dv">42</span>]
+  (indented x))</code></pre>
 <section class="alert alert-success">
 <h3>
 Exercise
