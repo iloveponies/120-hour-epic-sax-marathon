@@ -720,6 +720,3 @@ situation, you can use `mapv` and `filterv`, which are variants of `map` and
 (filterv pos? #{-4 6 -2 7 -8 3}) ;=> [3 6 7]
 (mapv ... #{...})   ;=> [...]
 ~~~
-
-TODO: do this stuff with a json api: see org.clojure/data.json and e.g.
-api.clojuredocs.org
