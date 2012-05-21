@@ -264,5 +264,7 @@ false and false otherwise.
 ~~~
 </exercise>
 
+[Proceed to structuration! →](structured-data.html)
+
 [Git]: http://git-scm.com
 [Midje]: https://github.com/marick/Midje
