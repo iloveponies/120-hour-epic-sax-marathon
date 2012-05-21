@@ -206,7 +206,7 @@ else is truthy.)
 (and  10    nil)    => nil
 ~~~
 
-`or` returns truthy if any of its arguments are falsey:
+`or` returns truthy if any of its arguments is truthy:
 
 ~~~ {.clojure}
 (or  "foo"  false)  => "foo"
