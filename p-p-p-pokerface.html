@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="120 hour epic">
+  <title>P-P-P-Pokerface</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+    q { quotes: "“" "”" "‘" "’"; }
+  </style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="css/base.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span12"><div class="top-nav"><a href="index.html">← index</a></div>
+<header>
+<h1 class="title">P-P-P-Pokerface</h1>
+<h2 class="author">120 hour epic</h2>
+<h3 class="date">sax marathon</h3>
+</header>
+<section class="level2" id="synopsis">
+<h2>Synopsis</h2>
+<p>Here we’ll implement a poker hand evaluator in Clojure.</p>
+<ul>
+<li>frequencies</li>
+<li>range</li>
+<li>min/max, apply max</li>
+<li>sort</li>
+<li>Character/isDigit, character-&gt;int</li>
+<li>sequence equality</li>
+<li>first</li>
+</ul>
+</section>
+<section class="level2" id="get-the-project">
+<h2>Get the project</h2>
+<p>Clone the project for this chapter:</p>
+<pre><code>git clone https://github.com/iloveponies/p-p-p-pokerface.git</code></pre>
+</section>
+<section class="level2" id="data-representation">
+<h2>Data representation</h2>
+<p>A traditional playing card has a rank and a suit. The rank is a number from 2 to 10, J, Q, K or A and the suit is Clubs, Diamonds, Hearts or Spades.</p>
+<p>We want a simple way to represent poker hands and cards. A card is simply going to be a string of the form <code>&quot;5C&quot;</code> where the first character represents the rank and the second character represents the suit. To keep the representation as 2 characters, we’ll use the following coding for values between 10 and 14:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Rank</th>
+<th style="text-align: left;">Character</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">T</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">J</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Q</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">K</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">A</td>
+</tr>
+</tbody>
+</table>
+<p>So, for example, the Queen of Hearts is <code>&quot;QH&quot;</code> and the Ace of Spades is <q>AS</q>.</p>
+</section>
+<section class="level2" id="rank-and-suit">
+<h2>Rank and suit</h2>
+<p>We’ll want a couple of helper functions to read the rank and suit of a card.</p>
+<p>A useful thing to note is that Strings are sequencable, so you can use sequence destructuring on them:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [[fst snd] <span class="st">&quot;5H&quot;</span>]
+  [fst snd]) <span class="co">;=&gt; [\5 \H]</span></code></pre>
+<p>If you are only interested in some destructured values, it is idiomatic to use the name <code>_</code> for ignored values:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [[_ snd] <span class="st">&quot;AH&quot;</span>]
+  snd) <span class="co">;=&gt; \H</span></code></pre>
+<p>And finally, remember that you can use <code>(str value)</code> to turn anything into its string representation, including character.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="ch">\C</span>) <span class="co">;=&gt; &quot;C&quot;</span></code></pre>
+<p>You should now be able to write the <code>(suit card)</code> function that returns the suit of a card.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the function <code>(suit card)</code> which takes a singe card and return the suit of the card as a one character string.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(suit <span class="st">&quot;2H&quot;</span>) <span class="co">;=&gt; &quot;H&quot;</span>
+(suit <span class="st">&quot;2D&quot;</span>) <span class="co">;=&gt; &quot;D&quot;</span>
+(suit <span class="st">&quot;2C&quot;</span>) <span class="co">;=&gt; &quot;C&quot;</span>
+(suit <span class="st">&quot;3S&quot;</span>) <span class="co">;=&gt; &quot;S&quot;</span></code></pre>
+</section>
+<p>To get rank, you’ll need to convert a character into an integer. To see if a character is a digit, like <code>\5</code> or <code>\2</code>, you can use <code>(Character/isDigit char)</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(Character/isDigit <span class="ch">\5</span>) <span class="co">;=&gt; true</span>
+(Character/isDigit <span class="ch">\A</span>) <span class="co">;=&gt; false</span></code></pre>
+<p>If a character is a digit, you can use <code>(Integer/valueOf string)</code> to convert it to an integer. You will first have to convert the character into a string.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(Integer/valueOf <span class="st">&quot;12&quot;</span>)     <span class="co">;=&gt; 12</span>
+(Integer/valueOf (<span class="kw">str</span> <span class="ch">\5</span>)) <span class="co">;=&gt; 5</span></code></pre>
+<p>Finally, to turn the other characters into integers, using a map to store the values is very useful:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> {<span class="ch">\A</span> <span class="dv">100</span>, <span class="ch">\B</span> <span class="dv">20</span>} <span class="ch">\B</span>) <span class="co">;=&gt; 20</span>
+({<span class="ch">\A</span> <span class="dv">100</span>, <span class="ch">\B</span> <span class="dv">20</span>} <span class="ch">\B</span>) <span class="co">;=&gt; 20</span>
+
+(<span class="kw">def</span><span class="fu"> replacements </span>{<span class="ch">\A</span> <span class="dv">100</span>, <span class="ch">\B</span> <span class="dv">20</span>})
+
+(replacements <span class="ch">\B</span>) <span class="co">;=&gt; 20</span></code></pre>
+<p>You can now write the <code>(rank card)</code> function.</p>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the function <code>(rank card)</code> which takes a single card and returns the rank as a number between 2 and 14.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(rank <span class="st">&quot;2H&quot;</span>) <span class="co">;=&gt; 2</span>
+(rank <span class="st">&quot;4S&quot;</span>) <span class="co">;=&gt; 4</span>
+(rank <span class="st">&quot;TS&quot;</span>) <span class="co">;=&gt; 10</span>
+(rank <span class="st">&quot;JS&quot;</span>) <span class="co">;=&gt; 11</span>
+(rank <span class="st">&quot;QS&quot;</span>) <span class="co">;=&gt; 12</span>
+(rank <span class="st">&quot;KS&quot;</span>) <span class="co">;=&gt; 13</span>
+(rank <span class="st">&quot;AS&quot;</span>) <span class="co">;=&gt; 14</span></code></pre>
+</section>
+</section>
+<section class="level2" id="some-additional-functions">
+<h2>Some additional functions</h2>
+<p>Here’s a couple of functions that should prove useful.</p>
+<p><code>(frequencies sequence)</code> is used to see how many times an element appears in a sequence. It returns a map where elements are mapped to their appearance counts:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(frequencies [<span class="dv">4</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">4</span> <span class="dv">7</span>]) <span class="co">;=&gt; {4 2, 7 3}</span></code></pre>
+<p>So here we had three sevens and two fours.</p>
+<p>If you are only interested in the keys or values of a map, you can get them with <code>(keys a-map)</code> and <code>(vals a-map)</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">vals</span> (frequencies [<span class="dv">4</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">4</span> <span class="dv">7</span>]))
+<span class="co">;=&gt; (2 3)</span>
+<span class="co">;^-- now that looks a lot like a full house</span></code></pre>
+<p><code>(max num1 num2 num3 ...)</code> returns its largest parameter and <code>(min num1 num2 nun3 ...)</code> returns its smallest paremeter.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">max</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">2</span>) <span class="co">;=&gt; 5</span>
+(<span class="kw">min</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">2</span>) <span class="co">;=&gt; 1</span></code></pre>
+<p>But what should you do if you have a sequence of numbers, like say a vector <code>[1 -4 2 3 5]</code> and you want its smallest or largest value? There is a very useful spesial form called <code>apply</code> for this <code>(apply function parameter-sequence)</code> which calls <code>function</code> with the parameters from <code>parameter-sequence</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">apply</span> <span class="kw">str</span> [<span class="st">&quot;Over &quot;</span> <span class="dv">9000</span> <span class="st">&quot;!&quot;</span>])
+<span class="co">;=&gt; (str &quot;Over &quot; 9000 &quot;!&quot;)</span>
+<span class="co">;=&gt; &quot;Over 9000!&quot;</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">apply</span> <span class="kw">max</span> [<span class="dv">5</span> <span class="dv">3</span> <span class="dv">2</span>])
+<span class="co">;=&gt; (max 5 3 2)</span>
+<span class="co">;=&gt; 5</span></code></pre>
+<p>Okay, so that’s quite a lot to remember, but these should provide useful when detecting different hands. If you get stuck, the functions introduced above might help.</p>
+</section>
+<section class="level2" id="hands">
+<h2>Hands</h2>
+<p>If you don’t remember a hand, the <a href="http://en.wikipedia.org/wiki/Poker_hands">Poker hands article</a> at Wikipedia has them listed and explained.</p>
+<p>Our representation for a poker hand is simply going to be a vector of cards:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> high-seven </span>[<span class="st">&quot;2H&quot;</span> <span class="st">&quot;3S&quot;</span> <span class="st">&quot;4C&quot;</span> <span class="st">&quot;5C&quot;</span> <span class="st">&quot;7D&quot;</span>])</code></pre>
+<p>Here’s a bunch of hands to use for testing:</p>
+<pre><code>(def high-seven [&quot;2H&quot; &quot;3S&quot; &quot;4C&quot; &quot;5C&quot; &quot;7D&quot;])
+(def pair-hand [&quot;2H&quot; &quot;2S&quot; &quot;4C&quot; &quot;5C&quot; &quot;7D&quot;])
+(def two-pairs-hand [&quot;2H&quot; &quot;2S&quot; &quot;4C&quot; &quot;4D&quot; &quot;7D&quot;])
+(def three-of-a-kind-hand [&quot;2H&quot; &quot;2S&quot; &quot;2C&quot; &quot;4D&quot; &quot;7D&quot;])
+(def four-of-a-kind-hand [&quot;2H&quot; &quot;2S&quot; &quot;2C&quot; &quot;2D&quot; &quot;7D&quot;])
+(def straight-hand [&quot;2H&quot; &quot;3S&quot; &quot;6C&quot; &quot;5D&quot; &quot;4D&quot;])
+(def low-ace-straight-hand [&quot;2H&quot; &quot;3S&quot; &quot;4C&quot; &quot;5D&quot; &quot;AD&quot;])
+(def high-ace-straight-hand [&quot;TH&quot; &quot;AS&quot; &quot;QC&quot; &quot;KD&quot; &quot;JD&quot;])
+(def flush-hand [&quot;2H&quot; &quot;4H&quot; &quot;5H&quot; &quot;9H&quot; &quot;7H&quot;])
+(def full-house-hand [&quot;2H&quot; &quot;5D&quot; &quot;2D&quot; &quot;2C&quot; &quot;5S&quot;])
+(def straight-flush-hand [&quot;2H&quot; &quot;3H&quot; &quot;6H&quot; &quot;5H&quot; &quot;4H&quot;])
+(def low-ace-straight-flush-hand [&quot;2D&quot; &quot;3D&quot; &quot;4D&quot; &quot;5D&quot; &quot;AD&quot;])
+(def high-ace-straight-flush-hand [&quot;TS&quot; &quot;AS&quot; &quot;QS&quot; &quot;KS&quot; &quot;JS&quot;])</code></pre>
+<section class="alert alert-success">
+<h3>
+Exercise
+</h3>
+<p>Write the function <code>(pair? hand)</code> that return true if there is a pair in <code>hand</code> and false if there is no pair in <code>hand</code>.</p>
+<pre><code>(pair? pair-hand)  ;=&gt; true
+(pair? high-seven) ;=&gt; false</code></pre>
+</section>
+</section>
+<footer>
+    <p>
+        &copy; <a href="http://iloveponies.github.com">iloveponies</a>.
+
+        <span style="float: right">
+            <a href="mailto:ilmari.vacklin@gmail.com">questions?</a>
+        </span>
+    </p>
+</footer>
+</div>
+</div>
+</div>
+</body>
+</html>
