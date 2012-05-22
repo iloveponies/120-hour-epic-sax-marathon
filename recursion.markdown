@@ -2,10 +2,25 @@
 % 120 hour epic
 % sax marathon
 
+## Synopsis
+
+Recursion is a large topic. This chapter covers the following:
+
+- Linear recursion,
+- Recursion over numbers,
+- Tree recursion,
+- Nonlinear recursion,
+- Passing state, and
+- An application: merge sort.
+
+## Get the project
+
+TODO
+
 ## Recap
 
 This chapter talks a lot about collections and we'll need the functions
-`first` and `rest`. Remind yourself how they work.
+`first` and `rest`.
 
 ~~~ {.clojure}
 (doc first)
@@ -72,14 +87,14 @@ The call to `sum` begins by inspecting `coll`. If `coll` is empty, `sum`
 immediately returns 0. If `coll` is not empty, `sum` takes its first element
 and adds it to the sum of the rest of the elements of `coll`. The value 0 is
 the base case of the algorithm, which determines when the calculation stops. If
-we did not have a base case, the calculation would continue infinitely. 
+we did not have a base case, the calculation would continue infinitely.
 
 <exercise>
 Write the function `(product coll)` that computes the product of a collection
-of values.
+of values. The product of $a$, $b$ and $c$ is $a * b * c$.
 
 ~~~ {.clojure}
-(product [])        ;=> 1  ; special case 
+(product [])        ;=> 1  ; special case
 (product [1 2 3])   ;=> 6
 (product [1 2 3 4]) ;=> 24
 (product [0 1 2])   ;=> 0
@@ -177,10 +192,10 @@ Let's have a closer look at the evaluation of the second line:
 
 ~~~ {.clojure}
    (only-numbers? [1 2 :D 3 4])
-;=> (only-numbers? [2 :D 3 4])
-    ; (number? 1) ;=> true, so we now need to check if all the rest are numbers.
-;=> (only-numbers? [:D 3 4]) ; because (number? 2) ;=> true
-;=> false                    ; because (number? :D) ;=> false
+;=> (only-numbers? [2 :D 3 4]) ; (number? 1) => true, so we now need to check
+                               ; if all the rest are numbers.
+;=> (only-numbers? [:D 3 4])   ; because (number? 2) ;=> true
+;=> false                      ; because (number? :D) ;=> false
 ~~~
 
 <exercise>
@@ -314,12 +329,12 @@ did for sequences.
 ~~~
 
 <exercise>
-Write the function `power` that computes the mathematical expression n ^k^.
+Write the function `power` that computes the mathematical expression $n^k$.
 
 ~~~ {.clojure}
-(power 2 2) ;=> 4
-(power 5 3) ;=> 125
-(power 7 0) ;=> 1
+(power 2 2)  ;=> 4
+(power 5 3)  ;=> 125
+(power 7 0)  ;=> 1
 (power 0 10) ;=> 0
 ~~~
 </exercise>
@@ -350,7 +365,7 @@ Translating this to Clojure gives us the following program:
 
 (The odd alignment is for clarity.) Consider how this function evaluates:
 
-!tree-recursion.png|border=0!
+![Tree recursion][img/tree-recursion.png]
 
 It is easy to see that the computation forms a tree structure.
 
@@ -415,26 +430,6 @@ sequence.
 (map-1 count ["aaa" "bb" "cccc"])   ;=> (3 2 4)
 (map-1 first [[1 2] [4] [7 12 28]]) ;=> (1 4 7)
 (map-1 zero? [0 2 0 13 4 0])        ;=> (true false true false false true)
-~~~
-</exercise>
-
-<exercise>
-Write the function `snip-many` that takes a sequence like `(0 1 2 :snip 3 4 5
-:snip 6)` and returns a sequence of sequences like:
-
-~~~ {.clojure}
-((0 1 2) (3 4 5) (6))
-~~~
-
-_Hint_: remember `snip`.
-
-More examples:
-
-~~~
-(snip-many [1 2 3])                   ;=> ((1 2 3))
-(snip-many [])                        ;=> (())
-(snip-many [:snip 1 2 :snip 3 :snip]) ;=> (() (1 2) (3) ())
-(snip-many [:snip])                   ;=> (() ())
 ~~~
 </exercise>
 
@@ -508,8 +503,8 @@ simple call to `my-count-helper` with `n` initialized to 0. This way users of
 `my-count` do not need to provide the initialization argument for `n`.
 
 <exercise>
-Write the function `rotations` that, when given a sequence, returns all the
-rotations of that sequence.
+Write the function `(rotations a-seq)` that, when given a sequence, returns
+all the rotations of that sequence.
 
 ~~~ {.clojure}
 (rotations [])                  ;=> ()
@@ -529,8 +524,8 @@ You can use `concat` in your function. It concatenates two sequences:
 </exercise>
 
 <exercise>
-Write the function `my-frequencies` that computes a map of how many times each
-element occurs in a sequence. E.g.:
+Write the function `(my-frequencies a-seq)` that computes a map of how many
+times each element occurs in a sequence. E.g.:
 
 ~~~ {.clojure}
 (my-frequencies []) ;=> {}
@@ -551,7 +546,7 @@ Where `frequencies-helper` is the recursive function.
 </exercise>
 
 <exercise>
-Write the function `un-frequencies` which takes a map produced by
+Write the function `(un-frequencies a-map)` which takes a map produced by
 `my-frequencies` and generates a sequence with the corresponding numbers of
 different elements.
 
@@ -565,14 +560,15 @@ The order of elements in the output sequence doesn't matter.
 
 Hint 1: Remember that you can use `first` and `rest` on a map too!
 
-Hint 2: There are multiple ways to implement this, but you can consider using `concat` and `repeat`.
+Hint 2: There are multiple ways to implement this, but consider using `concat`
+and `repeat`.
 </exercise>
 
 ### Merging and sorting
 
 <exercise>
-Write a function `seq-merge` that takes two (low to high) sorted number
-sequences and combines them into one sorted sequence. E.g.:
+Write the function `(seq-merge a-seq b-seq)` that takes two (low to high)
+sorted number sequences and combines them into one sorted sequence. E.g.:
 
 ~~~ {.clojure}
 (seq-merge [4] [1 2 6 7])        ;=> (1 2 4 6 7)
@@ -581,8 +577,8 @@ sequences and combines them into one sorted sequence. E.g.:
 </exercise>
 
 <exercise>
-Write the function `merge-sort` that implements [merge sort]. The idea of
-merge sort is to divide the input into subsequences, sort them, and use the
+Write the function `(merge-sort a-seq)` that implements [merge sort]. The idea
+of merge sort is to divide the input into subsequences, sort them, and use the
 `seq-merge` function defined above to merge the sorted subsequences. If two
 subsequences are in sorted order, merging them will result in a sorted
 sequence. If the subsequences are divided recursively into small enough pieces
@@ -620,7 +616,7 @@ sequences below that length with quicksort. The exercise doesn't require this.
 (merge-sort [5 3 4 17 2 100 1]) ;=> (1 2 3 4 5 17 100)
 ~~~
 
-You can use the `halve` function from Collections exercise C2.
+TODO You can use the `halve` function from Collections exercise C2.
 </exercise>
 
 ## Bonus problems
@@ -629,22 +625,24 @@ You can use the `halve` function from Collections exercise C2.
 Given a sequence, return all permutations of that sequence.
 
 ~~~ {.clojure}
-(permutations [])      ;=> ()
-(permutations [1 5 3]) ;=> ((1 5 3) (5 1 3) (5 3 1) (1 3 5) (3 1 5) (3 5 1))
+(permutations [])
+;=> ()
+(permutations [1 5 3])
+;=> ((1 5 3) (5 1 3) (5 3 1) (1 3 5) (3 1 5) (3 5 1))
 ~~~
 
-Order of permutations doesn't matter.
+The order of the permutations doesn't matter.
 </exercise>
 
 <exercise>
-Given a sequence, return the powerset of that sequence. 
+Given a sequence, return the powerset of that sequence.
 
 ~~~ {.clojure}
 (powerset [])      ;=> (())
 (powerset [1 2 4]) ;=> (() (4) (2) (2 4) (1) (1 4) (1 2) (1 2 4))
 ~~~
 
-Order of subsequences doesn't matter.
+The order of the subsequences doesn't matter.
 </exercise>
 
 [Software Foundations]: http://www.cis.upenn.edu/~bcpierce/sf/Basics.html#nat

@@ -749,5 +749,11 @@ situation, you can use `mapv` and `filterv`, which are variants of `map` and
 (mapv ... #{...})   ;=> [...]
 ~~~
 
+## Done!
+
+Phew, that was a lot of stuff. The next chapter is even longer. :)
+
+[Recursion awaits! →](recursion.html)
+
 [cheat]: http://clojure.org/cheatsheet
 [ClojureDocs]: http://clojuredocs.org
