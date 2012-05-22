@@ -49,15 +49,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section class="level2" id="synopsis">
 <h2>Synopsis</h2>
 <p>Here we’ll implement a poker hand evaluator in Clojure.</p>
-<ul>
-<li>frequencies</li>
-<li>range</li>
-<li>min/max, apply max</li>
-<li>sort</li>
-<li>Character/isDigit, character-&gt;int</li>
-<li>sequence equality</li>
-<li>first</li>
-</ul>
 </section>
 <section class="level2" id="get-the-project">
 <h2>Get the project</h2>
@@ -114,7 +105,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>You should now be able to write the <code>(suit card)</code> function that returns the suit of a card.</p>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 1
 </h3>
 <p>Write the function <code>(suit card)</code> which takes a singe card and return the suit of the card as a one character string.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(suit <span class="st">&quot;2H&quot;</span>) <span class="co">;=&gt; &quot;H&quot;</span>
@@ -138,7 +129,7 @@ Exercise
 <p>You can now write the <code>(rank card)</code> function.</p>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 2
 </h3>
 <p>Write the function <code>(rank card)</code> which takes a single card and returns the rank as a number between 2 and 14.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(rank <span class="st">&quot;2H&quot;</span>) <span class="co">;=&gt; 2</span>
@@ -193,11 +184,172 @@ Exercise
 (def high-ace-straight-flush-hand [&quot;TS&quot; &quot;AS&quot; &quot;QS&quot; &quot;KS&quot; &quot;JS&quot;])</code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 3
 </h3>
 <p>Write the function <code>(pair? hand)</code> that return true if there is a pair in <code>hand</code> and false if there is no pair in <code>hand</code>.</p>
 <pre><code>(pair? pair-hand)  ;=&gt; true
 (pair? high-seven) ;=&gt; false</code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 4
+</h3>
+<p>Write the function <code>(three-of-a-kind? hand)</code> that returns true if the hand contains a three of a kind.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(three-of-a-kind? two-pairs-hand)       <span class="co">;=&gt; false</span>
+(three-of-a-kind? three-of-a-kind-hand) <span class="co">;=&gt; true</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 5
+</h3>
+<p>Write the function <code>(four-of-a-kind? hand)</code> that returns true if the hand contains a four of a kind.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(four-of-a-kind? two-pairs-hand)      <span class="co">;=&gt; false</span>
+(four-of-a-kind? four-of-a-kind-hand) <span class="co">;=&gt; true</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 6
+</h3>
+<p>Write the function <code>(flush hand)</code> that returns true if the hand is a flush.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(flush? pair-hand)  <span class="co">;=&gt; false</span>
+(flush? flush-hand) <span class="co">;=&gt; true)</span></code></pre>
+</section>
+<p><code>(sort a-seq)</code> returns a sequence with the elements of <code>a-seq</code> in a sorted order.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">sort</span> [<span class="dv">5</span> -<span class="dv">1</span> <span class="dv">3</span> <span class="dv">17</span> -<span class="dv">10</span>]) <span class="co">;=&gt; (-10 -1 3 5 17)</span>
+(<span class="kw">sort</span> [<span class="dv">6</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">3</span>])     <span class="co">;=&gt; (3 4 5 6 7)</span>
+<span class="co">;                               ^</span>
+<span class="co">;                               |</span>
+<span class="co">;kind of looks like a straight---</span></code></pre>
+<p><code>(range lower-bound upper-bound)</code> takes two integers and returns a sequence with all integers from <code>lower-bound</code> to <code>upper-bound</code>, but does not include <code>upper-bound</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">range</span> <span class="dv">1</span> <span class="dv">5</span>) <span class="co">;=&gt; (1 2 3 4)</span>
+(<span class="kw">range</span> <span class="dv">5</span>)   <span class="co">;=&gt; (0 1 2 3 4)</span></code></pre>
+<p>You can test for equality between sequences with <code>=</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">=</span> [<span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span>] (<span class="kw">range</span> <span class="dv">3</span> (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">5</span>)))
+<span class="co">;=&gt; (=  [3       4       5       6       7]</span>
+<span class="co">;       (3       4       5       6       7))</span>
+<span class="co">;=&gt; (and (= 3 3) (= 4 4) (= 5 5) (= 6 6) (= 7 7))</span>
+<span class="co">;=&gt; true</span>
+
+(<span class="kw">=</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] (<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span>])) <span class="co">;=&gt; false</span></code></pre>
+<p>So two sequences are equal if their elements are equal and in the same order.</p>
+<section class="alert alert-success">
+<h3>
+Exercise 7
+</h3>
+<p>Write the function <code>(full-house? hand)</code> that return true if <code>hand</code> has a full house, otherwise false.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(full-house? three-of-a-kind-hand) <span class="co">;=&gt; false</span>
+(full-house? full-house-hand)      <span class="co">;=&gt; true</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 8
+</h3>
+<p>Write the function <code>(two-pairs? hand)</code> that return true if <code>hand</code> has two pairs, otherwise false.</p>
+<p>Note that a four of a kind is also two pairs.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(two-pairs? two-pairs-hand)      <span class="co">;=&gt; true</span>
+(two-pairs? pair-hand)           <span class="co">;=&gt; false</span>
+(two-pairs? four-of-a-kind-hand) <span class="co">;=&gt; true</span></code></pre>
+</section>
+<p>In a straight, an ace is accepted as either 1 or 14, so both of the following hands have a straight:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">[<span class="st">&quot;2H&quot;</span> <span class="st">&quot;3S&quot;</span> <span class="st">&quot;4C&quot;</span> <span class="st">&quot;5D&quot;</span> <span class="st">&quot;AD&quot;</span>]
+[<span class="st">&quot;TH&quot;</span> <span class="st">&quot;AS&quot;</span> <span class="st">&quot;QC&quot;</span> <span class="st">&quot;KD&quot;</span> <span class="st">&quot;JD&quot;</span>]</code></pre>
+<p>A useful function here is <code>(replace replace-map a-seq)</code>. It takes a map of replacements and a sequence and replaces the keys of <code>replace-map</code> in <code>a-seq</code> with the associated values.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">replace</span> {<span class="dv">1</span> <span class="st">&quot;a&quot;</span>, <span class="dv">2</span> <span class="st">&quot;b&quot;</span>} [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; [&quot;a&quot; &quot;b&quot; 3 4]</span></code></pre>
+<p>Finally we can implement straight.</p>
+<section class="alert alert-success">
+<h3>
+Exercise 9
+</h3>
+<p>Write the function <code>(straight? hand)</code> that returns <code>true</code> if <code>hand</code> is a straight, otherwise <code>false</code>.</p>
+<p>Note that an ace is accepted both as a rank 1 and rank 14 card in straights.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(straight? two-pairs-hand)             <span class="co">;=&gt; false</span>
+(straight? straight-hand)              <span class="co">;=&gt; true</span>
+(straight? low-ace-straight-hand)      <span class="co">;=&gt; true</span>
+(straight? [<span class="st">&quot;2H&quot;</span> <span class="st">&quot;2D&quot;</span> <span class="st">&quot;3H&quot;</span> <span class="st">&quot;4H&quot;</span> <span class="st">&quot;5H&quot;</span>]) <span class="co">;=&gt; false</span>
+(straight? high-ace-straight-hand)     <span class="co">;=&gt; true</span></code></pre>
+</section>
+<p>And finally, there’s straight flush. This shouldn’t be very difficult after having already defined flush and straight.</p>
+<section class="alert alert-success">
+<h3>
+Exercise 10
+</h3>
+<p>Write the function <code>(straight-flush? hand)</code> which returns <code>true</code> if the hand is a straight flush, that is both a straight and a flush, otherwise <code>false</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(straight-flush? straight-hand)                <span class="co">;=&gt; false</span>
+(straight-flush? flush-hand)                   <span class="co">;=&gt; false</span>
+(straight-flush? straight-flush-hand)          <span class="co">;=&gt; true</span>
+(straight-flush? low-ace-straight-flush-hand)  <span class="co">;=&gt; true</span>
+(straight-flush? high-ace-straight-flush-hand) <span class="co">;=&gt; true</span></code></pre>
+</section>
+<p>Now that we have functions that check for each hand type, it would be nice to be able to assign a value to each hand. We’re going to use the following values:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Hand</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">High card (nothing)</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pair</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Two pairs</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Three of a kind</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Straight</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Flush</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Full house</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">four of a kind</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Straight flush</td>
+<td style="text-align: left;">8</td>
+</tr>
+</tbody>
+</table>
+<section class="alert alert-success">
+<h3>
+Exercise 11
+</h3>
+<p>Write the function <code>(value hand)</code> which returns the value of a hand according to the table above.</p>
+<p>It might be helpful to add a checker <code>(high-card? hand)</code></p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> high-card</span>? [hand]
+  true)</code></pre>
+<p>And put all checkers into a vector:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> checkers</span>
+  [high-card? pair? two-pairs? three-of-a-kind? straight?
+   flush? full-house? four-of-a-kind? straight-flush?])</code></pre>
+<p>Now the value of a hand is the highest index of a matching checker.</p>
+<p><code>filter</code> and <code>range</code> might be useful here.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(value high-seven)           <span class="co">;=&gt; 0</span>
+(value pair-hand)            <span class="co">;=&gt; 1</span>
+(value two-pairs-hand)       <span class="co">;=&gt; 2</span>
+(value three-of-a-kind-hand) <span class="co">;=&gt; 3</span>
+(value straight-hand)        <span class="co">;=&gt; 4</span>
+(value flush-hand)           <span class="co">;=&gt; 5</span>
+(value full-house-hand)      <span class="co">;=&gt; 6</span>
+(value four-of-a-kind-hand)  <span class="co">;=&gt; 7</span>
+(value straight-flush-hand)  <span class="co">;=&gt; 8</span></code></pre>
 </section>
 </section>
 <footer>
