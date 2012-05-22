@@ -15,7 +15,9 @@ Recursion is a large topic. This chapter covers the following:
 
 ## Get the project
 
-TODO
+~~~
+git clone https://github.com/iloveponies/recursion.git
+~~~
 
 ## Recap
 
