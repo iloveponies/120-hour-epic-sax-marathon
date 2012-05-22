@@ -37,6 +37,8 @@ Learn the structural weaknesses of dragons.
 - Vectors
 - Maps
 
+## [P-P-P-Pokerface]
+
 ## [Recursion]
 
 Down the rabbit hole.
@@ -55,6 +57,7 @@ Down the rabbit hole.
 [Training day]: training-day.html
 [Structured data]: structured-data.html
 [I am a horse in the land of booleans]: I-am-a-horse-in-the-land-of-booleans.html
+[P-P-P-Pokerface]: p-p-p-pokerface.html
 [Recursion]: recursion.html
 [State]: state.html
 [Java]: java.html
