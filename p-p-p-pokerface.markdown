@@ -223,4 +223,192 @@ Write the function `(pair? hand)` that return true if there is a pair in
 ~~~
 </exercise>
 
+<exercise>
+Write the function `(three-of-a-kind? hand)` that returns true if the hand
+contains a three of a kind.
+
+~~~ {.clojure}
+(three-of-a-kind? two-pairs-hand)       ;=> false
+(three-of-a-kind? three-of-a-kind-hand) ;=> true
+~~~
+</exercise>
+
+<exercise>
+Write the function `(four-of-a-kind? hand)` that returns true if the hand
+contains a four of a kind.
+
+~~~ {.clojure}
+(four-of-a-kind? two-pairs-hand)      ;=> false
+(four-of-a-kind? four-of-a-kind-hand) ;=> true
+~~~
+</exercise>
+
+<exercise>
+Write the function `(flush hand)` that returns true if the hand is a flush.
+
+~~~ {.clojure}
+(flush? pair-hand)  ;=> false
+(flush? flush-hand) ;=> true)
+~~~
+</exercise>
+
+`(sort a-seq)` returns a sequence with the elements of `a-seq` in a sorted
+order.
+
+~~~ {.clojure}
+(sort [5 -1 3 17 -10]) ;=> (-10 -1 3 5 17)
+(sort [6 4 5 7 3])     ;=> (3 4 5 6 7)
+;                               ^
+;                               |
+;kind of looks like a straight---
+~~~
+
+`(range lower-bound upper-bound)` takes two integers and returns a sequence
+with all integers from `lower-bound` to `upper-bound`, but does not include
+`upper-bound`.
+
+~~~ {.clojure}
+(range 1 5) ;=> (1 2 3 4)
+(range 5)   ;=> (0 1 2 3 4)
+~~~
+
+You can test for equality between sequences with `=`.
+
+~~~ {.clojure}
+(= [3 4 5 6 7] (range 3 (+ 3 5)))
+;=> (=  [3       4       5       6       7]
+;       (3       4       5       6       7))
+;=> (and (= 3 3) (= 4 4) (= 5 5) (= 6 6) (= 7 7))
+;=> true
+
+(= [1 2 3] (seq [1 2])) ;=> false
+~~~
+
+So two sequences are equal if their elements are equal and in the same order.
+
+<exercise>
+Write the function `(full-house? hand)` that return true if `hand` has a full
+house, otherwise false.
+
+~~~ {.clojure}
+(full-house? three-of-a-kind-hand) ;=> false
+(full-house? full-house-hand)      ;=> true
+~~~
+</exercise>
+
+<exercise>
+Write the function `(two-pairs? hand)` that return true if `hand` has two
+pairs, otherwise false.
+
+Note that a four of a kind is also two pairs.
+
+~~~ {.clojure}
+(two-pairs? two-pairs-hand)      ;=> true
+(two-pairs? pair-hand)           ;=> false
+(two-pairs? four-of-a-kind-hand) ;=> true
+~~~
+</exercise>
+
+In a straight, an ace is accepted as either 1 or 14, so both of the following
+hands have a straight:
+
+~~~ {.clojure}
+["2H" "3S" "4C" "5D" "AD"]
+["TH" "AS" "QC" "KD" "JD"]
+~~~
+
+A useful function here is `(replace replace-map a-seq)`. It takes a map of
+replacements and a sequence and replaces the keys of `replace-map` in `a-seq`
+with the associated values.
+
+~~~ {.clojure}
+(replace {1 "a", 2 "b"} [1 2 3 4]) ;=> ["a" "b" 3 4]
+~~~
+
+Finally we can implement straight.
+
+<exercise>
+Write the function `(straight? hand)` that returns `true` if `hand` is a
+straight, otherwise `false`.
+
+Note that an ace is accepted both as a rank 1 and rank 14 card in straights.
+
+~~~ {.clojure}
+(straight? two-pairs-hand)             ;=> false
+(straight? straight-hand)              ;=> true
+(straight? low-ace-straight-hand)      ;=> true
+(straight? ["2H" "2D" "3H" "4H" "5H"]) ;=> false
+(straight? high-ace-straight-hand)     ;=> true
+~~~
+</exercise>
+
+And finally, there's straight flush. This shouldn't be very difficult after
+having already defined flush and straight.
+
+<exercise>
+Write the function `(straight-flush? hand)` which returns `true` if the hand
+is a straight flush, that is both a straight and a flush, otherwise `false`.
+
+
+~~~ {.clojure}
+(straight-flush? straight-hand)                ;=> false
+(straight-flush? flush-hand)                   ;=> false
+(straight-flush? straight-flush-hand)          ;=> true
+(straight-flush? low-ace-straight-flush-hand)  ;=> true
+(straight-flush? high-ace-straight-flush-hand) ;=> true
+~~~
+</exercise>
+
+Now that we have functions that check for each hand type, it would be nice to
+be able to assign a value to each hand. We're going to use the following
+values:
+
+Hand                  Value
+----                  -----
+High card (nothing)   0
+Pair                  1
+Two pairs             2
+Three of a kind       3
+Straight              4
+Flush                 5
+Full house            6
+four of a kind        7
+Straight flush        8
+
+<exercise>
+Write the function `(value hand)` which returns the value of a hand according
+to the table above.
+
+It might be helpful to add a checker `(high-card? hand)`
+
+~~~ {.clojure}
+(defn high-card? [hand]
+  true)
+~~~
+
+And put all checkers into a vector:
+
+~~~ {.clojure}
+(def checkers
+  [high-card? pair? two-pairs? three-of-a-kind? straight?
+   flush? full-house? four-of-a-kind? straight-flush?])
+~~~
+
+Now the value of a hand is the highest index of a matching checker.
+
+`filter` and `range` might be useful here.
+
+~~~ {.clojure}
+(value high-seven)           ;=> 0
+(value pair-hand)            ;=> 1
+(value two-pairs-hand)       ;=> 2
+(value three-of-a-kind-hand) ;=> 3
+(value straight-hand)        ;=> 4
+(value flush-hand)           ;=> 5
+(value full-house-hand)      ;=> 6
+(value four-of-a-kind-hand)  ;=> 7
+(value straight-flush-hand)  ;=> 8
+~~~
+</exercise>
+
 [PokerHand]: http://en.wikipedia.org/wiki/Poker_hands
