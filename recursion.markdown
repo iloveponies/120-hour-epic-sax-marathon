@@ -2,10 +2,22 @@
 % 120 hour epic
 % sax marathon
 
+## Synopsis
+
+Recursion is the low-level implementation strategy for many functional
+algorithms and functions.
+
+- TODO
+- Wat we talk about
+
+## Get the project
+
+TODO
+
 ## Recap
 
 This chapter talks a lot about collections and we'll need the functions
-`first` and `rest`. Remind yourself how they work.
+`first` and `rest`:
 
 ~~~ {.clojure}
 (doc first)
@@ -17,6 +29,9 @@ This chapter talks a lot about collections and we'll need the functions
 (rest [1])         ;=> ()
 (rest [])          ;=> ()
 ~~~
+
+`first` gets the first element of a sequence, and `rest` gets all but the
+first element.
 
 ## Recursion
 
@@ -41,7 +56,7 @@ could write:
             (cons 3
                   (cons 4
                         nil))))
-    ;=> (1 2 3 4)
+;=> (1 2 3 4)
 ~~~
 
 `nil` is the empty sequence.
@@ -55,7 +70,8 @@ a concrete example, let's look at how to implement `sum`.
 (defn sum [coll]
   (if (empty? coll)
     0
-    (+ (first coll) (sum (rest coll)))))
+    (+ (first coll)
+       (sum (rest coll)))))
 
 (sum [1 2 3 4]) ;=> 10
 ~~~

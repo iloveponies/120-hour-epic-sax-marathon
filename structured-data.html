@@ -96,7 +96,7 @@ Unable to <span class="kw">resolve</span> symbol: x in this context, compiling<s
   (indented x))</code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 1
 </h3>
 <p>The following function does a thing:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> do-a-thing </span>[x]
@@ -170,7 +170,7 @@ Exercise
 <p>Trying to index a vector beyond its size does <em>not</em> throw an exception. The special value <code>nil</code> is returned, instead.</p>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 2
 </h3>
 <p>Write the function <code>(spiff v)</code> that takes a vector and returns the sum of the first and third elements of the vector. What happens when you pass in a vector that is too short?</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(spiff [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])       <span class="co">;=&gt; 4</span>
@@ -213,7 +213,7 @@ Exercise
 <p><code>sum-pairs</code> still takes two parameter vectors, but now it does not give names to its parameters. Instead, it gives names to their first two elements by destructuring the parameters. We could have also destructured the parameters with a <code>let</code>.</p>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 3
 </h3>
 <p>Rewrite our earlier function <code>spiff</code> by destructuring its parameters. Call this new function <code>spiff-destructuring</code>.</p>
 </section>
@@ -257,7 +257,7 @@ Exercise
                          <span class="kw">:death-year</span> <span class="dv">2006</span>}})</code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 4
 </h3>
 <p>Write the function <code>(alive? author)</code> which takes an author map and returns <code>true</code> if the <code>author</code> is alive, otherwise <code>false</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(alive? (<span class="kw">:author</span> cities))    <span class="co">;=&gt; true</span>
@@ -265,7 +265,7 @@ Exercise
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 5
 </h3>
 <p>Write the function <code>(title-length book)</code> that counts the length of the book’s title. Use <code>let</code> to extract the title.</p>
 <p>You can use <code>count</code> to find out the length of a string:</p>
@@ -352,7 +352,7 @@ Exercise
 <p><em>Note:</em> You can’t paste the result line (or the middle one) to the REPL, as it is the printed form of a sequence.</p>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 6
 </h3>
 <p>Write the function <code>(element-lengths collection)</code> that returns the lengths of every item in <code>collection</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(element-lengths [<span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span> <span class="st">&quot;&quot;</span> <span class="st">&quot;quux&quot;</span>])  <span class="co">;=&gt; (3 3 0 4)</span>
@@ -360,7 +360,7 @@ Exercise
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 7
 </h3>
 <p>Use <code>map</code> to write the function <code>(second-elements collection)</code> that takes a vector of vectors and returns a sequence of the second elements.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(second-elements [[<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">2</span> <span class="dv">3</span>] [<span class="dv">3</span> <span class="dv">4</span>]]) <span class="co">;=&gt; (2 3 4)</span>
@@ -371,7 +371,7 @@ Exercise
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 8
 </h3>
 <p>Write the function <code>(titles books)</code> that takes a collection of books and returns their titles.</p>
 <p>Using our earlier examples:</p>
@@ -441,7 +441,7 @@ Exercise
 (<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:c</span> <span class="kw">:a)</span> <span class="co">;=&gt; #{:b}</span></code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 9
 </h3>
 <p>Write the function <code>(toggle a-set elem)</code> that removes <code>elem</code> from <code>a-set</code> if it exists in the set, and adds it to the set otherwise.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:d)</span> <span class="co">;=&gt; #{:a :c :b :d}</span>
@@ -464,33 +464,33 @@ Exercise
 <p><code>(filter predicate collection)</code> takes two parameters, a function and a sequencable collection. It calls the function on each element of the sequence and returns a sequence of the values from the collection for which the function returned a truthy value. In the above example the values <code>(6 7 3)</code> were selected because for them <code>pos?</code> returned true; for the others it returned false, a falsey value, and they were filtered out.</p>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 10
 </h3>
 <p>Write the function <code>(books-by-author author books)</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(books-by-author <span class="st">&quot;China Miéville&quot;</span> books) <span class="co">;=&gt; (cities embassytown)</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 11
 </h3>
 <p>Implement <code>(book-titles-by-author author books)</code>, which returns the book titles of the books by the given author.</p>
 <p>Use <code>books-by-author</code> as a helper function.</p>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 12
 </h3>
 <p>Implement <code>(authors books)</code>, which returns all the authors in a set.</p>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 13
 </h3>
 <p>Implement <code>(author-names authors)</code>, which returns all the author names in a set.</p>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 14
 </h3>
 <p>Using the two previous functions, implement <code>(books-&gt;author-names books)</code>, which returns all the books’ authors’ names in a set.</p>
 </section>

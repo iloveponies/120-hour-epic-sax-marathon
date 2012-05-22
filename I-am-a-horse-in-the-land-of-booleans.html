@@ -121,13 +121,13 @@ Watch out!
 <p>If evaluated, <code>(/ 1 0)</code> would throw an <code>ArithmeticException</code> due to the division by zero. However, the <code>if</code> expression does not evaluate the division at all, because the conditional clause is true and only the <em>then</em> body, <code>42</code>, is evaluated.</p>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 1
 </h3>
 <p>Write the function <code>(abs n)</code>, which returns the absolute value of <code>n</code>, i.e. if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi><mo>&lt;</mo><mn>0</mn></mrow></math>, the value of <code>(abs n)</code> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>−</mo><mi>n</mi></mrow></math>, and otherwise <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi></mrow></math>.</p>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 2
 </h3>
 <p>Write the function <code>(fizzbuzz n)</code> that returns</p>
 <ul>
@@ -204,7 +204,7 @@ Exercise
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> server-port </span>(<span class="kw">or</span> (commandline-parameters <span class="kw">:port)</span> <span class="dv">80</span>))</code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 3
 </h3>
 <p>Write the function <code>(teen? age)</code>, which returns truthy if <code>age</code> is at least 13 and at most 19. Use only one comparison operator and give it three arguments.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(teen? <span class="dv">12</span>) <span class="co">;=&gt; false</span>
@@ -216,7 +216,7 @@ Exercise
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise
+Exercise 4
 </h3>
 <p>Write the function <code>(not-teen? age)</code>, which returns true when teen? return false and false otherwise.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(not-teen? <span class="dv">13</span>) <span class="co">;=&gt; false</span>
