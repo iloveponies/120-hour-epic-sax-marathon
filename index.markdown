@@ -39,6 +39,8 @@ Learn the structural weaknesses of dragons.
 
 ## [P-P-P-Pokerface]
 
+Project: poker hand evaluator.
+
 ## [Recursion]
 
 Down the rabbit hole.
