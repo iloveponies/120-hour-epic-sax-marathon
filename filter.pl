@@ -11,17 +11,27 @@ BEGIN {
     );
 
     our %titles = (
-        exercise => "Exercise",
+        exercise => "Exercise %n",
         alert    => "Watch out!",
         info     => "Hint"
     );
+
+    my %counts;
 }
 
 for my $tag (keys %tags) {
     my $class = $tags{$tag};
+    my $title = $titles{$tag};
 
-    my $replacement = qq[<section class="alert alert-$class"><h3>$titles{$tag}</h3>];
+    if (/<$tag>/) {
+        my $count = ($counts{$tag} ||= 1)++;
 
-    s#<$tag>#$replacement#;
+        $title =~ s/%n/$count/;
+
+        my $replacement = qq[<section class="alert alert-$class"><h3>$title</h3>];
+
+        s#<$tag>#$replacement#;
+    }
+
     s#</$tag>#\n</section>#;
 }
