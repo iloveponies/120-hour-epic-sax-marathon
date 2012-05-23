@@ -62,27 +62,26 @@ This definition tells us that blorg requires Clojure version 1.4.0 and the
 ### The first page
 
 Our initial implementation resides in one file, `src/blorg/core.clj`. It
-contains very little code:
+contains very little code, which we will now go over.
+
+First, we start with a regular namespace declaration, which contains our `use`
+and `require` declarations:
 
 ~~~ {.clojure}
 (ns blorg.core
   (:use noir.core)
   (:require [noir.server :as server]
             [hiccup.page :as page]))
-
-(def *posts* [{:title "foo" :content "bar"}
-              {:title "quux" :content "ref ref"}])
-
-(defpage "/" []
-  (page/html5
-   (for [post *posts*]
-     [:section
-      [:h2 (:title post)]
-      [:p (:content post)]])))
-
-(defn -main [& args]
-  (println "> blorg blog blorg")
-  (server/start 8080))
 ~~~
 
+We use `noir.core`, which imports the function names defined in that namespace
+into our own namespace. This means we can refer to functions in `noir.core`
+with just their names, like `defpage`.
+
+`require` loads just the namespace, which allows us to refer to functions
+defined in `noir.server` with `server/function`.
+
+~~~ {.clojure}
+
 [noir]: http://webnoir.org
+[hiccup]: https://github.com/weavejester/hiccup
