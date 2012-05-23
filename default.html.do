@@ -17,7 +17,7 @@ pandoc                                  \
     --section-divs                      \
     --smart                             \
     --standalone                        \
-    --mathml                            \
+    --mathjax                           \
     --include-before    <(echo $BEFORE) \
     --include-after     after.html      \
     --include-in-header header.html     \

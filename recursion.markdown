@@ -232,14 +232,16 @@ be `nil`.
 ~~~
 
 There's an obvious reason why `first-in` doesn't fit our template for linear
-recursion: it has three parameters, whereas the template only takes one. We can
-ignore the first parameter for our purposes, since it does not have bearing on
-the recursive structure of the computation. `first-in` is linearly recursive on
-both its sequence parameters, though. There's actually a way to make `first-in`
-fit into our template: transform its parameters into a single sequence with
-`map vector seq-1 seq-2`. This means our template is probably enough for us as
-long as we remember that it does not preclude recursing over multiple
-sequences.
+recursion: it has three parameters, whereas the template only takes one. We
+can ignore the first parameter for our purposes, since it does not have
+bearing on the recursive structure of the computation. `first-in` is linearly
+recursive on both its sequence parameters, though. There's actually a way to
+make `first-in` fit into our template: transform its parameters into a single
+sequence with `(map vector seq-1 seq-2)`. This means our template is probably
+enough for us as long as we remember that it does not preclude recursing over
+multiple sequences.
+
+TODO: explain `vector` and map with multiple sequences.
 
 <exercise>
 Write the function `(seq= seq-1 seq-2)` that compares two sequences for
@@ -332,7 +334,8 @@ did for sequences.
 ~~~
 
 <exercise>
-Write the function `power` that computes the mathematical expression $n^k$.
+Write the function `(power n k)` that computes the mathematical expression
+$n^k$.
 
 ~~~ {.clojure}
 (power 2 2)  ;=> 4
@@ -352,6 +355,7 @@ with simple processes over numbers. For an example, let's look at how to
 compute the following integer series:
 
 Let $f(n) =$
+
 - $n$ if $n < 3$,
 - $f(n-1) + 2*f(n-2) + 3*f(n-3)$ otherwise.
 
