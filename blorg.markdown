@@ -81,7 +81,61 @@ with just their names, like `defpage`.
 `require` loads just the namespace, which allows us to refer to functions
 defined in `noir.server` with `server/function`.
 
+Next, we define some blog posts to display on the page:
+
 ~~~ {.clojure}
+(def *posts* [{:title "foo" :content "bar"}
+              {:title "quux" :content "ref ref"}])
+~~~
+
+At this point, we have decided to represent blog posts as maps with
+a title and the content of the blog post. Because using maps in
+Clojure is so simple this representation works well without
+introducing almost any boilerplate.
+
+Satisfied that we can now represent blog posts, we define our web
+page:
+
+~~~ {.clojure}
+(defpage "/" []
+  (page/html5
+   (for [post *posts*]
+     [:section
+      [:h2 (:title post)]
+      [:p (:content post)]])))
+~~~
+
+We use noir's `defpage` to define a page located at the URL `/`. It
+contains a HTML 5 page that lists all the blog posts in their own
+`<section>` tags. We use [Hiccup][hiccup] to write HTML as Clojure
+vectors; the `page/html5` function will turn the vectors into HTML
+strings that are returned to the browser.
+
+To test our page, we can open a REPL inside our project:
+
+~~~ {.clojure}
+blorg$ lein repl
+user=> (use 'blorg.core)
+nilWarning: *posts* not declared dynamic and thus is not dynamically
+rebindable, but its name suggests otherwise. Please either indicate
+^:dynamic *posts* or change the name. (blorg/core.clj:6)
+user=> (-main)
+> blorg blog blorg
+Starting server...
+2012-05-23 15:22:07.579:INFO:oejs.Server:jetty-7.6.1.v20120215
+Server started on port [8080].
+You can view the site at http://localhost:8080
+#<Server org.eclipse.jetty.server.Server@c351f6d>
+~~~
+
+We first `(use 'blorg.core)` to load our file. This warns that the
+name `*posts*` uses a deprecated style for dynamic variables, which I
+used accidentally. You can ignore this; we will change it in the next
+code iteration.
+
+Once our files is loaded, we call the `-main` function to run our
+server. Opening `http://localhost:8080` in a browser at this point
+should show a page with the two initial blog posts `foo` and `quux`.
 
 [noir]: http://webnoir.org
 [hiccup]: https://github.com/weavejester/hiccup

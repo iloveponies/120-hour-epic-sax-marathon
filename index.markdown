@@ -51,13 +51,15 @@ Down the rabbit hole.
 
 - The one function to rule them all
 
+## [blorg blorg blorg](blorg.html)
+
+A blog engine written in Clojure, studied.
+
 ## State
 
 ## Java
 
 ## Web APIs, JSON
-
-## Magical Mystery Tour
 
 [Basic tools]: basic-tools.html
 [Training day]: training-day.html
@@ -65,7 +67,4 @@ Down the rabbit hole.
 [I am a horse in the land of booleans]: I-am-a-horse-in-the-land-of-booleans.html
 [P-P-P-Pokerface]: p-p-p-pokerface.html
 [Recursion]: recursion.html
-[State]: state.html
-[Java]: java.html
-[hipsters]: hipsters.html
 [Style]: style.html
