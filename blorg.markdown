@@ -138,4 +138,4 @@ server. Opening `http://localhost:8080` in a browser at this point
 should show a page with the two initial blog posts `foo` and `quux`.
 
 [noir]: http://webnoir.org
-[hiccup]: 
+[hiccup]: https://github.com/weavejester/hiccup
