@@ -340,8 +340,25 @@ Exercise 11
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> checkers</span>
   [high-card? pair? two-pairs? three-of-a-kind? straight?
    flush? full-house? four-of-a-kind? straight-flush?])</code></pre>
-<p>Now the value of a hand is the highest index of a matching checker.</p>
+<p>First, write the function <code>(hand-has-value? hand value)</code> that returns <code>true</code> if <code>hand</code> has value <code>value</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(hand-has-value? high-seven <span class="dv">0</span>)           =&gt; true
+(hand-has-value? pair-hand <span class="dv">1</span>)            =&gt; true
+(hand-has-value? two-pairs-hand <span class="dv">2</span>)       =&gt; true
+(hand-has-value? three-of-a-kind-hand <span class="dv">3</span>) =&gt; true
+(hand-has-value? straight-hand <span class="dv">4</span>)        =&gt; true
+(hand-has-value? flush-hand <span class="dv">5</span>)           =&gt; true
+(hand-has-value? full-house-hand <span class="dv">6</span>)      =&gt; true
+(hand-has-value? four-of-a-kind-hand <span class="dv">7</span>)  =&gt; true
+(hand-has-value? straight-flush-hand <span class="dv">8</span>)  =&gt; true
+(hand-has-value? straight-hand <span class="dv">3</span>)        =&gt; false
+(hand-has-value? straight-hand <span class="dv">1</span>)        =&gt; false
+(hand-has-value? flush-hand <span class="dv">1</span>)           =&gt; false
+(hand-has-value? three-of-a-kind-hand <span class="dv">7</span>) =&gt; false</code></pre>
+<p>Now the value of a hand is the highest value for which <code>(hand-has-value hand value)</code> returns <code>true</code>.</p>
 <p><code>filter</code> and <code>range</code> might be useful here.</p>
+<p>To get all indexes of a vector, or some other sequence, you can use this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> some-vector </span>[<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])
+(<span class="kw">range</span> (<span class="kw">count</span> some-vector)) <span class="co">;=&gt; (0 1 2)</span></code></pre>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(value high-seven)           <span class="co">;=&gt; 0</span>
 (value pair-hand)            <span class="co">;=&gt; 1</span>
 (value two-pairs-hand)       <span class="co">;=&gt; 2</span>
