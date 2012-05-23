@@ -74,7 +74,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section class="level2" id="recursion">
 <h2>Recursion</h2>
-<p>So far we’ve manipulated collections with functions like <code>map</code>, <code>filter</code> and <code>for</code>. How do they work? They are all based on <em>recursion</em>. Recursion is the low-level method of iteration found in functional languages. While the higher-level functions like <code>map</code> are usually nicer to use than implementing the equivalent algorithm with recursion ourselves, there are often situations when the structure of the algorithm or the data it operates on is such that the existing higher-level functions do not quite work on it.</p>
+<p>So far we’ve manipulated collections with functions like <code>map</code> and <code>filter</code>. How do they work? They are all based on <em>recursion</em>. Recursion is the low-level method of iteration found in functional languages. While the higher-level functions like <code>map</code> are usually nicer to use than implementing the equivalent algorithm with recursion ourselves, there are often situations when the structure of the algorithm or the data it operates on is such that the existing higher-level functions do not quite work on it.</p>
 <section class="level3" id="lists-are-recursive-structures">
 <h3>Lists are recursive structures</h3>
 <p>Let’s look at the function <code>cons</code>. It takes two parameters, a value and a sequence, and returns a new sequence with the value added to the front of the original sequence. For an example, to construct the sequence <code>(1 2 3 4)</code>, we could write:</p>
@@ -93,7 +93,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
        (sum (<span class="kw">rest</span> coll)))))
 
 (sum [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; 10</span></code></pre>
-<p>The <em>sum</em> of a sequence is: - 0, if the sequence is empty, or - the <em>first</em> element of the sequence <em>added</em> to the <em>sum</em> of the <em>rest</em> of the sequence.</p>
+<p>The <em>sum</em> of a sequence is:</p>
+<ul>
+<li>0, if the sequence is empty, or</li>
+<li>the <em>first</em> element of the sequence <em>added</em> to the <em>sum</em> of the <em>rest</em> of the sequence.</li>
+</ul>
 <p>Imagine an arrow drawn from the second <em>sum</em> to the first <em>sum</em>. This is the recursive nature of the algorithm.</p>
 <p>The call to <code>sum</code> begins by inspecting <code>coll</code>. If <code>coll</code> is empty, <code>sum</code> immediately returns 0. If <code>coll</code> is not empty, <code>sum</code> takes its first element and adds it to the sum of the rest of the elements of <code>coll</code>. The value 0 is the base case of the algorithm, which determines when the calculation stops. If we did not have a base case, the calculation would continue infinitely.</p>
 <section class="alert alert-success">
