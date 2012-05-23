@@ -388,10 +388,10 @@ Exercise 13
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-frequencies []) <span class="co">;=&gt; {}</span>
 (my-frequencies [<span class="kw">:a</span> <span class="st">&quot;moi&quot;</span> <span class="kw">:a</span> <span class="st">&quot;moi&quot;</span> <span class="st">&quot;moi&quot;</span> <span class="kw">:a</span> <span class="dv">1</span>]) <span class="co">;=&gt; {:a 3, &quot;moi&quot; 3, 1 1}</span></code></pre>
 <p>You’ll want to structure your code like this:</p>
-<pre><code>(defn frequencies-helper [freqs coll]
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> frequencies-helper </span>[freqs coll]
   ...)
 
-(defn my-frequencies [coll]
+(<span class="kw">defn</span><span class="fu"> my-frequencies </span>[coll]
   (frequencies-helper {} coll))</code></pre>
 <p>Where <code>frequencies-helper</code> is the recursive function.</p>
 </section>
