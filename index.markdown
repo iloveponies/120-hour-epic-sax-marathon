@@ -37,6 +37,10 @@ Learn the structural weaknesses of dragons.
 - Vectors
 - Maps
 
+## [Style]
+
+Stylish Clojure.
+
 ## [P-P-P-Pokerface]
 
 Project: poker hand evaluator.
@@ -64,3 +68,4 @@ Down the rabbit hole.
 [State]: state.html
 [Java]: java.html
 [hipsters]: hipsters.html
+[Style]: style.html
