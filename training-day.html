@@ -31,6 +31,7 @@ code > span.fu { color: #06287e; }
 code > span.er { color: #ff0000; font-weight: bold; }
   </style>
   <link rel="stylesheet" href="css/base.css">
+  <script src="https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -123,13 +124,13 @@ user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">
 <h3>
 Exercise 1
 </h3>
-<p>Write the following expression in the Clojure prefix syntax: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mn>2</mn><mo>*</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>4</mn></mrow></math>. Try evaluating it in the interactive session. The result should be 10.</p>
+<p>Write the following expression in the Clojure prefix syntax: \((2 * 3) + 4\). Try evaluating it in the interactive session. The result should be 10.</p>
 </section>
 <section class="alert alert-success">
 <h3>
 Exercise 2
 </h3>
-<p>Write the expression <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>3</mn><mo>+</mo><mn>4</mn><mo>+</mo><mn>5</mn><mo>+</mo><mn>6</mn></mrow></math> in Clojure syntax. Evaluate it.</p>
+<p>Write the expression \(3 + 4 + 5 + 6\) in Clojure syntax. Evaluate it.</p>
 </section>
 <p>The arithmetic operations above are, in fact, function calls. That is, <code>+</code> is actually a function (called <code>+</code>), as are <code>*</code> and <code>-</code>. All function calls in Clojure look the same: <code>(function-name argument-1 argument-2 ...)</code>. As an example of a non-arithmetic function, let’s take a look at getting a single character from a string in Clojure and Java. In Clojure, we can use the <code>get</code> function for this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> <span class="st">&quot;Clojure&quot;</span> <span class="dv">2</span>) <span class="co">;=&gt; \o</span></code></pre>
