@@ -40,13 +40,13 @@ first element.
 
 ## Recursion
 
-So far we've manipulated collections with functions like `map`, `filter` and
-`for`. How do they work? They are all based on _recursion_. Recursion is the
+So far we've manipulated collections with functions like `map` and `filter`.
+How do they work? They are all based on _recursion_. Recursion is the
 low-level method of iteration found in functional languages. While the
 higher-level functions like `map` are usually nicer to use than implementing
 the equivalent algorithm with recursion ourselves, there are often situations
-when the structure of the algorithm or the data it operates on is such that the
-existing higher-level functions do not quite work on it.
+when the structure of the algorithm or the data it operates on is such that
+the existing higher-level functions do not quite work on it.
 
 ### Lists are recursive structures
 
@@ -82,6 +82,7 @@ a concrete example, let's look at how to implement `sum`.
 ~~~
 
 The *sum* of a sequence is:
+
 - 0, if the sequence is empty, or
 - the *first* element of the sequence *added* to the *sum* of the *rest* of the
   sequence.
