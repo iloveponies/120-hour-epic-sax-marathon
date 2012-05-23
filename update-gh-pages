@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-set -x
-
 PAGES=($(./generated-pages))
 
 echo "Building $PAGES."
