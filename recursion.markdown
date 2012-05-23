@@ -541,7 +541,7 @@ times each element occurs in a sequence. E.g.:
 
 You'll want to structure your code like this:
 
-~~~
+~~~ {.clojure}
 (defn frequencies-helper [freqs coll]
   ...)
 
