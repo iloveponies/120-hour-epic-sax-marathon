@@ -39,7 +39,7 @@ Learn the structural weaknesses of dragons.
 
 ## [Style]
 
-COCKS
+Stylish Clojure.
 
 ## [P-P-P-Pokerface]
 
