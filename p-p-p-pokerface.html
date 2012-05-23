@@ -353,6 +353,24 @@ Exercise 11
 (value straight-flush-hand)  <span class="co">;=&gt; 8</span></code></pre>
 </section>
 </section>
+<section class="level2" id="data-representation-1">
+<h2>Data representation</h2>
+<p>Our representation for poker hands is rather simple, but it allows us to use existing sequence and other functions to work with them. However, the current API is bound to the representation. This has the unfortunate consequence that we can not change the internal representation of cards or hands without changing the external API. There can be good reasons to change the internal representation, including efficiency.</p>
+<p>No worries, this is fixable. Let’s create two functions for creating a card and creating a hand from the representation we already use:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hand </span>[a-hand]
+  a-hand)
+
+(<span class="kw">defn</span><span class="fu"> card </span>[a-card]
+  a-card)</code></pre>
+<p>Which you would use like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(card <span class="st">&quot;2H&quot;</span>)
+(hand [<span class="st">&quot;AH&quot;</span> <span class="st">&quot;AC&quot;</span> <span class="st">&quot;AD&quot;</span> <span class="st">&quot;AS&quot;</span> <span class="st">&quot;4H&quot;</span>])</code></pre>
+<p>While these functions in their current form don’t do anything, it allows us to change the internal representation if we want to. You would use the existing functions like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(rank (card <span class="st">&quot;2H&quot;</span>)) <span class="co">;=&gt; 2</span>
+(value (hand [<span class="st">&quot;2H&quot;</span> <span class="st">&quot;3H&quot;</span> <span class="st">&quot;4H&quot;</span> <span class="st">&quot;5H&quot;</span> <span class="st">&quot;6H&quot;</span>])) <span class="co">;=&gt; 4</span></code></pre>
+<p>And we would now be able to change the internal representation to something like this, if we wanted to:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(card <span class="st">&quot;2H&quot;</span>) <span class="co">;=&gt; {:rank 2, :suit :hearts}</span></code></pre>
+</section>
 <footer>
     <p>
         &copy; <a href="http://iloveponies.github.com">iloveponies</a>.
