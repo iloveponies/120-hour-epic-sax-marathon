@@ -404,4 +404,47 @@ Now the value of a hand is the highest index of a matching checker.
 ~~~
 </exercise>
 
+## Data representation
+
+Our representation for poker hands is rather simple, but it allows us to use
+existing sequence and other functions to work with them. However, the current
+API is bound to the representation. This has the unfortunate consequence that
+we can not change the internal representation of cards or hands without
+changing the external API. There can be good reasons to change the internal
+representation, including efficiency.
+
+No worries, this is fixable. Let's create two functions for creating a card
+and creating a hand from the representation we already use:
+
+~~~ {.clojure}
+(defn hand [a-hand]
+  a-hand)
+
+(defn card [a-card]
+  a-card)
+~~~
+
+Which you would use like this:
+
+~~~ {.clojure}
+(card "2H")
+(hand ["AH" "AC" "AD" "AS" "4H"])
+~~~
+
+While these functions in their current form don't do anything, it allows us to
+change the internal representation if we want to. You would use the existing
+functions like this:
+
+~~~ {.clojure}
+(rank (card "2H")) ;=> 2
+(value (hand ["2H" "3H" "4H" "5H" "6H"])) ;=> 4
+~~~
+
+And we would now be able to change the internal representation to something
+like this, if we wanted to:
+
+~~~ {.clojure}
+(card "2H") ;=> {:rank 2, :suit :hearts}
+~~~
+
 [PokerHand]: http://en.wikipedia.org/wiki/Poker_hands
