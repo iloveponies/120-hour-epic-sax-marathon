@@ -387,9 +387,36 @@ And put all checkers into a vector:
    flush? full-house? four-of-a-kind? straight-flush?])
 ~~~
 
-Now the value of a hand is the highest index of a matching checker.
+First, write the function `(hand-has-value? hand value)` that returns `true`
+if `hand` has value `value`.
+
+~~~ {.clojure}
+(hand-has-value? high-seven 0)           => true
+(hand-has-value? pair-hand 1)            => true
+(hand-has-value? two-pairs-hand 2)       => true
+(hand-has-value? three-of-a-kind-hand 3) => true
+(hand-has-value? straight-hand 4)        => true
+(hand-has-value? flush-hand 5)           => true
+(hand-has-value? full-house-hand 6)      => true
+(hand-has-value? four-of-a-kind-hand 7)  => true
+(hand-has-value? straight-flush-hand 8)  => true
+(hand-has-value? straight-hand 3)        => false
+(hand-has-value? straight-hand 1)        => false
+(hand-has-value? flush-hand 1)           => false
+(hand-has-value? three-of-a-kind-hand 7) => false
+~~~
+
+Now the value of a hand is the highest value for which
+`(hand-has-value hand value)` returns `true`.
 
 `filter` and `range` might be useful here.
+
+To get all indexes of a vector, or some other sequence, you can use this:
+
+~~~ {.clojure}
+(def some-vector [1 2 3])
+(range (count some-vector)) ;=> (0 1 2)
+~~~
 
 ~~~ {.clojure}
 (value high-seven)           ;=> 0
