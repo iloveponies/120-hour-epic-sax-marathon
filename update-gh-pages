@@ -1,7 +1,6 @@
 #!/usr/bin/env zsh
 
-SOURCES=(*.markdown)
-PAGES=(${SOURCES/%.markdown/.html})
+PAGES=$(./generated-pages)
 
 echo "Building $PAGES."
 

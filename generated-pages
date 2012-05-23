@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+
+SOURCES=(*.markdown)
+PAGES=(${SOURCES/%.markdown/.html})
+
+echo $PAGES
