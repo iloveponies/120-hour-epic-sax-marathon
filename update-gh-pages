@@ -6,6 +6,7 @@ echo "Building $PAGES."
 
 git checkout gh-pages                  &&
 git clean -fx                          &&
+GIT_MERGE_AUTOEDIT=no git pull         &&
 GIT_MERGE_AUTOEDIT=no git merge master &&
 rm -f $PAGES                           &&
 redo                                   &&
