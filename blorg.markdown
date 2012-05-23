@@ -137,5 +137,12 @@ Once our files is loaded, we call the `-main` function to run our
 server. Opening `http://localhost:8080` in a browser at this point
 should show a page with the two initial blog posts `foo` and `quux`.
 
+<a href="img/blorg-initial.png">
+
+![First version of the blog.](img/blorg-initial.png)
+
+</a>
+
+
 [noir]: http://webnoir.org
 [hiccup]: https://github.com/weavejester/hiccup
