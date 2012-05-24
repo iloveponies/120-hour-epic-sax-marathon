@@ -10,12 +10,14 @@ TODO
 
 TODO
 
+## Starting out
+
 Clojure has a form called `loop`. But it's not actually a looping construct,
 it is _recursive_ in nature. Let's start with some examples.
 
 This is the standard recursive factorial:
 
-~~~
+~~~ {.clojure}
 (defn recursive-factorial [n]
   (if (zero? n)
       1
@@ -39,7 +41,7 @@ look at how it evaluation differs from `recursive-factorial`'s.
 In order to make factorial tail-recursive we introduce an *accumulating
 parameter* (or *accumulator*).
 
-~~~
+~~~ {.clojure}
 (defn helper [acc n]
   (if (zero? n)
       acc
@@ -52,7 +54,7 @@ parameter* (or *accumulator*).
 `helper` uses the return value of its recursive call directly as its return
 value. That means it is tail recursive. Let's see how it evaluates:
 
-~~~
+~~~ {.clojure}
     (accumulating-factorial 5)
 ;=> (helper 1 5)
 ;=> (helper (* 1 5)   (dec 5)) => (helper 5 4)
@@ -80,7 +82,7 @@ the additional restriction that the recursion must be tail recursion. We can
 also move the function `helper` inside the factorial function so we do not
 accidentally expose it to other code (or users of our code).
 
-~~~
+~~~ {.clojure}
 (defn recur-factorial [number]
   (let [helper (fn [acc n]
           (if (zero? n)
@@ -122,7 +124,7 @@ $n^k$.
 <exercise>
 Compute the last element of a sequence.
 
-~~~
+~~~ {.clojure}
 (last-element [])      ;=> nil
 (last-element [1 2 3]) ;=> 3
 (last-element [2 5])   ;=> 5
@@ -145,7 +147,7 @@ this. The previous code could be written like this:
 Let's dissect that. A `loop` begins with a sequence of _bindings_, just like
 in a `let` or `for`:
 
-~~~
+~~~ {.clojure}
   (loop [acc 1
          n down-from]
 ~~~
@@ -156,7 +158,7 @@ gets its value from the parameter to `loopy-factorial`.
 After this comes the body of the loop, which is exactly the same as the body
 of the `helper` function above:
 
-~~~
+~~~ {.clojure}
     (if (zero? n)
       acc
       (recur (* acc n) (dec n)))))
@@ -171,7 +173,7 @@ iterates a `loop`, whichever is innermost.
 This kind of corresponds to the following Java loop (if you want to look at it
 that way):
 
-~~~
+~~~ {.clojure}
 int n = number;
 int acc = 1;
 while (true) {
@@ -211,7 +213,7 @@ index in `seq` for which `f` returns true, or `nil` if no such index exists.
 <excercise>
 Implement the function `(avg a-seq)` that computes the average of a sequence.
 
-~~~
+~~~ {.clojure}
 (avg [1 2 3])   ;=> 2
 (avg [0 0 0 4]) ;=> 1
 (avg [1 0 0 1]) ;=> 1/2 ;; or 0.5
@@ -224,7 +226,7 @@ _Hint:_ You need to keep track of two things in the loop.
 Write the function `(parity a-seq)` that takes in a sequence and returns a
 *set* of those elements that occur an odd number of times in the sequence.
 
-~~~
+~~~ {.clojure}
 (parity [:a :b :c])           ;=> #{:a :b :c}
 (parity [:a :b :c :a])        ;=> #{:b :c}
 (parity [1 1 2 1 2 3 1 2 3 4] ;=> #{2 4}
@@ -237,7 +239,7 @@ Note: you do not need to count occurrences.
 Write the function `(fast-fibo n)` that computes the `n`th fibonacci number
 using `loop` and `recur`. Do not use recursion.
 
-~~~
+~~~ {.clojure}
 (fast-fibo 0) ;=> 0
 (fast-fibo 1) ;=> 1
 (fast-fibo 2) ;=> 1
@@ -254,7 +256,7 @@ Hint: to avoid recursion, you need to keep track of $F_{n-1}$ and $F_n$ in the l
 Write the function `(cut-at-repetition a-seq)` that takes in a sequence and
 returns elements from the sequence up to the first repetition.
 
-~~~
+~~~ {.clojure}
 (cut-at-repetition [1 1 1 1 1])
 ;=> [1] doesn't have to be a vector, a sequence is fine too
 (cut-at-repetition [:cat :dog :house :milk 1 :cat :dog])
