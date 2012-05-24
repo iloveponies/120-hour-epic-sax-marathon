@@ -254,25 +254,25 @@ else is truthy.)
 `and` returns truthy if all of its arguments are truthy:
 
 ~~~ {.clojure}
-(and "foo" "bar")   => "bar"
-(and "foo"  false)  => false
-(and  10    nil)    => nil
+(and "foo" "bar")   ;=> "bar"
+(and "foo"  false)  ;=> false
+(and  10    nil)    ;=> nil
 ~~~
 
 `or` returns truthy if any of its arguments is truthy:
 
 ~~~ {.clojure}
-(or  "foo"  false)  => "foo"
-(or   42    true)   => 42
+(or  "foo"  false)  ;=> "foo"
+(or   42    true)   ;=> 42
 ~~~
 
 `not` returns `true` if its argument is falsey and `false` if its argument is
 truthy:
 
 ~~~ {.clojure}
-(not "foo")         => false
-(not nil)           => true
-(not [])            => false
+(not "foo")         ;=> false
+(not nil)           ;=> true
+(not [])            ;=> false
 ~~~
 
 This behaviour might look surprising, but it is consistent. What's happening
@@ -364,9 +364,9 @@ Like with `if`, you can have an else branch in the end. The condition for the el
     (pos? number) "positive"
     :else         "zero"))
 
-(sign 13) => "positive"
-(sign 0)  => "zero"
-(sign -5) => "negative"
+(sign 13) ;=> "positive"
+(sign 0)  ;=> "zero"
+(sign -5) ;=> "negative"
 ~~~
 
 <exercise>
