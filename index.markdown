@@ -51,6 +51,10 @@ Down the rabbit hole.
 
 - The one function to rule them all
 
+## [Looping is recursion]
+
+Calling tails.
+
 ## [blorg blorg blorg](blorg.html)
 
 A blog engine written in Clojure, studied.
@@ -68,3 +72,4 @@ A blog engine written in Clojure, studied.
 [P-P-P-Pokerface]: p-p-p-pokerface.html
 [Recursion]: recursion.html
 [Style]: style.html
+[Looping is recursion]: looping-is-recursion.html
