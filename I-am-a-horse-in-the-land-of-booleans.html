@@ -226,6 +226,65 @@ Exercise 4
 (not-teen? <span class="dv">19</span>) <span class="co">;=&gt; false</span>
 (not-teen? <span class="dv">20</span>) <span class="co">;=&gt; true</span></code></pre>
 </section>
+</section>
+<section class="level2" id="conditioning">
+<h2>Conditioning</h2>
+<p>When checking for multiple conditions, you can use multiple <code>if</code> clauses:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> condition1
+  true1
+  (<span class="kw">if</span> condition2
+    true2
+    (<span class="kw">if</span> condition3
+      true3
+      ...)))</code></pre>
+<p>This is similar to <code>if</code>/<code>else if</code> in languages like Java. However, the nested <code>if</code> clauses are awkward. We can rewrite the nested <code>if</code> clauses with the <code>cond</code> builtin.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> book-foo </span>[book]
+  (<span class="kw">let</span> [author (<span class="kw">:author</span> book)
+        title  (<span class="kw">:title</span>  book)]
+    (<span class="kw">cond</span>
+      (<span class="kw">=</span> title <span class="st">&quot;Lolol&quot;</span>) <span class="st">&quot;Awesome book!&quot;</span>
+      (<span class="kw">=</span> author <span class="st">&quot;China Miéville&quot;</span>) <span class="st">&quot;Popopo&quot;</span>
+      (author-is-british? author) <span class="st">&quot;Tea time!&quot;</span>)))   </code></pre>
+<p>The general form of <code>cond</code> is:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">cond</span>
+  condition1 true1
+  condition2 true2
+  condition3 true3
+  ...)</code></pre>
+<p>Like with <code>if</code>, you can have an else branch in the end. The condition for the else branch is <code>:else</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sign </span>[number]
+  (<span class="kw">cond</span>
+    (<span class="kw">neg?</span> number) <span class="st">&quot;negative&quot;</span>
+    (<span class="kw">pos?</span> number) <span class="st">&quot;positive&quot;</span>
+    <span class="kw">:else</span>         <span class="st">&quot;zero&quot;</span>))
+
+(sign <span class="dv">13</span>) =&gt; <span class="st">&quot;positive&quot;</span>
+(sign <span class="dv">0</span>)  =&gt; <span class="st">&quot;zero&quot;</span>
+(sign -<span class="dv">5</span>) =&gt; <span class="st">&quot;negative&quot;</span></code></pre>
+<section class="alert alert-success">
+<h3>
+Exercise 5
+</h3>
+<p>Write a function <code>(generic-doublificate x)</code> that takes one argument and</p>
+<ul>
+<li>doubles it if it is a number,</li>
+<li>doubles all the elements if it is a list or a vector,</li>
+<li>returns nil if it is an empty collection,</li>
+<li>returns true otherwise.</li>
+</ul>
+<p>You can use the following functions:</p>
+<ul>
+<li><code>(number? n)</code> returns <code>true</code> if <code>n</code> is a number.</li>
+<li><code>(list? coll)</code> and <code>(vector? coll)</code> test if <code>coll</code> is a list or a vector.</li>
+<li><code>(empty? coll)</code> returns <code>true</code> if <code>coll</code> is empty.</li>
+</ul>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(generic-doublificate <span class="dv">1</span>)        <span class="co">;=&gt; 2</span>
+(generic-doublificate [<span class="dv">1</span> <span class="dv">2</span>])    <span class="co">;=&gt; (2 4)</span>
+(generic-doublificate &#39;(<span class="dv">65</span> <span class="dv">21</span>)) <span class="co">;=&gt; (130 42)</span>
+(generic-doublificate {})       <span class="co">;=&gt; nil</span>
+(generic-doublificate [])       <span class="co">;=&gt; nil</span>
+(generic-doublificate {<span class="kw">:a</span> <span class="dv">1</span>})   <span class="co">;=&gt; true</span></code></pre>
+</section>
 <p><a href="structured-data.html">Proceed to structuration! →</a></p>
 </section>
 <footer>
