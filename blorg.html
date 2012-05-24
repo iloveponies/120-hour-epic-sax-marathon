@@ -199,6 +199,13 @@ You can view the site at http://localhost:8080
   (<span class="kw">swap!</span> posts #(<span class="kw">conj</span> % {<span class="kw">:title</span> title <span class="kw">:content</span> <span class="kw">content</span>}))
   (response/redirect <span class="st">&quot;/&quot;</span>))</code></pre>
 <p>The first parameter to <code>defpage</code>, <code>[:post &quot;/&quot;]</code>, declares that this page handels only HTTP POST requests. The second parameter, <code>{:keys [title content]}</code> extracts the <code>title</code> and <code>content</code> fields from the POST request.</p>
+<p>The next line adds a new post to the vector of posts. To understand it, we need to introduce a new syntax form and a new concept.</p>
+</section>
+<section class="level3" id="the-...-...-syntax">
+<h3>The <code>#(... % ...)</code> syntax</h3>
+</section>
+<section class="level3" id="atoms">
+<h3>Atoms</h3>
 </section>
 </section>
 <footer>
