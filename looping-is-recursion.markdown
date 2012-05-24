@@ -8,7 +8,11 @@ TODO
 
 ## Get the project
 
-TODO
+The project with unit tests is available at:
+
+~~~
+git clone https://github.com/iloveponies/looping-is-recursion.git
+~~~
 
 ## Starting out
 
