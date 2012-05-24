@@ -11,7 +11,27 @@
   <style type="text/css">
     q { quotes: "“" "”" "‘" "’"; }
   </style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
   <link rel="stylesheet" href="css/base.css">
+  <script src="https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -76,29 +96,113 @@
 <h3>
 Exercise 1
 </h3>
-<p>Write the function <code>power</code> that computes the mathematical expression n <sup>k</sup>. <sub>~</sub> (power 2 2) =&gt; 4 (power 5 3) =&gt; 125 (power 7 0) =&gt; 1 (power 0 10) =&gt; 0 <sub>~</sub> {panel}</p>
-<p>{panel:title=Problem LR2} Compute the last element of a sequence. <sub>~</sub> (last-element []) =&gt; nil (last-element [1 2 3]) =&gt; 3 (last-element [2 5]) =&gt; 5 <sub>~</sub> {panel}</p>
+<p>Write the function <code>(power n k)</code> that computes the mathematical expression \(n^k\).</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(power <span class="dv">2</span> <span class="dv">2</span>)  <span class="co">;=&gt; 4</span>
+(power <span class="dv">5</span> <span class="dv">3</span>)  <span class="co">;=&gt; 125</span>
+(power <span class="dv">7</span> <span class="dv">0</span>)  <span class="co">;=&gt; 1</span>
+(power <span class="dv">0</span> <span class="dv">10</span>) <span class="co">;=&gt; 0</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 2
+</h3>
+<p>Compute the last element of a sequence.</p>
+<pre><code>(last-element [])      ;=&gt; nil
+(last-element [1 2 3]) ;=&gt; 3
+(last-element [2 5])   ;=&gt; 5</code></pre>
+</section>
 <p>Because defining the sort of helper functions like <code>helper</code> in our <code>factorial</code> is quite usual in functional programming, there is a utility called <code>loop</code> for this. The previous code could be written like this:</p>
-<pre><code>(defn loopy-factorial [down-from]
-  (loop [acc 1
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> loopy-factorial </span>[down-from]
+  (<span class="kw">loop</span> [acc <span class="dv">1</span>
          n down-from]
-    (if (zero? n)
+    (<span class="kw">if</span> (zero? n)
+      acc
+      (<span class="kw">recur</span> (<span class="kw">*</span> acc n) (<span class="kw">dec</span> n)))))</code></pre>
+<p>Let’s dissect that. A <code>loop</code> begins with a sequence of <em>bindings</em>, just like in a <code>let</code> or <code>for</code>:</p>
+<pre><code>  (loop [acc 1
+         n down-from]</code></pre>
+<p>This introduces the variables <code>acc</code> and <code>n</code> and gives them initial values. <code>n</code> gets its value from the parameter to <code>loopy-factorial</code>.</p>
+<p>After this comes the body of the loop, which is exactly the same as the body of the <code>helper</code> function above:</p>
+<pre><code>    (if (zero? n)
       acc
       (recur (* acc n) (dec n)))))</code></pre>
-<p>Let’s dissect that. A <code>loop</code> begins with a sequence of <em>bindings</em>, just like in a <code>let</code> or <code>for</code>: <sub>~</sub> (loop [acc 1 n down-from] <sub>~</sub> This introduces the variables <code>acc</code> and <code>n</code> and gives them initial values. <code>n</code> gets its value from the parameter to <code>loopy-factorial</code>.</p>
-<p>After this comes the body of the loop, which is exactly the same as the body of the <code>helper</code> function above: <sub>~</sub> (if (zero? n) acc (recur (* acc n) (dec n))))) <sub>~</sub></p>
 <p>Inside a <code>loop</code> we can think of a <code>recur</code> meaning <q>go to the start of the loop, and give the variables these new values</q>. So after that <code>recur</code> call the variable <code>n</code> gets the new value <code>(dec n)</code>, and <code>acc</code> gets the new value <code>(* n acc)</code>. That is, calling <code>recur</code> either calls the function iteratively, or iterates a <code>loop</code>, whichever is innermost.</p>
-<p>This kind of corresponds to the following Java loop (if you want to look at it that way): <sub>~</sub> int n = number; int acc = 1; while (true) { if (n &lt;= 1) { break; } else { acc = n * acc; n = n - 1; } } return acc;</p>
-<p><sub>~</sub></p>
-<p>{panel:title=Problem LR3} Write the function <code>seq=</code> that compares two sequences for equality. <sub>~</sub> (seq= [1 2 4] ’(1 2 4)) =&gt; true (seq= [1 2 3] [1 2 3 4]) =&gt; false (seq= [1 3 5] []) =&gt; false <sub>~</sub> {panel}</p>
-<p>h5. New exercises</p>
-<p>{panel:title=Problem LR4} Implement a function <code>find-first-index \[f seq\]</code> that returns the first index in <code>seq</code> for which <code>f</code> returns true, or <code>nil</code> if no such index exists. <sub>~</sub> (find-first-index zero? [1 1 1 0 3 7 0 2]) =&gt; 3 (find-first-index zero? [1 1 3 7 2]) =&gt; nil (find-first-index #(= % 6) [:cat :dog :six :blorg 6]) =&gt; 4 (find-first-index nil? []) =&gt; nil <sub>~</sub> {panel}</p>
-<p>{panel:title=Problem LR5} Implement a function <code>avg</code> that computes the average of a sequence. <sub>~</sub> (avg [1 2 3]) =&gt; 2 (avg [0 0 0 4]) =&gt; 1 (avg [1 0 0 1]) =&gt; 1/2 ;; or 0.5 <sub>~</sub> <em>Hint:</em> You need to keep track of two things in the loop {panel}</p>
-<p>{panel:title=Problem LR6} Write a function <code>parity</code> that takes in a sequence and returns a <em>set</em> of those elements that occur an odd number of times in the sequence. <sub>~</sub> (parity [:a :b :c]) =&gt; #{:a :b :c} (parity [:a :b :c :a]) =&gt; #{:b :c} (parity [1 1 2 1 2 3 1 2 3 4] =&gt; #{2 4} <sub>~</sub> Note: you do not need to count occurrences. {panel}</p>
-<p>{panel:title=Problem LR7} Write a function <code>fast-fibo</code> that computes the <code>n</code>th fibonacci number using <code>loop</code> and <code>recur</code>. Do not use recursion. <sub>~</sub> (fast-fibo 0) =&gt; 0 (fast-fibo 1) =&gt; 1 (fast-fibo 2) =&gt; 1 (fast-fibo 3) =&gt; 2 (fast-fibo 4) =&gt; 3 (fast-fibo 5) =&gt; 5 (fast-fibo 6) =&gt; 8 <sub>~</sub> Hint: to avoid recursion, you need to keep track of F <sub>n-1</sub> and F <sub>n</sub> in the loop. {panel}</p>
-<p>{panel:title=Problem LR8} Write a function <code>cut-at-repetition</code> that takes in a sequence and returns elements from the sequence up to the first repetition. <sub>~</sub> (cut-at-repetition [1 1 1 1 1]) =&gt; [1] ;; doesn’t have to be a vector, a sequence is fine too (cut-at-repetition [:cat :dog :house :milk 1 :cat :dog]) =&gt; [:cat :dog :house :milk 1] (cut-at-repetition [0 1 2 3 4 5]) =&gt; [0 1 2 3 4 5] <sub>~</sub> <em>Hint:</em> remember that <code>conj</code> ’ing onto a vector appends the element <em>Hint:</em> remember that you can search in a sequence with <code>some</code> {panel}</p>
-<p>h2. Performance viewpoint</p>
-<p>Tail recursion is efficient. This is basically because the compiler can replace it with a goto (this is called <em>tail-call optimisation</em>. So a tail-recursive function is about exactly as fast as the corresponding loop.</p>
+<p>This kind of corresponds to the following Java loop (if you want to look at it that way):</p>
+<pre><code>int n = number;
+int acc = 1;
+while (true) {
+    if (n &lt;= 1) {
+        break;
+    } else {
+        acc = n * acc;
+        n = n - 1;
+    }
+}
+return acc;
+</code></pre>
+<section class="alert alert-success">
+<h3>
+Exercise 3
+</h3>
+<p>Write the function <code>(seq= a-seq b-seq)</code> that compares two sequences for equality.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(seq= [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span>] &#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span>))  <span class="co">;=&gt; true</span>
+(seq= [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; false</span>
+(seq= [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span>] [])        <span class="co">;=&gt; false</span></code></pre>
+</section>
+<p><exericse> Implement the function <code>(find-first-index [f seq])</code> that returns the first index in <code>seq</code> for which <code>f</code> returns true, or <code>nil</code> if no such index exists.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(find-first-index zero? [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">0</span> <span class="dv">2</span>])            <span class="co">;=&gt; 3</span>
+(find-first-index zero? [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">2</span>])                  <span class="co">;=&gt; nil</span>
+(find-first-index #(<span class="kw">=</span> % <span class="dv">6</span>) [<span class="kw">:cat</span> <span class="kw">:dog</span> <span class="kw">:six</span> <span class="kw">:blorg</span> <span class="dv">6</span>]) <span class="co">;=&gt; 4</span>
+(find-first-index <span class="kw">nil?</span> [])                            <span class="co">;=&gt; nil</span></code></pre>
+</section>
+<p><excercise> Implement the function <code>(avg a-seq)</code> that computes the average of a sequence.</p>
+<pre><code>(avg [1 2 3])   ;=&gt; 2
+(avg [0 0 0 4]) ;=&gt; 1
+(avg [1 0 0 1]) ;=&gt; 1/2 ;; or 0.5</code></pre>
+<p><em>Hint:</em> You need to keep track of two things in the loop.</p>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 4
+</h3>
+<p>Write the function <code>(parity a-seq)</code> that takes in a sequence and returns a <em>set</em> of those elements that occur an odd number of times in the sequence.</p>
+<pre><code>(parity [:a :b :c])           ;=&gt; #{:a :b :c}
+(parity [:a :b :c :a])        ;=&gt; #{:b :c}
+(parity [1 1 2 1 2 3 1 2 3 4] ;=&gt; #{2 4}</code></pre>
+<p>Note: you do not need to count occurrences.</p>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 5
+</h3>
+<p>Write the function <code>(fast-fibo n)</code> that computes the <code>n</code>th fibonacci number using <code>loop</code> and <code>recur</code>. Do not use recursion.</p>
+<pre><code>(fast-fibo 0) ;=&gt; 0
+(fast-fibo 1) ;=&gt; 1
+(fast-fibo 2) ;=&gt; 1
+(fast-fibo 3) ;=&gt; 2
+(fast-fibo 4) ;=&gt; 3
+(fast-fibo 5) ;=&gt; 5
+(fast-fibo 6) ;=&gt; 8</code></pre>
+<p>Hint: to avoid recursion, you need to keep track of \(F_{n-1}\) and \(F_n\) in the loop.</p>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 6
+</h3>
+<p>Write the function <code>(cut-at-repetition a-seq)</code> that takes in a sequence and returns elements from the sequence up to the first repetition.</p>
+<pre><code>(cut-at-repetition [1 1 1 1 1])
+;=&gt; [1] doesn&#39;t have to be a vector, a sequence is fine too
+(cut-at-repetition [:cat :dog :house :milk 1 :cat :dog])
+;=&gt; [:cat :dog :house :milk 1]
+(cut-at-repetition [0 1 2 3 4 5])
+;=&gt; [0 1 2 3 4 5]</code></pre>
+<p><em>Hint:</em> Remember that <code>conj</code>ing onto a vector appends the element.</p>
+<p><em>Hint:</em> You can search in a sequence with <code>some</code>.</p>
+</section>
+</section>
+<section class="level2" id="performance-viewpoint">
+<h2>Performance viewpoint</h2>
+<p>Tail recursion is efficient. This is because the compiler can replace it with a goto (this is called <em>tail-call optimisation</em>. So a tail-recursive function is about exactly as fast as the corresponding loop.</p>
 <p>However, this doesn’t exactly apply in the Java Virtual Machine. This is because the security model of the JVM makes tail-call optimisation hard. This is why Clojure uses the <code>recur</code> construct: it is <em>guaranteed</em> that a call to <code>recur</code> gets optimised. I’ll say that again. When you use <code>recur</code>, Clojure generates an <em>actual loop</em> as JVM bytecode.</p>
 </section>
 <footer>
