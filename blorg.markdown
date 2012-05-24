@@ -280,6 +280,13 @@ The first parameter to `defpage`, `[:post "/"]`, declares that this page
 handels only HTTP POST requests. The second parameter, `{:keys [title
 content]}` extracts the `title` and `content` fields from the POST request.
 
+The next line adds a new post to the vector of posts. To understand it, we need
+to introduce a new syntax form and a new concept.
+
+### The `#(... % ...)` syntax
+
+### Atoms
+
 
 
 
