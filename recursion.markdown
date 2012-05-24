@@ -627,7 +627,17 @@ sequences below that length with quicksort. The exercise doesn't require this.
 (merge-sort [5 3 4 17 2 100 1]) ;=> (1 2 3 4 5 17 100)
 ~~~
 
-TODO You can use the `halve` function from Collections exercise C2.
+You can use the following helper function to divide a sequence in two:
+
+~~~ {.clojure}
+(defn halve [a-seq]
+  (let [middle (/ (count a-seq) 2)]
+   [(take middle a-seq) (drop middle a-seq)]))
+~~~
+
+`(halve a-seq)` takes a sequence and returns one vector with two elements; the
+first element is the first half of `a-seq` and the second element is the
+second half of `a-seq`.
 </exercise>
 
 ## Bonus problems
