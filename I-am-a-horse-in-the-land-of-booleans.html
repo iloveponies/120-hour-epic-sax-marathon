@@ -190,16 +190,16 @@ Exercise 2
 (<span class="kw">or</span>)                              <span class="co">;=&gt; nil</span></code></pre>
 <p>In addition to booleans, <code>and</code>, <code>or</code> and <code>not</code> accept non-boolean values as arguments as well. (Remember that <code>false</code> and <code>nil</code> are falsey and everything else is truthy.)</p>
 <p><code>and</code> returns truthy if all of its arguments are truthy:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">and</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>)   =&gt; <span class="st">&quot;bar&quot;</span>
-(<span class="kw">and</span> <span class="st">&quot;foo&quot;</span>  false)  =&gt; false
-(<span class="kw">and</span>  <span class="dv">10</span>    nil)    =&gt; nil</code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">and</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>)   <span class="co">;=&gt; &quot;bar&quot;</span>
+(<span class="kw">and</span> <span class="st">&quot;foo&quot;</span>  false)  <span class="co">;=&gt; false</span>
+(<span class="kw">and</span>  <span class="dv">10</span>    nil)    <span class="co">;=&gt; nil</span></code></pre>
 <p><code>or</code> returns truthy if any of its arguments is truthy:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">or</span>  <span class="st">&quot;foo&quot;</span>  false)  =&gt; <span class="st">&quot;foo&quot;</span>
-(<span class="kw">or</span>   <span class="dv">42</span>    true)   =&gt; <span class="dv">42</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">or</span>  <span class="st">&quot;foo&quot;</span>  false)  <span class="co">;=&gt; &quot;foo&quot;</span>
+(<span class="kw">or</span>   <span class="dv">42</span>    true)   <span class="co">;=&gt; 42</span></code></pre>
 <p><code>not</code> returns <code>true</code> if its argument is falsey and <code>false</code> if its argument is truthy:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">not</span> <span class="st">&quot;foo&quot;</span>)         =&gt; false
-(<span class="kw">not</span> nil)           =&gt; true
-(<span class="kw">not</span> [])            =&gt; false</code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">not</span> <span class="st">&quot;foo&quot;</span>)         <span class="co">;=&gt; false</span>
+(<span class="kw">not</span> nil)           <span class="co">;=&gt; true</span>
+(<span class="kw">not</span> [])            <span class="co">;=&gt; false</span></code></pre>
 <p>This behaviour might look surprising, but it is consistent. What’s happening is that if all the arguments to <code>and</code> are truthy, it returns the value of the last argument. Otherwise, it returns the value of the first falsey argument. Conversely, <code>or</code> returns either the first truthy value or the last falsey value.</p>
 <p>While it might seem odd that boolean functions return non-boolean values, remember that all values in Clojure in fact act as boolean values. This behaviour is useful in many situations. For an example, it allows you to provide default values for variables when taking input:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> server-port </span>(<span class="kw">or</span> (commandline-parameters <span class="kw">:port)</span> <span class="dv">80</span>))</code></pre>
@@ -258,9 +258,9 @@ Exercise 4
     (<span class="kw">pos?</span> number) <span class="st">&quot;positive&quot;</span>
     <span class="kw">:else</span>         <span class="st">&quot;zero&quot;</span>))
 
-(sign <span class="dv">13</span>) =&gt; <span class="st">&quot;positive&quot;</span>
-(sign <span class="dv">0</span>)  =&gt; <span class="st">&quot;zero&quot;</span>
-(sign -<span class="dv">5</span>) =&gt; <span class="st">&quot;negative&quot;</span></code></pre>
+(sign <span class="dv">13</span>) <span class="co">;=&gt; &quot;positive&quot;</span>
+(sign <span class="dv">0</span>)  <span class="co">;=&gt; &quot;zero&quot;</span>
+(sign -<span class="dv">5</span>) <span class="co">;=&gt; &quot;negative&quot;</span></code></pre>
 <section class="alert alert-success">
 <h3>
 Exercise 5
