@@ -465,8 +465,8 @@ Write the function `split-into-monotonics` that takes a sequence and returns
 the sequence split into monotonic pieces. Examples:
 
 ~~~ {.clojure}
-(split-into-monotonic [0 1 2 1 0])   ;=> ((0 1 2) (1 0))
-(split-into-monotonic [0 5 4 7 1 3]) ;=> ((0 5) (4 7) (1 3))
+(split-into-monotonics [0 1 2 1 0])   ;=> ((0 1 2) (1 0))
+(split-into-monotonics [0 5 4 7 1 3]) ;=> ((0 5) (4 7) (1 3))
 ~~~
 </exercise>
 
