@@ -441,7 +441,11 @@ Exercise 16
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(merge-sort [])                 <span class="co">;=&gt; ()</span>
 (merge-sort [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])            <span class="co">;=&gt; (1 2 3)</span>
 (merge-sort [<span class="dv">5</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">17</span> <span class="dv">2</span> <span class="dv">100</span> <span class="dv">1</span>]) <span class="co">;=&gt; (1 2 3 4 5 17 100)</span></code></pre>
-<p>TODO You can use the <code>halve</code> function from Collections exercise C2.</p>
+<p>You can use the following helper function to divide a sequence in two:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> halve </span>[a-seq]
+  (<span class="kw">let</span> [middle (<span class="kw">/</span> (<span class="kw">count</span> a-seq) <span class="dv">2</span>)]
+   [(<span class="kw">take</span> middle a-seq) (<span class="kw">drop</span> middle a-seq)]))</code></pre>
+<p><code>(halve a-seq)</code> takes a sequence and returns one vector with two elements; the first element is the first half of <code>a-seq</code> and the second element is the second half of <code>a-seq</code>.</p>
 </section>
 </section>
 </section>
