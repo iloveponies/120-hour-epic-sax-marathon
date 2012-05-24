@@ -372,7 +372,7 @@ Translating this to Clojure gives us the following program:
 
 (The odd alignment is for clarity.) Consider how this function evaluates:
 
-![Tree recursion][img/tree-recursion.png]
+![Tree recursion](img/tree-recursion.png)
 
 It is easy to see that the computation forms a tree structure.
 
