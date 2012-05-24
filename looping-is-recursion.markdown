@@ -4,7 +4,7 @@
 
 ## Synopsis
 
-TODO
+In which we learn how to recur tails.
 
 ## Get the project
 
