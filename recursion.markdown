@@ -638,6 +638,11 @@ You can use the following helper function to divide a sequence in two:
 `(halve a-seq)` takes a sequence and returns one vector with two elements; the
 first element is the first half of `a-seq` and the second element is the
 second half of `a-seq`.
+
+~~~ {.clojure}
+(halve [1 2 3 4])   ;=> [(1 2) (3 4)]
+(halve [1 2 3 4 5]) ;=> [(1 2 3) (4 5)]
+~~~
 </exercise>
 
 ## Bonus problems

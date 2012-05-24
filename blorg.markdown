@@ -213,6 +213,76 @@ call would look like this:
 The last function in our file is `-main`: it is the function Clojure calls
 when we run the application with `lein run`.
 
+## Adding new posts
+
+Our first version of the blog was a good demonstration that we knew how to
+wire together the libraries we use (noir, hiccup) and how to use them to
+render posts to users.
+
+Next we would like to add a feature to the blog that make it actually useful:
+adding posts. We'd like the blog page to always show, at the bottom, a form
+for adding a new post. The form should have two input fields: one for the
+title of the post and one for the body content. The form should also have a
+submit button that adds the post to the list of posts.
+
+Check out the `state` tag:
+
+~~~ {.clojure}
+git checkout state
+~~~
+
+### Implementation requirements
+
+We need to implement two things: the form on the blog page, and an endpoint
+that the form is POSTed to by the browser.
+
+### The form
+
+We define the form in its own function for clarity:
+
+~~~ {.clojure}
+(defn add-form []
+  [:section
+   [:h2 "Add post"]
+   (form-to [:post "/"]
+            (label "title" "Title")
+            [:br]
+            (text-field "title")
+            [:br]
+            (label "content" "Content")
+            [:br]
+            (text-area "content")
+            [:br]
+            (submit-button "Add"))])
+~~~
+
+We've put the form in its own `<section>` tag, and we use `hiccup.form`'s
+`form-to` function to define the form. The `[:br]` vectors make sure the form
+elements are properly vertical.
+
+If you think this definition is a bit ugly, you're absolutely right. We'll fix
+it soon. However, we don't yet have any way of delivering style information
+with CSS to the browser. This was the quickest way of adding a form, which we
+need right now to test the adding of posts.
+
+### The end-point
+
+We declare a new page with `defpage` to handle the POST submission from the
+form:
+
+~~~ {.clojure}
+(defpage [:post "/"] {:keys [title content]}
+  (swap! posts #(conj % {:title title :content content}))
+  (response/redirect "/"))
+~~~
+
+The first parameter to `defpage`, `[:post "/"]`, declares that this page
+handels only HTTP POST requests. The second parameter, `{:keys [title
+content]}` extracts the `title` and `content` fields from the POST request.
+
+
+
+
 [noir]: http://webnoir.org
 [hiccup]: https://github.com/weavejester/hiccup
 [webscale]: http://www.mongodb-is-web-scale.com/
