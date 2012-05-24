@@ -108,27 +108,32 @@ In short: `recur` _guarantees_ tail-call optimization by _requiring_ that the
 call to it is in an optimizable position.
 
 <exercise>
-Write the function `power` that computes the mathematical expression n ^k^.
-~~~
-(power 2 2)  => 4
-(power 5 3)  => 125
-(power 7 0)  => 1
-(power 0 10) => 0
-~~~
-{panel} 
+Write the function `(power n k)` that computes the mathematical expression
+$n^k$.
 
-{panel:title=Problem LR2}
+~~~ {.clojure}
+(power 2 2)  ;=> 4
+(power 5 3)  ;=> 125
+(power 7 0)  ;=> 1
+(power 0 10) ;=> 0
+~~~
+</exercise>
+
+<exercise>
 Compute the last element of a sequence.
-~~~
-(last-element [])      => nil
-(last-element [1 2 3]) => 3
-(last-element [2 5])   => 5
-~~~
-{panel}
-
-Because defining the sort of helper functions like `helper` in our `factorial` is quite usual in functional programming, there is a utility called `loop` for this. The previous code could be written like this:
 
 ~~~
+(last-element [])      ;=> nil
+(last-element [1 2 3]) ;=> 3
+(last-element [2 5])   ;=> 5
+~~~
+</exercise>
+
+Because defining the sort of helper functions like `helper` in our `factorial`
+is quite usual in functional programming, there is a utility called `loop` for
+this. The previous code could be written like this:
+
+~~~ {.clojure}
 (defn loopy-factorial [down-from]
   (loop [acc 1
          n down-from]
@@ -137,23 +142,35 @@ Because defining the sort of helper functions like `helper` in our `factorial` i
       (recur (* acc n) (dec n)))))
 ~~~
 
-Let's dissect that. A `loop` begins with a sequence of _bindings_, just like in a `let` or `for`:
+Let's dissect that. A `loop` begins with a sequence of _bindings_, just like
+in a `let` or `for`:
+
 ~~~
   (loop [acc 1
          n down-from]
 ~~~
-This introduces the variables `acc` and `n` and gives them initial values. `n` gets its value from the parameter to `loopy-factorial`.
 
-After this comes the body of the loop, which is exactly the same as the body of the `helper` function above:
+This introduces the variables `acc` and `n` and gives them initial values. `n`
+gets its value from the parameter to `loopy-factorial`.
+
+After this comes the body of the loop, which is exactly the same as the body
+of the `helper` function above:
+
 ~~~
     (if (zero? n)
       acc
       (recur (* acc n) (dec n)))))
 ~~~
 
-Inside a `loop` we can think of a `recur` meaning "go to the start of the loop, and give the variables these new values". So after that `recur` call the variable `n` gets the new value `(dec n)`, and `acc` gets the new value `(* n acc)`. That is, calling `recur` either calls the function iteratively, or iterates a `loop`, whichever is innermost.
+Inside a `loop` we can think of a `recur` meaning "go to the start of the
+loop, and give the variables these new values". So after that `recur` call the
+variable `n` gets the new value `(dec n)`, and `acc` gets the new value `(* n
+acc)`. That is, calling `recur` either calls the function iteratively, or
+iterates a `loop`, whichever is innermost.
 
-This kind of corresponds to the following Java loop (if you want to look at it that way):
+This kind of corresponds to the following Java loop (if you want to look at it
+that way):
+
 ~~~
 int n = number;
 int acc = 1;
@@ -169,78 +186,98 @@ return acc;
 
 ~~~
 
-{panel:title=Problem LR3}
-Write the function `seq=` that compares two sequences for equality.
-~~~
-(seq= [1 2 4] '(1 2 4)) => true
-(seq= [1 2 3] [1 2 3 4]) => false
-(seq= [1 3 5] []) => false
-~~~
-{panel} 
+<exercise>
+Write the function `(seq= a-seq b-seq)` that compares two sequences for equality.
 
-h5. New exercises
+~~~ {.clojure}
+(seq= [1 2 4] '(1 2 4))  ;=> true
+(seq= [1 2 3] [1 2 3 4]) ;=> false
+(seq= [1 3 5] [])        ;=> false
+~~~
+</exercise>
 
-{panel:title=Problem LR4}
-Implement a function `find-first-index \[f seq\]` that returns the first index in `seq` for which `f` returns true, or `nil` if no such index exists.
-~~~
-(find-first-index zero? [1 1 1 0 3 7 0 2]) => 3
-(find-first-index zero? [1 1 3 7 2]) => nil
-(find-first-index #(= % 6) [:cat :dog :six :blorg 6]) => 4
-(find-first-index nil? []) => nil
-~~~
-{panel}
+<exericse>
+Implement the function `(find-first-index [f seq])` that returns the first
+index in `seq` for which `f` returns true, or `nil` if no such index exists.
 
-{panel:title=Problem LR5}
-Implement a function `avg` that computes the average of a sequence.
+~~~ {.clojure}
+(find-first-index zero? [1 1 1 0 3 7 0 2])            ;=> 3
+(find-first-index zero? [1 1 3 7 2])                  ;=> nil
+(find-first-index #(= % 6) [:cat :dog :six :blorg 6]) ;=> 4
+(find-first-index nil? [])                            ;=> nil
 ~~~
-(avg [1 2 3]) => 2
-(avg [0 0 0 4]) => 1
-(avg [1 0 0 1]) => 1/2 ;; or 0.5 
-~~~
-_Hint:_ You need to keep track of two things in the loop
-{panel}
+</exercise>
 
-{panel:title=Problem LR6}
-Write a function `parity` that takes in a sequence and returns a *set* of those elements that occur an odd number of times in the sequence.
+<excercise>
+Implement the function `(avg a-seq)` that computes the average of a sequence.
+
 ~~~
-(parity [:a :b :c]) => #{:a :b :c}
-(parity [:a :b :c :a]) => #{:b :c}
-(parity [1 1 2 1 2 3 1 2 3 4] => #{2 4}
+(avg [1 2 3])   ;=> 2
+(avg [0 0 0 4]) ;=> 1
+(avg [1 0 0 1]) ;=> 1/2 ;; or 0.5
 ~~~
+
+_Hint:_ You need to keep track of two things in the loop.
+</exercise>
+
+<exercise>
+Write the function `(parity a-seq)` that takes in a sequence and returns a
+*set* of those elements that occur an odd number of times in the sequence.
+
+~~~
+(parity [:a :b :c])           ;=> #{:a :b :c}
+(parity [:a :b :c :a])        ;=> #{:b :c}
+(parity [1 1 2 1 2 3 1 2 3 4] ;=> #{2 4}
+~~~
+
 Note: you do not need to count occurrences.
-{panel}
+</exercise>
 
-{panel:title=Problem LR7}
-Write a function `fast-fibo` that computes the `n`th fibonacci number using `loop` and `recur`. Do not use recursion.
+<exercise>
+Write the function `(fast-fibo n)` that computes the `n`th fibonacci number
+using `loop` and `recur`. Do not use recursion.
+
 ~~~
-(fast-fibo 0) => 0
-(fast-fibo 1) => 1
-(fast-fibo 2) => 1
-(fast-fibo 3) => 2
-(fast-fibo 4) => 3
-(fast-fibo 5) => 5
-(fast-fibo 6) => 8
+(fast-fibo 0) ;=> 0
+(fast-fibo 1) ;=> 1
+(fast-fibo 2) ;=> 1
+(fast-fibo 3) ;=> 2
+(fast-fibo 4) ;=> 3
+(fast-fibo 5) ;=> 5
+(fast-fibo 6) ;=> 8
 ~~~
-Hint: to avoid recursion, you need to keep track of F ~n-1~ and F ~n~ in the loop.
-{panel}
 
-{panel:title=Problem LR8}
-Write a function `cut-at-repetition` that takes in a sequence and returns elements from the sequence up to the first repetition.
+Hint: to avoid recursion, you need to keep track of $F_{n-1}$ and $F_n$ in the loop.
+</exercise>
+
+<exercise>
+Write the function `(cut-at-repetition a-seq)` that takes in a sequence and
+returns elements from the sequence up to the first repetition.
+
 ~~~
-(cut-at-repetition [1 1 1 1 1]) => [1]  ;; doesn't have to be a vector, a sequence is fine too
-(cut-at-repetition [:cat :dog :house :milk 1 :cat :dog]) => [:cat :dog :house :milk 1]
-(cut-at-repetition [0 1 2 3 4 5]) => [0 1 2 3 4 5]
+(cut-at-repetition [1 1 1 1 1])
+;=> [1] doesn't have to be a vector, a sequence is fine too
+(cut-at-repetition [:cat :dog :house :milk 1 :cat :dog])
+;=> [:cat :dog :house :milk 1]
+(cut-at-repetition [0 1 2 3 4 5])
+;=> [0 1 2 3 4 5]
 ~~~
-_Hint:_ remember that `conj` 'ing onto a vector appends the element
-_Hint:_ remember that you can search in a sequence with `some`
-{panel}
 
-h2. Performance viewpoint
+_Hint:_ Remember that `conj`ing onto a vector appends the element.
 
-Tail recursion is efficient. This is basically because the compiler can replace it with a goto (this is called _tail-call optimisation_. So a tail-recursive function is about exactly as fast as the corresponding loop.
+_Hint:_ You can search in a sequence with `some`.
+</exercise>
 
-However, this doesn't exactly apply in the Java Virtual Machine. This is because the security model of the JVM makes tail-call optimisation hard. This is why Clojure uses the `recur` construct: it is _guaranteed_ that a call to `recur` gets optimised. I'll say that again. When you use `recur`, Clojure generates an _actual loop_ as JVM bytecode.
+## Performance viewpoint
 
+Tail recursion is efficient. This is because the compiler can replace it with
+a goto (this is called _tail-call optimisation_. So a tail-recursive function
+is about exactly as fast as the corresponding loop.
 
+However, this doesn't exactly apply in the Java Virtual Machine. This is
+because the security model of the JVM makes tail-call optimisation hard. This
+is why Clojure uses the `recur` construct: it is _guaranteed_ that a call to
+`recur` gets optimised. I'll say that again. When you use `recur`, Clojure
+generates an _actual loop_ as JVM bytecode.
 
 [recursion]: recursion.html
