@@ -317,6 +317,82 @@ false and false otherwise.
 ~~~
 </exercise>
 
+## Conditioning
+
+When checking for multiple conditions, you can use multiple `if` clauses:
+
+~~~ {.clojure}
+(if condition1
+  true1
+  (if condition2
+    true2
+    (if condition3
+      true3
+      ...)))
+~~~
+
+This is similar to `if`/`else if` in languages like Java. However, the nested
+`if` clauses are awkward. We can rewrite the nested `if` clauses with the
+`cond` builtin.
+
+~~~ {.clojure}
+(defn book-foo [book]
+  (let [author (:author book)
+        title  (:title  book)]
+    (cond
+      (= title "Lolol") "Awesome book!"
+      (= author "China Miéville") "Popopo"
+      (author-is-british? author) "Tea time!")))   
+~~~
+
+The general form of `cond` is:
+
+~~~ {.clojure}
+(cond
+  condition1 true1
+  condition2 true2
+  condition3 true3
+  ...)
+~~~
+
+Like with `if`, you can have an else branch in the end. The condition for the else branch is `:else`.
+
+~~~ {.clojure}
+(defn sign [number]
+  (cond
+    (neg? number) "negative"
+    (pos? number) "positive"
+    :else         "zero"))
+
+(sign 13) => "positive"
+(sign 0)  => "zero"
+(sign -5) => "negative"
+~~~
+
+<exercise>
+Write a function `(generic-doublificate x)` that takes one argument and
+
+- doubles it if it is a number,
+- doubles all the elements if it is a list or a vector,
+- returns nil if it is an empty collection,
+- returns true otherwise.
+
+You can use the following functions:
+
+- `(number? n)` returns `true` if `n` is a number.
+- `(list? coll)` and `(vector? coll)` test if `coll` is a list or a vector.
+- `(empty? coll)` returns `true` if `coll` is empty.
+
+~~~ {.clojure}
+(generic-doublificate 1)        ;=> 2
+(generic-doublificate [1 2])    ;=> (2 4)
+(generic-doublificate '(65 21)) ;=> (130 42)
+(generic-doublificate {})       ;=> nil
+(generic-doublificate [])       ;=> nil
+(generic-doublificate {:a 1})   ;=> true
+~~~
+</exercise>
+
 [Proceed to structuration! →](structured-data.html)
 
 [Git]: http://git-scm.com
