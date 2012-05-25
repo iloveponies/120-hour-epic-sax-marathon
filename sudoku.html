@@ -8,6 +8,25 @@
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
   <link rel="stylesheet" href="css/base.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--[if lt IE 9]>
@@ -36,23 +55,205 @@ Watch out!
 <h2>Get the project</h2>
 <pre><code>git clone https://github.com/iloveponies/sudoku.git</code></pre>
 <ul>
-<li>identity</li>
 <li>not=</li>
 <li>every?</li>
-<li>working with nested structures</li>
+<li>working with nested structures
+<ul>
 <li>get-in</li>
 <li>assoc-in</li>
-<li>for</li>
+</ul></li>
+<li>for
+<ul>
 <li>multiple sequences</li>
 <li>:when</li>
 <li>:let</li>
+</ul></li>
 <li>backtracking</li>
-<li>clojure/set</li>
+<li>clojure/set
+<ul>
 <li>union</li>
 <li>difference</li>
 <li>set equality</li>
 <li>contains</li>
+</ul></li>
 </ul>
+<p>First of all, we need to have a representation for sudokus. Here is one.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(board [[<span class="dv">5</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">7</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]
+        [<span class="dv">6</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">9</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]
+        [<span class="dv">0</span> <span class="dv">9</span> <span class="dv">8</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">0</span>]
+        [<span class="dv">8</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span>]
+        [<span class="dv">4</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">8</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span>]
+        [<span class="dv">7</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">6</span>]
+        [<span class="dv">0</span> <span class="dv">6</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">8</span> <span class="dv">0</span>]
+        [<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">9</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">5</span>]
+        [<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">8</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">7</span> <span class="dv">9</span>]])</code></pre>
+<p>Here <code>0</code> is used to encode an empty square in sudoku.</p>
+<p>The <code>board</code> function is intended to transform a nested vector structure to some internal representation. Since these nested vectors work just fine for now, <code>board</code> doesn’t have to do anything.</p>
+<p>The standard library defines a function called <code>identity</code> that just returns its parameter:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">identity</span> <span class="dv">13</span>) <span class="co">;=&gt; 13</span>
+(<span class="kw">identity</span> <span class="st">&quot;:)&quot;</span>) <span class="co">;=&gt; &quot;:)&quot;</span></code></pre>
+<p>Using <code>identity</code>, we can define <code>board</code> easily:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> board </span><span class="kw">identity</span>)</code></pre>
+<p>In sudoku, every line, every column and every block needs to have the numbers from 1 to 9 exactly once. Blocks are 3x3 areas inside the sudoku board.</p>
+<section class="alert alert-error">
+<h3>
+Watch out!
+</h3>
+<p>TODO: make some better visualization</p>
+</section>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">[[<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span>]
+ [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span>]
+ [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span>]
+ [<span class="dv">4</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span>]
+ [<span class="dv">4</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span>]
+ [<span class="dv">4</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span>]
+ [<span class="dv">7</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span>]
+ [<span class="dv">7</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span>]
+ [<span class="dv">7</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span>]]</code></pre>
+<p>Here squares with the same number in them are in the same block.</p>
+<p>You’re going to need the set of numbers used in sudoku often, so let’s define them as a set:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> all-values </span>#{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span>})</code></pre>
+</section>
+<section class="level2" id="working-with-nested-structures">
+<h2>Working with nested structures</h2>
+<p>Getting values from nested structures with <code>get</code> is ugly:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> (<span class="kw">get</span> [[<span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span>] [<span class="st">&quot;c&quot;</span> <span class="st">&quot;d&quot;</span>]] <span class="dv">0</span>) <span class="dv">1</span>)
+<span class="co">;=&gt; (get [&quot;a&quot; &quot;b&quot;] 1)</span>
+<span class="co">;=&gt; &quot;b&quot;</span></code></pre>
+<p>To remedy this, there is <code>(get-in nested-structure directives)</code></p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get-in</span> [[<span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span>] [<span class="st">&quot;c&quot;</span> <span class="st">&quot;d&quot;</span>]]
+        [<span class="dv">0</span> <span class="dv">1</span>])
+<span class="co">;=&gt; (get (get [[&quot;a&quot; &quot;b&quot;] [&quot;c&quot; &quot;d&quot;]] 0) 1)</span>
+<span class="co">;=&gt; (get [&quot;a&quot; &quot;b&quot;]                     1)</span>
+<span class="co">;=&gt; &quot;b&quot;</span></code></pre>
+<p>It works with everything that supports get, including maps and vectors.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> cities </span>{<span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>
+         <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
+
+(<span class="kw">get-in</span> cities [<span class="kw">:author</span> <span class="kw">:name])</span>
+<span class="co">;=&gt; (get (get cities :author)                       :name)</span>
+<span class="co">;=&gt; (get {:name &quot;China Miéville&quot;, :birth-year 1972} :name)</span>
+<span class="co">;=&gt; &quot;China Miéville&quot;</span></code></pre>
+<p>There are two other functions for dealing with nested structures, <code>assoc-in</code> and <code>update-in</code>. We will talk about <code>assoc-in</code> in a bit.</p>
+<p>Here is an example sudoku board together with its solution:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> sudoku-board</span>
+  (board [[<span class="dv">5</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">7</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]
+          [<span class="dv">6</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">9</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]
+          [<span class="dv">0</span> <span class="dv">9</span> <span class="dv">8</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">0</span>]
+          [<span class="dv">8</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span>]
+          [<span class="dv">4</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">8</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span>]
+          [<span class="dv">7</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">6</span>]
+          [<span class="dv">0</span> <span class="dv">6</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">8</span> <span class="dv">0</span>]
+          [<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">9</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">5</span>]
+          [<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">8</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">7</span> <span class="dv">9</span>]]))
+
+(<span class="kw">def</span><span class="fu"> solved-board</span>
+  (board [[<span class="dv">5</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">1</span> <span class="dv">2</span>]
+          [<span class="dv">6</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">9</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">8</span>]
+          [<span class="dv">1</span> <span class="dv">9</span> <span class="dv">8</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span>]
+          [<span class="dv">8</span> <span class="dv">5</span> <span class="dv">9</span> <span class="dv">7</span> <span class="dv">6</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">3</span>]
+          [<span class="dv">4</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">8</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">9</span> <span class="dv">1</span>]
+          [<span class="dv">7</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">9</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">8</span> <span class="dv">5</span> <span class="dv">6</span>]
+          [<span class="dv">9</span> <span class="dv">6</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">8</span> <span class="dv">4</span>]
+          [<span class="dv">2</span> <span class="dv">8</span> <span class="dv">7</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">9</span> <span class="dv">6</span> <span class="dv">3</span> <span class="dv">5</span>]
+          [<span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">8</span> <span class="dv">6</span> <span class="dv">1</span> <span class="dv">7</span> <span class="dv">9</span>]]))</code></pre>
+<section class="alert alert-success">
+<h3>
+Exercise 1
+</h3>
+<p>Write the function <code>(value-at board coordinates)</code> that returns the value at <code>coordinate</code> in <code>board</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(value-at sudoku-board [<span class="dv">0</span> <span class="dv">1</span>]) <span class="co">;=&gt; 3</span>
+(value-at sudoku-board [<span class="dv">0</span> <span class="dv">0</span>]) <span class="co">;=&gt; 5</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 2
+</h3>
+<p>Write the function <code>(has-value? board coordinates)</code> that returns <code>false</code> if the square at <code>coordinates</code> is empty (has <code>0</code>), and otherwise <code>true</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(has-value? sudoku-board [<span class="dv">0</span> <span class="dv">0</span>]) <span class="co">;=&gt; true</span>
+(has-value? sudoku-board [<span class="dv">0</span> <span class="dv">2</span>]) <span class="co">;=&gt; false</span></code></pre>
+</section>
+<p>Now we can check if square is empty. To figure out which numbers are valid for a square we need to know which are already taken. Let’s write a couple of functions to figure this out.</p>
+<section class="alert alert-success">
+<h3>
+Exercise 3
+</h3>
+<p>Write the function <code>(row-values board coordinates)</code> that returns a set with all numbers on the row of the coordinates</p>
+<p>Remember that you can use destructing inside the parameter vector to get the row.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(row-values sudoku-board [<span class="dv">0</span> <span class="dv">2</span>]) <span class="co">;=&gt; #{0 5 3 7}</span>
+(row-values sudoku-board [<span class="dv">3</span> <span class="dv">2</span>]) <span class="co">;=&gt; #{0 8 6 3}</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 4
+</h3>
+<p>Write the function <code>(col-values board coordinates)</code> that returns a set with all numbers on the col of the coordinates</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(col-values sudoku-board [<span class="dv">0</span> <span class="dv">2</span>]) <span class="co">;=&gt; #{0 8}</span>
+(col-values sudoku-board [<span class="dv">4</span> <span class="dv">8</span>]) <span class="co">;=&gt; #{3 1 6 0 5 9}</span></code></pre>
+</section>
+<p>Finally, we need to figure out what numbers are inside the block of a square.</p>
+<p>To make working with blocks a little easier, let’s take a small detour.</p>
+<p>You can use <code>for</code> to go through a sequence like with <code>map</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">for</span> [number [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]]
+  (<span class="kw">+</span> number <span class="dv">2</span>))
+<span class="co">;=&gt; (3 4 5)</span></code></pre>
+<p>But you can give <code>for</code> multiple bindings, and it will go through all combinations:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">for</span> [<span class="kw">name</span> [<span class="st">&quot;John&quot;</span> <span class="st">&quot;Robert&quot;</span>]
+      number [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]]
+  (<span class="kw">str</span> <span class="kw">name</span> <span class="st">&quot; &quot;</span> number))
+<span class="co">;=&gt; (&quot;John 1&quot; &quot;John 2&quot; &quot;John 3&quot; &quot;Robert 1&quot; &quot;Robert 2&quot; &quot;Robert 3&quot;)</span></code></pre>
+<section class="alert alert-success">
+<h3>
+Exercise 5
+</h3>
+<p>Write the function <code>(block-values board coordinates)</code> that returns a set with all numbers in the block of <code>coordinates</code>.</p>
+<p>You might want to write a helper function that returns the coordinates for the top left corner of the block.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(block-values sudoku-board [<span class="dv">0</span> <span class="dv">2</span>]) <span class="co">;=&gt; #{0 5 3 6 8 9}</span>
+(block-values sudoku-board [<span class="dv">4</span> <span class="dv">5</span>]) <span class="co">;=&gt; #{0 6 8 3 2}</span></code></pre>
+</section>
+<p>The <code>clojure.set</code> namespace has some useful functions for working with sets. <code>(clojure.set/union set1 set2 ...)</code> returns a set containing all the elements of its arguments:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(clojure.set/union #{<span class="dv">1</span> <span class="dv">2</span>} #{<span class="dv">2</span> <span class="dv">3</span>} #{<span class="dv">7</span>}) <span class="co">;=&gt; #{1 2 3 7}</span></code></pre>
+<p>In the project file, <code>clojure.set</code> is required with the shorthand <code>set</code>, so you can also just write:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(set/union #{<span class="dv">1</span> <span class="dv">2</span>} #{<span class="dv">2</span> <span class="dv">3</span>} #{<span class="dv">7</span>}) <span class="co">;=&gt; #{1 2 3 7}</span></code></pre>
+<p>Another helpful set operation is <code>(set/difference set1 set2)</code>, which returns a set with all elements of <code>set1</code> except those that are also in <code>set2</code>. Or put another way, removes all elements of <code>set2</code> from <code>set1</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(set/difference #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>} #{<span class="dv">1</span> <span class="dv">3</span>})   <span class="co">;=&gt; #{2}</span>
+(set/difference #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>} #{<span class="dv">2</span> <span class="dv">4</span> <span class="dv">5</span>}) <span class="co">;=&gt; #{1 3}</span></code></pre>
+<section class="alert alert-success">
+<h3>
+Exercise 6
+</h3>
+<p>Write the function <code>(valid-values board coordinates)</code> that returns a set with all valid numbers for the square at <code>coordinates</code>.</p>
+<p>If the square at <code>coordinates</code> already has a value, <code>valid-values</code> should return the empty set <code>#{}</code>.</p>
+<p>Remember that we already defined the set <code>all-values</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(valid-values-for sudoku-board [<span class="dv">0</span> <span class="dv">0</span>]) <span class="co">;=&gt; #{}</span>
+(valid-values-for sudoku-board [<span class="dv">0</span> <span class="dv">2</span>]) <span class="co">;=&gt; #{1 2 4})</span></code></pre>
+</section>
+<p>To make working with coordinates a bit easier, lets write a function that returns a sequence of coordinate pairs.</p>
+<section class="alert alert-success">
+<h3>
+Exercise 7
+</h3>
+<p>Write the function <code>(coord-pairs coord-sequence)</code> that returns all coordinate-pairs of the form <code>[row col]</code> where <code>row</code> is from <code>coord-sequence</code> and <code>col</code> is from <code>coord-sequence</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(coord-pairs [<span class="dv">0</span> <span class="dv">1</span>])   <span class="co">;=&gt; [[0 0] [0 1]</span>
+                      <span class="co">;   [1 0] [1 1]]</span>
+
+(coord-pairs [<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span>]) <span class="co">;=&gt; [[0 0] [0 1] [0 2]</span>
+                      <span class="co">;   [1 0] [1 1] [1 2]</span>
+                      <span class="co">;   [2 0] [2 1] [2 2]]</span></code></pre>
+</section>
+<p>Next, let’s write write a function to figure out if a sudoku is completely filled.</p>
+<section class="alert alert-success">
+<h3>
+Exercise 8
+</h3>
+<p>Write the function <code>(filled? board)</code> which returns <code>true</code> if there are no empty squares in <code>board</code>, and otherwise <code>false</code>.</p>
+<p>It might help to write a helper function that returns all numbersof the board in a sequence.</p>
+<p>Remember that <code>(contains? set element)</code> can be used to check if <code>element</code> is in <code>set</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(filled? sudoku-board) <span class="co">;=&gt; false</span>
+(filled? solved-board) <span class="co">;=&gt; true</span></code></pre>
+</section>
+<p>Now that we can check if a board is full, it would be nice to know the solution is valid.</p>
+<p>A sudoku is valid if each row, each column and each block contains the numbers from 1 to 9 exactly once. Let’s write functions for checking each of these conditions.</p>
 </section>
 <footer>
     <p>
