@@ -59,6 +59,8 @@ Calling tails.
 
 A blog engine written in Clojure, studied.
 
+## [Sudoku]
+
 ## State
 
 ## Java
@@ -71,5 +73,6 @@ A blog engine written in Clojure, studied.
 [I am a horse in the land of booleans]: I-am-a-horse-in-the-land-of-booleans.html
 [P-P-P-Pokerface]: p-p-p-pokerface.html
 [Recursion]: recursion.html
+[Sudoku]: sudoku.html
 [Style]: style.html
 [Looping is recursion]: looping-is-recursion.html
