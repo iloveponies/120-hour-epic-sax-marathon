@@ -1,0 +1,3 @@
+- arbitrary amount -> arbitrary number
+- lein repl -> java -cp ... ekassa projektissa
+- git clone rivittyy
