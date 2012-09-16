@@ -447,7 +447,14 @@ Exercise 9
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:d)</span> <span class="co">;=&gt; #{:a :c :b :d}</span>
 (toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:a)</span> <span class="co">;=&gt; #{:c :b}</span></code></pre>
 </section>
-<p>Now we can understand the whole implementation of <code>all-author-names</code>. We use - <code>fn</code> to introduce a helper function, - keywords to index the books, - <code>let</code> to give a name to our helper function, - <code>map</code> to apply the helper function to all the given books, and - construct a set with the <code>set</code> function to get rid of duplicates.</p>
+<p>Now we can understand the whole implementation of <code>all-author-names</code>. We use</p>
+<ul>
+<li><code>fn</code> to introduce a helper function,</li>
+<li>keywords to index the books,</li>
+<li><code>let</code> to give a name to our helper function,</li>
+<li><code>map</code> to apply the helper function to all the given books, and</li>
+<li>construct a set with the <code>set</code> function to get rid of duplicates.</li>
+</ul>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
   (<span class="kw">let</span> [author-name (<span class="kw">fn</span> [book] (<span class="kw">:name</span> (<span class="kw">:author</span> book)))]
     (<span class="kw">set</span> (<span class="kw">map</span> author-name books))))</code></pre>

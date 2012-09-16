@@ -669,6 +669,7 @@ Write the function `(toggle a-set elem)` that removes `elem` from
 </exercise>
 
 Now we can understand the whole implementation of `all-author-names`. We use
+
 - `fn` to introduce a helper function,
 - keywords to index the books,
 - `let` to give a name to our helper function,

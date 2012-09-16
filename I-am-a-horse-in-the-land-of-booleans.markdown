@@ -63,9 +63,11 @@ Any value can be turned into `true` or `false` with the `boolean` function:
 (boolean false)   ;=> false
 ~~~
 
-*Exercise:* Implement `(my-boolean x)`, which works like the built-in
+<exercise>
+Implement `(my-boolean x)`, which works like the built-in
 `boolean` function: for `nil` and `false`, it returns `false`, and for all
 other values it returns `true`. You can use `if` in its implementation.
+</exercise>
 
 In functional programming, and specifically in Clojure, everything is an
 expression. This is a way of saying that everything has a usable value.
@@ -218,6 +220,20 @@ given variables are in ascending order:
 (< x y z q) ;=> true if and only if x < y < z < q
 ~~~
 
+<exercise>
+Write the function `(teen? age)`, which returns truthy if `age` is at least 13
+and at most 19. Use only one comparison operator and give it three arguments.
+
+~~~ {.clojure}
+(teen? 12) ;=> false
+(teen? 13) ;=> true
+(teen? 15) ;=> true
+(teen? 19) ;=> true
+(teen? 20) ;=> false
+(teen? 27) ;=> false
+~~~
+</exercise>
+
 ## Boolean Functions
 
 The common boolean functions in Clojure are `and`, `or` and `not`. These
@@ -294,21 +310,7 @@ Note that this can only be used in situations where the input may not take the
 values `false` or `nil`.
 
 <exercise>
-Write the function `(teen? age)`, which returns truthy if `age` is at least 13
-and at most 19. Use only one comparison operator and give it three arguments.
-
-~~~ {.clojure}
-(teen? 12) ;=> false
-(teen? 13) ;=> true
-(teen? 15) ;=> true
-(teen? 19) ;=> true
-(teen? 20) ;=> false
-(teen? 27) ;=> false
-~~~
-</exercise>
-
-<exercise>
-Write the function `(not-teen? age)`, which returns true when teen? return
+Write the function `(not-teen? age)`, which returns true when teen? returns
 false and false otherwise.
 
 ~~~ {.clojure}
