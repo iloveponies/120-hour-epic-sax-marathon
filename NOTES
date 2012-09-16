@@ -34,3 +34,16 @@ Do this shit next:
   - Vaihtoehtosesti vois myös olla jotain 4clojure-henkisiä tehtäviä, joissa
     vois vaan kirjottaa koodia laatikkoon ja sitä testattas. Vaatis toki vähän
     duunia.
+
+Jälkikäteen muisteluita:
+  - alkusepustuksiin ohjeet lein2:n asentamiseen ja joku editori (light-table
+    ja/tai eclipse)
+  - enemmän filteriä ennen pokerikäsiä
+  - take/drop ja takewhile/dropwhile unohtu
+  - mergesortissa viitattiin aiemmassa tehtävässä tehtyyn halve-funktioon jota
+    ei nykyään ole
+  - Jotain esimerkkiä backtrackäävästä (peruuttavasta?) hausta:
+  - applysta pitää puhuu jos ei oo puhuttu
+  - pitää porttaa loput luvut vanhasta (ainaki reduce ja laiskuus)
+    - subsetsum
+    - n-queens
