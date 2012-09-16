@@ -33,8 +33,8 @@ body and the *else* body. If the first parameter - the conditional clause - is
 true, the *then* body is evaluated. Otherwise, the *else* body is evaluated.
 
 Clojure has two boolean values: `true` and `false`. However, all values can be
-used in a boolean context like `if`. Everything except `nil` and `false` act as
-`true`. For example, all of the following are valid Clojure:
+used in a boolean context like `if`. Everything except `nil` and `false` acts
+as `true`. For example, all of the following are valid Clojure:
 
 ~~~ {.clojure}
 (if "foo" "truthy" "falsey") ;=> "truthy"
@@ -102,9 +102,9 @@ There is no need for a `return` clause -- there is no such keyword in Clojure
 expression in the body of the function.
 
 <alert>
-`if`, does *not* have a return value in a language like Java. In other words,
-it is not an expression, but a clause. Because everything is an expression in
-Clojure, there is no equivalent construct to Java's `if` in it.
+`if` does *not* have a return value in a language like Java. In other words,
+it is not an expression, but a statement. Because everything in Clojure is an
+expression, there is no equivalent construct to Java's `if` in it.
 
 For illustration, you could use Java's `if` to implement `sign`:
 
@@ -289,6 +289,9 @@ provide default values for variables when taking input:
 ~~~ {.clojure}
 (def server-port (or (commandline-parameters :port) 80))
 ~~~
+
+Note that this can only be used in situations where the input may not take the
+values `false` or `nil`.
 
 <exercise>
 Write the function `(teen? age)`, which returns truthy if `age` is at least 13

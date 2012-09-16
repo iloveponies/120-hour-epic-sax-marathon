@@ -28,7 +28,8 @@ Do this shit next:
 
 - Korjattavaa:
   - Training Dayssä puhutaan liian pitkään namespaceistä ja
-    tiedostoista yms ennen kun pääsee koodaamaan. Vois lomittaa jotenkin sillai, et
+    tiedostoista yms ennen kun pääsee koodaamaan. Vois lomittaa jotenkin
+    sillai, et
     kerrotaan alkuun "täältä saa koodipohjat, näin voit ajaa testejä" ja sit
     kerrottas yksityiskohtia.
   - Vaihtoehtosesti vois myös olla jotain 4clojure-henkisiä tehtäviä, joissa
@@ -43,7 +44,20 @@ Jälkikäteen muisteluita:
   - mergesortissa viitattiin aiemmassa tehtävässä tehtyyn halve-funktioon jota
     ei nykyään ole
   - Jotain esimerkkiä backtrackäävästä (peruuttavasta?) hausta:
-  - applysta pitää puhuu jos ei oo puhuttu
-  - pitää porttaa loput luvut vanhasta (ainaki reduce ja laiskuus)
     - subsetsum
     - n-queens
+  - applysta pitää puhuu jos ei oo puhuttu
+  - pitää porttaa loput luvut vanhasta (ainaki reduce ja laiskuus)
+  - training dayssä sanotaan, että `quote`sta puhutaan myöhemmin, mutta tämä
+    on unohtunut.
+  - PITÄÄ PUHUU SISENTÄMISESTÄ EKSPLISIITTISESTI aina kun esitellään uusia
+    makroja/erikoismuotoja
+  - vaihda training dayssä "hello Metropolia" johonki muuhun.
+  - esittele myös lein midje --lazytest
+  - sano eksplisiittisesti:
+    - letissä nimennät hakasulkeissa
+    - puhu sisennyksestä kun useita nimi-arvo-pareja
+  - rekursiolukuun:
+    - toteuta sekvensseille elem? joka kertoo löytyykö alkiota listasta
+      (vaihtoehtosesti tästä saa filter-tehtävän)
+      (onnistuu myös (contains? (set [:jee :joo]) :jee))

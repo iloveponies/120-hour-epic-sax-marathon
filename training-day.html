@@ -142,7 +142,7 @@ Exercise 2
 <h3>
 Exercise 3
 </h3>
-<p>Write a Clojure expression that, using <code>get</code> gets the first character in the string <code>&quot;abrakadabra&quot;</code>.</p>
+<p>Write a Clojure expression that, using <code>get</code>, gets the first character in the string <code>&quot;abrakadabra&quot;</code>.</p>
 </section>
 </section>
 <section class="level2" id="notation">
@@ -234,7 +234,7 @@ java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">
 <p>Functions are defined with <code>defn</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hello </span>[who]
   (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))</code></pre>
-<p>Write this function to the <code>hello.clj</code> file found in the <code>src</code> directory that we created previously.</p>
+<p>Write this function to the <code>hello.clj</code> file found in the <code>example</code> directory that we created previously.</p>
 <p>Let’s take another look at that function, now with running commentary alongside, to make sure we understand its parts.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu">                       </span><span class="co">; Start a function definition:</span>
   hello                     <span class="co">; name</span>
@@ -342,12 +342,24 @@ Exercise 5
 <h3>
 Hint
 </h3>
-<p>You can use <code>doc function</code> to see some documentation for <code>function</code>:</p>
-<pre><code>user=&gt; (doc max)
+<p>You can use <code>(doc function)</code> to see some documentation for <code>function</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">doc</span> <span class="kw">max</span>)
 -------------------------
 clojure.core/max
 ([x] [x y] [x y &amp; more])
   Returns the greatest of the nums.
+nil</code></pre>
+<p>You can also use <code>(user/clojuredocs function)</code> to see some examples for <code>function</code></p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (user/clojuredocs <span class="kw">min</span>)
+========== vvv Examples ================
+  user=&gt; (<span class="kw">min</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>)  
+  <span class="dv">1</span>
+  user=&gt; (<span class="kw">min</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">1</span>)
+  <span class="dv">1</span>
+  user=&gt; (<span class="kw">min</span> <span class="dv">100</span>)
+  <span class="dv">100</span>
+========== ^^^ Examples ================
+<span class="dv">1</span> example found <span class="kw">for</span> clojure.core/min
 nil</code></pre>
 </section>
 <p><a href="I-am-a-horse-in-the-land-of-booleans.html">Proceed to the horse feast! →</a></p>

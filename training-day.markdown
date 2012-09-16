@@ -113,7 +113,7 @@ some time to get used to, but becomes natural after you've written a few
 Clojure programs.
 
 <exercise>
-Write a Clojure expression that, using `get` gets the first character in
+Write a Clojure expression that, using `get`, gets the first character in
 the string `"abrakadabra"`.
 </exercise>
 
@@ -282,8 +282,8 @@ Functions are defined with `defn`:
   (str "Hello, " who "!"))
 ~~~
 
-Write this function to the `hello.clj` file found in the `src` directory that
-we created previously.
+Write this function to the `hello.clj` file found in the `example` directory
+that we created previously.
 
 Let's take another look at that function, now with running commentary
 alongside, to make sure we understand its parts.
@@ -472,9 +472,9 @@ parameters:
 
 
 <info>
-You can use `doc function` to see some documentation for `function`:
+You can use `(doc function)` to see some documentation for `function`:
 
-~~~
+~~~{.clojure}
 user=> (doc max)
 -------------------------
 clojure.core/max
@@ -482,6 +482,24 @@ clojure.core/max
   Returns the greatest of the nums.
 nil
 ~~~
+
+You can also use `(user/clojuredocs function)` to see some examples for
+`function`
+
+~~~{.clojure}
+user=> (user/clojuredocs min)
+========== vvv Examples ================
+  user=> (min 1 2 3 4 5)  
+  1
+  user=> (min 5 4 3 2 1)
+  1
+  user=> (min 100)
+  100
+========== ^^^ Examples ================
+1 example found for clojure.core/min
+nil
+~~~
+
 </info>
 
 [Proceed to the horse feast! →](I-am-a-horse-in-the-land-of-booleans.html)
