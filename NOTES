@@ -37,6 +37,7 @@ Do this shit next:
     duunia.
 
 Jälkikäteen muisteluita:
+  - lukuihin ankkureita ja sisällysluetteloon linkit
   - alkusepustuksiin ohjeet lein2:n asentamiseen ja joku editori (light-table
     ja/tai eclipse)
   - enemmän filteriä ennen pokerikäsiä
@@ -61,3 +62,36 @@ Jälkikäteen muisteluita:
     - toteuta sekvensseille elem? joka kertoo löytyykö alkiota listasta
       (vaihtoehtosesti tästä saa filter-tehtävän)
       (onnistuu myös (contains? (set [:jee :joo]) :jee))
+  - cond (ja case?) pitäs esitellä ennen pokerikäsiä
+    - ennen fizzbuzzia?
+  - siisti my-boolean -tehtävän tehtävänantoa
+  - boolean-luvussa ensimmäisessä cond-esimerkissä käytetään lettiä, vaikkei
+    sitä olla vielä esitelty
+  - boolean-luvussa määritellään kaksi sign-funktiota, toinen pitää
+    uudelleennimetä
+  - boolean-luvun loppuun enemmän tehtäviä. Esim. andillä ja orrilla ei ole
+    mitään.
+
+  Structured Data:
+    - conj/assoc ja count kaipais tehtäviä
+      - joskus oli joku cutify? [1 2 3] -> [1 2 3 "<3"]
+    - count kaipais kans tehtävää
+    - enemmän destrukturointitehtäviä?
+      - esim. jotain heti letissä destrukturoinnista
+      - ja sit lisää parametrilistasta
+    - mapeistä jotain tehtäviä nopeemmin, esim title-length aikasemmaks
+      kirjamäärittelyjen kanssa
+    - mapeille assoc-tehtävä/tehtäviä
+    - fn-tehtäviä!!! täytä matskussa oleva TODO
+      - myöhemmässä tehtävässä tarvitaan apufunktiota second-element
+    - filter-tehtäviä:
+      - living-authors
+      - dead-authors
+      - kirjat, joiden nimi vähintään n merkkiä
+      - jos kirjoihin lisää dataa kuten julkasuvuosi, kieli niin näiden perusteella voi filtteröidä lisää
+        - suomalaiset kirjat
+        - 2000-luvulla kirjoitetut kirjat
+      - even-numbers
+    - seuraavan luvun linkki hyppää stylen ja pokerfacen ohi rekursioon
+
+
