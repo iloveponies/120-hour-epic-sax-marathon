@@ -66,7 +66,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
   (lose-hand me)              <span class="co">; If true</span>
   (gain-hat me))              <span class="co">; If false</span></code></pre>
 <p><code>if</code> (usually) takes three parameters: the conditional clause, the <em>then</em> body and the <em>else</em> body. If the first parameter - the conditional clause - is true, the <em>then</em> body is evaluated. Otherwise, the <em>else</em> body is evaluated.</p>
-<p>Clojure has two boolean values: <code>true</code> and <code>false</code>. However, all values can be used in a boolean context like <code>if</code>. Everything except <code>nil</code> and <code>false</code> act as <code>true</code>. For example, all of the following are valid Clojure:</p>
+<p>Clojure has two boolean values: <code>true</code> and <code>false</code>. However, all values can be used in a boolean context like <code>if</code>. Everything except <code>nil</code> and <code>false</code> acts as <code>true</code>. For example, all of the following are valid Clojure:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;truthy&quot;</span> <span class="st">&quot;falsey&quot;</span>) <span class="co">;=&gt; &quot;truthy&quot;</span>
 (<span class="kw">if</span> <span class="dv">0</span>     <span class="st">&quot;truthy&quot;</span> <span class="st">&quot;falsey&quot;</span>) <span class="co">;=&gt; &quot;truthy&quot;</span>
 (<span class="kw">if</span> []    <span class="st">&quot;truthy&quot;</span> <span class="st">&quot;falsey&quot;</span>) <span class="co">;=&gt; &quot;truthy&quot;</span>
@@ -101,7 +101,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3>
 Watch out!
 </h3>
-<p><code>if</code>, does <em>not</em> have a return value in a language like Java. In other words, it is not an expression, but a clause. Because everything is an expression in Clojure, there is no equivalent construct to Java’s <code>if</code> in it.</p>
+<p><code>if</code> does <em>not</em> have a return value in a language like Java. In other words, it is not an expression, but a statement. Because everything in Clojure is an expression, there is no equivalent construct to Java’s <code>if</code> in it.</p>
 <p>For illustration, you could use Java’s <code>if</code> to implement <code>sign</code>:</p>
 <pre class="sourceCode java"><code class="sourceCode java">String <span class="fu">sign</span>(<span class="dt">int</span> x) {
     <span class="kw">if</span> (x &lt; <span class="dv">0</span>)
@@ -203,6 +203,7 @@ Exercise 2
 <p>This behaviour might look surprising, but it is consistent. What’s happening is that if all the arguments to <code>and</code> are truthy, it returns the value of the last argument. Otherwise, it returns the value of the first falsey argument. Conversely, <code>or</code> returns either the first truthy value or the last falsey value.</p>
 <p>While it might seem odd that boolean functions return non-boolean values, remember that all values in Clojure in fact act as boolean values. This behaviour is useful in many situations. For an example, it allows you to provide default values for variables when taking input:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> server-port </span>(<span class="kw">or</span> (commandline-parameters <span class="kw">:port)</span> <span class="dv">80</span>))</code></pre>
+<p>Note that this can only be used in situations where the input may not take the values <code>false</code> or <code>nil</code>.</p>
 <section class="alert alert-success">
 <h3>
 Exercise 3
