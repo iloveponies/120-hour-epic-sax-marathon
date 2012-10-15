@@ -8,9 +8,6 @@
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <style type="text/css">
-    q { quotes: "“" "”" "‘" "’"; }
-  </style>
   <link rel="stylesheet" href="css/base.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--[if lt IE 9]>
@@ -30,95 +27,44 @@
 <section class="level2" id="synopis">
 <h2>Synopis</h2>
 <ul>
-<li>The development environment</li>
-<li>Shell</li>
-<li>Leiningen</li>
-<li>Clojure REPL</li>
-<li>Version control with Git</li>
+<li>the development environment</li>
+<li>how to submit exercise answers</li>
 </ul>
 </section>
-<section class="level2" id="the-development-environment">
-<h2>The development environment</h2>
-<p>We have created a virtual machine running <a href="http://ubuntu.com">Ubuntu</a> 12.04, with Clojure and <a href="http://vim.org">Vim</a> configured as the editor.</p>
-<p>The virtual machine can be found on the computers in U204. You can also <a href="http://cs.helsinki.fi/ilmari.vacklin/ClojureBox.zip">download the virtual machine</a> and run it on your own computer. You will need to install <a href="http://virtualbox.org">VirtualBox</a> to run it.</p>
-<p>After you have booted the computer to Windows 7, the virtual machine can be found in VirtualBox. If you do not see <q>Ubuntu 12.04</q> in the list of virtual machines in VirtualBox, you can add it with the menu action <q>Machine</q> -&gt; <q>Add</q>. The machine can be found under the path <code>C:\Temp\VirtualBox\Machines\ClojureBox</code>. Select the <code>.vbox</code> file in that directory to add the virtual machine to VirtualBox’s list.</p>
-<a href="img/ClojureBox.png">
-<figure>
-<img src="img/ClojureBox.png" alt="Ubuntu 12.04 with the Vim editor."><figcaption>Ubuntu 12.04 with the Vim editor.</figcaption>
-</figure>
-</a>
-<p>Start the virtual machine with the <q>Start</q> button. After starting the virtual machine, it should log you in automatically to the desktop. The user name is <code>clojure</code> and the password is <code>iloveponies</code>, should you need them.</p>
-<p>Please tell us if you have a problem launching the virtual machine.</p>
-</section>
-<section class="level2" id="the-shell-game">
-<h2>The shell game</h2>
-<p>While there is nothing that forces you to use the shell for Clojure programming, it is extremely useful to know your way around in the shell, no matter what kind of programming you do. We will use the shell as our primary mechanism of working with Clojure projects, REPL interaction and other things.</p>
-<p>The shell is used with a program called Terminal. You can launch it by clicking on the Terminal button, shown in the picture below.</p>
-<figure>
-<img src="img/Terminal.png" alt="Launcher icons"><figcaption>Launcher icons</figcaption>
-</figure>
-<p>The icons shown in the screenshot are, in order:</p>
-<div class="dl-horizontal">
-<dl>
-<dt>Dash</dt>
-<dd>Program launcher.
-</dd>
-<dt>Home Folder</dt>
-<dd>File browser.
-</dd>
-<dt>Terminal</dt>
-<dd>Shell session.
-</dd>
-<dt>Workspaces</dt>
-<dd>Organize windows into multiple workspaces.
-</dd>
-</dl>
-</div>
-
-</section>
-<section class="level2" id="sh">
-<h2>sh</h2>
-<p>Your home directory is located under the path <code>/home/clojure/</code>. The shell opens this directory by default. Its short name is <code>~</code>.</p>
-<p>The shell’s <em>prompt</em> to the left of the cursor shows your username, the computer’s name, and the current directory: <code>username@hostname:directory$</code>. The <code>:</code> and <code>$</code> characters are separators. The commands you write are printed after this prompt.</p>
-<pre><code>username   hostname    directory
-   |          |            |
-   V          V            V
-clojure@clojure-VirtualBox:~$</code></pre>
-<p>You can use <code>ls</code> to list the files in the current directory.</p>
-<pre><code>clojure@clojure-VirtualBox:~$ ls
-bin      Documents  example           Music     Public     Videos
-Desktop  Downloads  examples.desktop  Pictures  Templates  workspace</code></pre>
-<p><code>cd directory</code> changes directories:</p>
-<pre><code>clojure@clojure-VirtualBox:~$ cd Documents/
-clojure@clojure-VirtualBox:~/Documents$ ls
-clojure@clojure-VirtualBox:~/Documents$</code></pre>
-<p>The <code>Documents</code> directory is empty.</p>
-<p><code>..</code> is the name of the parent directory:</p>
-<pre><code>clojure@clojure-VirtualBox:~/example/directory$ cd ..
-clojure@clojure-VirtualBox:~/example$ </code></pre>
-<p>Just <code>cd</code> goes to the home directory:</p>
-<pre><code>clojure@clojure-VirtualBox:~/example/directory$ cd 
-clojure@clojure-VirtualBox:~$</code></pre>
-<p><code>mkdir</code> creates a new directory:</p>
-<pre><code>clojure@clojure-VirtualBox:~$ mkdir example
-clojure@clojure-VirtualBox:~$ cd example/</code></pre>
+<section class="level2" id="first-things-first">
+<h2>First things first</h2>
+<p>To successfully work through this course, you need to do the following things:</p>
+<ul>
+<li>install a sane editor: Ligh Table, Vim or Emacs</li>
+<li>install Git</li>
+<li>install Leiningen</li>
+<li>make sure to have a github account</li>
+<li>inform the teachers about your github account name TODO weblomake</li>
+<li>read very carefully the submission instructions</li>
+<li>profit</li>
+</ul>
 </section>
 <section class="level2" id="editor">
 <h2>Editor</h2>
-<p>We have preconfigured the Vim editor for working with Clojure. You can launch it from the shell with <code>evim</code>.</p>
-<a href="img/EvimLaunch.png">
-<figure>
-<img src="img/EvimLaunch.png" alt="Launching EVim."><figcaption>Launching EVim.</figcaption>
-</figure>
-</a>
-<p>We will use EVim to write Clojure programs in the next chapter. You can open a file with EVim by giving the file name to the <code>evim</code> command:</p>
-<pre><code>clojure@clojure-VirtualBox:~/example$ evim example.clj
-clojure@clojure-VirtualBox:~/example$</code></pre>
+<p>As a lisp, Clojure requires some support from the text editor to be pleasant to write. Luckily a guy named Chris Granger has started an project to create The editor called Light Table. It’s still quite alfa, but works nicely for your purposes during this course. <a href="http://app.kodowa.com/playground">Check it out</a>. When in doubt, use this.</p>
+<p>Not suprisingly, both Vim and Emacs have plug-ins to work with Clojure. For the basics, one should install the clojure-mode from the Emacs package manager. For a more complete set of tools we can recommend <a href="https://github.com/technomancy/emacs-starter-kit">Emacs Starter Kit</a>. In Vim, <a href="https://github.com/vim-scripts/VimClojure">VimClojure</a> provides you with the necessary goodies.</p>
+</section>
+<section class="level2" id="git">
+<h2>Git</h2>
 </section>
 <section class="level2" id="your-very-own-butler">
 <h2>Your very own butler</h2>
 <p><a href="https://github.com/technomancy/leiningen">Leiningen</a> is a project management tool for Clojure projects. It handles various tasks related to projects, including building the project, declaring and fetching dependencies, opening an interactive session inside the project, and other such things.</p>
-<p>We use Leiningen version 2 preview on this course. It is installed on the virtual machine.</p>
+<p>We use Leiningen version 2 preview on this course. It is the recommended version and it is what get when you follow the these instructions in Linux:</p>
+<ul>
+<li>In your home directory, create a directory called <code>bin</code> if it does not exist all ready.</li>
+</ul>
+<pre class="sh"><code>cd ~
+mkdir bin</code></pre>
+<ul>
+<li>Add this directory to your $PATH. If you are using Bash, but this inside the file <code>~/.bashrc</code>. If you are using some other shell, do this where you would normally do these kind of things. If you don’t know what shell you are using, you are using Bash. If you are in Windows, God help you. We won’t.</li>
+</ul>
+<pre class="sh"><code>export PATH=$PATH:~/bin</code></pre>
 <p>You can run Leiningen with the <code>lein</code> command. Leiningen will print a succinct help listing about the commands it understands.</p>
 <p>The table below contains some important Leiningen commands.</p>
 <table>
@@ -148,6 +94,12 @@ clojure@clojure-VirtualBox:~/example$</code></pre>
 </tbody>
 </table>
 <p>Now that we have introduced the most basic tools, we can start programming.</p>
+</section>
+<section class="level2" id="github">
+<h2>Github</h2>
+</section>
+<section class="level2" id="how-to-submit-answers-to-exercises">
+<h2>How to submit answers to exercises</h2>
 <p><a href="training-day.html">Proceed, young padawan. →</a></p>
 </section>
 <footer>
