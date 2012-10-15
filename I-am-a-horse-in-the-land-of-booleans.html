@@ -51,7 +51,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2>Synopsis</h2>
 <ul>
 <li><code>if</code> and truthiness</li>
-<li>Everything is an expression / has a value</li>
+<li>everything is an expression / has a value</li>
 </ul>
 </section>
 <section class="level2" id="get-the-project">
@@ -66,7 +66,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
   (lose-hand me)              <span class="co">; If true</span>
   (gain-hat me))              <span class="co">; If false</span></code></pre>
 <p><code>if</code> (usually) takes three parameters: the conditional clause, the <em>then</em> body and the <em>else</em> body. If the first parameter - the conditional clause - is true, the <em>then</em> body is evaluated. Otherwise, the <em>else</em> body is evaluated.</p>
-<p>Clojure has two boolean values: <code>true</code> and <code>false</code>. However, all values can be used in a boolean context like <code>if</code>. Everything except <code>nil</code> and <code>false</code> act as <code>true</code>. For example, all of the following are valid Clojure:</p>
+<p>Clojure has two boolean values: <code>true</code> and <code>false</code>. However, all values can be used in a boolean context like <code>if</code>. Everything except <code>nil</code> and <code>false</code> acts as <code>true</code>. For example, all of the following are valid Clojure:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">if</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;truthy&quot;</span> <span class="st">&quot;falsey&quot;</span>) <span class="co">;=&gt; &quot;truthy&quot;</span>
 (<span class="kw">if</span> <span class="dv">0</span>     <span class="st">&quot;truthy&quot;</span> <span class="st">&quot;falsey&quot;</span>) <span class="co">;=&gt; &quot;truthy&quot;</span>
 (<span class="kw">if</span> []    <span class="st">&quot;truthy&quot;</span> <span class="st">&quot;falsey&quot;</span>) <span class="co">;=&gt; &quot;truthy&quot;</span>
@@ -84,7 +84,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 (<span class="kw">boolean</span> (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">3</span>)) <span class="co">;=&gt; true</span>
 (<span class="kw">boolean</span> true)    <span class="co">;=&gt; true</span>
 (<span class="kw">boolean</span> false)   <span class="co">;=&gt; false</span></code></pre>
-<p><em>Exercise:</em> Implement <code>(my-boolean x)</code>, which works like the built-in <code>boolean</code> function: for <code>nil</code> and <code>false</code>, it returns <code>false</code>, and for all other values it returns <code>true</code>. You can use <code>if</code> in its implementation.</p>
+<section class="alert alert-success">
+<h3>
+Exercise 1
+</h3>
+<p>Implement <code>(my-boolean x)</code>, which works like the built-in <code>boolean</code> function: for <code>nil</code> and <code>false</code>, it returns <code>false</code>, and for all other values it returns <code>true</code>. You can use <code>if</code> in its implementation.</p>
+</section>
 <p>In functional programming, and specifically in Clojure, everything is an expression. This is a way of saying that everything has a usable value. Concretely, <code>if</code> has a return value; the value is the value of the evaluated body (either the <em>then</em> or the <em>else</em> body).</p>
 <p>As an example, let’s define the function <code>(sign x)</code>, which returns the string <code>&quot;-&quot;</code> if <code>x</code> is negative and otherwise <code>&quot;+&quot;</code>. The function looks like the following:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sign </span>[x]
@@ -101,7 +106,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3>
 Watch out!
 </h3>
-<p><code>if</code>, does <em>not</em> have a return value in a language like Java. In other words, it is not an expression, but a clause. Because everything is an expression in Clojure, there is no equivalent construct to Java’s <code>if</code> in it.</p>
+<p><code>if</code> does <em>not</em> have a return value in a language like Java. In other words, it is not an expression, but a statement. Because everything in Clojure is an expression, there is no equivalent construct to Java’s <code>if</code> in it.</p>
 <p>For illustration, you could use Java’s <code>if</code> to implement <code>sign</code>:</p>
 <pre class="sourceCode java"><code class="sourceCode java">String <span class="fu">sign</span>(<span class="dt">int</span> x) {
     <span class="kw">if</span> (x &lt; <span class="dv">0</span>)
@@ -122,13 +127,28 @@ Watch out!
 <p>If evaluated, <code>(/ 1 0)</code> would throw an <code>ArithmeticException</code> due to the division by zero. However, the <code>if</code> expression does not evaluate the division at all, because the conditional clause is true and only the <em>then</em> body, <code>42</code>, is evaluated.</p>
 <section class="alert alert-success">
 <h3>
-Exercise 1
+Exercise 2
 </h3>
 <p>Write the function <code>(abs n)</code>, which returns the absolute value of <code>n</code>, i.e. if \(n &lt; 0\), the value of <code>(abs n)</code> is \(- n\), and otherwise \(n\).</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(abs -<span class="dv">2</span>) <span class="co">;=&gt; 2</span>
+(abs <span class="dv">42</span>) <span class="co">;=&gt; 42</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 2
+Exercise 3
+</h3>
+<p>Write the function <code>(divides? divisor n)</code>, which returns <code>true</code> if <code>divisor</code> divides <code>n</code> and <code>false</code> otherwise.</p>
+<p><code>(mod num div)</code> returns <code>0</code> if <code>div</code> divides <code>num</code> exactly:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">mod</span> <span class="dv">10</span> <span class="dv">5</span>) <span class="co">;=&gt; 0</span>
+(<span class="kw">mod</span> <span class="dv">3</span> <span class="dv">2</span>)  <span class="co">;=&gt; 1</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(divides? <span class="dv">2</span> <span class="dv">4</span>) <span class="co">;=&gt; true</span>
+(divides? <span class="dv">4</span> <span class="dv">2</span>) <span class="co">;=&gt; false</span>
+(divides? <span class="dv">5</span> <span class="dv">10</span>) <span class="co">;=&gt; true</span>
+(divides? <span class="dv">2</span> <span class="dv">5</span>) <span class="co">;=&gt; false</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 4
 </h3>
 <p>Write the function <code>(fizzbuzz n)</code> that returns</p>
 <ul>
@@ -137,9 +157,7 @@ Exercise 2
 <li><code>&quot;gotcha!&quot;</code> when <code>n</code> is divisible by 15, and</li>
 <li>the empty string <code>&quot;&quot;</code> otherwise.</li>
 </ul>
-<p><code>(mod num div)</code> returns <code>0</code> if <code>div</code> divides <code>num</code> exactly:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">mod</span> <span class="dv">10</span> <span class="dv">5</span>) <span class="co">;=&gt; 0</span>
-(<span class="kw">mod</span> <span class="dv">3</span> <span class="dv">2</span>)  <span class="co">;=&gt; 1</span></code></pre>
+<p>Use the <code>divides?</code> function from the previous exercise.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(fizzbuzz <span class="dv">2</span>)  <span class="co">;=&gt; &quot;&quot;</span>
 (fizzbuzz <span class="dv">45</span>) <span class="co">;=&gt; &quot;gotcha!&quot;</span>
 (fizzbuzz <span class="dv">48</span>) <span class="co">;=&gt; &quot;fizz&quot;</span>
@@ -167,6 +185,18 @@ Exercise 2
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">=</span> x y z) <span class="co">;=&gt; true if and only if x = y = z</span></code></pre>
 <p>The other comparison operators work similarly. You can easily check if given variables are in ascending order:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">&lt;</span> x y z q) <span class="co">;=&gt; true if and only if x &lt; y &lt; z &lt; q</span></code></pre>
+<section class="alert alert-success">
+<h3>
+Exercise 5
+</h3>
+<p>Write the function <code>(teen? age)</code>, which returns truthy if <code>age</code> is at least 13 and at most 19. Use only one comparison operator and give it three arguments.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(teen? <span class="dv">12</span>) <span class="co">;=&gt; false</span>
+(teen? <span class="dv">13</span>) <span class="co">;=&gt; true</span>
+(teen? <span class="dv">15</span>) <span class="co">;=&gt; true</span>
+(teen? <span class="dv">19</span>) <span class="co">;=&gt; true</span>
+(teen? <span class="dv">20</span>) <span class="co">;=&gt; false</span>
+(teen? <span class="dv">27</span>) <span class="co">;=&gt; false</span></code></pre>
+</section>
 </section>
 <section class="level2" id="boolean-functions">
 <h2>Boolean Functions</h2>
@@ -202,24 +232,13 @@ Exercise 2
 (<span class="kw">not</span> [])            <span class="co">;=&gt; false</span></code></pre>
 <p>This behaviour might look surprising, but it is consistent. What’s happening is that if all the arguments to <code>and</code> are truthy, it returns the value of the last argument. Otherwise, it returns the value of the first falsey argument. Conversely, <code>or</code> returns either the first truthy value or the last falsey value.</p>
 <p>While it might seem odd that boolean functions return non-boolean values, remember that all values in Clojure in fact act as boolean values. This behaviour is useful in many situations. For an example, it allows you to provide default values for variables when taking input:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> server-port </span>(<span class="kw">or</span> (commandline-parameters <span class="kw">:port)</span> <span class="dv">80</span>))</code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> server-port </span>(<span class="kw">or</span> (commandline-parameters <span class="kw">:port</span>) <span class="dv">80</span>))</code></pre>
+<p>Note that this can only be used in situations where the input may not take the values <code>false</code> or <code>nil</code>.</p>
 <section class="alert alert-success">
 <h3>
-Exercise 3
+Exercise 6
 </h3>
-<p>Write the function <code>(teen? age)</code>, which returns truthy if <code>age</code> is at least 13 and at most 19. Use only one comparison operator and give it three arguments.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(teen? <span class="dv">12</span>) <span class="co">;=&gt; false</span>
-(teen? <span class="dv">13</span>) <span class="co">;=&gt; true</span>
-(teen? <span class="dv">15</span>) <span class="co">;=&gt; true</span>
-(teen? <span class="dv">19</span>) <span class="co">;=&gt; true</span>
-(teen? <span class="dv">20</span>) <span class="co">;=&gt; false</span>
-(teen? <span class="dv">27</span>) <span class="co">;=&gt; false</span></code></pre>
-</section>
-<section class="alert alert-success">
-<h3>
-Exercise 4
-</h3>
-<p>Write the function <code>(not-teen? age)</code>, which returns true when teen? return false and false otherwise.</p>
+<p>Write the function <code>(not-teen? age)</code>, which returns true when teen? returns false and false otherwise.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(not-teen? <span class="dv">13</span>) <span class="co">;=&gt; false</span>
 (not-teen? <span class="dv">25</span>) <span class="co">;=&gt; true</span>
 (not-teen? <span class="dv">12</span>) <span class="co">;=&gt; true</span>
@@ -263,7 +282,7 @@ Exercise 4
 (sign -<span class="dv">5</span>) <span class="co">;=&gt; &quot;negative&quot;</span></code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise 5
+Exercise 7
 </h3>
 <p>Write a function <code>(generic-doublificate x)</code> that takes one argument and</p>
 <ul>

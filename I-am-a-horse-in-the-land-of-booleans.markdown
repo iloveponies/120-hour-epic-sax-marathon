@@ -7,7 +7,7 @@
 ## Synopsis
 
 - `if` and truthiness
-- Everything is an expression / has a value
+- everything is an expression / has a value
 
 ## Get the project
 
@@ -148,6 +148,30 @@ is evaluated.
 <exercise>
 Write the function `(abs n)`, which returns the absolute value of `n`, i.e. if
 $n < 0$, the value of `(abs n)` is $- n$, and otherwise $n$.
+
+~~~ {.clojure}
+(abs -2) ;=> 2
+(abs 42) ;=> 42
+~~~
+</exercise>
+
+<exercise>
+Write the function `(divides? divisor n)`, which returns `true` if
+`divisor` divides `n` and `false` otherwise.
+
+`(mod num div)` returns `0` if `div` divides `num` exactly:
+
+~~~ {.clojure}
+(mod 10 5) ;=> 0
+(mod 3 2)  ;=> 1
+~~~
+
+~~~ {.clojure}
+(divides? 2 4) ;=> true
+(divides? 4 2) ;=> false
+(divides? 5 10) ;=> true
+(divides? 2 5) ;=> false
+~~~
 </exercise>
 
 <exercise>
@@ -158,12 +182,7 @@ Write the function `(fizzbuzz n)` that returns
 - `"gotcha!"` when `n` is divisible by 15, and
 - the empty string `""` otherwise.
 
-`(mod num div)` returns `0` if `div` divides `num` exactly:
-
-~~~ {.clojure}
-(mod 10 5) ;=> 0
-(mod 3 2)  ;=> 1
-~~~
+Use the `divides?` function from the previous exercise.
 
 ~~~ {.clojure}
 (fizzbuzz 2)  ;=> ""
