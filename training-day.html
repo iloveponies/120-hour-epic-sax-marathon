@@ -223,7 +223,7 @@ Watch out!
 </h3>
 <p>The <code>'</code> before the namespace name in a <code>use</code> is important. If you forget it, you will get an error like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> example.hello)
-java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">:1)</span></code></pre>
+java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">:1</span>)</code></pre>
 <p><code>'</code> is an alias for the <code>quote</code> special form, which we will talk more about later.</p>
 </section>
 </section>
@@ -247,7 +247,7 @@ java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">
 }</code></pre>
 <p>Note that in Clojure, there is no <code>return</code> keyword; the return value of a function is always the value of the last expression in the function body.</p>
 <p>Now, let’s try calling our function (assuming you have now added it to the <code>hello.clj</code> file and saved the file):</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;example.hello <span class="kw">:reload)</span>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;example.hello <span class="kw">:reload</span>)
 user=&gt; (hello <span class="st">&quot;Metropolia&quot;</span>)
 <span class="st">&quot;Hello, Metropolia!&quot;</span></code></pre>
 <p>First we import the <code>example.hello</code> namespace, and tell Clojure to <em>reimport</em> it if it is already imported, so we actually see the new function definition. We then call the function with the parameter <code>&quot;Metropolia&quot;</code>. Calling the function evaluated its body with <code>who</code> bound to <code>&quot;Metropolia&quot;</code>. We can imagine the evaluator doing something like the following:</p>

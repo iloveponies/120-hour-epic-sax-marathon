@@ -130,7 +130,7 @@ Watch out!
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> cities </span>{<span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>
          <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
 
-(<span class="kw">get-in</span> cities [<span class="kw">:author</span> <span class="kw">:name])</span>
+(<span class="kw">get-in</span> cities [<span class="kw">:author</span> <span class="kw">:name</span>])
 <span class="co">;=&gt; (get (get cities :author)                       :name)</span>
 <span class="co">;=&gt; (get {:name &quot;China Miéville&quot;, :birth-year 1972} :name)</span>
 <span class="co">;=&gt; &quot;China Miéville&quot;</span></code></pre>

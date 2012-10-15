@@ -181,13 +181,13 @@ You can view the site at http://localhost:8080
    [<span class="kw">:h2</span> <span class="st">&quot;Add post&quot;</span>]
    (form-to [<span class="kw">:post</span> <span class="st">&quot;/&quot;</span>]
             (label <span class="st">&quot;title&quot;</span> <span class="st">&quot;Title&quot;</span>)
-            [<span class="kw">:br]</span>
+            [<span class="kw">:br</span>]
             (text-field <span class="st">&quot;title&quot;</span>)
-            [<span class="kw">:br]</span>
+            [<span class="kw">:br</span>]
             (label <span class="st">&quot;content&quot;</span> <span class="st">&quot;Content&quot;</span>)
-            [<span class="kw">:br]</span>
+            [<span class="kw">:br</span>]
             (text-area <span class="st">&quot;content&quot;</span>)
-            [<span class="kw">:br]</span>
+            [<span class="kw">:br</span>]
             (submit-button <span class="st">&quot;Add&quot;</span>))])</code></pre>
 <p>We’ve put the form in its own <code>&lt;section&gt;</code> tag, and we use <code>hiccup.form</code>’s <code>form-to</code> function to define the form. The <code>[:br]</code> vectors make sure the form elements are properly vertical.</p>
 <p>If you think this definition is a bit ugly, you’re absolutely right. We’ll fix it soon. However, we don’t yet have any way of delivering style information with CSS to the browser. This was the quickest way of adding a form, which we need right now to test the adding of posts.</p>
