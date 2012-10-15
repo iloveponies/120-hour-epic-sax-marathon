@@ -66,9 +66,9 @@ Jälkikäteen muisteluita:
     - ennen fizzbuzzia?
   - siisti my-boolean -tehtävän tehtävänantoa
   - boolean-luvussa ensimmäisessä cond-esimerkissä käytetään lettiä, vaikkei
-    sitä olla vielä esitelty
+    sitä olla vielä esitelty -- fixed: esimerkki poistettu
   - boolean-luvussa määritellään kaksi sign-funktiota, toinen pitää
-    uudelleennimetä
+    uudelleennimetä -- fixed: toinen uudelleennimetty
   - boolean-luvun loppuun enemmän tehtäviä. Esim. andillä ja orrilla ei ole
     mitään.
 
