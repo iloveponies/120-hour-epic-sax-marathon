@@ -254,12 +254,12 @@ java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">
 <p>Note that in Clojure, there is no <code>return</code> keyword; the return value of a function is always the value of the last expression in the function body.</p>
 <p>Now, let’s try calling our function (assuming you have now added it to the <code>hello.clj</code> file and saved the file):</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;example.hello <span class="kw">:reload</span>)
-user=&gt; (hello <span class="st">&quot;Metropolia&quot;</span>)
-<span class="st">&quot;Hello, Metropolia!&quot;</span></code></pre>
-<p>First we import the <code>example.hello</code> namespace, and tell Clojure to <em>reimport</em> it if it is already imported, so we actually see the new function definition. We then call the function with the parameter <code>&quot;Metropolia&quot;</code>. Calling the function evaluated its body with <code>who</code> bound to <code>&quot;Metropolia&quot;</code>. We can imagine the evaluator doing something like the following:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(hello <span class="st">&quot;Metropolia&quot;</span>)
-<span class="co">;=&gt; (str &quot;Hello, &quot; &quot;Metropolia&quot; &quot;!&quot;)</span>
-<span class="co">;=&gt; &quot;Hello, Metropolia!&quot;</span></code></pre>
+user=&gt; (hello <span class="st">&quot;world&quot;</span>)
+<span class="st">&quot;Hello, world!&quot;</span></code></pre>
+<p>First we import the <code>example.hello</code> namespace, and tell Clojure to <em>reimport</em> it if it is already imported, so we actually see the new function definition. We then call the function with the parameter <code>&quot;world&quot;</code>. Calling the function evaluated its body with <code>who</code> bound to <code>&quot;world&quot;</code>. We can imagine the evaluator doing something like the following:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(hello <span class="st">&quot;world&quot;</span>)
+<span class="co">;=&gt; (str &quot;Hello, &quot; &quot;world&quot; &quot;!&quot;)</span>
+<span class="co">;=&gt; &quot;Hello, world!&quot;</span></code></pre>
 <p>We now know all the basics of structuring Clojure programs.</p>
 </section>
 <section class="level2" id="we-come-gifting-bears">

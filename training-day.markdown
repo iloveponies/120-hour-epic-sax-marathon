@@ -330,20 +330,20 @@ Now, let's try calling our function (assuming you have now added it to the
 
 ~~~ {.clojure}
 user=> (use 'example.hello :reload)
-user=> (hello "Metropolia")
-"Hello, Metropolia!"
+user=> (hello "world")
+"Hello, world!"
 ~~~
 
 First we import the `example.hello` namespace, and tell Clojure to *reimport*
 it if it is already imported, so we actually see the new function definition.
-We then call the function with the parameter `"Metropolia"`. Calling the
-function evaluated its body with `who` bound to `"Metropolia"`. We can
+We then call the function with the parameter `"world"`. Calling the
+function evaluated its body with `who` bound to `"world"`. We can
 imagine the evaluator doing something like the following:
 
 ~~~ {.clojure}
-(hello "Metropolia")
-;=> (str "Hello, " "Metropolia" "!")
-;=> "Hello, Metropolia!"
+(hello "world")
+;=> (str "Hello, " "world" "!")
+;=> "Hello, world!"
 ~~~
 
 We now know all the basics of structuring Clojure programs.
