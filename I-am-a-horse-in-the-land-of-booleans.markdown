@@ -69,6 +69,69 @@ Implement `(my-boolean x)`, which works like the built-in
 other values it returns `true`. You can use `if` in its implementation.
 </exercise>
 
+## Comparing values
+
+Values can be compared for equality with `=`:
+
+~~~ {.clojure}
+(= "foo" "foo")    ;=> true
+(= "foo" "bar")    ;=> false
+~~~
+
+Numerical values should be compared with `==`:
+
+~~~ {.clojure}
+(== 42  42) ;=> true
+(== 5.0  5) ;=> true
+(=  5.0  5) ;=> false !
+~~~
+
+Note the difference between `=` and `==`: `==` disregards the actual
+type of the numeric value, whereas `=` requires that the type numbers
+are of the same type.
+
+Less-than, greater-than and other such comparisons can be done with
+the regular `<`, `>`, `<=` and `>=` operators:
+
+~~~ {.clojure}
+(< 1 2)   ;=> true
+(> 1 2)   ;=> false
+(<= 52 2) ;=> false
+~~~
+
+## Comparing many values
+
+All the comparison functions above take an arbitrary amount of
+arguments. For an example, to compare if three variables are equal,
+one can give them to `=`:
+
+~~~ {.clojure}
+(= x y z) ;=> true if and only if x = y = z
+~~~
+
+The other comparison operators work similarly. You can easily check if
+given variables are in ascending order:
+
+~~~ {.clojure}
+(< x y z q) ;=> true if and only if x < y < z < q
+~~~
+
+<exercise>
+Write the function `(teen? age)`, which returns truthy if `age` is at least 13
+and at most 19. Use only one comparison operator and give it three arguments.
+
+~~~ {.clojure}
+(teen? 12) ;=> false
+(teen? 13) ;=> true
+(teen? 15) ;=> true
+(teen? 19) ;=> true
+(teen? 20) ;=> false
+(teen? 27) ;=> false
+~~~
+</exercise>
+
+## Everything has a value
+
 In functional programming, and specifically in Clojure, everything is an
 expression. This is a way of saying that everything has a usable value.
 Concretely, `if` has a return value; the value is the value of the evaluated
@@ -174,6 +237,48 @@ Write the function `(divides? divisor n)`, which returns `true` if
 ~~~
 </exercise>
 
+## Conditioning
+
+When checking for multiple conditions, you can use multiple `if` clauses:
+
+~~~ {.clojure}
+(if condition1
+  true1
+  (if condition2
+    true2
+    (if condition3
+      true3
+      ...)))
+~~~
+
+This is similar to `if`/`else if` in languages like Java. However, the nested
+`if` clauses are awkward. We can rewrite the nested `if` clauses with the
+`cond` builtin.
+
+The general form of `cond` is:
+
+~~~ {.clojure}
+(cond
+  condition1 true1
+  condition2 true2
+  condition3 true3
+  ...)
+~~~
+
+Like with `if`, you can have an else branch in the end. The condition for the else branch is `:else`.
+
+~~~ {.clojure}
+(defn super-sign [number]
+  (cond
+    (neg? number) "negative"
+    (pos? number) "positive"
+    :else         "zero"))
+
+(super-sign 13) ;=> "positive"
+(super-sign 0)  ;=> "zero"
+(super-sign -5) ;=> "negative"
+~~~
+
 <exercise>
 Write the function `(fizzbuzz n)` that returns
 
@@ -192,64 +297,27 @@ Use the `divides?` function from the previous exercise.
 ~~~
 </exercise>
 
-## Comparing values
-
-Values can be compared for equality with `=`:
-
-~~~ {.clojure}
-(= "foo" "foo")    ;=> true
-(= "foo" "bar")    ;=> false
-~~~
-
-Numerical values should be compared with `==`:
-
-~~~ {.clojure}
-(== 42  42) ;=> true
-(== 5.0  5) ;=> true
-(=  5.0  5) ;=> false !
-~~~
-
-Note the difference between `=` and `==`: `==` disregards the actual
-type of the numeric value, whereas `=` requires that the type numbers
-are of the same type.
-
-Less-than, greater-than and other such comparisons can be done with
-the regular `<`, `>`, `<=` and `>=` operators:
-
-~~~ {.clojure}
-(< 1 2)   ;=> true
-(> 1 2)   ;=> false
-(<= 52 2) ;=> false
-~~~
-
-## Comparing many values
-
-All the comparison functions above take an arbitrary amount of
-arguments. For an example, to compare if three variables are equal,
-one can give them to `=`:
-
-~~~ {.clojure}
-(= x y z) ;=> true if and only if x = y = z
-~~~
-
-The other comparison operators work similarly. You can easily check if
-given variables are in ascending order:
-
-~~~ {.clojure}
-(< x y z q) ;=> true if and only if x < y < z < q
-~~~
-
 <exercise>
-Write the function `(teen? age)`, which returns truthy if `age` is at least 13
-and at most 19. Use only one comparison operator and give it three arguments.
+Write a function `(generic-doublificate x)` that takes one argument and
+
+- doubles it if it is a number,
+- doubles all the elements if it is a list or a vector,
+- returns nil if it is an empty collection,
+- returns true otherwise.
+
+You can use the following functions:
+
+- `(number? n)` returns `true` if `n` is a number.
+- `(list? coll)` and `(vector? coll)` test if `coll` is a list or a vector.
+- `(empty? coll)` returns `true` if `coll` is empty.
 
 ~~~ {.clojure}
-(teen? 12) ;=> false
-(teen? 13) ;=> true
-(teen? 15) ;=> true
-(teen? 19) ;=> true
-(teen? 20) ;=> false
-(teen? 27) ;=> false
+(generic-doublificate 1)        ;=> 2
+(generic-doublificate [1 2])    ;=> (2 4)
+(generic-doublificate '(65 21)) ;=> (130 42)
+(generic-doublificate {})       ;=> nil
+(generic-doublificate [])       ;=> nil
+(generic-doublificate {:a 1})   ;=> true
 ~~~
 </exercise>
 
@@ -341,81 +409,6 @@ false and false otherwise.
 ~~~
 </exercise>
 
-## Conditioning
-
-When checking for multiple conditions, you can use multiple `if` clauses:
-
-~~~ {.clojure}
-(if condition1
-  true1
-  (if condition2
-    true2
-    (if condition3
-      true3
-      ...)))
-~~~
-
-This is similar to `if`/`else if` in languages like Java. However, the nested
-`if` clauses are awkward. We can rewrite the nested `if` clauses with the
-`cond` builtin.
-
-~~~ {.clojure}
-(defn book-foo [book]
-  (let [author (:author book)
-        title  (:title  book)]
-    (cond
-      (= title "Lolol") "Awesome book!"
-      (= author "China Miéville") "Popopo"
-      (author-is-british? author) "Tea time!")))   
-~~~
-
-The general form of `cond` is:
-
-~~~ {.clojure}
-(cond
-  condition1 true1
-  condition2 true2
-  condition3 true3
-  ...)
-~~~
-
-Like with `if`, you can have an else branch in the end. The condition for the else branch is `:else`.
-
-~~~ {.clojure}
-(defn sign [number]
-  (cond
-    (neg? number) "negative"
-    (pos? number) "positive"
-    :else         "zero"))
-
-(sign 13) ;=> "positive"
-(sign 0)  ;=> "zero"
-(sign -5) ;=> "negative"
-~~~
-
-<exercise>
-Write a function `(generic-doublificate x)` that takes one argument and
-
-- doubles it if it is a number,
-- doubles all the elements if it is a list or a vector,
-- returns nil if it is an empty collection,
-- returns true otherwise.
-
-You can use the following functions:
-
-- `(number? n)` returns `true` if `n` is a number.
-- `(list? coll)` and `(vector? coll)` test if `coll` is a list or a vector.
-- `(empty? coll)` returns `true` if `coll` is empty.
-
-~~~ {.clojure}
-(generic-doublificate 1)        ;=> 2
-(generic-doublificate [1 2])    ;=> (2 4)
-(generic-doublificate '(65 21)) ;=> (130 42)
-(generic-doublificate {})       ;=> nil
-(generic-doublificate [])       ;=> nil
-(generic-doublificate {:a 1})   ;=> true
-~~~
-</exercise>
 
 [Proceed to structuration! →](structured-data.html)
 
