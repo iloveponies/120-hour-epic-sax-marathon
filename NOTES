@@ -53,7 +53,7 @@ Jälkikäteen muisteluita:
     on unohtunut.
   - PITÄÄ PUHUU SISENTÄMISESTÄ EKSPLISIITTISESTI aina kun esitellään uusia
     makroja/erikoismuotoja
-  - vaihda training dayssä "hello Metropolia" johonki muuhun.
+--  - vaihda training dayssä "hello Metropolia" johonki muuhun.
   - esittele myös lein midje --lazytest
   - sano eksplisiittisesti:
     - letissä nimennät hakasulkeissa
@@ -62,15 +62,15 @@ Jälkikäteen muisteluita:
     - toteuta sekvensseille elem? joka kertoo löytyykö alkiota listasta
       (vaihtoehtosesti tästä saa filter-tehtävän)
       (onnistuu myös (contains? (set [:jee :joo]) :jee))
-  - cond (ja case?) pitäs esitellä ennen pokerikäsiä
-    - ennen fizzbuzzia?
+--  - cond (ja case?) pitäs esitellä ennen pokerikäsiä
+--    - ennen fizzbuzzia?
   - siisti my-boolean -tehtävän tehtävänantoa
-  - boolean-luvussa ensimmäisessä cond-esimerkissä käytetään lettiä, vaikkei
+--  - boolean-luvussa ensimmäisessä cond-esimerkissä käytetään lettiä, vaikkei
     sitä olla vielä esitelty -- fixed: esimerkki poistettu
-  - boolean-luvussa määritellään kaksi sign-funktiota, toinen pitää
+--  - boolean-luvussa määritellään kaksi sign-funktiota, toinen pitää
     uudelleennimetä -- fixed: toinen uudelleennimetty
   - boolean-luvun loppuun enemmän tehtäviä. Esim. andillä ja orrilla ei ole
-    mitään.
+    mitään. -- lisätty tehtävä leap-year?
 
   Structured Data:
     - conj/assoc ja count kaipais tehtäviä
