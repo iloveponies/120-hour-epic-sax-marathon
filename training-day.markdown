@@ -46,77 +46,6 @@ user=>
 Clojure evaluated the expression `(+ 1 2)` and printed its value, `3`. If you
 see something different, please let us know by raising your hand.
 
-## Prefix Syntax
-
-As you can see above, instead of writing `1 + 2` to calculate the sum of one
-and two, we write `(+ 1 2)`. This syntax applies everywhere in Clojure. In
-fact, Clojure has no operators at all. In languages such as Java or C,
-arithmetic operations are usually written in the mathematical notation called
-*infix form*. Clojure, on the other hand, uses *prefix form* for its syntax.
-The next table shows what mathematical expressions look like in these two
-syntaxes.
-
-Java            Clojure
--------         -------
-`2 + 3`         `(+ 2 3)`
-`42 * 7`        `(* 42 7)`
-`2 - 78 * 35`   `(- 2 (* 78 35))`
-`1 + 2 + 3 + 4` `(+ 1 2 3 4)`
-
-Let's input these definitions in our Clojure session to see how they work:
-
-~~~ {.clojure}
-user=> (+ 2 3)
-5
-user=> (* 42 7)
-294
-user=> (- 2 (* 78 35))
--2728
-user=> (+ 1 2 3 4)
-10
-~~~
-
-<exercise>
-Write the following expression in the Clojure prefix syntax: $(2 * 3) + 4$.
-Try evaluating it in the interactive session. The result should be 10.
-</exercise>
-
-<exercise>
-Write the expression $3 + 4 + 5 + 6$ in Clojure syntax. Evaluate it.
-</exercise>
-
-The arithmetic operations above are, in fact, function calls. That is, `+` is
-actually a function (called `+`), as are `*` and `-`. All function calls in
-Clojure look the same: `(function-name argument-1 argument-2 ...)`. As an
-example of a non-arithmetic function, let's take a look at getting a single
-character from a string in Clojure and Java. In Clojure, we can use the `get`
-function for this:
-
-~~~ {.clojure}
-(get "Clojure" 2) ;=> \o
-~~~
-
-The result is the character `o`, printed in Clojure's literal character
-syntax. (That is, `\o` in Clojure code means the single character `o`. In
-Java, you would write a literal character as `'o'`.)
-
-In Java, we reorder things a bit: the first parameter goes *before* the method
-name, and the parentheses are moved *after* the method name:
-
-~~~{.java}
-"Java".charAt(2); //=> 'v'
-~~~
-
-In Clojure, the function name always goes first, and the parameters come after
-it, including the object, if such is present. The Clojure syntax might take
-some time to get used to, but becomes natural after you've written a few
-Clojure programs.
-
-<exercise>
-Write a Clojure expression that, using `get`, gets the first character in
-the string `"abrakadabra"`.
-</exercise>
-
 ## Notation
 
 In our example code, we often want to show the result of an expression
@@ -173,6 +102,90 @@ user=> (+ 3 4) ;=> 7
 user=> (+ 3 4) ; I am a comment
 7
 ~~~
+
+## Prefix Syntax
+
+As you can see above, instead of writing `1 + 2` to calculate the sum of one
+and two, we write `(+ 1 2)`. This syntax applies everywhere in Clojure. In
+fact, Clojure has no operators at all. In languages such as Java or C,
+arithmetic operations are usually written in the mathematical notation called
+*infix form*. Clojure, on the other hand, uses *prefix form* for its syntax.
+The next table shows what mathematical expressions look like in these two
+syntaxes.
+
+Java            Clojure
+-------         -------
+`2 + 3`         `(+ 2 3)`
+`42 * 7`        `(* 42 7)`
+`2 - 78 * 35`   `(- 2 (* 78 35))`
+`1 + 2 + 3 + 4` `(+ 1 2 3 4)`
+
+Let's input these definitions in our Clojure session to see how they work:
+
+~~~ {.clojure}
+user=> (+ 2 3)
+5
+user=> (* 42 7)
+294
+user=> (- 2 (* 78 35))
+-2728
+user=> (+ 1 2 3 4)
+10
+~~~
+
+<exercise>
+Write the following expression in the Clojure prefix syntax: $(2 * 3) + 4$.
+Try evaluating it in the interactive session. The result should be 10.
+</exercise>
+
+<exercise>
+Write the expression $3 + 4 + 5 + 6$ in Clojure syntax. Evaluate it.
+</exercise>
+
+The arithmetic operations have some special properties. Everyone of
+the operations works with only one operand.
+
+~~~ {.clojure}
+(+ 1) ;=> 1
+(* 2) ;=> 2
+(- 3) ;=> -3
+(/ 4) ;=> 1/4
+~~~
+
+This behavior might seem odd, but here is the catch. The arithmetic
+operations above are, in fact, function calls. That is, `+` is
+actually a function (called `+`), as are `*` and `-`.
+
+All function calls in Clojure look the same: `(function-name
+argument-1 argument-2 ...)`. As an example of a non-arithmetic
+function, let's take a look at getting a single character from a
+string in Clojure and Java. In Clojure, we can use the `get` function
+for this:
+
+~~~ {.clojure}
+(get "Clojure" 2) ;=> \o
+~~~
+
+The result is the character `o`, printed in Clojure's literal character
+syntax. (That is, `\o` in Clojure code means the single character `o`. In
+Java, you would write a literal character as `'o'`.)
+
+In Java, we reorder things a bit: the first parameter goes *before* the method
+name, and the parentheses are moved *after* the method name:
+
+~~~{.java}
+"Java".charAt(2); //=> 'v'
+~~~
+
+In Clojure, the function name always goes first, and the parameters come after
+it, including the object, if such is present. The Clojure syntax might take
+some time to get used to, but becomes natural after you've written a few
+Clojure programs.
+
+<exercise>
+Write a Clojure expression that, using `get`, gets the first character in
+the string `"abrakadabra"`.
+</exercise>
 
 ## Files and Namespaces
 
@@ -317,20 +330,20 @@ Now, let's try calling our function (assuming you have now added it to the
 
 ~~~ {.clojure}
 user=> (use 'example.hello :reload)
-user=> (hello "Metropolia")
-"Hello, Metropolia!"
+user=> (hello "world")
+"Hello, world!"
 ~~~
 
 First we import the `example.hello` namespace, and tell Clojure to *reimport*
 it if it is already imported, so we actually see the new function definition.
-We then call the function with the parameter `"Metropolia"`. Calling the
-function evaluated its body with `who` bound to `"Metropolia"`. We can
+We then call the function with the parameter `"world"`. Calling the
+function evaluated its body with `who` bound to `"world"`. We can
 imagine the evaluator doing something like the following:
 
 ~~~ {.clojure}
-(hello "Metropolia")
-;=> (str "Hello, " "Metropolia" "!")
-;=> "Hello, Metropolia!"
+(hello "world")
+;=> (str "Hello, " "world" "!")
+;=> "Hello, world!"
 ~~~
 
 We now know all the basics of structuring Clojure programs.

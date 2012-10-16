@@ -82,6 +82,35 @@ user=&gt;</code></pre>
 user=&gt;</code></pre>
 <p>Clojure evaluated the expression <code>(+ 1 2)</code> and printed its value, <code>3</code>. If you see something different, please let us know by raising your hand.</p>
 </section>
+<section class="level2" id="notation">
+<h2>Notation</h2>
+<p>In our example code, we often want to show the result of an expression when it is evaluated. Instead of showing what evaluating the expression in the interactive session looks like:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)
+<span class="dv">7</span></code></pre>
+<p>We’re going to use the convention of writing the expression and the result, separated with <code>;=&gt;</code>. For an example:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="co">;=&gt; 7</span></code></pre>
+<p>Sometimes we will put the result on a new line:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="dv">1337</span>)
+<span class="co">;=&gt; &quot;1337&quot;</span></code></pre>
+<section class="alert alert-info">
+<h3>
+Hint
+</h3>
+<p><code>str</code> is a function that turns its argument to a string. If given multiple arguments, it concatenates the results:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="st">&quot;Over &quot;</span> <span class="dv">9000</span> <span class="st">&quot;!&quot;</span>) <span class="co">;=&gt; &quot;Over 9000!&quot;</span></code></pre>
+</section>
+<p>When the resulting value is too long to display on one line, we will mark the continuation lines with a leading <code>;</code> like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">take</span> <span class="dv">20</span> (<span class="kw">cycle</span> [<span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>]))
+<span class="co">;=&gt; (&quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot;</span>
+<span class="co">;    &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot;)</span></code></pre>
+<p><code>;</code> starts a comment that lasts until the end of that line, like <code>//</code> in Java. The <code>=&gt;</code> inside the comment is an illustration of an arrow, meaning <q>evaluates to</q>. You can copy the examples above to the REPL and they will work without modification:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)
+<span class="dv">7</span>
+user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="co">;=&gt; 7</span>
+<span class="dv">7</span>
+user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="co">; I am a comment</span>
+<span class="dv">7</span></code></pre>
+</section>
 <section class="level2" id="prefix-syntax">
 <h2>Prefix Syntax</h2>
 <p>As you can see above, instead of writing <code>1 + 2</code> to calculate the sum of one and two, we write <code>(+ 1 2)</code>. This syntax applies everywhere in Clojure. In fact, Clojure has no operators at all. In languages such as Java or C, arithmetic operations are usually written in the mathematical notation called <em>infix form</em>. Clojure, on the other hand, uses <em>prefix form</em> for its syntax. The next table shows what mathematical expressions look like in these two syntaxes.</p>
@@ -132,7 +161,13 @@ Exercise 2
 </h3>
 <p>Write the expression \(3 + 4 + 5 + 6\) in Clojure syntax. Evaluate it.</p>
 </section>
-<p>The arithmetic operations above are, in fact, function calls. That is, <code>+</code> is actually a function (called <code>+</code>), as are <code>*</code> and <code>-</code>. All function calls in Clojure look the same: <code>(function-name argument-1 argument-2 ...)</code>. As an example of a non-arithmetic function, let’s take a look at getting a single character from a string in Clojure and Java. In Clojure, we can use the <code>get</code> function for this:</p>
+<p>The arithmetic operations have some special properties. Everyone of the operations works with only one operand.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">+</span> <span class="dv">1</span>) <span class="co">;=&gt; 1</span>
+(<span class="kw">*</span> <span class="dv">2</span>) <span class="co">;=&gt; 2</span>
+(<span class="kw">-</span> <span class="dv">3</span>) <span class="co">;=&gt; -3</span>
+(<span class="kw">/</span> <span class="dv">4</span>) <span class="co">;=&gt; 1/4</span></code></pre>
+<p>This behavior might seem odd, but here is the catch. The arithmetic operations above are, in fact, function calls. That is, <code>+</code> is actually a function (called <code>+</code>), as are <code>*</code> and <code>-</code>.</p>
+<p>All function calls in Clojure look the same: <code>(function-name argument-1 argument-2 ...)</code>. As an example of a non-arithmetic function, let’s take a look at getting a single character from a string in Clojure and Java. In Clojure, we can use the <code>get</code> function for this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> <span class="st">&quot;Clojure&quot;</span> <span class="dv">2</span>) <span class="co">;=&gt; \o</span></code></pre>
 <p>The result is the character <code>o</code>, printed in Clojure’s literal character syntax. (That is, <code>\o</code> in Clojure code means the single character <code>o</code>. In Java, you would write a literal character as <code>'o'</code>.)</p>
 <p>In Java, we reorder things a bit: the first parameter goes <em>before</em> the method name, and the parentheses are moved <em>after</em> the method name:</p>
@@ -144,35 +179,6 @@ Exercise 3
 </h3>
 <p>Write a Clojure expression that, using <code>get</code>, gets the first character in the string <code>&quot;abrakadabra&quot;</code>.</p>
 </section>
-</section>
-<section class="level2" id="notation">
-<h2>Notation</h2>
-<p>In our example code, we often want to show the result of an expression when it is evaluated. Instead of showing what evaluating the expression in the interactive session looks like:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)
-<span class="dv">7</span></code></pre>
-<p>We’re going to use the convention of writing the expression and the result, separated with <code>;=&gt;</code>. For an example:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="co">;=&gt; 7</span></code></pre>
-<p>Sometimes we will put the result on a new line:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="dv">1337</span>)
-<span class="co">;=&gt; &quot;1337&quot;</span></code></pre>
-<section class="alert alert-info">
-<h3>
-Hint
-</h3>
-<p><code>str</code> is a function that turns its argument to a string. If given multiple arguments, it concatenates the results:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="st">&quot;Over &quot;</span> <span class="dv">9000</span> <span class="st">&quot;!&quot;</span>) <span class="co">;=&gt; &quot;Over 9000!&quot;</span></code></pre>
-</section>
-<p>When the resulting value is too long to display on one line, we will mark the continuation lines with a leading <code>;</code> like this:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">take</span> <span class="dv">20</span> (<span class="kw">cycle</span> [<span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>]))
-<span class="co">;=&gt; (&quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot;</span>
-<span class="co">;    &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot; &quot;foo&quot; &quot;bar&quot;)</span></code></pre>
-<p><code>;</code> starts a comment that lasts until the end of that line, like <code>//</code> in Java. The <code>=&gt;</code> inside the comment is an illustration of an arrow, meaning <q>evaluates to</q>. You can copy the examples above to the REPL and they will work without modification:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)
-<span class="dv">7</span>
-user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="co">;=&gt; 7</span>
-<span class="dv">7</span>
-user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="co">; I am a comment</span>
-<span class="dv">7</span></code></pre>
 </section>
 <section class="level2" id="files-and-namespaces">
 <h2>Files and Namespaces</h2>
@@ -248,12 +254,12 @@ java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">
 <p>Note that in Clojure, there is no <code>return</code> keyword; the return value of a function is always the value of the last expression in the function body.</p>
 <p>Now, let’s try calling our function (assuming you have now added it to the <code>hello.clj</code> file and saved the file):</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;example.hello <span class="kw">:reload</span>)
-user=&gt; (hello <span class="st">&quot;Metropolia&quot;</span>)
-<span class="st">&quot;Hello, Metropolia!&quot;</span></code></pre>
-<p>First we import the <code>example.hello</code> namespace, and tell Clojure to <em>reimport</em> it if it is already imported, so we actually see the new function definition. We then call the function with the parameter <code>&quot;Metropolia&quot;</code>. Calling the function evaluated its body with <code>who</code> bound to <code>&quot;Metropolia&quot;</code>. We can imagine the evaluator doing something like the following:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(hello <span class="st">&quot;Metropolia&quot;</span>)
-<span class="co">;=&gt; (str &quot;Hello, &quot; &quot;Metropolia&quot; &quot;!&quot;)</span>
-<span class="co">;=&gt; &quot;Hello, Metropolia!&quot;</span></code></pre>
+user=&gt; (hello <span class="st">&quot;world&quot;</span>)
+<span class="st">&quot;Hello, world!&quot;</span></code></pre>
+<p>First we import the <code>example.hello</code> namespace, and tell Clojure to <em>reimport</em> it if it is already imported, so we actually see the new function definition. We then call the function with the parameter <code>&quot;world&quot;</code>. Calling the function evaluated its body with <code>who</code> bound to <code>&quot;world&quot;</code>. We can imagine the evaluator doing something like the following:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(hello <span class="st">&quot;world&quot;</span>)
+<span class="co">;=&gt; (str &quot;Hello, &quot; &quot;world&quot; &quot;!&quot;)</span>
+<span class="co">;=&gt; &quot;Hello, world!&quot;</span></code></pre>
 <p>We now know all the basics of structuring Clojure programs.</p>
 </section>
 <section class="level2" id="we-come-gifting-bears">
