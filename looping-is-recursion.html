@@ -61,7 +61,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Clojure has a form called <code>loop</code>. But it’s not actually a looping construct, it is <em>recursive</em> in nature. Let’s start with some examples.</p>
 <p>This is the standard recursive factorial:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> recursive-factorial </span>[n]
-  (<span class="kw">if</span> (zero? n)
+  (<span class="kw">if</span> (<span class="kw">zero?</span> n)
       <span class="dv">1</span>
       (<span class="kw">*</span> n (recursive-factorial (<span class="kw">dec</span> n)))))</code></pre>
 <p>Like we’ve seen in the <a href="recursion.html">chapter on recursion</a>, this is a linear recursive process, that is, it constructs an expression linear in size to its input, <code>n</code>. When the base case is reached, we will have the expression <code>(* n (* (dec n) (* ... (* 3 (* 2 (* 1 1))) ...)))</code>.</p>
@@ -69,7 +69,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>We’ll now introduce a tail recursive version of <code>recursive-factorial</code> and then look at how it evaluation differs from <code>recursive-factorial</code>’s.</p>
 <p>In order to make factorial tail-recursive we introduce an <em>accumulating parameter</em> (or <em>accumulator</em>).</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> helper </span>[acc n]
-  (<span class="kw">if</span> (zero? n)
+  (<span class="kw">if</span> (<span class="kw">zero?</span> n)
       acc
       (helper (<span class="kw">*</span> acc n) (<span class="kw">dec</span> n))))
 
@@ -89,7 +89,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Let’s rewrite factorial one more time, now using a new construct called <code>recur</code>. <code>recur</code> means <q>recursively call this function (that we’re in)</q>, with the additional restriction that the recursion must be tail recursion. We can also move the function <code>helper</code> inside the factorial function so we do not accidentally expose it to other code (or users of our code).</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> recur-factorial </span>[number]
   (<span class="kw">let</span> [helper (<span class="kw">fn</span> [acc n]
-          (<span class="kw">if</span> (zero? n)
+          (<span class="kw">if</span> (<span class="kw">zero?</span> n)
             acc
             (<span class="kw">recur</span> (<span class="kw">*</span> acc n) (<span class="kw">dec</span> n))))]
     (helper <span class="dv">1</span> number)))</code></pre>
@@ -119,7 +119,7 @@ Exercise 2
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> loopy-factorial </span>[down-from]
   (<span class="kw">loop</span> [acc <span class="dv">1</span>
          n down-from]
-    (<span class="kw">if</span> (zero? n)
+    (<span class="kw">if</span> (<span class="kw">zero?</span> n)
       acc
       (<span class="kw">recur</span> (<span class="kw">*</span> acc n) (<span class="kw">dec</span> n)))))</code></pre>
 <p>Let’s dissect that. A <code>loop</code> begins with a sequence of <em>bindings</em>, just like in a <code>let</code> or <code>for</code>:</p>
@@ -127,7 +127,7 @@ Exercise 2
          n down-from]</code></pre>
 <p>This introduces the variables <code>acc</code> and <code>n</code> and gives them initial values. <code>n</code> gets its value from the parameter to <code>loopy-factorial</code>.</p>
 <p>After this comes the body of the loop, which is exactly the same as the body of the <code>helper</code> function above:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">    (<span class="kw">if</span> (zero? n)
+<pre class="sourceCode clojure"><code class="sourceCode clojure">    (<span class="kw">if</span> (<span class="kw">zero?</span> n)
       acc
       (<span class="kw">recur</span> (<span class="kw">*</span> acc n) (<span class="kw">dec</span> n)))))</code></pre>
 <p>Inside a <code>loop</code> we can think of a <code>recur</code> meaning <q>go to the start of the loop, and give the variables these new values</q>. So after that <code>recur</code> call the variable <code>n</code> gets the new value <code>(dec n)</code>, and <code>acc</code> gets the new value <code>(* n acc)</code>. That is, calling <code>recur</code> either calls the function iteratively, or iterates a <code>loop</code>, whichever is innermost.</p>
@@ -153,8 +153,8 @@ Exercise 3
 (seq= [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span>] [])        <span class="co">;=&gt; false</span></code></pre>
 </section>
 <p><exericse> Implement the function <code>(find-first-index [f seq])</code> that returns the first index in <code>seq</code> for which <code>f</code> returns true, or <code>nil</code> if no such index exists.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(find-first-index zero? [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">0</span> <span class="dv">2</span>])            <span class="co">;=&gt; 3</span>
-(find-first-index zero? [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">2</span>])                  <span class="co">;=&gt; nil</span>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(find-first-index <span class="kw">zero?</span> [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">0</span> <span class="dv">2</span>])            <span class="co">;=&gt; 3</span>
+(find-first-index <span class="kw">zero?</span> [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">2</span>])                  <span class="co">;=&gt; nil</span>
 (find-first-index #(<span class="kw">=</span> % <span class="dv">6</span>) [<span class="kw">:cat</span> <span class="kw">:dog</span> <span class="kw">:six</span> <span class="kw">:blorg</span> <span class="dv">6</span>]) <span class="co">;=&gt; 4</span>
 (find-first-index <span class="kw">nil?</span> [])                            <span class="co">;=&gt; nil</span></code></pre>
 </section>
@@ -169,8 +169,8 @@ Exercise 3
 Exercise 4
 </h3>
 <p>Write the function <code>(parity a-seq)</code> that takes in a sequence and returns a <em>set</em> of those elements that occur an odd number of times in the sequence.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(parity [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c])</span>           <span class="co">;=&gt; #{:a :b :c}</span>
-(parity [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span> <span class="kw">:a])</span>        <span class="co">;=&gt; #{:b :c}</span>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(parity [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>])           <span class="co">;=&gt; #{:a :b :c}</span>
+(parity [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span> <span class="kw">:a</span>])        <span class="co">;=&gt; #{:b :c}</span>
 (parity [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>] <span class="co">;=&gt; #{2 4}</span></code></pre>
 <p>Note: you do not need to count occurrences.</p>
 </section>
@@ -195,7 +195,7 @@ Exercise 6
 <p>Write the function <code>(cut-at-repetition a-seq)</code> that takes in a sequence and returns elements from the sequence up to the first repetition.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(cut-at-repetition [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>])
 <span class="co">;=&gt; [1] doesn&#39;t have to be a vector, a sequence is fine too</span>
-(cut-at-repetition [<span class="kw">:cat</span> <span class="kw">:dog</span> <span class="kw">:house</span> <span class="kw">:milk</span> <span class="dv">1</span> <span class="kw">:cat</span> <span class="kw">:dog])</span>
+(cut-at-repetition [<span class="kw">:cat</span> <span class="kw">:dog</span> <span class="kw">:house</span> <span class="kw">:milk</span> <span class="dv">1</span> <span class="kw">:cat</span> <span class="kw">:dog</span>])
 <span class="co">;=&gt; [:cat :dog :house :milk 1]</span>
 (cut-at-repetition [<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>])
 <span class="co">;=&gt; [0 1 2 3 4 5]</span></code></pre>

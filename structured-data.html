@@ -28,6 +28,7 @@ code > span.fu { color: #06287e; }
 code > span.er { color: #ff0000; font-weight: bold; }
   </style>
   <link rel="stylesheet" href="css/base.css">
+  <script src="https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -70,7 +71,7 @@ Hint
 </section>
 <section class="level2" id="let-there-be-names">
 <h2>Let there be names</h2>
-<p>We often want to give a piece of data name, either because the act of naming gives clarity to the code, or because we want to refer to the data many times. As we have seen, package global names are declared with <code>def</code>. A function or value that is needed only inside one function can be given a <em>local name</em> with <code>let</code>.</p>
+<p>We often want to give a piece of data name, either because the act of naming gives clarity to the code, or because we want to refer to the data many times. As we have seen, namespace global names are declared with <code>def</code>. A function or value that is needed only inside one function can be given a <em>local name</em> with <code>let</code>.</p>
 <p>As an example, let’s define a function for calculating the length of a triangle’s hypotenuse, given the length of its two legs:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hypotenuse </span>[x y]
   (<span class="kw">let</span> [xx (<span class="kw">*</span> x x)
@@ -90,7 +91,7 @@ Hint
 <span class="co">;=&gt; 84</span>
 user=&gt; x
 CompilerException java.lang.RuntimeException:
-Unable to <span class="kw">resolve</span> symbol: x in this context, compiling<span class="kw">:(NO_SOURCE_PATH:0)</span> </code></pre>
+Unable to <span class="kw">resolve</span> symbol: x in this context, compiling:(NO_SOURCE_PATH<span class="kw">:0</span>) </code></pre>
 <p>Note the indentation in <code>let</code>: the names inside the brackets are all aligned together, and the expressions are indented with two spaces.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [x <span class="dv">42</span>]
   (indented x))</code></pre>
@@ -104,16 +105,16 @@ Exercise 1
 <p>Change the function <code>do-a-thing</code> so that it uses <code>let</code> to give a name to the common expression <code>(+ x x)</code> in its body.</p>
 </section>
 <p>The names declared in a <code>let</code> expression can refer to previous names in the same expression:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [a <span class="dv">42</span>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [a <span class="dv">10</span>
       b (<span class="kw">+</span> a <span class="dv">8</span>)]
-  [a b])
-<span class="co">;=&gt; [42 50]</span></code></pre>
+  (<span class="kw">+</span> a b))
+<span class="co">;=&gt; 28</span></code></pre>
 <p>In the example above, <code>b</code> can refer to <code>a</code> because <code>a</code> is declared before it. On the other hand, <code>a</code> can not refer to b:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [a (<span class="kw">+</span> b <span class="dv">42</span>)
       b <span class="dv">8</span>]
-  [a b])
+  (<span class="kw">+</span> a b))
 <span class="co">; CompilerException java.lang.RuntimeException: Unable to resolve symbol:</span>
-<span class="co">; b in this context, compiling:(NO_SOURCE_PATH:1) </span></code></pre>
+<span class="co">; b in this context, compiling:(NO_SOURCE_PATH:1)</span></code></pre>
 </section>
 <section class="level2" id="simple-values">
 <h2>Simple values</h2>
@@ -184,6 +185,17 @@ Exercise 2
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">conj</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] <span class="dv">4</span>)          <span class="co">;=&gt; [1 2 3 4]</span>
 (<span class="kw">assoc</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>] <span class="dv">2</span> <span class="st">&quot;foo&quot;</span>) <span class="co">;=&gt; [1 2 &quot;foo&quot; 4]</span></code></pre>
 <p><code>conj</code> adds a value to a collection. Its behaviour depends on the type of collection: with vectors, it adds the value to the end of the vector. To be exact, <code>conj</code> does <em>not</em> change the given vector. Instead, it returns a new vector, based on the given vector, with the new element appended to this new vector.</p>
+<section class="alert alert-success">
+<h3>
+Exercise 3
+</h3>
+<p>Write the function <code>(cutify v)</code> that takes a vector as a parameter and adds <code>&quot;&lt;3&quot;</code> to its end.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(cutify []) =&gt; []
+(cutify [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) =&gt; [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="st">&quot;&lt;3&quot;</span>]
+(cutify [<span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span>]) =&gt; [<span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span> <span class="st">&quot;&lt;3&quot;</span>]</code></pre>
+<!-- "> -->
+
+</section>
 <p><code>assoc</code> associates a new value for the given key in the collection. A vector’s indexes are its keys. Above, we create a new vector based on the previous one, with <code>&quot;foo&quot;</code> at index <code>2</code>. The original vector doesn’t change in either of these operations:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [original [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]
       new      (<span class="kw">assoc</span> original <span class="dv">2</span> <span class="st">&quot;foo&quot;</span>)]
@@ -200,6 +212,12 @@ Exercise 2
   (<span class="kw">str</span> x y z))
 <span class="co">;=&gt; &quot;123&quot;</span></code></pre>
 <p>Here, instead of giving a name to the vector <code>[1 2 3 4 5 6]</code>, we indicate with the brackets in <code>[x y z]</code> that we want to destructure the vector instead. Inside the brackets, we give names to the first three elements of the vector. <code>x</code> will be given the value of the first element, <code>1</code>; <code>b</code> will be <code>2</code> and <code>c</code> will be <code>3</code>. The concatenation of these values that <code>str</code> returns is <code>&quot;123&quot;</code>.</p>
+<section class="alert alert-success">
+<h3>
+Exercise 4
+</h3>
+<p>Rewrite our earlier function <code>spiff</code> by destructuring its parameter. Call this new function <code>spiff-destructuring</code>.</p>
+</section>
 <p>You can destructure function parameters directly. For an example, take the following function:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum-pairs </span>[first-pair second-pair]
   [(<span class="kw">+</span> (<span class="kw">first</span>  first-pair) (<span class="kw">first</span>  second-pair))
@@ -211,12 +229,76 @@ Exercise 2
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum-pairs </span>[[x1 y1] [x2 y2]]
   [(<span class="kw">+</span> x1 x2) (<span class="kw">+</span> y1 y2)])</code></pre>
 <p><code>sum-pairs</code> still takes two parameter vectors, but now it does not give names to its parameters. Instead, it gives names to their first two elements by destructuring the parameters. We could have also destructured the parameters with a <code>let</code>.</p>
+</section>
+</section>
+<section class="level2" id="thinking-with-boxes">
+<h2>Thinking With Boxes</h2>
+<p>Let’s define a simple representation for a two-dimensional point. It will simply be a pair (2-element vector) of two numbers.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> point </span>[x y]
+  [x y])</code></pre>
+<p>And a representation for a rectangle. This will simply be a pair of points, the first being the bottom left corner and the second being the top left corner.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> rectangle </span>[bottom-left top-right]
+  [bottom-left top-right])</code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise 3
+Exercise 5
 </h3>
-<p>Rewrite our earlier function <code>spiff</code> by destructuring its parameters. Call this new function <code>spiff-destructuring</code>.</p>
+<p>Write the functions <code>(height rectangle)</code> and <code>(width rectangle)</code> that return the height and width of the given rectangle. Use destructuring.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(height (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">5</span> <span class="dv">1</span>]))  =&gt; <span class="dv">4</span>
+(height (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">1</span> <span class="dv">1</span>]))  =&gt; <span class="dv">0</span>
+(height (rectangle [<span class="dv">3</span> <span class="dv">1</span>] [<span class="dv">10</span> <span class="dv">4</span>])) =&gt; <span class="dv">7</span>
+
+(width (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">5</span> <span class="dv">1</span>])) =&gt; <span class="dv">0</span>
+(width (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">5</span> <span class="dv">5</span>])) =&gt; <span class="dv">4</span>
+(width (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">2</span> <span class="dv">3</span>])) =&gt; <span class="dv">3</span></code></pre>
 </section>
+<section class="alert alert-success">
+<h3>
+Exercise 6
+</h3>
+<p>Write the function <code>(area rectangle)</code> that returns the area of the given rectangle.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(area (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">5</span> <span class="dv">1</span>]))  =&gt; <span class="dv">0</span>
+(area (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">1</span> <span class="dv">1</span>]))  =&gt; <span class="dv">1</span>
+(area (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">4</span> <span class="dv">3</span>]))  =&gt; <span class="dv">12</span>
+(area (rectangle [<span class="dv">3</span> <span class="dv">1</span>] [<span class="dv">10</span> <span class="dv">4</span>])) =&gt; <span class="dv">21</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 7
+</h3>
+<p>Write the function <code>(contains-point? rectangle point)</code> that returns <code>true</code> if <code>rectangle</code> contains <code>point</code> and otherwise <code>false</code>.</p>
+<p>Remember that you can give <code>&lt;=</code> multiple parameters. <code>(&lt;= x y z)</code> returns <code>true</code> if \(x \leq y \leq z\) holds. Otherwise <code>false</code>.</p>
+<!-- >> -->
+
+<p>Hint: <code>and</code> is useful.</p>
+<p>use destructuring.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(contains-point? (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">2</span> <span class="dv">2</span>])
+                 (point <span class="dv">1</span> <span class="dv">1</span>))            <span class="co">;=&gt; true</span>
+(contains-point? (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">2</span> <span class="dv">2</span>])
+                 (point <span class="dv">2</span> <span class="dv">1</span>))            <span class="co">;=&gt; true</span>
+(contains-point? (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">2</span> <span class="dv">2</span>])
+                 (point -<span class="dv">3</span> <span class="dv">1</span>))           <span class="co">;=&gt; false</span>
+(contains-point? (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">2</span> <span class="dv">2</span>])
+                 (point <span class="dv">1</span> <span class="dv">3</span>))            <span class="co">;=&gt; false</span>
+(contains-point? (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">2</span> <span class="dv">2</span>])
+                 (point <span class="dv">1</span> <span class="dv">1</span>))            <span class="co">;=&gt; true</span>
+(contains-point? (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">1</span> <span class="dv">1</span>])
+                 (point <span class="dv">1</span> <span class="dv">1</span>))            <span class="co">;=&gt; true</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 8
+</h3>
+<p>Write the function <code>(contains-rectangle? outer inner)</code> that returns <code>true</code> if the rectangle <code>inner</code> is inside the rectangle <code>outer</code> and otherwise <code>false</code>.</p>
+<p>Hint: use <code>contains-point?</code></p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(contains-rectangle? (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">3</span> <span class="dv">3</span>])
+                     (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">2</span> <span class="dv">2</span>])) <span class="co">;=&gt; true</span>
+(contains-rectangle? (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">2</span> <span class="dv">2</span>])
+                     (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">3</span> <span class="dv">3</span>])) <span class="co">;=&gt; false</span>
+(contains-rectangle? (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">1</span> <span class="dv">1</span>])
+                     (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">1</span> <span class="dv">1</span>])) <span class="co">;=&gt; true</span>
+(contains-rectangle? (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">1</span> <span class="dv">1</span>])
+                     (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">2</span> <span class="dv">2</span>])) <span class="co">;=&gt; false</span></code></pre>
 </section>
 </section>
 <section class="level2" id="maps">
@@ -235,7 +317,7 @@ Exercise 3
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> book </span>{<span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>
            <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>}})
 
-(<span class="kw">get</span> book <span class="kw">:title)</span> <span class="co">;=&gt; &quot;The City and the City&quot;</span></code></pre>
+(<span class="kw">get</span> book <span class="kw">:title</span>) <span class="co">;=&gt; &quot;The City and the City&quot;</span></code></pre>
 <p>Keywords are even more convenient than this. They work as functions that access collections:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">:title</span> book) <span class="co">;=&gt; &quot;The City and the City&quot;</span></code></pre>
 <p>When used as a function and given a collection, a keyword looks itself up in the collection and returns the value associated with it.</p>
@@ -257,7 +339,7 @@ Exercise 3
                          <span class="kw">:death-year</span> <span class="dv">2006</span>}})</code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise 4
+Exercise 9
 </h3>
 <p>Write the function <code>(alive? author)</code> which takes an author map and returns <code>true</code> if the <code>author</code> is alive, otherwise <code>false</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(alive? (<span class="kw">:author</span> cities))    <span class="co">;=&gt; true</span>
@@ -265,7 +347,7 @@ Exercise 4
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 5
+Exercise 10
 </h3>
 <p>Write the function <code>(title-length book)</code> that counts the length of the book’s title. Use <code>let</code> to extract the title.</p>
 <p>You can use <code>count</code> to find out the length of a string:</p>
@@ -352,15 +434,15 @@ Exercise 5
 <p><em>Note:</em> You can’t paste the result line (or the middle one) to the REPL, as it is the printed form of a sequence.</p>
 <section class="alert alert-success">
 <h3>
-Exercise 6
+Exercise 11
 </h3>
 <p>Write the function <code>(element-lengths collection)</code> that returns the lengths of every item in <code>collection</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(element-lengths [<span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span> <span class="st">&quot;&quot;</span> <span class="st">&quot;quux&quot;</span>])  <span class="co">;=&gt; (3 3 0 4)</span>
-(element-lengths [<span class="st">&quot;x&quot;</span> [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c]</span> {<span class="kw">:y</span> <span class="dv">42</span>}]) <span class="co">;=&gt; (1 3 1)</span></code></pre>
+(element-lengths [<span class="st">&quot;x&quot;</span> [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>] {<span class="kw">:y</span> <span class="dv">42</span>}]) <span class="co">;=&gt; (1 3 1)</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 7
+Exercise 12
 </h3>
 <p>Use <code>map</code> to write the function <code>(second-elements collection)</code> that takes a vector of vectors and returns a sequence of the second elements.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(second-elements [[<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">2</span> <span class="dv">3</span>] [<span class="dv">3</span> <span class="dv">4</span>]]) <span class="co">;=&gt; (2 3 4)</span>
@@ -371,7 +453,7 @@ Exercise 7
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 8
+Exercise 13
 </h3>
 <p>Write the function <code>(titles books)</code> that takes a collection of books and returns their titles.</p>
 <p>Using our earlier examples:</p>
@@ -432,20 +514,20 @@ Exercise 8
 (<span class="kw">contains?</span> games <span class="st">&quot;RAGE&quot;</span>)   <span class="co">;=&gt; false</span>
 (<span class="kw">contains?</span> games <span class="dv">42</span>)       <span class="co">;=&gt; false</span></code></pre>
 <p><code>(conj set elem)</code> adds elem to <code>set</code> if it does not already have <code>elem</code>:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">conj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:EEEEE)</span> <span class="co">;=&gt; #{:a :c :b :EEEEE}</span>
-(<span class="kw">conj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:a)</span>     <span class="co">;=&gt; #{:a :c :b}</span>
-(<span class="kw">conj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:d</span> <span class="kw">:e)</span>  <span class="co">;=&gt; #{:a :c :b :d :e}</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">conj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:EEEEE</span>) <span class="co">;=&gt; #{:a :c :b :EEEEE}</span>
+(<span class="kw">conj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:a</span>)     <span class="co">;=&gt; #{:a :c :b}</span>
+(<span class="kw">conj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:d</span> <span class="kw">:e</span>)  <span class="co">;=&gt; #{:a :c :b :d :e}</span></code></pre>
 <p>Finally, <code>(disj set elem)</code> removes <code>elem</code> from <code>set</code> if it contains <code>elem</code>:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:c)</span> <span class="co">;=&gt; #{:a :b}</span>
-(<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:EEEEE)</span> <span class="co">;=&gt; #{:a :c :b}</span>
-(<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:c</span> <span class="kw">:a)</span> <span class="co">;=&gt; #{:b}</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:c</span>) <span class="co">;=&gt; #{:a :b}</span>
+(<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:EEEEE</span>) <span class="co">;=&gt; #{:a :c :b}</span>
+(<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:c</span> <span class="kw">:a</span>) <span class="co">;=&gt; #{:b}</span></code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise 9
+Exercise 14
 </h3>
 <p>Write the function <code>(toggle a-set elem)</code> that removes <code>elem</code> from <code>a-set</code> if it exists in the set, and adds it to the set otherwise.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:d)</span> <span class="co">;=&gt; #{:a :c :b :d}</span>
-(toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c}</span> <span class="kw">:a)</span> <span class="co">;=&gt; #{:c :b}</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:d</span>) <span class="co">;=&gt; #{:a :c :b :d}</span>
+(toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:a</span>) <span class="co">;=&gt; #{:c :b}</span></code></pre>
 </section>
 <p>Now we can understand the whole implementation of <code>all-author-names</code>. We use</p>
 <ul>
@@ -471,33 +553,33 @@ Exercise 9
 <p><code>(filter predicate collection)</code> takes two parameters, a function and a sequencable collection. It calls the function on each element of the sequence and returns a sequence of the values from the collection for which the function returned a truthy value. In the above example the values <code>(6 7 3)</code> were selected because for them <code>pos?</code> returned true; for the others it returned false, a falsey value, and they were filtered out.</p>
 <section class="alert alert-success">
 <h3>
-Exercise 10
+Exercise 15
 </h3>
 <p>Write the function <code>(books-by-author author books)</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(books-by-author <span class="st">&quot;China Miéville&quot;</span> books) <span class="co">;=&gt; (cities embassytown)</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 11
+Exercise 16
 </h3>
 <p>Implement <code>(book-titles-by-author author books)</code>, which returns the book titles of the books by the given author.</p>
 <p>Use <code>books-by-author</code> as a helper function.</p>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 12
+Exercise 17
 </h3>
 <p>Implement <code>(authors books)</code>, which returns all the authors in a set.</p>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 13
+Exercise 18
 </h3>
 <p>Implement <code>(author-names authors)</code>, which returns all the author names in a set.</p>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 14
+Exercise 19
 </h3>
 <p>Using the two previous functions, implement <code>(books-&gt;author-names books)</code>, which returns all the books’ authors’ names in a set.</p>
 </section>

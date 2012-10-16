@@ -208,7 +208,7 @@ Exercise 5
 <h3>Recursion on numbers</h3>
 <p>Another common data structure to recurse over are numbers. (Even though you might not think of numbers as data structures!) Recursing over numbers is very similar to recursing over sequences. As an example, let’s define a function to calculate the factorial of a number. (Factorial of n is 1 * 2 * … * (n-1) * n.)</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> factorial </span>[n]
-  (<span class="kw">if</span> (zero? n)
+  (<span class="kw">if</span> (<span class="kw">zero?</span> n)
     <span class="dv">1</span>
     (<span class="kw">*</span> n (factorial (<span class="kw">dec</span> n)))))</code></pre>
 <p>The <code>factorial</code> function looks a lot like <code>sum</code>. Given the number <code>n</code>, We have the base case (return 1 if <code>n</code> is zero) and the recursive branch, which multiplies <code>n</code> with the factorial of <code>(dec n)</code>, that is, <code>(- n 1)</code>. To verify that this function really does implement the definition of factorial properly, we can look at how it is evaluated:</p>
@@ -242,7 +242,7 @@ Exercise 5
 <span class="co">;=&gt; 24</span></code></pre>
 <p>Let’s define the general template for recursion over (natural) numbers, like we did for sequences.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> eats-numbers </span>[n]
-  (<span class="kw">if</span> (zero? n)
+  (<span class="kw">if</span> (<span class="kw">zero?</span> n)
     ...
     (... n ... (eats-numbers (<span class="kw">dec</span> n)))))</code></pre>
 <section class="alert alert-success">
@@ -327,7 +327,7 @@ Exercise 9
 (map<span class="dv">-1</span> <span class="kw">identity</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])            <span class="co">;=&gt; (1 2 3)</span>
 (map<span class="dv">-1</span> <span class="kw">count</span> [<span class="st">&quot;aaa&quot;</span> <span class="st">&quot;bb&quot;</span> <span class="st">&quot;cccc&quot;</span>])   <span class="co">;=&gt; (3 2 4)</span>
 (map<span class="dv">-1</span> <span class="kw">first</span> [[<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">4</span>] [<span class="dv">7</span> <span class="dv">12</span> <span class="dv">28</span>]]) <span class="co">;=&gt; (1 4 7)</span>
-(map<span class="dv">-1</span> zero? [<span class="dv">0</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">13</span> <span class="dv">4</span> <span class="dv">0</span>])        <span class="co">;=&gt; (true false true false false true)</span></code></pre>
+(map<span class="dv">-1</span> <span class="kw">zero?</span> [<span class="dv">0</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">13</span> <span class="dv">4</span> <span class="dv">0</span>])        <span class="co">;=&gt; (true false true false false true)</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
@@ -376,7 +376,7 @@ Exercise 12
 <p>Write the function <code>(rotations a-seq)</code> that, when given a sequence, returns all the rotations of that sequence.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(rotations [])                  <span class="co">;=&gt; ()</span>
 (rotations [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])             <span class="co">;=&gt; ((1 2 3) (2 3 1) (3 1 2))</span>
-(rotations [<span class="kw">:a</span> <span class="kw">:b])</span>             <span class="co">;=&gt; ((:a :b) (:b :a))</span>
+(rotations [<span class="kw">:a</span> <span class="kw">:b</span>])             <span class="co">;=&gt; ((:a :b) (:b :a))</span>
 (rotations [<span class="dv">1</span> <span class="dv">5</span> <span class="dv">9</span> <span class="dv">2</span>])           <span class="co">;=&gt; ((1 5 9 2) (2 1 5 9) (9 2 1 5) (5 9 2 1))</span>
 (<span class="kw">count</span> (rotations [<span class="dv">6</span> <span class="dv">5</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">2</span>])) <span class="co">;=&gt; 5</span></code></pre>
 <p>The order of rotations does not matter.</p>
@@ -403,7 +403,7 @@ Exercise 14
 </h3>
 <p>Write the function <code>(un-frequencies a-map)</code> which takes a map produced by <code>my-frequencies</code> and generates a sequence with the corresponding numbers of different elements.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(un-frequencies {<span class="kw">:a</span> <span class="dv">3</span> <span class="kw">:b</span> <span class="dv">2</span> <span class="st">&quot;^_^&quot;</span> <span class="dv">1</span>})             <span class="co">;=&gt; (:a :a :a &quot;^_^&quot; :b :b)</span>
-(un-frequencies (my-frequencies [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span> <span class="kw">:a]))</span>  <span class="co">;=&gt; (:a :a :b :c)</span>
+(un-frequencies (my-frequencies [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span> <span class="kw">:a</span>]))  <span class="co">;=&gt; (:a :a :b :c)</span>
 (my-frequencies (un-frequencies {<span class="kw">:a</span> <span class="dv">100</span> <span class="kw">:b</span> <span class="dv">10</span>})) <span class="co">;=&gt; {:a 100 :b 10}</span></code></pre>
 <p>The order of elements in the output sequence doesn’t matter.</p>
 <p>Hint 1: Remember that you can use <code>first</code> and <code>rest</code> on a map too!</p>

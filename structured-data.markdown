@@ -31,7 +31,7 @@ git clone https://github.com/iloveponies/structured-data.git
 
 We often want to give a piece of data name, either because the act of naming
 gives clarity to the code, or because we want to refer to the data many times.
-As we have seen, package global names are declared with `def`. A function or
+As we have seen, namespace global names are declared with `def`. A function or
 value that is needed only inside one function can be given a *local name* with
 `let`.
 
@@ -96,10 +96,10 @@ The names declared in a `let` expression can refer to previous names in the
 same expression:
 
 ~~~ {.clojure}
-(let [a 42
+(let [a 10
       b (+ a 8)]
-  [a b])
-;=> [42 50]
+  (+ a b))
+;=> 28
 ~~~
 
 In the example above, `b` can refer to `a` because `a` is declared before it.
@@ -108,9 +108,9 @@ On the other hand, `a` can not refer to b:
 ~~~ {.clojure}
 (let [a (+ b 42)
       b 8]
-  [a b])
+  (+ a b))
 ; CompilerException java.lang.RuntimeException: Unable to resolve symbol:
-; b in this context, compiling:(NO_SOURCE_PATH:1) 
+; b in this context, compiling:(NO_SOURCE_PATH:1)
 ~~~
 
 ## Simple values
@@ -195,6 +195,19 @@ exact, `conj` does *not* change the given vector. Instead, it returns a new
 vector, based on the given vector, with the new element appended to this new
 vector.
 
+<exercise>
+Write the function `(cutify v)` that takes a vector as a parameter and adds
+`"<3"` to its end.
+
+~~~{.clojure}
+(cutify []) => []
+(cutify [1 2 3]) => [1 2 3 "<3"]
+(cutify ["a" "b"]) => ["a" "b" "<3"]
+~~~
+
+<!-- "> -->
+</exercise>
+
 `assoc` associates a new value for the given key in the collection. A vector's
 indexes are its keys. Above, we create a new vector based on the previous one,
 with `"foo"` at index `2`. The original vector doesn't change in either of
@@ -230,6 +243,11 @@ Inside the brackets, we give names to the first three elements of the vector.
 `x` will be given the value of the first element, `1`; `b` will be `2` and `c`
 will be `3`. The concatenation of these values that `str` returns is `"123"`.
 
+<exercise>
+Rewrite our earlier function `spiff` by destructuring its
+parameter. Call this new function `spiff-destructuring`.
+</exercise>
+
 You can destructure function parameters directly. For an example, take the
 following function:
 
@@ -259,9 +277,97 @@ to its parameters. Instead, it gives names to their first two elements by
 destructuring the parameters. We could have also destructured the parameters
 with a `let`.
 
+## Thinking With Boxes
+
+Let's define a simple representation for a two-dimensional point. It will simply
+be a pair (2-element vector) of two numbers.
+
+~~~{.clojure}
+(defn point [x y]
+  [x y])
+~~~
+
+And a representation for a rectangle. This will simply be a pair of points,
+the first being the bottom left corner and the second being the top left
+corner.
+
+~~~{.clojure}
+(defn rectangle [bottom-left top-right]
+  [bottom-left top-right])
+~~~
+
 <exercise>
-Rewrite our earlier function `spiff` by destructuring its
-parameters. Call this new function `spiff-destructuring`.
+Write the functions `(height rectangle)` and `(width rectangle)` that return
+the height and width of the given rectangle. Use destructuring.
+
+~~~{.clojure}
+(height (rectangle [1 1] [5 1]))  => 4
+(height (rectangle [1 1] [1 1]))  => 0
+(height (rectangle [3 1] [10 4])) => 7
+
+(width (rectangle [1 1] [5 1])) => 0
+(width (rectangle [1 1] [5 5])) => 4
+(width (rectangle [0 0] [2 3])) => 3
+~~~
+</exercise>
+
+<exercise>
+Write the function `(area rectangle)` that returns the area of the given
+rectangle.
+
+~~~{.clojure}
+(area (rectangle [1 1] [5 1]))  => 0
+(area (rectangle [0 0] [1 1]))  => 1
+(area (rectangle [0 0] [4 3]))  => 12
+(area (rectangle [3 1] [10 4])) => 21
+~~~
+</exercise>
+
+<exercise>
+Write the function `(contains-point? rectangle point)` that returns `true` if
+`rectangle` contains `point` and otherwise `false`.
+
+Remember that you can give `<=` multiple parameters. `(<= x y z)` returns
+`true` if $x \leq y \leq z$ holds. Otherwise `false`.
+
+<!-- >> -->
+
+Hint: `and` is useful.
+
+use destructuring.
+
+~~~{.clojure}
+(contains-point? (rectangle [0 0] [2 2])
+                 (point 1 1))            ;=> true
+(contains-point? (rectangle [0 0] [2 2])
+                 (point 2 1))            ;=> true
+(contains-point? (rectangle [0 0] [2 2])
+                 (point -3 1))           ;=> false
+(contains-point? (rectangle [0 0] [2 2])
+                 (point 1 3))            ;=> false
+(contains-point? (rectangle [1 1] [2 2])
+                 (point 1 1))            ;=> true
+(contains-point? (rectangle [1 1] [1 1])
+                 (point 1 1))            ;=> true
+~~~
+</exercise>
+
+<exercise>
+Write the function `(contains-rectangle? outer inner)` that returns `true` if
+the rectangle `inner` is inside the rectangle `outer` and otherwise `false`.
+
+Hint: use `contains-point?`
+
+~~~{.clojure}
+(contains-rectangle? (rectangle [0 0] [3 3])
+                     (rectangle [1 1] [2 2])) ;=> true
+(contains-rectangle? (rectangle [0 0] [2 2])
+                     (rectangle [1 1] [3 3])) ;=> false
+(contains-rectangle? (rectangle [0 0] [1 1])
+                     (rectangle [0 0] [1 1])) ;=> true
+(contains-rectangle? (rectangle [0 0] [1 1])
+                     (rectangle [1 1] [2 2])) ;=> false
+~~~
 </exercise>
 
 ## Maps
