@@ -293,12 +293,25 @@ Exercise 6
 <h3>
 Exercise 7
 </h3>
-<p>Write the function <code>(not-teen? age)</code>, which returns true when teen? returns false and false otherwise.</p>
+<p>Write the function <code>(not-teen? age)</code>, which returns <code>true</code> when teen? returns <code>false</code> and <code>false</code> otherwise.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(not-teen? <span class="dv">13</span>) <span class="co">;=&gt; false</span>
 (not-teen? <span class="dv">25</span>) <span class="co">;=&gt; true</span>
 (not-teen? <span class="dv">12</span>) <span class="co">;=&gt; true</span>
 (not-teen? <span class="dv">19</span>) <span class="co">;=&gt; false</span>
 (not-teen? <span class="dv">20</span>) <span class="co">;=&gt; true</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 8
+</h3>
+<p>Write the function <code>(leap-year? year)</code>, which returns <code>true</code> if <code>year</code> is a leap year, otherwise <code>false</code>. A year is a leap year if it is divisible by 4, except if it is divisible by 100, in which case it still is a leap year if it is divisible by 400.</p>
+<p>See <a href="http://en.wikipedia.org/wiki/Leap_year#Algorithm">Wikipedia</a> for a simple pseudocode solution.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(leap-year? <span class="dv">100</span>) <span class="co">;=&gt; false</span>
+(leap-year? <span class="dv">200</span>) <span class="co">;=&gt; false</span>
+(leap-year? <span class="dv">400</span>) <span class="co">;=&gt; true</span>
+(leap-year? <span class="dv">12</span>)  <span class="co">;=&gt; true</span>
+(leap-year? <span class="dv">20</span>)  <span class="co">;=&gt; true</span>
+(leap-year? <span class="dv">15</span>)  <span class="co">;=&gt; false</span></code></pre>
 </section>
 <p><a href="structured-data.html">Proceed to structuration! →</a></p>
 </section>

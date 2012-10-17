@@ -397,8 +397,8 @@ Note that this can only be used in situations where the input may not take the
 values `false` or `nil`.
 
 <exercise>
-Write the function `(not-teen? age)`, which returns true when teen? returns
-false and false otherwise.
+Write the function `(not-teen? age)`, which returns `true` when teen? returns
+`false` and `false` otherwise.
 
 ~~~ {.clojure}
 (not-teen? 13) ;=> false
@@ -406,6 +406,25 @@ false and false otherwise.
 (not-teen? 12) ;=> true
 (not-teen? 19) ;=> false
 (not-teen? 20) ;=> true
+~~~
+</exercise>
+
+<exercise>
+Write the function `(leap-year? year)`, which returns `true` if `year` is a
+leap year, otherwise `false`. A year is a leap year if it is divisible by 4, except if it is
+divisible by 100, in which case it still is a leap year if it is divisible by
+400.
+
+See [Wikipedia](http://en.wikipedia.org/wiki/Leap_year#Algorithm) for a simple
+pseudocode solution.
+
+~~~{.clojure}
+(leap-year? 100) ;=> false
+(leap-year? 200) ;=> false
+(leap-year? 400) ;=> true
+(leap-year? 12)  ;=> true
+(leap-year? 20)  ;=> true
+(leap-year? 15)  ;=> false
 ~~~
 </exercise>
 
