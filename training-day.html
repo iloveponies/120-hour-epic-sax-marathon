@@ -204,10 +204,27 @@ Exercise 3
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))
 #&lt;user$eval326$fn__327 user$eval326$fn__327<span class="kw">@4a2d09aa&gt;</span></code></pre>
 <p>So what kind of a function did we actually get? Inside the square brackets are the parameters of the function. This one only has a one and we gave that a name <code>who</code>. Right after that comes comes an expression, a function call in this case. The value of this expression will become the return value of this function. In general, the return value of a function will be the value of the last expression in the function.</p>
-<p>Now we know how to make a function, but we only got a glimpse of it and then it was gone. We want something more permanent, something that we can write once and call multiple times. The functions created with <code>fn</code> are called <em>anonymous functions</em>. They are named such because they have no name. To give a name to a function we can use <code>def</code>. Let’s give the function a name right away.</p>
+<p>So we got a function. Lets call it!</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">((<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>)) <span class="st">&quot;Jani&quot;</span>) <span class="co">;=&gt; &quot;Hello, Jani!&quot;</span></code></pre>
+<p>That worked just like with <code>+</code> and the others. First comes the function, then the arguments. In this case the function does not have a name so we need to write the whole definiton. We also have only one argument, <code>Jani</code>.</p>
+<section class="alert alert-success">
+<h3>
+Exercise 4
+</h3>
+<p>Call the following function with your name.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">fn</span> [<span class="kw">name</span>] (<span class="kw">str</span> <span class="st">&quot;Welcome to Rivendell mr &quot;</span> <span class="kw">name</span>))</code></pre>
+</section>
+<p>Now we know how to make a function, but we only got a glimpse of it and then it was gone. We have to write the definition of the function every time we want to call it. But we want something more permanent, something that we can write once and call multiple times. The functions created with <code>fn</code> are called <em>anonymous functions</em>. They are named such because they have no name. To give a name to a function we can use <code>def</code>. Let’s give the greeter function a name right away.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> hello </span>(<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>)))</code></pre>
 <p>Don’t forget to evaluate that one. Now we can call this function. Write <code>(hello &quot;beautiful&quot;)</code> in your REPL to get a instant compliment. In the name of sex-equality evaluate also <code>(hello &quot;handsome&quot;)</code>.</p>
 <p>So what just happened? Well, <code>def</code> gives a name to a value. In the previous case the value is what we get when we evaluate <code>(fn [who] (str &quot;Hello, &quot; who &quot;!&quot;))</code>. And what do we get when we evaluate that? A function. So we gave the name <code>hello</code> to a function that gives out greetings.</p>
+<section class="alert alert-success">
+<h3>
+Exercise 5
+</h3>
+<p>Give a name <code>answer</code> to the answer to life the universe and everything.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">aswer <span class="co">;=&gt; 42</span></code></pre>
+</section>
 <p>Anonymous functions have their uses in functional programming. So it is nice to know that we can create them with <code>fn</code>. But most of the time we want to give the function a name right away. To make that a bit easier, we have <code>defn</code>. Here is how to create <em>and</em> name the previous function with <code>defn</code>. There is a running commentary alongside, to make sure we understand its parts.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu">                                 </span><span class="co">; Start a function definition:</span>
   hello                               <span class="co">; name</span>
@@ -362,7 +379,7 @@ FAIL &quot;square&quot; at (training_day_test.clj:7)
 <p>After writing the implementation of <code>square</code> in <code>src/training_day.clj</code>, run <code>lein midje</code> again to see if your implementation agrees with the facts declared in our test file.</p>
 <section class="alert alert-success">
 <h3>
-Exercise 4
+Exercise 6
 </h3>
 <p>Write the function <code>(square x)</code> that takes a number as a parameter and multiplies it with itself.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(square <span class="dv">2</span>) <span class="co">;=&gt; 4</span>
@@ -370,7 +387,7 @@ Exercise 4
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 5
+Exercise 7
 </h3>
 <p>Write the function <code>(average a b)</code>, which returns the average of its two parameters:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(average <span class="dv">2</span> <span class="dv">4</span>) <span class="co">;=&gt; 3</span>

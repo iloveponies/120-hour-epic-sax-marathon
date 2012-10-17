@@ -257,12 +257,33 @@ will become the return value of this function. In general, the return
 value of a function will be the value of the last expression in the
 function.
 
+So we got a function. Lets call it!
+
+~~~clojure
+((fn [who] (str "Hello, " who "!")) "Jani") ;=> "Hello, Jani!"
+~~~
+
+That worked just like with `+` and the others. First comes the
+function, then the arguments. In this case the function does not have
+a name so we need to write the whole definiton. We also have only one
+argument, `Jani`.
+
+<exercise>
+Call the following function with your name.
+
+~~~clojure
+(fn [name] (str "Welcome to Rivendell mr " name))
+~~~
+
+</exercise>
+
 Now we know how to make a function, but we only got a glimpse of it
-and then it was gone. We want something more permanent, something that
-we can write once and call multiple times. The functions created with
-`fn` are called *anonymous functions*. They are named such because
-they have no name. To give a name to a function we can use `def`.
-Let's give the function a name right away.
+and then it was gone. We have to write the definition of the function
+every time we want to call it. But we want something more permanent,
+something that we can write once and call multiple times. The
+functions created with `fn` are called *anonymous functions*. They are
+named such because they have no name. To give a name to a function we
+can use `def`. Let's give the greeter function a name right away.
 
 ~~~clojure
 (def hello (fn [who] (str "Hello, " who "!")))
@@ -277,6 +298,16 @@ previous case the value is what we get when we evaluate `(fn [who]
 (str "Hello, " who "!"))`. And what do we get when we evaluate that? A
 function. So we gave the name `hello` to a function that gives out
 greetings.
+
+<exercise>
+Give a name `answer` to the answer to life the universe and
+everything.
+
+~~~clojure
+aswer ;=> 42
+~~~
+
+</exercise>
 
 Anonymous functions have their uses in functional programming. So it
 is nice to know that we can create them with `fn`. But most of the
