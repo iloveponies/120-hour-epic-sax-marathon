@@ -196,11 +196,18 @@ Exercise 3
 <section class="level2" id="functions">
 <h2>Functions</h2>
 <p>So far we’ve worked with expressions and called some existing functions. For structuring any kind of non-trivial programs, we will want to group code into our own <em>functions</em>.</p>
-<p>Functions are written in source files, and we have one ready, <code>hello.clj</code>, so let’s write the following function definition in that file. We’ll write the function <code>(hello who)</code>, which returns an English greeting for the user.</p>
-<p>Functions are defined with <code>defn</code>:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hello </span>[who]
-  (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))</code></pre>
-<p>Write this function to the <code>hello.clj</code> file found in the <code>example</code> directory that we created previously.</p>
+<p>Lets start writing a function <code>(hello who)</code>, which returns an English greeting for the user. Functions are created with <code>fn</code>. Write the following in you REPL and evaluate it.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))</code></pre>
+<p>The REPL should tell you that it was a function. Instarepl just says</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>)) =&gt; <span class="kw">fn</span></code></pre>
+<p>As usual, <code>lein repl</code> is a bit more verbose and states</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))
+#&lt;user$eval326$fn__327 user$eval326$fn__327<span class="kw">@4a2d09aa&gt;</span></code></pre>
+<p>So what kind of a function did we actually get? Inside the square brackets are the parameters of the function. This one only has a one and we gave that a name <code>who</code>. Right after that comes comes an expression, a function call in this case. The value of this expression will become the return value of this function. In general, the return value of a function will be the value of the last expression in the function.</p>
+<p>Now we know how to make a function, but we only got a glimpse of it and then it was gone. We want something more permanent, something that we can write once and call multiple times. The functions created with <code>fn</code> are called <em>anonymous functions</em>. They are named such because they have no name. To give a name to a function we can use <code>def</code>. Let’s give the function a name right away.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> hello </span>(<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>)))</code></pre>
+<p>Don’t forget to evaluate that one. Now we can call this function. Write <code>(hello &quot;handsome&quot;)</code> in your REPL to get a instant compliment. When you have recovered from the previous (and we are sorry if you are a woman) we can go through what just happened.</p>
+<p><code>def</code> gives a name to a value. In the previous case the value is what we get when we evaluate <code>(fn [who] (str &quot;Hello, &quot; who &quot;!&quot;))</code>. And what do we get when we evaluate that? A function. So we gave the name <code>hello</code> to a function that gives out greetings.</p>
 <p>Let’s take another look at that function, now with running commentary alongside, to make sure we understand its parts.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu">                       </span><span class="co">; Start a function definition:</span>
   hello                     <span class="co">; name</span>

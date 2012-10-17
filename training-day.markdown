@@ -228,19 +228,55 @@ So far we've worked with expressions and called some existing
 functions. For structuring any kind of non-trivial programs, we will
 want to group code into our own *functions*.
 
-Functions are written in source files, and we have one ready, `hello.clj`, so
-let's write the following function definition in that file. We'll write the
-function `(hello who)`, which returns an English greeting for the user.
+Lets start writing a function `(hello who)`, which returns an English
+greeting for the user. Functions are created with `fn`. Write the
+following in you REPL and evaluate it.
 
-Functions are defined with `defn`:
-
-~~~ {.clojure}
-(defn hello [who]
-  (str "Hello, " who "!"))
+~~~clojure
+(fn [who] (str "Hello, " who "!"))
 ~~~
 
-Write this function to the `hello.clj` file found in the `example` directory
-that we created previously.
+The REPL should tell you that it was a function. Instarepl just says
+
+~~~clojure
+(fn [who] (str "Hello, " who "!")) => fn
+~~~
+
+As usual, `lein repl` is a bit more verbose and states
+
+~~~clojure
+user=> (fn [who] (str "Hello, " who "!"))
+#<user$eval326$fn__327 user$eval326$fn__327@4a2d09aa>
+~~~
+
+So what kind of a function did we actually get? Inside the square
+brackets are the parameters of the function. This one only has a one
+and we gave that a name `who`. Right after that comes comes an
+expression, a function call in this case. The value of this expression
+will become the return value of this function. In general, the return
+value of a function will be the value of the last expression in the
+function.
+
+Now we know how to make a function, but we only got a glimpse of it
+and then it was gone. We want something more permanent, something that
+we can write once and call multiple times. The functions created with
+`fn` are called *anonymous functions*. They are named such because
+they have no name. To give a name to a function we can use `def`.
+Let's give the function a name right away.
+
+~~~clojure
+(def hello (fn [who] (str "Hello, " who "!")))
+~~~
+
+Don't forget to evaluate that one. Now we can call this function.
+Write `(hello "handsome")` in your REPL to get a instant compliment.
+When you have recovered from the previous (and we are sorry if you are
+a woman) we can go through what just happened.
+
+`def` gives a name to a value. In the previous case the value is what
+we get when we evaluate `(fn [who] (str "Hello, " who "!"))`. And what
+do we get when we evaluate that? A function. So we gave the name
+`hello` to a function that gives out greetings.
 
 Let's take another look at that function, now with running commentary
 alongside, to make sure we understand its parts.
