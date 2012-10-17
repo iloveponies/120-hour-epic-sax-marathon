@@ -269,64 +269,81 @@ Let's give the function a name right away.
 ~~~
 
 Don't forget to evaluate that one. Now we can call this function.
-Write `(hello "handsome")` in your REPL to get a instant compliment.
-When you have recovered from the previous (and we are sorry if you are
-a woman) we can go through what just happened.
+Write `(hello "beautiful")` in your REPL to get a instant compliment.
+In the name of sex-equality evaluate also `(hello "handsome")`.
 
-`def` gives a name to a value. In the previous case the value is what
-we get when we evaluate `(fn [who] (str "Hello, " who "!"))`. And what
-do we get when we evaluate that? A function. So we gave the name
-`hello` to a function that gives out greetings.
+So what just happened? Well, `def` gives a name to a value. In the
+previous case the value is what we get when we evaluate `(fn [who]
+(str "Hello, " who "!"))`. And what do we get when we evaluate that? A
+function. So we gave the name `hello` to a function that gives out
+greetings.
 
-Let's take another look at that function, now with running commentary
+Anonymous functions have their uses in functional programming. So it
+is nice to know that we can create them with `fn`. But most of the
+time we want to give the function a name right away. To make that a
+bit easier, we have `defn`. Here is how to create *and* name the
+previous function with `defn`. There is a running commentary
 alongside, to make sure we understand its parts.
 
 ~~~ {.clojure}
-(defn                       ; Start a function definition:
-  hello                     ; name
-  [who]                     ; parameters inside brackets
-  (str "Hello, " who "!"))  ; body
+(defn                                 ; Start a function definition:
+  hello                               ; name
+  "Gives out personalized greetings." ; a optional docstring
+  [who]                               ; parameters inside brackets
+  (str "Hello, " who "!"))            ; body
 ~~~
 
-Here `hello` is the name of the function, `[who]` is the parameter list, and
-the expression on the second line is the body of the function. The return
-value of the function is the value of the last expression inside the function
-body. In this case, it is the value of the `(str "Hello, " who "!")`
-expression.
+Here `hello` is the name of the function, `[who]` is the parameter
+list, and the expression on the second line is the body of the
+function. The return value of the function is the value of the last
+expression inside the function body. In this case, it is the value of
+the `(str "Hello, " who "!")` expression. We have also provided an
+docstring that briefly tells what this function does. This is
+optional, but like washing your hands after visiting the toilet,
+highly recommended.
 
 For comparison, our function looks like this in Java:
 
 ~~~ {.java}
+/**
+ * Gives out personalized greetings.
+ */
 String hello(String who) {
     return "Hello, " + who + "!";
 }
 ~~~
 
-Note that in Clojure, there is no `return` keyword; the return value of a
-function is always the value of the last expression in the function body.
+Note that in Clojure, there is no `return` keyword. The return value
+of a function is always the value of the last expression in the
+function body.
 
-Now, let's try calling our function (assuming you have now added it to the
-`hello.clj` file and saved the file):
-
-~~~ {.clojure}
-user=> (use 'example.hello :reload)
-user=> (hello "world")
-"Hello, world!"
-~~~
-
-First we import the `example.hello` namespace, and tell Clojure to *reimport*
-it if it is already imported, so we actually see the new function definition.
-We then call the function with the parameter `"world"`. Calling the
-function evaluated its body with `who` bound to `"world"`. We can
-imagine the evaluator doing something like the following:
+<info>
+Want to take a look at the docstring of some function? You can use the
+`doc` function to do so. Unfortunately you need to do some tricks to
+get your hands at this function. But don't worry, it's not difficult.
 
 ~~~ {.clojure}
-(hello "world")
-;=> (str "Hello, " "world" "!")
-;=> "Hello, world!"
+user=> (use 'clojure.repl)
+user=> (doc +)
+-------------------------
+clojure.core/+
+([] [x] [x y] [x y & more])
+  Returns the sum of nums. (+) returns 0. Does not auto-promote
+  longs, will throw on overflow. See also: +'
+nil
 ~~~
 
-We now know all the basics of structuring Clojure programs.
+You can also see the docstring of our `hello` function. Evaluate the
+following in your REPL.
+
+~~~clojure
+(use 'clojure.repl)
+(doc hello)
+~~~
+
+The next section will tell you more about the function `use`.
+
+</info>
 
 ## Files and Namespaces
 
