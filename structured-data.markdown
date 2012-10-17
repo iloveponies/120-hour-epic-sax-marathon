@@ -301,13 +301,13 @@ Write the functions `(height rectangle)` and `(width rectangle)` that return
 the height and width of the given rectangle. Use destructuring.
 
 ~~~{.clojure}
-(height (rectangle [1 1] [5 1]))  => 4
-(height (rectangle [1 1] [1 1]))  => 0
-(height (rectangle [3 1] [10 4])) => 7
+(height (rectangle [1 1] [5 1])) => 0
+(height (rectangle [1 1] [5 5])) => 4
+(height (rectangle [0 0] [2 3])) => 3
 
-(width (rectangle [1 1] [5 1])) => 0
-(width (rectangle [1 1] [5 5])) => 4
-(width (rectangle [0 0] [2 3])) => 3
+(width (rectangle [1 1] [5 1]))  => 4
+(width (rectangle [1 1] [1 1]))  => 0
+(width (rectangle [3 1] [10 4])) => 7
 ~~~
 </exercise>
 
