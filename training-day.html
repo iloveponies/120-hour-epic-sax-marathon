@@ -58,9 +58,17 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section class="level2" id="interactive-clojure">
 <h2>Interactive Clojure</h2>
-<p>To start an interactive Clojure session, type <code>lein repl</code> in the terminal.</p>
-<p>It should look like this:</p>
-<pre><code>clojure@clojure-VirtualBox:~$ lein repl
+<section class="level3" id="light-table">
+<h3>Light Table</h3>
+<p>Did you choose Light Table as your editor? Actually, you should test it in any case. It’s pretty awsome. Follow the installation instructions found <a href="http://app.kodowa.com/playground">here</a> if you haven’t already. In Linux, you run the <code>launcher.jar</code> as you would run any .jar file and then navigate to <code>localhost:8833</code> in Chrome (or Chromium). Select Instarepl when confronted with the choice.</p>
+<p>On the left side you have a box. Click under the last line of text, press <code>Enter</code> to get some breathing space and type <code>(+ 1 2)</code>. The answer should appear as the last line on the right hand side like this</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>) =&gt; <span class="dv">3</span></code></pre>
+<p>If something went sideways, please let us know by raising your hand.</p>
+</section>
+<section class="level3" id="good-ol-repl">
+<h3>Good ol’ repl</h3>
+<p>If you don’t want to use Light Table, there is always the <code>lein repl</code>. Issue that command in the terminal and a interactive Clojure session starts. It should look like this:</p>
+<pre><code>me@my-computer:~$ lein repl
 nREPL server started on port 50443
 Welcome to REPL-y!
 Clojure 1.4.0
@@ -74,7 +82,6 @@ Commands: (user/help)
 Examples from clojuredocs.org: [clojuredocs or cdoc]
           (user/clojuredocs name-here)
           (user/clojuredocs &quot;ns-here&quot; &quot;name-here&quot;)
-nil
 user=&gt;</code></pre>
 <p>If you type <code>(+ 1 2)</code> and press the return key, you should see this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>)
@@ -82,12 +89,13 @@ user=&gt;</code></pre>
 user=&gt;</code></pre>
 <p>Clojure evaluated the expression <code>(+ 1 2)</code> and printed its value, <code>3</code>. If you see something different, please let us know by raising your hand.</p>
 </section>
+</section>
 <section class="level2" id="notation">
 <h2>Notation</h2>
 <p>In our example code, we often want to show the result of an expression when it is evaluated. Instead of showing what evaluating the expression in the interactive session looks like:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)
 <span class="dv">7</span></code></pre>
-<p>We’re going to use the convention of writing the expression and the result, separated with <code>;=&gt;</code>. For an example:</p>
+<p>We’re going to use the convention of writing the expression and the result, separated with <code>;=&gt;</code>. Quite like how Light Table does it. For an example:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="co">;=&gt; 7</span></code></pre>
 <p>Sometimes we will put the result on a new line:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="dv">1337</span>)
@@ -166,7 +174,12 @@ Exercise 2
 (<span class="kw">*</span> <span class="dv">2</span>) <span class="co">;=&gt; 2</span>
 (<span class="kw">-</span> <span class="dv">3</span>) <span class="co">;=&gt; -3</span>
 (<span class="kw">/</span> <span class="dv">4</span>) <span class="co">;=&gt; 1/4</span></code></pre>
-<p>This behavior might seem odd, but here is the catch. The arithmetic operations above are, in fact, function calls. That is, <code>+</code> is actually a function (called <code>+</code>), as are <code>*</code> and <code>-</code>.</p>
+<p>This behavior might seem odd, but here is the catch. The arithmetic operations above are, in fact, function calls. That is, <code>+</code> is actually a function (called <code>+</code>), as are <code>*</code> and <code>-</code>. Don’t believe use? Write just <code>+</code> in the REPL. In Instarepl you see</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">+</span> =&gt; <span class="kw">fn</span></code></pre>
+<p>and in <code>lein repl</code></p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; <span class="kw">+</span>
+#&lt;core$_PLUS_ clojure.core$_PLUS_<span class="kw">@2d21471c&gt;</span></code></pre>
+<p>They are both telling you that <code>+</code> is just a function.</p>
 <p>All function calls in Clojure look the same: <code>(function-name argument-1 argument-2 ...)</code>. As an example of a non-arithmetic function, let’s take a look at getting a single character from a string in Clojure and Java. In Clojure, we can use the <code>get</code> function for this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> <span class="st">&quot;Clojure&quot;</span> <span class="dv">2</span>) <span class="co">;=&gt; \o</span></code></pre>
 <p>The result is the character <code>o</code>, printed in Clojure’s literal character syntax. (That is, <code>\o</code> in Clojure code means the single character <code>o</code>. In Java, you would write a literal character as <code>'o'</code>.)</p>
@@ -180,29 +193,57 @@ Exercise 3
 <p>Write a Clojure expression that, using <code>get</code>, gets the first character in the string <code>&quot;abrakadabra&quot;</code>.</p>
 </section>
 </section>
+<section class="level2" id="functions">
+<h2>Functions</h2>
+<p>So far we’ve worked with expressions and called some existing functions. For structuring any kind of non-trivial programs, we will want to group code into our own <em>functions</em>.</p>
+<p>Functions are written in source files, and we have one ready, <code>hello.clj</code>, so let’s write the following function definition in that file. We’ll write the function <code>(hello who)</code>, which returns an English greeting for the user.</p>
+<p>Functions are defined with <code>defn</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hello </span>[who]
+  (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))</code></pre>
+<p>Write this function to the <code>hello.clj</code> file found in the <code>example</code> directory that we created previously.</p>
+<p>Let’s take another look at that function, now with running commentary alongside, to make sure we understand its parts.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu">                       </span><span class="co">; Start a function definition:</span>
+  hello                     <span class="co">; name</span>
+  [who]                     <span class="co">; parameters inside brackets</span>
+  (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))  <span class="co">; body</span></code></pre>
+<p>Here <code>hello</code> is the name of the function, <code>[who]</code> is the parameter list, and the expression on the second line is the body of the function. The return value of the function is the value of the last expression inside the function body. In this case, it is the value of the <code>(str &quot;Hello, &quot; who &quot;!&quot;)</code> expression.</p>
+<p>For comparison, our function looks like this in Java:</p>
+<pre class="sourceCode java"><code class="sourceCode java">String <span class="fu">hello</span>(String who) {
+    <span class="kw">return</span> <span class="st">&quot;Hello, &quot;</span> + who + <span class="st">&quot;!&quot;</span>;
+}</code></pre>
+<p>Note that in Clojure, there is no <code>return</code> keyword; the return value of a function is always the value of the last expression in the function body.</p>
+<p>Now, let’s try calling our function (assuming you have now added it to the <code>hello.clj</code> file and saved the file):</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;example.hello <span class="kw">:reload</span>)
+user=&gt; (hello <span class="st">&quot;world&quot;</span>)
+<span class="st">&quot;Hello, world!&quot;</span></code></pre>
+<p>First we import the <code>example.hello</code> namespace, and tell Clojure to <em>reimport</em> it if it is already imported, so we actually see the new function definition. We then call the function with the parameter <code>&quot;world&quot;</code>. Calling the function evaluated its body with <code>who</code> bound to <code>&quot;world&quot;</code>. We can imagine the evaluator doing something like the following:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(hello <span class="st">&quot;world&quot;</span>)
+<span class="co">;=&gt; (str &quot;Hello, &quot; &quot;world&quot; &quot;!&quot;)</span>
+<span class="co">;=&gt; &quot;Hello, world!&quot;</span></code></pre>
+<p>We now know all the basics of structuring Clojure programs.</p>
+</section>
 <section class="level2" id="files-and-namespaces">
 <h2>Files and Namespaces</h2>
 <p>Code in Clojure projects is structured into separate files. Usually each file corresponds to a namespace identified by the file’s path. For an example, the file <code>foo/bar/baz.clj</code> contains the namespace <code>foo.bar.baz</code>. This is slightly different from Java, where directories correspond to namespaces (packages) and files under a directory usually contain a single class in the given package.</p>
 <p>Let’s create the basic structure for a project to get a feeling for how this works. As you read the description below, execute the same steps on your own computer.</p>
 <p>Suppose we start a project called <code>foobar</code>. First, we create the basic directory structure with an example file:</p>
-<pre><code>clojure@clojure-VirtualBox:~$ mkdir foobar
-clojure@clojure-VirtualBox:~$ cd foobar
-clojure@clojure-VirtualBox:~/foobar$ mkdir example
-clojure@clojure-VirtualBox:~/foobar$ cd example/
-clojure@clojure-VirtualBox:~/foobar/example$ evim hello.clj
-clojure@clojure-VirtualBox:~/foobar/example$</code></pre>
+<pre><code>me@my-computer:~$ mkdir foobar
+me@my-computer:~$ cd foobar
+me@my-computer:~/foobar$ mkdir example
+me@my-computer:~/foobar$ cd example/
+me@my-computer:~/foobar/example$ touch hello.clj</code></pre>
 <p>This will result in the following directory structure:</p>
 <pre><code>. foobar
 +-. example/
   +- hello.clj</code></pre>
-<p>Here <code>hello.clj</code> is under the directory <code>example</code>, which means it contains the namespace <code>example.hello</code>:</p>
+<p>Here <code>hello.clj</code> is under the directory <code>example</code>, which means it should contain the namespace <code>example.hello</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">ns</span> example.hello)
 
 (<span class="kw">println</span> <span class="st">&quot;O HAI!&quot;</span>)</code></pre>
 <p>Namespaces are declared with <code>ns</code>. Write this in EVim and save the file.</p>
 <p>We can now go back to the <code>foobar</code> directory and start an interactive Clojure session in the project:</p>
-<pre><code>clojure@clojure-VirtualBox:~/foobar/example$ cd ..
-clojure@clojure-VirtualBox:~/foobar$ lein repl
+<pre><code>me@my-computer:~/foobar/example$ cd ..
+me@my-computer:~/foobar$ lein repl
 nREPL server started on port 39455
 Welcome to REPL-y!
 Clojure 1.4.0
@@ -233,42 +274,13 @@ java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">
 <p><code>'</code> is an alias for the <code>quote</code> special form, which we will talk more about later.</p>
 </section>
 </section>
-<section class="level2" id="functions">
-<h2>Functions</h2>
-<p>So far we’ve worked with expressions and simple names defined with <code>def</code>. For structuring any kind of non-trivial programs, we will want to group code into <em>functions</em>.</p>
-<p>Functions are written in source files, and we have one ready, <code>hello.clj</code>, so let’s write the following function definition in that file. We’ll write the function <code>(hello who)</code>, which returns an English greeting for the user.</p>
-<p>Functions are defined with <code>defn</code>:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> hello </span>[who]
-  (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))</code></pre>
-<p>Write this function to the <code>hello.clj</code> file found in the <code>example</code> directory that we created previously.</p>
-<p>Let’s take another look at that function, now with running commentary alongside, to make sure we understand its parts.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu">                       </span><span class="co">; Start a function definition:</span>
-  hello                     <span class="co">; name</span>
-  [who]                     <span class="co">; parameters inside brackets</span>
-  (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))  <span class="co">; body</span></code></pre>
-<p>Here <code>hello</code> is the name of the function, <code>[who]</code> is the parameter list, and the expression on the second line is the body of the function. The return value of the function is the value of the last expression inside the function body. In this case, it is the value of the <code>(str &quot;Hello, &quot; who &quot;!&quot;)</code> expression.</p>
-<p>For comparison, our function looks like this in Java:</p>
-<pre class="sourceCode java"><code class="sourceCode java">String <span class="fu">hello</span>(String who) {
-    <span class="kw">return</span> <span class="st">&quot;Hello, &quot;</span> + who + <span class="st">&quot;!&quot;</span>;
-}</code></pre>
-<p>Note that in Clojure, there is no <code>return</code> keyword; the return value of a function is always the value of the last expression in the function body.</p>
-<p>Now, let’s try calling our function (assuming you have now added it to the <code>hello.clj</code> file and saved the file):</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> &#39;example.hello <span class="kw">:reload</span>)
-user=&gt; (hello <span class="st">&quot;world&quot;</span>)
-<span class="st">&quot;Hello, world!&quot;</span></code></pre>
-<p>First we import the <code>example.hello</code> namespace, and tell Clojure to <em>reimport</em> it if it is already imported, so we actually see the new function definition. We then call the function with the parameter <code>&quot;world&quot;</code>. Calling the function evaluated its body with <code>who</code> bound to <code>&quot;world&quot;</code>. We can imagine the evaluator doing something like the following:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(hello <span class="st">&quot;world&quot;</span>)
-<span class="co">;=&gt; (str &quot;Hello, &quot; &quot;world&quot; &quot;!&quot;)</span>
-<span class="co">;=&gt; &quot;Hello, world!&quot;</span></code></pre>
-<p>We now know all the basics of structuring Clojure programs.</p>
-</section>
 <section class="level2" id="we-come-gifting-bears">
 <h2>We come gifting bears</h2>
 <blockquote>
 <p>When in doubt, do exactly the opposite of CVS. <small>Linus Torvalds</small></p>
 </blockquote>
 <p>We will now move to a Leiningen-based project structure instead of the one we manually created above. It contains unit tests for the exercises that will follow. No worries, though: you can use <a href="http://git-scm.com">Git</a> to get a ready-made structure we have lovingly hand-crafted just for you:</p>
-<pre><code>clojure@clojure-VirtualBox:~$ git clone https://github.com/iloveponies/training-day.git
+<pre><code>me@my-computer:~$ git clone https://github.com/iloveponies/training-day.git
 Cloning into &#39;training-day&#39;...
 remote: Counting objects: 18, done.
 remote: Compressing objects: 100% (10/10), done.
@@ -276,8 +288,8 @@ remote: Total 18 (delta 5), reused 17 (delta 4)
 Unpacking objects: 100% (18/18), done.</code></pre>
 <p>You now have your own copy of the project that we will use for writing the exercises in this chapter.</p>
 <p>Let’s run the unit tests first. This will output a <em>lot</em> of somewhat superfluous information while Leiningen downloads the project dependencies, so you will see more output printed than what is shown below. This output is printed only once, so subsequent runs will not be so chatty.</p>
-<pre><code>clojure@clojure-VirtualBox:~$ cd training-day/
-clojure@clojure-VirtualBox:~/training-day$ lein midje</code></pre>
+<pre><code>me@my-computer:~$ cd training-day/
+me@my-computer:~/training-day$ lein midje</code></pre>
 <p>Leiningen tells us it’s downloading the whole internet:</p>
 <pre><code>Could not find metadata lein-midje:lein-midje:2.0.0-SNAPSHOT/maven-metadata.xml in central (http://repo1.maven.org/maven2)
 Retrieving lein-midje/lein-midje/2.0.0-SNAPSHOT/maven-metadata.xml (1k)
@@ -304,7 +316,7 @@ FAIL &quot;average&quot; at (training_day_test.clj:20)
     Expected: 3/2
       Actual: &quot;:(&quot;
 FAILURE: 9 facts were not confirmed.
-clojure@clojure-VirtualBox:~/training-day$</code></pre>
+me@my-computer:~/training-day$</code></pre>
 <p>Our project uses the <a href="https://github.com/marick/Midje">Midje</a> testing library. Let’s take a look at what kind of tests the project contains. Open the file <code>test/training_day_test.clj</code>. The first ten lines or so of the file look like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">ns</span> training-day-test
   (<span class="kw">:use</span> training-day

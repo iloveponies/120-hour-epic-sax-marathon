@@ -12,12 +12,33 @@ A whirlwind tour of the basics of Clojure, including:
 
 ## Interactive Clojure
 
-To start an interactive Clojure session, type `lein repl` in the terminal.
+### Light Table
 
-It should look like this:
+Did you choose Light Table as your editor? Actually, you should test
+it in any case. It's pretty awsome. Follow the installation
+instructions found [here][LightTable] if you haven't already. In
+Linux, you run the `launcher.jar` as you would run any .jar file and
+then navigate to `localhost:8833` in Chrome (or Chromium). Select
+Instarepl when confronted with the choice.
+
+On the left side you have a box. Click under the last line of text,
+press `Enter` to get some breathing space and type `(+ 1 2)`. The
+answer should appear as the last line on the right hand side like this
+
+~~~clojure
+(+ 1 2) => 3
+~~~
+
+If something went sideways, please let us know by raising your hand.
+
+### Good ol' repl
+
+If you don't want to use Light Table, there is always the `lein repl`.
+Issue that command in the terminal and a interactive Clojure session
+starts. It should look like this:
 
 ~~~
-clojure@clojure-VirtualBox:~$ lein repl
+me@my-computer:~$ lein repl
 nREPL server started on port 50443
 Welcome to REPL-y!
 Clojure 1.4.0
@@ -31,7 +52,6 @@ Commands: (user/help)
 Examples from clojuredocs.org: [clojuredocs or cdoc]
           (user/clojuredocs name-here)
           (user/clojuredocs "ns-here" "name-here")
-nil
 user=>
 ~~~
 
@@ -49,16 +69,17 @@ see something different, please let us know by raising your hand.
 ## Notation
 
 In our example code, we often want to show the result of an expression
-when it is evaluated. Instead of showing what evaluating the expression in the
-interactive session looks like:
+when it is evaluated. Instead of showing what evaluating the
+expression in the interactive session looks like:
 
 ~~~{.clojure}
 user=> (+ 3 4)
 7
 ~~~
 
-We're going to use the convention of writing the expression and the result,
-separated with `;=>`. For an example:
+We're going to use the convention of writing the expression and the
+result, separated with `;=>`. Quite like how Light Table does it. For
+an example:
 
 ~~~{.clojure}
 (+ 3 4) ;=> 7
@@ -154,7 +175,21 @@ the operations works with only one operand.
 
 This behavior might seem odd, but here is the catch. The arithmetic
 operations above are, in fact, function calls. That is, `+` is
-actually a function (called `+`), as are `*` and `-`.
+actually a function (called `+`), as are `*` and `-`. Don't believe
+use? Write just `+` in the REPL. In Instarepl you see
+
+~~~clojure
++ => fn
+~~~
+
+and in `lein repl`
+
+~~~clojure
+user=> +
+#<core$_PLUS_ clojure.core$_PLUS_@2d21471c>
+~~~
+
+They are both telling you that `+` is just a function.
 
 All function calls in Clojure look the same: `(function-name
 argument-1 argument-2 ...)`. As an example of a non-arithmetic
@@ -187,102 +222,11 @@ Write a Clojure expression that, using `get`, gets the first character in
 the string `"abrakadabra"`.
 </exercise>
 
-## Files and Namespaces
-
-Code in Clojure projects is structured into separate files. Usually each file
-corresponds to a namespace identified by the file's path. For an example, the
-file `foo/bar/baz.clj` contains the namespace `foo.bar.baz`. This is slightly
-different from Java, where directories correspond to namespaces (packages) and
-files under a directory usually contain a single class in the given package.
-
-Let's create the basic structure for a project to get a feeling for how
-this works. As you read the description below, execute the same steps on your
-own computer.
-
-Suppose we start a project called `foobar`. First, we create the basic
-directory structure with an example file:
-
-~~~
-clojure@clojure-VirtualBox:~$ mkdir foobar
-clojure@clojure-VirtualBox:~$ cd foobar
-clojure@clojure-VirtualBox:~/foobar$ mkdir example
-clojure@clojure-VirtualBox:~/foobar$ cd example/
-clojure@clojure-VirtualBox:~/foobar/example$ evim hello.clj
-clojure@clojure-VirtualBox:~/foobar/example$
-~~~
-
-This will result in the following directory structure:
-
-~~~
-. foobar
-+-. example/
-  +- hello.clj
-~~~
-
-Here `hello.clj` is under the directory `example`, which means it contains the
-namespace `example.hello`:
-
-~~~{.clojure}
-(ns example.hello)
-
-(println "O HAI!")
-~~~
-
-Namespaces are declared with `ns`. Write this in EVim and save the file.
-
-We can now go back to the `foobar` directory and start an interactive Clojure
-session in the project:
-
-~~~
-clojure@clojure-VirtualBox:~/foobar/example$ cd ..
-clojure@clojure-VirtualBox:~/foobar$ lein repl
-nREPL server started on port 39455
-Welcome to REPL-y!
-Clojure 1.4.0
-    Exit: Control+D or (exit) or (quit)
-Commands: (user/help)
-    Docs: (doc function-name-here)
-          (find-doc "part-of-name-here")
-  Source: (source function-name-here)
-          (user/sourcery function-name-here)
- Javadoc: (javadoc java-object-or-class-here)
-Examples from clojuredocs.org: [clojuredocs or cdoc]
-          (user/clojuredocs name-here)
-          (user/clojuredocs "ns-here" "name-here")
-nil
-user=>
-~~~
-
-We can now load the `hello.clj` file into the session:
-
-~~~ {.clojure}
-user=> (use 'example.hello)
-O HAI!    ; ← (println "O HAI!")
-nil       ; ← result of use
-~~~
-
-This loaded the file `hello.clj` into the interactive session. Doing this, it
-evaluated everything in the file, which is why we see the printed line. The
-result of `use` itself is `nil`, a special value like Java's `null`.
-
-<alert>
-The `'` before the namespace name in a `use` is important. If you forget it,
-you will get an error like this:
-
-~~~ {.clojure}
-user=> (use example.hello)
-java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE:1)
-~~~
-
-`'` is an alias for the  `quote` special form, which we will talk more about
-later.
-</alert>
-
 ## Functions
 
-So far we've worked with expressions and simple names defined with `def`. For
-structuring any kind of non-trivial programs, we will want to group code into
-*functions*.
+So far we've worked with expressions and called some existing
+functions. For structuring any kind of non-trivial programs, we will
+want to group code into our own *functions*.
 
 Functions are written in source files, and we have one ready, `hello.clj`, so
 let's write the following function definition in that file. We'll write the
@@ -348,6 +292,96 @@ imagine the evaluator doing something like the following:
 
 We now know all the basics of structuring Clojure programs.
 
+## Files and Namespaces
+
+Code in Clojure projects is structured into separate files. Usually each file
+corresponds to a namespace identified by the file's path. For an example, the
+file `foo/bar/baz.clj` contains the namespace `foo.bar.baz`. This is slightly
+different from Java, where directories correspond to namespaces (packages) and
+files under a directory usually contain a single class in the given package.
+
+Let's create the basic structure for a project to get a feeling for how
+this works. As you read the description below, execute the same steps on your
+own computer.
+
+Suppose we start a project called `foobar`. First, we create the basic
+directory structure with an example file:
+
+~~~
+me@my-computer:~$ mkdir foobar
+me@my-computer:~$ cd foobar
+me@my-computer:~/foobar$ mkdir example
+me@my-computer:~/foobar$ cd example/
+me@my-computer:~/foobar/example$ touch hello.clj
+~~~
+
+This will result in the following directory structure:
+
+~~~
+. foobar
++-. example/
+  +- hello.clj
+~~~
+
+Here `hello.clj` is under the directory `example`, which means it
+should contain the namespace `example.hello`:
+
+~~~{.clojure}
+(ns example.hello)
+
+(println "O HAI!")
+~~~
+
+Namespaces are declared with `ns`. Write this in EVim and save the file.
+
+We can now go back to the `foobar` directory and start an interactive Clojure
+session in the project:
+
+~~~
+me@my-computer:~/foobar/example$ cd ..
+me@my-computer:~/foobar$ lein repl
+nREPL server started on port 39455
+Welcome to REPL-y!
+Clojure 1.4.0
+    Exit: Control+D or (exit) or (quit)
+Commands: (user/help)
+    Docs: (doc function-name-here)
+          (find-doc "part-of-name-here")
+  Source: (source function-name-here)
+          (user/sourcery function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+Examples from clojuredocs.org: [clojuredocs or cdoc]
+          (user/clojuredocs name-here)
+          (user/clojuredocs "ns-here" "name-here")
+nil
+user=>
+~~~
+
+We can now load the `hello.clj` file into the session:
+
+~~~ {.clojure}
+user=> (use 'example.hello)
+O HAI!    ; ← (println "O HAI!")
+nil       ; ← result of use
+~~~
+
+This loaded the file `hello.clj` into the interactive session. Doing this, it
+evaluated everything in the file, which is why we see the printed line. The
+result of `use` itself is `nil`, a special value like Java's `null`.
+
+<alert>
+The `'` before the namespace name in a `use` is important. If you forget it,
+you will get an error like this:
+
+~~~ {.clojure}
+user=> (use example.hello)
+java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE:1)
+~~~
+
+`'` is an alias for the  `quote` special form, which we will talk more about
+later.
+</alert>
+
 ## We come gifting bears
 
 > When in doubt, do exactly the opposite of CVS. <small>Linus Torvalds</small>
@@ -358,7 +392,7 @@ follow. No worries, though: you can use [Git] to get a ready-made structure we
 have lovingly hand-crafted just for you:
 
 ~~~
-clojure@clojure-VirtualBox:~$ git clone https://github.com/iloveponies/training-day.git
+me@my-computer:~$ git clone https://github.com/iloveponies/training-day.git
 Cloning into 'training-day'...
 remote: Counting objects: 18, done.
 remote: Compressing objects: 100% (10/10), done.
@@ -375,8 +409,8 @@ you will see more output printed than what is shown below. This output is
 printed only once, so subsequent runs will not be so chatty.
 
 ~~~
-clojure@clojure-VirtualBox:~$ cd training-day/
-clojure@clojure-VirtualBox:~/training-day$ lein midje
+me@my-computer:~$ cd training-day/
+me@my-computer:~/training-day$ lein midje
 ~~~
 
 Leiningen tells us it's downloading the whole internet:
@@ -411,7 +445,7 @@ FAIL "average" at (training_day_test.clj:20)
     Expected: 3/2
       Actual: ":("
 FAILURE: 9 facts were not confirmed.
-clojure@clojure-VirtualBox:~/training-day$
+me@my-computer:~/training-day$
 ~~~
 
 Our project uses the [Midje] testing library. Let's take a look at what kind
@@ -519,3 +553,4 @@ nil
 
 [Midje]: https://github.com/marick/Midje
 [Git]: http://git-scm.com
+[LightTable]: http://app.kodowa.com/playground
