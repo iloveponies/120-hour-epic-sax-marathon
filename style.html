@@ -50,7 +50,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>In this chapter, we go over the idiomatic Clojure style of writing programs: indentation, whitespace, names, and other things that affect the format of the program.</p>
 <section class="level2" id="indentation">
 <h2>Indentation</h2>
-<p>Clojure programs are indented with spaces (not tabs), and one level of indentation is two spaces.</p>
+<p>Clojure programs are indented with spaces (not tabs), and the level of indentation depends on the form.</p>
 <p>There are three different syntax forms that have different indentation styles.</p>
 <section class="level3" id="function-calls">
 <h3>Function calls</h3>
@@ -68,17 +68,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
   (straight? hand))</code></pre>
 <p>In this case, the parameters are aligned and indented with either one or two spaces. Vim indents the parameters with two spaces and Emacs with one. Either style is fine.</p>
 </section>
-<section class="level3" id="literal-maps-and-vectors">
-<h3>Literal maps and vectors</h3>
+<section class="level3" id="literal-maps-vectors-sets-and-lists">
+<h3>Literal maps, vectors, sets and lists</h3>
 <p>The elements of a literal vector are aligned:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">[<span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>
  <span class="dv">42</span> <span class="kw">:quux</span>
  (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>)]</code></pre>
 <p>Note that the elements on successive lines are not aligned to the opening <code>[</code>, but to the first element.</p>
-<p>Maps are written in similarly:</p>
+<p>Maps, sets and lists are written in similarly:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">{<span class="kw">:foo</span> <span class="dv">42</span>
- <span class="kw">:bar</span> <span class="st">&quot;quux&quot;</span>}</code></pre>
-<p>Usually the key and value are on the same line, but if they need to be on separate lines, they are aligned:</p>
+ <span class="kw">:bar</span> <span class="st">&quot;quux&quot;</span>}
+ 
+&#39;(<span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>
+  <span class="dv">42</span> <span class="kw">:quux</span>)</code></pre>
+<p>In a map the key and value are usually on the same line, but if they need to be on separate lines, they are aligned:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">{<span class="kw">:foo</span>
  <span class="dv">42</span>
  <span class="kw">:bar</span>
@@ -100,13 +103,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
   [parameters]
   (body))</code></pre>
 <p>In this case, the parameter vector is written on its own line and indented with two spaces, like the body.</p>
-<section class="alert alert-info">
-<h3>
-Hint
-</h3>
-<p>The documentation string goes <em>before</em> the parameter list because a Clojure definition can have multiple alternative implementations with their own parameter lists. TODO: do we need to say this?</p>
-</section>
-<p><code>let</code> is indented very much like a function definition; the defined names are indented and aligned like a vector literal and the body is indented with two spaces:</p>
+<p><code>let</code> is indented very much like a function definition. The defined names are indented and aligned like a vector literal and the body is indented with two spaces:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [<span class="kw">name</span> <span class="st">&quot;Lila Black&quot;</span>            <span class="co">; ← name definitions here</span>
       occupation <span class="st">&quot;Magical Cyborg&quot;</span>] <span class="co">; ← and here</span>
   (<span class="kw">str</span> <span class="st">&quot;I am &quot;</span> <span class="kw">name</span> <span class="st">&quot;. &quot;</span>                   <span class="co">; ← body here, indented two</span>
@@ -121,12 +118,16 @@ Hint
 </section>
 <section class="level2" id="names">
 <h2>Names</h2>
-<p>Names in Clojure follow traditional Lisp style, which allows much more varied names than languages with infix syntax.</p>
+<p>Names in Clojure follow traditional Lisp style, which allows much more varied names than languages with infix syntax. No capital letters are used.</p>
 <p>If a name has many words, they are separated with a hyphen <code>-</code>: <code>magical-ponies</code>, <code>book-authors</code>.</p>
 <p>Add a <code>?</code> to the end of predicates (functions returning booleans): <code>contains?</code>, <code>nil?</code>, <code>pony?</code>.</p>
+<p>Function name should reflect the result value, not the computation done: <code>radius</code> instead of <code>calculate-radius</code>, <code>dead-authors</code> instead of <code>remove-living-authors</code>, <code>author-descriptions</code> instead of <code>describe-authors</code>.</p>
+<p>Functions that create objects of certain type have names of the form <code>-&gt;object-type</code>: <code>-&gt;triangle</code>, <code>-&gt;employe</code>.</p>
+<p>Functions that turn objects of one type to another type have names of the form <code>from-type-&gt;to-type</code>: <code>authors-&gt;string</code>, `</p>
 </section>
 <section class="level2" id="whitespace">
 <h2>Whitespace</h2>
+<p>Whitespace acts as a token separator in Clojure. That is, <code>(+12)</code> is parsed as a call to a function named <code>+12</code>, <code>[123]</code> is a list containing the number <code>123</code> and <code>{:a 1,:b 2}</code> maps <code>:a</code> with <code>1,:b</code> and <code>2</code> has no pair.</p>
 <p>Parentheses, brackets and curlies hug their contents:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">{<span class="kw">:a</span> <span class="dv">42</span>, <span class="kw">:b</span> <span class="st">&quot;foo&quot;</span>}
 [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]
@@ -140,8 +141,8 @@ Hint
     (falksjdlasd
       (fjldiasjd)))) <span class="co">; ← All hugging each other!</span></code></pre>
 </section>
-<section class="level1" id="example">
-<h1>Example</h1>
+<section class="level2" id="example">
+<h2>Example</h2>
 <p>As an example of these rules, here is a Leiningen project definition:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(defproject blorg <span class="st">&quot;0.1.0-SNAPSHOT&quot;</span>
   <span class="kw">:dependencies</span> [[org.clojure/clojure <span class="st">&quot;1.4.0&quot;</span>]
@@ -154,10 +155,11 @@ Hint
              <span class="kw">:dev</span>
              {<span class="kw">:plugins</span> [[lein-midje <span class="st">&quot;2.0.0-SNAPSHOT&quot;</span>]]}}
   <span class="kw">:main</span> blorg.core)</code></pre>
-<section class="level2" id="code-style">
-<h2>Code style</h2>
-<p>Use <code>let</code> liberally to give intermediate results a name and create helper functions.</p>
 </section>
+<section class="level2" id="idioms">
+<h2>Idioms</h2>
+<p>If a function is only needed inside another function, define it with <code>let</code> and <code>fn</code> inside the using function.</p>
+<p>Use <code>let</code> liberally to give intermediate results a name. If a same expression appers in two places, give it a name with <code>let</code>.</p>
 </section>
 <footer>
     <p>

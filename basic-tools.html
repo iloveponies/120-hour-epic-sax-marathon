@@ -108,7 +108,7 @@ mkdir bin</code></pre></li>
 <p>Lets go through the first part of this process to be ready for the next chapter.</p>
 <ol type="1">
 <li><p>Go to the Github page of the repository of the next chapter. Here is the <a href="https://github.com/iloveponies/training-day">link</a>.</p></li>
-<li><p>Click the Fork-button near the top-right corner of the page. You will be asked to login if you haven’t done so already. Do this now.</p></li>
+<li><p>Click the Fork-button near the top-right corner of the page. You will be asked to login if you haven’t done so already.</p></li>
 <li><p>The Github page of your fork will open. This is the repository you want to clone. Click the button that says HTTP and copy the link from the box. Then issue the following command with <strong>your</strong> version of the link. Your Github login information will be requested.</p>
 <pre class="sh"><code>git clone https://github.com/rapala/training-day.git</code></pre></li>
 <li><p>A directory <code>training-day</code> will be created. Go inside the directory and issue <code>lein midje</code>. You should see output that tells you that every test in the project has failed.</p>
@@ -117,7 +117,7 @@ lein midje</code></pre>
 <p>Instead of <code>lein midje</code>, you can issue the command</p>
 <pre><code>lein midje --lazy-test</code></pre>
 <p>This starts a loop which runs the tests again every time you make changes to any of the projects files. A very handy feature, as running plain <code>lein midje</code> has a pretty long startup time.</p></li>
-<li><p>You are now ready to start working with the exercises. When you have reached an exercises in the material, open the file <code>src/training_day.clj</code> and fill the appropriate function. Run <code>lein    midje</code> often to see if the tests pass.</p></li>
+<li><p>You are now ready to start working with the exercises. When ever you encounter an exercise in the material, open the file <code>src/training_day.clj</code> and fill the appropriate function. Run <code>lein    midje</code> often to see if the tests pass.</p></li>
 </ol>
 <p><a href="training-day.html">Proceed, young padawan. →</a></p>
 </section>

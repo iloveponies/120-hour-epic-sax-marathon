@@ -5,17 +5,18 @@
 > Any customer can have a car painted any colour that he wants so long as it
 > is black. <small>Henry Ford</small>
 
-An important feature of the code you write is its readability. Code is meant
-for people to read and only secondarily for computers to execute.
+An important feature of the code you write is its readability. Code is
+meant for people to read and only secondarily for computers to
+execute.
 
-In this chapter, we go over the idiomatic Clojure style of writing programs:
-indentation, whitespace, names, and other things that affect the format of the
-program.
+In this chapter, we go over the idiomatic Clojure style of writing
+programs: indentation, whitespace, names, and other things that affect
+the format of the program.
 
 ## Indentation
 
-Clojure programs are indented with spaces (not tabs), and one level of
-indentation is two spaces.
+Clojure programs are indented with spaces (not tabs), and the level of
+indentation depends on the form.
 
 There are three different syntax forms that have different indentation styles.
 
@@ -44,11 +45,11 @@ In some cases, you want to put the first parameter on its own line:
   (straight? hand))
 ~~~
 
-In this case, the parameters are aligned and indented with either one or two
-spaces. Vim indents the parameters with two spaces and Emacs with one. Either
-style is fine.
+In this case, the parameters are aligned and indented with either one
+or two spaces. Vim indents the parameters with two spaces and Emacs
+with one. Either style is fine.
 
-### Literal maps and vectors
+### Literal maps, vectors, sets and lists
 
 The elements of a literal vector are aligned:
 
@@ -58,18 +59,21 @@ The elements of a literal vector are aligned:
  (+ 1 2)]
 ~~~
 
-Note that the elements on successive lines are not aligned to the opening `[`,
-but to the first element.
+Note that the elements on successive lines are not aligned to the
+opening `[`, but to the first element.
 
-Maps are written in similarly:
+Maps, sets and lists are written in similarly:
 
 ~~~ {.clojure}
 {:foo 42
  :bar "quux"}
+ 
+'("foo" "bar"
+  42 :quux)
 ~~~
 
-Usually the key and value are on the same line, but if they need to be on
-separate lines, they are aligned:
+In a map the key and value are usually on the same line, but if they
+need to be on separate lines, they are aligned:
 
 ~~~ {.clojure}
 {:foo
@@ -110,15 +114,9 @@ after the definition name, indented with two spaces:
 In this case, the parameter vector is written on its own line and indented
 with two spaces, like the body.
 
-<info>
-The documentation string goes *before* the parameter list because a Clojure
-definition can have multiple alternative implementations with their own
-parameter lists. TODO: do we need to say this?
-</info>
-
-`let` is indented very much like a function definition; the defined names are
-indented and aligned like a vector literal and the body is indented with two
-spaces:
+`let` is indented very much like a function definition. The defined
+names are indented and aligned like a vector literal and the body is
+indented with two spaces:
 
 ~~~ {.clojure}
 (let [name "Lila Black"            ; ← name definitions here
@@ -143,8 +141,9 @@ are indented with two spaces.
 
 ## Names
 
-Names in Clojure follow traditional Lisp style, which allows much more varied
-names than languages with infix syntax.
+Names in Clojure follow traditional Lisp style, which allows much more
+varied names than languages with infix syntax. No capital letters are
+used.
 
 If a name has many words, they are separated with a hyphen `-`:
 `magical-ponies`, `book-authors`.
@@ -152,7 +151,23 @@ If a name has many words, they are separated with a hyphen `-`:
 Add a `?` to the end of predicates (functions returning booleans):
 `contains?`, `nil?`, `pony?`.
 
+Function name should reflect the result value, not the computation
+done: `radius` instead of `calculate-radius`, `dead-authors` instead
+of `remove-living-authors`, `author-descriptions` instead of
+`describe-authors`.
+
+Functions that create objects of certain type have names of the form
+`->object-type`: `->triangle`, `->employe`.
+
+Functions that turn objects of one type to another type have names of
+the form `from-type->to-type`: `authors->string`, `
+
 ## Whitespace
+
+Whitespace acts as a token separator in Clojure. That is, `(+12)` is
+parsed as a call to a function named `+12`, `[123]` is a list
+containing the number `123` and `{:a 1,:b 2}` maps `:a` with `1,:b`
+and `2` has no pair.
 
 Parentheses, brackets and curlies hug their contents:
 
@@ -174,7 +189,7 @@ brackets/curlies) next to each other:
       (fjldiasjd)))) ; ← All hugging each other!
 ~~~
 
-# Example
+## Example
 
 As an example of these rules, here is a Leiningen project definition:
 
@@ -193,7 +208,10 @@ As an example of these rules, here is a Leiningen project definition:
 ~~~
 
 
-## Code style
+## Idioms
 
-Use `let` liberally to give intermediate results a name and create helper
-functions.
+If a function is only needed inside another function, define it with
+`let` and `fn` inside the using function.
+
+Use `let` liberally to give intermediate results a name. If a same
+expression appers in two places, give it a name with `let`.

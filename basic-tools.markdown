@@ -147,7 +147,7 @@ next chapter.
    is the [link](https://github.com/iloveponies/training-day).
 
 2. Click the Fork-button near the top-right corner of the page. You
-   will be asked to login if you haven't done so already. Do this now.
+   will be asked to login if you haven't done so already.
 
 3. The Github page of your fork will open. This is the repository you
    want to clone. Click the button that says HTTP and copy the link
@@ -172,8 +172,8 @@ next chapter.
    changes to any of the projects files. A very handy feature, as
    running plain `lein midje` has a pretty long startup time.
    
-5. You are now ready to start working with the exercises. When you
-   have reached an exercises in the material, open the file
+5. You are now ready to start working with the exercises. When ever
+   you encounter an exercise in the material, open the file
    `src/training_day.clj` and fill the appropriate function. Run `lein
    midje` often to see if the tests pass.
    
