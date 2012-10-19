@@ -10,16 +10,14 @@ A whirlwind tour of the basics of Clojure, including:
 - Prefix syntax
 - Defining functions
 
-## Fork
+## Fork this
 
-~~~
-me@my-computer:~$ git clone https://github.com/iloveponies/training-day.git
-Cloning into 'training-day'...
-remote: Counting objects: 18, done.
-remote: Compressing objects: 100% (10/10), done.
-remote: Total 18 (delta 5), reused 17 (delta 4)
-Unpacking objects: 100% (18/18), done.
-~~~
+[https://github.com/iloveponies/training-day](https://github.com/iloveponies/training-day)
+
+If you followed through the instructions in the last section of the
+previous chapter, you already have this repository forked, cloned and
+ready to go. If you missed the instructions,
+[here](basic-tools.html#how-to-submit-answers-to-exercises) is a link.
 
 ## We come gifting bears
 
