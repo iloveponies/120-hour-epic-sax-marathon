@@ -73,18 +73,21 @@ Jälkikäteen muisteluita:
     mitään. -- lisätty tehtävä leap-year?
 
   Structured Data:
-    - conj/assoc ja count kaipais tehtäviä
-      - joskus oli joku cutify? [1 2 3] -> [1 2 3 "<3"]
-    - count kaipais kans tehtävää
-    - enemmän destrukturointitehtäviä?
-      - esim. jotain heti letissä destrukturoinnista
-      - ja sit lisää parametrilistasta
+    - conj kaipais tehtäviä
+--      - joskus oli joku cutify? [1 2 3] -> [1 2 3 "<3"] -- lisätty tämä tehtäväksi
+    - vektoreiden count ja assoc pitää siirtää eteenpäin
+    - vektoreiden count ja assoc tarttis tehtäviä
+--    - enemmän destrukturointitehtäviä? -- lisätty tehtäväsarja tasogeometriasta
+--      - esim. jotain heti letissä destrukturoinnista
+--      - ja sit lisää parametrilistasta
     - mapeistä jotain tehtäviä nopeemmin, esim title-length aikasemmaks
       kirjamäärittelyjen kanssa
     - mapeille assoc-tehtävä/tehtäviä
     - fn-tehtäviä!!! täytä matskussa oleva TODO
       - myöhemmässä tehtävässä tarvitaan apufunktiota second-element
     - filter-tehtäviä:
+      - square-rectangles
+        - ottaa listan suorakulmioita ja palauttaa neliöt
       - living-authors
       - dead-authors
       - kirjat, joiden nimi vähintään n merkkiä
@@ -93,5 +96,11 @@ Jälkikäteen muisteluita:
         - 2000-luvulla kirjoitetut kirjat
       - even-numbers
     - seuraavan luvun linkki hyppää stylen ja pokerfacen ohi rekursioon
+
+Kate-config:
+  - Settings -> Open/Save -> Modes & Filetypes
+    - valitse Filetype: Sources/Clojure
+    - Variables:
+      kate: auto-brackets true; default-dictionary en_US; indent-mode LISP; line-numbers true; remove-trailing-space true; replace-tabs true; replace-tabs-save true; syntax Clojure;
 
 

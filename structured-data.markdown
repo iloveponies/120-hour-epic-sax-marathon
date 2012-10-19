@@ -208,25 +208,6 @@ Write the function `(cutify v)` that takes a vector as a parameter and adds
 <!-- "> -->
 </exercise>
 
-`assoc` associates a new value for the given key in the collection. A vector's
-indexes are its keys. Above, we create a new vector based on the previous one,
-with `"foo"` at index `2`. The original vector doesn't change in either of
-these operations:
-
-~~~ {.clojure}
-(let [original [1 2 3 4]
-      new      (assoc original 2 "foo")]
-  original)
-;=> [1 2 3 4]
-~~~
-
-Finally, `count` returns the size of a collection:
-
-~~~ {.clojure}
-(count [1 2 3 4]) ;=> 4
-(count [])        ;=> 0
-~~~
-
 ### Vectors: A Postmodern Deconstruction
 
 Another way of extracting values from a vector is by *destructuring* it:
@@ -301,13 +282,26 @@ Write the functions `(height rectangle)` and `(width rectangle)` that return
 the height and width of the given rectangle. Use destructuring.
 
 ~~~{.clojure}
-(height (rectangle [1 1] [5 1]))  => 4
-(height (rectangle [1 1] [1 1]))  => 0
-(height (rectangle [3 1] [10 4])) => 7
+(height (rectangle [1 1] [5 1])) => 0
+(height (rectangle [1 1] [5 5])) => 4
+(height (rectangle [0 0] [2 3])) => 3
 
-(width (rectangle [1 1] [5 1])) => 0
-(width (rectangle [1 1] [5 5])) => 4
-(width (rectangle [0 0] [2 3])) => 3
+(width (rectangle [1 1] [5 1]))  => 4
+(width (rectangle [1 1] [1 1]))  => 0
+(width (rectangle [3 1] [10 4])) => 7
+~~~
+</exercise>
+
+<exercise>
+Write the function `(square? rectangle)` that returns `true` if `rectangle` is
+a square and otherwise `false`.
+
+~~~{.clojure}
+(square? (rectangle [1 1] [2 2])) ;=> true
+(square? (rectangle [1 1] [2 3])) ;=> false
+(square? (rectangle [1 1] [1 1])) ;=> true
+(square? (rectangle [3 2] [1 0])) ;=> true
+(square? (rectangle [3 2] [1 1])) ;=> false
 ~~~
 </exercise>
 
@@ -398,7 +392,7 @@ collections such as maps. They are written with a preceding `:`.
 
 ~~~ {.clojure}
 (def book {:title "The City and the City"
-           :author {:name "China Miéville", :birth-year 1972}})
+           :authors [{:name "China Miéville", :birth-year 1972}]})
 
 (get book :title) ;=> "The City and the City"
 ~~~
@@ -413,60 +407,146 @@ access collections:
 When used as a function and given a collection, a keyword looks itself up in
 the collection and returns the value associated with it.
 
-`assoc` works with a map:
+`count` can be used to find out the amount of elements in a collection.
+
+~~~{.clojure}
+(count [1 2 3]) ;=> 3
+(count {:name "China Miéville", :birth-year 1972}) => 2
+(count ":)") => 2
+~~~
+
+As we can see, `count` tells the amount of keys for a map and the amount of
+elements for a vector. It can also be used to find out the len gth of a string.
+
+Let's define some authors and a couple of books with maps and vectors.
+
+~~~{.clojure}
+(def china {:name "China Miéville", :birth-year 1972})
+(def octavia {:name "Octavia E. Butler"
+              :birth-year 1947
+              :death-year 2006})
+(def friedman {:name "Daniel Friedman" :birth-year 1944})
+(def felleisen {:name "Matthias Felleisen"})
+
+(def cities {:title "The City and the City" :authors [china]})
+(def wild-seed {:title "Wild Seed", :authors [octavia]})
+(def embassytown {:title "Embassytown", :authors [china]})
+(def little-schemer {:title "The Little Schemer"
+                     :authors [friedman, felleisen]})
+~~~
+
+<exercise>
+Write the function `(title-length book)` that counts the length of the book's
+title. Use `let` to extract the title.
 
 ~~~ {.clojure}
-(assoc book :awards ["Hugo", "World Fantasy Award", "Arthur C. Clarke Award", "British Science Fiction Award"])
-;=> {:author {:birth-year 1972, :name "China Miéville"}
-;    :awards ["Hugo" "World Fantasy Award" "Arthur C. Clarke Award" "British Science Fiction Award"]
-;    :title "The City and the City"}
+(title-length cities)         ;=> 21
+(title-length wild-seed)      ;=> 9
+(title-length little-schemer) ;=> 18
 ~~~
+</exercise>
+
+<exercise>
+Write the function `(author-count book)` that returns the amount of authors
+that `book` has.
+
+~~~{.clojure}
+(author-count cities)         ;=> 1
+(author-count wild-seed)      ;=> 1
+(author-count little-schemer) ;=> 2
+~~~
+</exercise>
+
+`(assoc a-map a-key a-value)` sets the value of `a-key` in `a-map` to be `a-value`.
+
+~~~{.clojure}
+(assoc {:a 1} :b 2) ;=> {:b 2, :a 1}
+(assoc {:a 1} :a 2) ;=> {:a 2}
+~~~
+
+Let's add some information to a book:
+
+~~~{.clojure}
+(assoc cities :awards ["Hugo", "World Fantasy Award",
+                     "Arthur C. Clarke Award",
+                     "British Science Fiction Award"])
+;=> {:awards ["Hugo" "World Fantasy Award" "Arthur C. Clarke Award"
+;             "British Science Fiction Award"]
+;    :title "The City and the City"
+;    :authors [{:birth-year 1972, :name "China Miéville"}]}
+~~~
+
+Vectors are an associative data structure, so `assoc` also works with them.
+
+~~~{.clojure}
+;index: 0 1 2                0   1   2
+(assoc [3 2 1] 1 "~o~") ;=> [3 "~o~" 1]
+~~~
+
+Here the key that you give as a parameter is the index that you want to change.
+
+Assoc does not actually change the original data structure, but instead returns
+an updated version of it.
+
+~~~ {.clojure}
+(let [original [1 2 3 4]
+      new      (assoc original 2 "foo")]
+  original)
+;=> [1 2 3 4]
+~~~
+
+<exercise>
+Use `assoc` and `conj` to write the function `(add-author book new-author)`
+that takes a book and an author as a parameter and adds `author` to `book`s
+authors.
+
+Hint: use `let` to make avoid pain
+
+~~~ {.clojure}
+(add-author little-schemer {:name "Gerald J. Sussman"})
+;=> {:title "The Little Schemer"
+;    :authors [{:birth-year 1944, :name "Daniel Friedman"}
+;              {:name "Matthias Felleisen"}
+;              {:name "Gerald J. Sussman"}]}
+(add-author {:authors [{:name "Juhana"}]} {:name "Jani"})
+;=> {:authors [{:name "Juhana"} {:name "Jani"}]}
+~~~
+</exercise>
 
 The keys and values of a map can be of any data type, and one map can contain
 any number of different data types as both keys and values.
 
-`count` returns the size of a map, which is determined by how many keys it
-has:
+`(contains? a-map a-key)` can be used to check if `a-map` has a value for
+`a-key`.
 
-~~~ {.clojure}
-(count {:a 42, :b "foo", :c 1337}) ;=> 3
-(count {})                         ;=> 0
-~~~
-
-Let's define a couple of books like this:
-
-~~~ {.clojure}
-(def cities {:title "The City and the City"
-             :author {:name "China Miéville", :birth-year 1972}})
-(def wild-seed {:title "Wild Seed",
-                :author {:name "Octavia E. Butler"
-                         :birth-year 1947
-                         :death-year 2006}})
+~~~{.clojure}
+(contains? {"a" 1} "a")   ;=> true
+(contains? {"a" 1} 1)     ;=> false
+(contains? {"a" nil} "a") ;=> true
+(contains? cities :title) ;=> true
+(contains? cities :name)  ;=> false
 ~~~
 
 <exercise>
 Write the function `(alive? author)` which takes an author map and returns
 `true` if the `author` is alive, otherwise `false`.
 
+An author is alive if the author does not have a death year.
+
 ~~~ {.clojure}
-(alive? (:author cities))    ;=> true
-(alive? (:author wild-seed)) ;=> false
+(alive? china)   ;=> true
+(alive? octavia) ;=> false
 ~~~
 </exercise>
 
 <exercise>
-Write the function `(title-length book)` that counts the length of the book's
-title. Use `let` to extract the title.
+Write the function `(multiple-authors? book)` that returns `true` if `book` has
+multiple authors, otherwise `false`.
 
-You can use `count` to find out the length of a string:
-
-~~~ {.clojure}
-(count "foo") ;=> 3
-~~~
-
-~~~ {.clojure}
-(title-length cities)    ;=> 21
-(title-length wild-seed) ;=> 9
+~~~{.clojure}
+(multiple-authors? cities)         ;=> false
+(multiple-authors? wild-seed)      ;=> false
+(multiple-authors? little-schemer) ;=> true
 ~~~
 </exercise>
 
@@ -477,13 +557,11 @@ often want to extract information from a collection of items. As an example,
 given a collection of books, we want the names of all the authors:
 
 ~~~ {.clojure}
-(def embassytown {:title "Embassytown",
-                  :author {:name "China Miéville",
-                           :birth-year 1972}})
+(def books [cities, wild-seed, embassytown, little-schemer])
 
-(def books [cities, wild-seed, embassytown])
-
-(all-author-names books) ;=> #{"China Miéville" "Octavia E. Butler"}
+(all-author-names books)
+;=> #{"China Miéville" "Octavia E. Butler"
+;     "Daniel Friedman" "Matthias Felleisen"}
 ~~~
 
 How should we implement `all-author-names`?
@@ -492,76 +570,21 @@ We'll give the implementation now, and introduce the new concepts used one by
 one. The implementation looks like this:
 
 ~~~ {.clojure}
+(defn author-names [book]
+  (map :name book))
+
 (defn all-author-names [books]
-  (let [author-name (fn [book] (:name (:author book)))]
-    (set (map author-name books))))
+    (set (apply concat (map author-name books))))
 ~~~
 
-Now there's a lot of new stuff there, so we'll take a detour to learn them
+Now there's a lot of new stuff there, so we'll take a detour to learn it all
 before continuing with our book library.
 
-### Anonymous functions
-
-`fn` defines an anonymous function.
-
-~~~ {.clojure}
-user=> (fn [x] (* x x))
-#<user$eval1189$fn__1190 user$eval1189$fn__1190@5627f221>
-~~~
-
-Okay, se we get a function. This can be called like any other function:
-
-~~~ {.clojure}
-user=> ((fn [x] (* x x)) 4)
-16
-~~~
-
-Using it like this is pretty awkward, usually we want our functions to have a
-name instead.
-
-~~~ {.clojure}
-(def square
-  (fn [x] (* x x)))
-(square 4) ;=> 16
-~~~
-
-This is pretty much how defn works, though it does more, like handles
-doc-strings that you can find with `doc`.
-
-Anonymous functions are useful when you want short helper functions. You can
-give them names with a `let` and they will only be visible in that context.
-
-In the function `all-author-names`, that we can't fully understand yet, we
-wanted a helper function that the name of the author of a book:
-
-~~~ {.clojure}
-(defn all-author-names [books]
-  (let [author-name (fn [book] (:name (:author book)))]
-    (set (map author-name books))))
-~~~
-
-So we want that `author-name` works like this:
-
-~~~ {.clojure}
-(def wild-seed {:title "Wild Seed",
-                :author {:name "Octavia E. Butler"
-                         :birth-year 1947
-                         :death-year 2006}})
-
-(author-name wild-seed) ;=> "Octavia E. Butler"
-~~~
-
-And that's what the above definition does. But since it is defined inside
-`all-author-names`, it is only visible inside that function.
-
-TODO: fn-sormiharjoittelua, tehtävä tai pari, mahollisesti letin kanssa
-
-Theres another elephant in the living room, so let's look at this `map`
-function next.
+Let's take a look at this `map` function.
 
 ### Sequences
 
-Before talking about `map`, we need to introduce a concept: the *sequence*.
+Before talking about `map`, we need to introduce a new concept: the *sequence*.
 Many of Clojure's functions that operate on vectors and other collections
 actually operate on sequences. The `(seq collection)` function returns a
 sequence constructed from a collection, such as a vector or a map.
@@ -600,7 +623,7 @@ themselves, so we can just write the above examples like this:
 
 ### The map function
 
-`(map function collection)` takes two parameters, a function and a sequencable
+`(map function collection)` takes two parameters, a function and a sequenceable
 collection.  It calls the function on each element of the sequence and returns
 a sequence of the return values.
 
@@ -626,20 +649,58 @@ lengths of every item in `collection`.
 ~~~
 </exercise>
 
+Earlier, we briefly introduces the `fn` special form that can be used to create
+functions. This is useful when you want a function that is only visible in the
+definition of another function. Quite often you want to use `let` to give name
+to this helper function.
+
+Let's rewrite the example above in this style:
+
+~~~{.clojure}
+(defn mungefy [a-seq]
+  (let [munge (fn [x] (+ x 42))]
+    (map munge a-seq)))
+~~~
+
+Now the function `munge` is only visible inside the definition of `mungefy`.
+It should work like the previous one.
+
+~~~{.clojure}
+(mungefy [1 2 3 4]) ;=> (43 44 45 46)
+~~~
+
 <exercise>
 Use `map` to write the function `(second-elements collection)` that takes a
 vector of vectors and returns a sequence of the second elements.
+
+Remember that you can use `get` to index a vector.
+
+Use `fn` and `let` to create a helper function and use it with `map`.
 
 ~~~ {.clojure}
 (second-elements [[1 2] [2 3] [3 4]]) ;=> (2 3 4)
 (second-elements [[1 2 3 4] [1] ["a" "s" "d" "f"]])
 ;=> (2 nil "s")
 ~~~
-
-Remember that you can use `get` to index a vector.
-
-Use `fn` and `let` to create a helper function and use it with `map`.
 </exercise>
+
+When you have a sequence of maps, the fact that `:keywords` are also functions
+can be helpful.
+
+~~~ {.clojure}
+(:name {:name "MEEEE", :secret "Awesome"}) ;=>  "MEEEE"
+~~~
+
+You can therefore use a `:keyword` as the function parameter of `map`.
+
+~~~{.clojure}
+(let [people [{:name "Juhana", :age 3}
+              {:name "Ilmari", :age 42}
+              {:name "Jani", :age 72}
+              {:name "King of All Cosmos" :age -6}]]
+  (map :age people))
+;=> (3 42 72 -6)
+~~~
 
 <exercise>
 Write the function `(titles books)` that takes a collection of books and
@@ -648,73 +709,165 @@ returns their titles.
 Using our earlier examples:
 
 ~~~ {.clojure}
-(def cities {:title "The City and the City"
-             :author {:name "China Miéville", :birth-year 1972}})
-(def wild-seed {:title "Wild Seed",
-                :author {:name "Octavia E. Butler"
-                         :birth-year 1947
-                         :death-year 2006}})
-(def embassytown {:title "Embassytown",
-                  :author {:name "China Miéville",
-                           :birth-year 1972}})
+(def china {:name "China Miéville", :birth-year 1972})
+(def octavia {:name "Octavia E. Butler"
+              :birth-year 1947
+              :death-year 2006})
+(def friedman {:name "Daniel Friedman" :birth-year 1944})
+(def felleisen {:name "Matthias Felleisen"})
 
-(def books [cities, wild-seed, embassytown])
+(def cities {:title "The City and the City" :authors [china]})
+(def wild-seed {:title "Wild Seed", :authors [octavia]})
+(def embassytown {:title "Embassytown", :authors [china]})
+(def little-schemer {:title "The Little Schemer"
+                     :authors [friedman, felleisen]})
+
+(def books [cities, wild-seed, embassytown, little-schemer])
 ~~~
 
 `titles` should work like this:
 
 ~~~
 (titles [cities]) ;=> ("The City and the City" )
-(titles books)    ;=> ("The City and the City" "Wild Seed" "Embassytown")
-~~~
-
-Remember that you can use `:keywords` as functions.
-
-~~~ {.clojure}
-(:name {:name "MEEEE", :secret "Awesome"}) ;=>  "MEEEE"
+(titles books)
+;=> ("The City and the City" "Wild Seed"
+;    "Embassytown" "The Little Schemer")
 ~~~
 </exercise>
 
-We can now almost undestand the definition of `all-author-names`. Remember
-that our implementation looked like this:
+Okey, so now that `map` has been gone over, let's see the definition of
+`all-author-names` again.
 
-~~~ {.clojure}
+~~~{.clojure}
+(defn author-names [book]
+  (map :name (:authors book)))
+
 (defn all-author-names [books]
-  (let [author-name (fn [book] (:name (:author book)))]
-    (set (map author-name books))))
+  (set (apply concat (map author-name books))))
 ~~~
 
-The final piece is the `set` function, which we haven't introduced yet.
-However, let's try the function without `set`, first.
+`author-names` returns the names of the authors of a single book.
 
-We had these example books:
-
-~~~ {.clojure}
-(def cities {:title "The City and the City"
-             :author {:name "China Miéville", :birth-year 1972}})
-(def wild-seed {:title "Wild Seed",
-                :author {:name "Octavia E. Butler"
-                         :birth-year 1947
-                         :death-year 2006}})
-(def embassytown {:title "Embassytown",
-                  :author {:name "China Miéville",
-                           :birth-year 1972}})
-
-(def books [cities, wild-seed, embassytown])
+~~~{.clojure}
+(author-names cities)         ;=> ("China Miéville")
+(author-names little-schemer) ;=> ("Daniel Friedman" "Matthias Felleisen")
 ~~~
 
-And if we define `all-author-names` without `set`, we have:
+Since this is just a helper function used inside `all-author-names` we can move
+it inside by using `let` and `fn`.
 
-~~~ {.clojure}
+~~~{.clojure}
 (defn all-author-names [books]
-  (let [author-name (fn [book] (:name (:author book)))]
-    (map author-name books)))
+  (let [author-names
+         (fn [book] (map :name (:authors book)))]
+    (set (apply concat (map author-names books)))))
 ~~~
 
-Here is how it works:
+The definition of `all-author-names` still has some mysterious words like
+`set`, `apply` and `concat` in it. Let's see what would happen without them.
 
-~~~ {.clojure}
-(all-author-names books) ;=> ("China Miéville" "Octavia E. Butler" "China Miéville")
+~~~{.clojure}
+(map author-names [cities]) ;=> (("China Miéville"))
+(map author-names [cities, wild-seed]) ;=> (("China Miéville") ("Octavia E. Butler"))
+~~~
+
+So first of all we would get every books authors inside a sequence. To fix
+this, we need to concatenate the sequences. To do this, there is `concat`.
+
+~~~{.clojure}
+(concat ["China Miéville"] ["Octavia E. Butler"]) ;=> ("China Miéville" "Octavia E. Butler")
+~~~
+
+This looks like what we want. However, if we simply try to use `(concat (map
+author-names books))`, we get the following problem:
+
+~~~{.clojure}
+(concat (map author-names [cities, wild-seed]))
+;=> (concat (("China Miéville") ("Octavia E. Butler")))
+;=> (("China Miéville") ("Octavia E. Butler"))
+~~~
+
+So we end up only giving `concat` one argument and it simply returns the
+argument.  What we want is to give the elements of `(map author-names books)`
+to `concat` as arguments.
+
+No worries, there is a way to do this. Let's check out `apply`.
+
+### Apply Now, Redux
+
+`(apply function a-seq)` applies `function` to the arguments in `a-seq`. Here's an example:
+
+~~~{.clojure}
+(apply + [1 2 3])
+;=> (+ 1 2 3)
+;=> 6
+~~~
+
+And here's another with `concat`:
+
+~~~{.clojure}
+(apply concat [["China Miéville"] ["Octavia E. Butler"]])
+;=> (concat ["China Miéville"] ["Octavia E. Butler"])
+;=> ("China Miéville" "Octavia E. Butler")
+~~~
+
+More generally, `apply` works like this:
+
+~~~{.clojure}
+(apply function [arg1 arg2 arg3 ...]) => (function arg1 arg2 arg3 ...)
+~~~
+
+<exercise>
+Write the function `(stars n)` that returns a string with `n` aterisks `\*`.
+
+The function `(repeat n x)` returns a sequence with `n` `x`s:
+
+~~~{.clojure}
+(repeat 5 "*") ;=> ("*" "*" "*" "*" "*")
+(repeat 3 "~o~") ;=> ("~o~" "~o~" "~o~")
+~~~
+
+Remember that you can use `str` to concatenate strings.
+
+~~~{.clojure}
+(stars 1) ;=> "*"
+(stars 7) ;=> "*******"
+(stars 3) ;=> "***"
+~~~
+
+<!-- ********* -->
+</exercise>
+
+<exercise>
+Write the function `(monotonic? a-seq)` that returns `true` if `a-seq` is
+monotonic and otherwise `false`.
+
+A sequence is monotonic if is either inceasing or decreasing. In a decreasing
+sequence every element is at most as large as the previous one and in an
+increasing sequence every member is at least as large as the previous one.
+
+Use `apply`.
+
+Hint: `<=` might be useful
+
+~~~{.clojure}
+(monotonic? [1 2 3])     ;=> true
+(monotonic? [0 1 10 11]) ;=> true
+(monotonic? [3 2 0 -3])  ;=> true
+(monotonic? [3 2 2])     ;=> true    Not strictly monotonic
+(monotonic? [1 2 1 0])   ;=> false
+~~~
+</exercise>
+
+So now we can put all authors into a single list. There's just one problem
+left. What is that? Well, let's see what happens if we put together everything
+seen so far.
+
+~~~{.clojure}
+(apply concat (map author-names books))
+;=> ("China Miéville" "Octavia E. Butler"
+;    "China Miéville" "Daniel Friedman"
+;    "Matthias Felleisen")
 ~~~
 
 We had two books by China Miéville, so his name is in the resulting sequence
@@ -732,7 +885,7 @@ without duplicates.
 (set [1 2 3 1 1 1 3 3 2 1]) ;=> #{1 2 3}
 ~~~
 
-The textual form of sets is `#{an-elem another-elem ...}` and you can convert
+The textual form of a set is `#{an-elem another-elem ...}` and you can convert
 another collection into a set with the function `set`.
 
 Sets have three basic operations:
@@ -752,7 +905,17 @@ You can check whether a set contains an element with the function `contains?`:
 
 ~~~ {.clojure}
 (conj #{:a :b :c} :EEEEE) ;=> #{:a :c :b :EEEEE}
+~~~
+
+Nothing happens if `elem` is already a member of `set`:
+
+~~~{.clojure}
 (conj #{:a :b :c} :a)     ;=> #{:a :c :b}
+~~~
+
+You can also add multiple elements by giving `conj` additional arguments:
+
+~~~{.clojure}
 (conj #{:a :b :c} :d :e)  ;=> #{:a :c :b :d :e}
 ~~~
 
@@ -766,7 +929,7 @@ Finally, `(disj set elem)` removes `elem` from `set` if it contains `elem`:
 
 <exercise>
 Write the function `(toggle a-set elem)` that removes `elem` from
-`a-set` if it exists in the set, and adds it to the set otherwise.
+`a-set` if `a-set` contains `elem`, and adds it to the set otherwise.
 
 ~~~ {.clojure}
 (toggle #{:a :b :c} :d) ;=> #{:a :c :b :d}
@@ -778,21 +941,28 @@ Now we can understand the whole implementation of `all-author-names`. We use
 
 - `fn` to introduce a helper function,
 - keywords to index the books,
+- map to get all authors from a single book
 - `let` to give a name to our helper function,
 - `map` to apply the helper function to all the given books, and
 - construct a set with the `set` function to get rid of duplicates.
 
-~~~ {.clojure}
+~~~{.clojure}
 (defn all-author-names [books]
-  (let [author-name (fn [book] (:name (:author book)))]
-    (set (map author-name books))))
+  (let [author-names
+         (fn [book] (map :name (:authors book)))]
+    (set (apply concat (map author-names books)))))
 ~~~
 
 Calling our function returns the desired set:
 
 ~~~ {.clojure}
-(all-author-names books) ;=> #{"China Miéville" "Octavia E. Butler"}
+(all-author-names books)
+;=> #{"Matthias Felleisen" "China Miéville"
+;     "Octavia E. Butler" "Daniel Friedman"}
 ~~~
+
+---------------- marker -----------------------
+
 
 ## Filtering sequences
 
