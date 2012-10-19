@@ -457,6 +457,17 @@ that `book` has.
 ~~~
 </exercise>
 
+<exercise>
+Write the function `(multiple-authors? book)` that returns `true` if `book` has
+multiple authors, otherwise `false`.
+
+~~~{.clojure}
+(multiple-authors? cities)         ;=> false
+(multiple-authors? wild-seed)      ;=> false
+(multiple-authors? little-schemer) ;=> true
+~~~
+</exercise>
+
 `(assoc a-map a-key a-value)` sets the value of `a-key` in `a-map` to be `a-value`.
 
 ~~~{.clojure}
@@ -500,7 +511,7 @@ Use `assoc` and `conj` to write the function `(add-author book new-author)`
 that takes a book and an author as a parameter and adds `author` to `book`s
 authors.
 
-Hint: use `let` to make avoid pain
+Hint: use `let` to avoid pain
 
 ~~~ {.clojure}
 (add-author little-schemer {:name "Gerald J. Sussman"})
@@ -536,17 +547,6 @@ An author is alive if the author does not have a death year.
 ~~~ {.clojure}
 (alive? china)   ;=> true
 (alive? octavia) ;=> false
-~~~
-</exercise>
-
-<exercise>
-Write the function `(multiple-authors? book)` that returns `true` if `book` has
-multiple authors, otherwise `false`.
-
-~~~{.clojure}
-(multiple-authors? cities)         ;=> false
-(multiple-authors? wild-seed)      ;=> false
-(multiple-authors? little-schemer) ;=> true
 ~~~
 </exercise>
 
@@ -937,6 +937,26 @@ Write the function `(toggle a-set elem)` that removes `elem` from
 ~~~
 </exercise>
 
+If you want to know the size of a set, `count` also works with sets.
+
+~~~{.clojure}
+(count #{1 2 3}) ;=> 3
+(count (set [1 2])) ;=> 2
+~~~
+
+<exercise>
+Write the function `(contains-duplicates? sequence)` that takes a sequence as
+a parameter and returns `true` if `sequence` contains some element multiple
+times. Otherwise it returns `false`.
+
+~~~{.clojure}
+(contains-duplicates? [1 1 2 3 -40]) ;=> true
+(contains-duplicates? [1 2 3 -40]) ;=> false
+(contains-duplicates? [1 2 3 "a" "a"]) ;=> true
+~~~
+
+</exercise>
+
 Now we can understand the whole implementation of `all-author-names`. We use
 
 - `fn` to introduce a helper function,
@@ -960,6 +980,90 @@ Calling our function returns the desired set:
 ;=> #{"Matthias Felleisen" "China Miéville"
 ;     "Octavia E. Butler" "Daniel Friedman"}
 ~~~
+
+### String Representation for Books
+
+Now that we have defined these books, I would like to have a readable string
+representation for them. Let's start by defining a representation for a single
+author.
+
+<exercise>
+Write the function `(author->string author)` that returns a string
+representation of `author` as follows:
+
+You can assume that every author with a `:death-year` also has a
+`:birth-year`.
+
+~~~{.clojure}
+(author->string felleisen) ;=> "Matthias Felleisen"
+(author->string friedman)  ;=> "Daniel Friedman (1944 - )"
+(author->string octavia)   ;=> "Octavia E. Butler (1947 - 2006)"
+~~~
+</exercise>
+
+Now we have a string representation for a single author. Some of our books had
+multiple authors, so we need to figure out a way to give a string
+representation for multiple authors. To do this, we need a handy helper
+function.
+
+Sometimes you want to add something in between the elements of a sequence. For
+that, there is `(interpose separator a-seq)`, which returns a new sequence
+that has `separator` between each element of `a-seq`.
+
+~~~{.clojure}
+(interpose ":" [1 2 3])        ;=> (1 ":" 2 ":" 3)
+(interpose " and " ["a", "b"]) ;=> ("a" " and " "b")
+(interpose ", " [])            ;=> ()
+
+(apply str (interpose " and " ["a", "b"])) ;=> "a and b"
+~~~
+
+With this, it shouldn't be too hard to get a nice representation for a
+sequence of authors.
+
+<exercise>
+Write the function `(authors->string authors)` which takes a sequence of
+authors as a parameter and returns a string representation of `authors` in the
+following manner:
+
+~~~{.clojure}
+(authors->string (:authors little-schemer))
+;=> "Daniel Friedman (1944 - ), Matthias Felleisen"
+(authors->string [octavia])          ;=> "Octavia E. Butler (1947 - 2006)"
+(authors->string [])                 ;=> ""
+(authors->string [octavia, friedman])
+;=> "Octavia E. Butler (1947 - 2006), Daniel Friedman (1944 - )"
+~~~
+</exercise>
+
+Now that we can handle the case of multiple authors, we can move on to the
+string representation of a single book.
+
+<exercise>
+Write the function `(book->string book)` takes a single book as a parameter
+and returns a string representation of `book` as follows:
+
+~~~{.clojure}
+(book->string wild-seed) ;=> "Wild Seed, written by Octavia E. Butler"
+(book->string little-schemer)
+;=> "The Little Schemer, written by Daniel Friedman (1944 - ), Matthias Felleisen"
+~~~
+</exercise>
+
+And finally, we can define a string representation for a sequence of books.
+
+<exercise>
+Write the function `(books->string books)` that takes a sequence of books as a
+parameter and returns a string representation of `books` like this:
+
+~~~{.clojure}
+(books->string []) ;=> "No books."
+(books->string [cities])
+;=> "1 book. The City and the City, written by China Miéville (1972 - )."
+(books->string [little-schemer, cities, wild-seed])
+;=> "3 books. The Little Schemer, written by Daniel Friedman (1944 - ), Matthias Felleisen. The City and the City, written by China Miéville (1972 - ). Wild Seed, written by Octavia E. Butler (1947 - 2006)."
+~~~
+</exercise>
 
 ---------------- marker -----------------------
 
