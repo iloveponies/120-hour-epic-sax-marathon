@@ -56,14 +56,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Defining functions</li>
 </ul>
 </section>
-<section class="level2" id="fork">
-<h2>Fork</h2>
-<pre><code>me@my-computer:~$ git clone https://github.com/iloveponies/training-day.git
-Cloning into &#39;training-day&#39;...
-remote: Counting objects: 18, done.
-remote: Compressing objects: 100% (10/10), done.
-remote: Total 18 (delta 5), reused 17 (delta 4)
-Unpacking objects: 100% (18/18), done.</code></pre>
+<section class="level2" id="fork-this">
+<h2>Fork this</h2>
+<p><a href="https://github.com/iloveponies/training-day">https://github.com/iloveponies/training-day</a></p>
+<p>If you followed through the instructions in the last section of the previous chapter, you already have this repository forked, cloned and ready to go. If you missed the instructions, <a href="basic-tools.html#how-to-submit-answers-to-exercises">here</a> is a link.</p>
 </section>
 <section class="level2" id="we-come-gifting-bears">
 <h2>We come gifting bears</h2>
@@ -275,10 +271,10 @@ Exercise 3
 <p>As usual, <code>lein repl</code> is a bit more verbose and states</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))
 #&lt;user$eval326$fn__327 user$eval326$fn__327<span class="kw">@4a2d09aa&gt;</span></code></pre>
-<p>So what kind of a function did we actually get? Inside the square brackets are the parameters of the function. This one only has a one and we gave that a name <code>who</code>. Right after that comes comes an expression, a function call in this case. The value of this expression will become the return value of this function. In general, the return value of a function will be the value of the last expression in the function.</p>
+<p>So what kind of a function did we actually get? Inside the square brackets are the parameters of the function. This one only has a one and we gave that a name <code>who</code>. Right after that comes comes an expression, a call to a function <code>str</code> in this case. The value of this expression will become the return value of this function. In general, the return value of a function will be the value of the last expression in the function.</p>
 <p>So we got a function. Lets call it!</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">((<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>)) <span class="st">&quot;Jani&quot;</span>) <span class="co">;=&gt; &quot;Hello, Jani!&quot;</span></code></pre>
-<p>That worked just like with <code>+</code> and the others. First comes the function, then the arguments. In this case the function does not have a name so we need to write the whole definiton. We also have only one argument, <code>Jani</code>.</p>
+<p>That worked just like with <code>+</code> and the others. First comes the function, then the arguments. In this case the function does not have a name so we need to write the whole definiton. We also have only one argument, <code>&quot;Jani&quot;</code>.</p>
 <section class="alert alert-success">
 <h3>
 Exercise 4
@@ -286,7 +282,7 @@ Exercise 4
 <p>Call the following function in the REPL with your name.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">fn</span> [<span class="kw">name</span>] (<span class="kw">str</span> <span class="st">&quot;Welcome to Rivendell mr &quot;</span> <span class="kw">name</span>))</code></pre>
 </section>
-<p>Now we know how to make a function, but we only got a glimpse of it and then it was gone. We have to write the definition of the function every time we want to call it. But we want something more permanent, something that we can write once and call multiple times. The functions created with <code>fn</code> are called <em>anonymous functions</em>. They are named such because they have no name. To give a name to a function we can use <code>def</code>. Let’s give the greeter function a name right away.</p>
+<p>Now we know how to make a function, but we only got a glimpse of it and then it was gone. We have to write the definition of the function every time we want to call it. But we want something more permanent, something that we can write once and call multiple times! The functions created with <code>fn</code> are called <em>anonymous functions</em>. They are named such because they have no name. To give a name to a function we can use <code>def</code>. Let’s give the greeter function a name right away.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> hello </span>(<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>)))</code></pre>
 <p>Don’t forget to evaluate that one. Now we can call this function. Write <code>(hello &quot;beautiful&quot;)</code> in your REPL to get a instant compliment. In the name of sex-equality evaluate also <code>(hello &quot;handsome&quot;)</code>.</p>
 <p>So what just happened? Well, <code>def</code> gives a name to a value. In the previous case the value is what we get when we evaluate <code>(fn [who] (str &quot;Hello, &quot; who &quot;!&quot;))</code>. And what do we get when we evaluate that? A function. So we gave the name <code>hello</code> to a function that gives out greetings.</p>
@@ -408,18 +404,19 @@ Exercise 7
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(average <span class="dv">2</span> <span class="dv">4</span>) <span class="co">;=&gt; 3</span>
 (average <span class="dv">1</span> <span class="dv">2</span>) <span class="co">;=&gt; 3/2</span></code></pre>
 </section>
-<p>Now would be the time to submit your solutions to be graded. Run <code>lein midje</code> to see if all the tests pass. If all tests pass, you should see the following:</p>
+<p>Now would be the time to submit your solutions to be graded. Run <code>lein midje</code> to see if all the tests pass. If the do, you should see the following:</p>
 <pre class="sh"><code>me@my-computer:~/training-day$ lein midje
 All claimed facts (5) have been confirmed.</code></pre>
-<p>Don’t worry if you haven’t figured out all the exercises. You can still submit those that you have successfully made. Speaking of which, here is the process</p>
+<p>Don’t worry if you haven’t figured out all the exercises. You can still submit those that you have successfully made. Here is how to do it.</p>
 <ol type="1">
 <li><p>Create a commit of your changes by running</p>
 <pre class="sh"><code>git commit -a -m &quot;message here&quot;</code></pre></li>
 <li><p>Update your fork in Github by pushing the changes. This will ask for your Github login.</p>
 <pre class="sh"><code>git push</code></pre></li>
 <li><p>Go to the Github pages of your fork of the repository <code>training-day</code>. Click on the <code>Pull request</code> button. You can ask question on the comment field, and we try to answer them <strong>if</strong> time permits. When you are ready, click <code>Send pull request</code>.</p></li>
-<li><p>You will be informed on the amount of points that you got from the submited exercises.</p></li>
+<li><p>You will be informed on the amount of points that you got from the submited exercises. Then the pull request is closed.</p></li>
 </ol>
+<p>If you didn’t submit the solutions all at once, or some of the submited ones were incorrect, you can re-submit as many times as you need to. Just fix the code and follow the steps again. Be sure to create a <strong>new</strong> pull request.</p>
 <p><a href="I-am-a-horse-in-the-land-of-booleans.html">Proceed to the horse feast! →</a></p>
 </section>
 <footer>

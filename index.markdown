@@ -41,6 +41,10 @@ Learn the structural weaknesses of dragons.
 
 Stylish Clojure.
 
+- Indentation
+- Whitespace
+- Idioms
+
 ## [P-P-P-Pokerface]
 
 Project: poker hand evaluator.
@@ -55,7 +59,7 @@ Down the rabbit hole.
 
 Calling tails.
 
-## [blorg blorg blorg](blorg.html)
+## [blorg blorg blorg]
 
 A blog engine written in Clojure, studied.
 
@@ -76,3 +80,4 @@ A blog engine written in Clojure, studied.
 [Sudoku]: sudoku.html
 [Style]: style.html
 [Looping is recursion]: looping-is-recursion.html
+[blorg blorg blorg]: blorg.html

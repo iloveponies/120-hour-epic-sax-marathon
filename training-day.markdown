@@ -10,16 +10,14 @@ A whirlwind tour of the basics of Clojure, including:
 - Prefix syntax
 - Defining functions
 
-## Fork
+## Fork this
 
-~~~
-me@my-computer:~$ git clone https://github.com/iloveponies/training-day.git
-Cloning into 'training-day'...
-remote: Counting objects: 18, done.
-remote: Compressing objects: 100% (10/10), done.
-remote: Total 18 (delta 5), reused 17 (delta 4)
-Unpacking objects: 100% (18/18), done.
-~~~
+[https://github.com/iloveponies/training-day](https://github.com/iloveponies/training-day)
+
+If you followed through the instructions in the last section of the
+previous chapter, you already have this repository forked, cloned and
+ready to go. If you missed the instructions,
+[here](basic-tools.html#how-to-submit-answers-to-exercises) is a link.
 
 ## We come gifting bears
 
@@ -392,10 +390,10 @@ user=> (fn [who] (str "Hello, " who "!"))
 So what kind of a function did we actually get? Inside the square
 brackets are the parameters of the function. This one only has a one
 and we gave that a name `who`. Right after that comes comes an
-expression, a function call in this case. The value of this expression
-will become the return value of this function. In general, the return
-value of a function will be the value of the last expression in the
-function.
+expression, a call to a function `str` in this case. The value of this
+expression will become the return value of this function. In general,
+the return value of a function will be the value of the last
+expression in the function.
 
 So we got a function. Lets call it!
 
@@ -406,7 +404,7 @@ So we got a function. Lets call it!
 That worked just like with `+` and the others. First comes the
 function, then the arguments. In this case the function does not have
 a name so we need to write the whole definiton. We also have only one
-argument, `Jani`.
+argument, `"Jani"`.
 
 <exercise>
 Call the following function in the REPL with your name.
@@ -420,7 +418,7 @@ Call the following function in the REPL with your name.
 Now we know how to make a function, but we only got a glimpse of it
 and then it was gone. We have to write the definition of the function
 every time we want to call it. But we want something more permanent,
-something that we can write once and call multiple times. The
+something that we can write once and call multiple times! The
 functions created with `fn` are called *anonymous functions*. They are
 named such because they have no name. To give a name to a function we
 can use `def`. Let's give the greeter function a name right away.
@@ -639,8 +637,8 @@ parameters:
 </exercise>
 
 Now would be the time to submit your solutions to be graded. Run `lein
-midje` to see if all the tests pass. If all tests pass, you should see
-the following:
+midje` to see if all the tests pass. If the do, you should see the
+following:
 
 ~~~sh
 me@my-computer:~/training-day$ lein midje
@@ -648,8 +646,8 @@ All claimed facts (5) have been confirmed.
 ~~~
 
 Don't worry if you haven't figured out all the exercises. You can
-still submit those that you have successfully made. Speaking of which,
-here is the process
+still submit those that you have successfully made. Here is how to do
+it.
 
 1. Create a commit of your changes by running
 
@@ -670,7 +668,12 @@ here is the process
    time permits. When you are ready, click `Send pull request`.
    
 4. You will be informed on the amount of points that you got from the
-   submited exercises.
+   submited exercises. Then the pull request is closed.
+   
+If you didn't submit the solutions all at once, or some of the
+submited ones were incorrect, you can re-submit as many times as you
+need to. Just fix the code and follow the steps again. Be sure to
+create a **new** pull request.
 
 [Proceed to the horse feast! →](I-am-a-horse-in-the-land-of-booleans.html)
 
