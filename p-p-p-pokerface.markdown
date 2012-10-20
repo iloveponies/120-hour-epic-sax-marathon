@@ -6,23 +6,23 @@
 
 Here we'll implement a poker hand evaluator in Clojure.
 
-## Get the project
+## Fork this
 
-Clone the project for this chapter:
+[https://github.com/iloveponies/p-p-p-pokerface](https://github.com/iloveponies/p-p-p-pokerface)
 
-~~~
-git clone https://github.com/iloveponies/p-p-p-pokerface.git
-~~~
+[Here](basic-tools.html#how-to-submit-answers-to-exercises) are the
+instructions if you need them. Be sure to fork the repository behind
+the link above.
 
 ## Data representation
 
-A traditional playing card has a rank and a suit. The rank is a number
-from 2 to 10, J, Q, K or A and the suit is Clubs, Diamonds, Hearts or Spades.
+A traditional playing card has a rank and a suit. The rank is a number from 2
+to 10, J, Q, K or A and the suit is Clubs, Diamonds, Hearts or Spades.
 
 We want a simple way to represent poker hands and cards. A card is simply
 going to be a string of the form `"5C"` where the first character represents
 the rank and the second character represents the suit. To keep the
-representation as 2 characters, we'll use the following coding for values
+representation at 2 characters, we'll use the following coding for values
 between 10 and 14:
 
 Rank    Character
@@ -33,7 +33,8 @@ Rank    Character
 13      K
 14      A
 
-So, for example, the Queen of Hearts is `"QH"` and the Ace of Spades is "AS".
+So, for example, the Queen of Hearts is `"QH"` and the Ace of Spades is
+`"AS"`.
 
 ## Rank and suit
 
@@ -234,7 +235,7 @@ contains a four of a kind.
 </exercise>
 
 <exercise>
-Write the function `(flush hand)` that returns `true` if the hand is a flush.
+Write the function `(flush? hand)` that returns `true` if the hand is a flush.
 
 ~~~ {.clojure}
 (flush? pair-hand)  ;=> false
@@ -370,54 +371,6 @@ Straight flush        8
 Write the function `(value hand)`, which returns the value of a hand according
 to the table above.
 
-It might be helpful to add a checker `(high-card? hand)`:
-
-~~~ {.clojure}
-(defn high-card? [hand]
-  true)
-~~~
-
-(All hands have a high card.)
-
-And put all checkers into a vector:
-
-~~~ {.clojure}
-(def checkers
-  [high-card? pair? two-pairs? three-of-a-kind? straight?
-   flush? full-house? four-of-a-kind? straight-flush?])
-~~~
-
-First, write the function `(hand-has-value? hand value)` that returns `true`
-if `hand` has value `value`.
-
-~~~ {.clojure}
-(hand-has-value? high-seven 0)           => true
-(hand-has-value? pair-hand 1)            => true
-(hand-has-value? two-pairs-hand 2)       => true
-(hand-has-value? three-of-a-kind-hand 3) => true
-(hand-has-value? straight-hand 4)        => true
-(hand-has-value? flush-hand 5)           => true
-(hand-has-value? full-house-hand 6)      => true
-(hand-has-value? four-of-a-kind-hand 7)  => true
-(hand-has-value? straight-flush-hand 8)  => true
-(hand-has-value? straight-hand 3)        => false
-(hand-has-value? straight-hand 1)        => false
-(hand-has-value? flush-hand 1)           => false
-(hand-has-value? three-of-a-kind-hand 7) => false
-~~~
-
-Now the value of a hand is the highest value for which
-`(hand-has-value hand value)` returns `true`.
-
-`filter` and `range` might be useful here.
-
-To get all indexes of a vector, or some other sequence, you can use this:
-
-~~~ {.clojure}
-(def some-vector [1 2 3])
-(range (count some-vector)) ;=> (0 1 2)
-~~~
-
 ~~~ {.clojure}
 (value high-seven)           ;=> 0
 (value pair-hand)            ;=> 1
@@ -429,6 +382,57 @@ To get all indexes of a vector, or some other sequence, you can use this:
 (value four-of-a-kind-hand)  ;=> 7
 (value straight-flush-hand)  ;=> 8
 ~~~
+
+It might be helpful to add a checker `(high-card? hand)`:
+
+~~~ {.clojure}
+(defn high-card? [hand]
+  true) ; All hands have a high card.
+~~~
+
+Here are two alternative helper functions that you can define.
+
+`(hand-has-value? hand value)`
+
+~~~clojure
+(hand-has-value? pair-hand 1) ;=> true
+(hand-has-value? full-house-hand 6) ;=> true
+(hand-has-value? full-house-hand 3) ;=> true
+(hand-has-value? three-of-a-kind-hand 3) ;=> true
+(hand-has-value? three-of-a-kind-hand 6) ;=> false
+~~~
+
+To implement this function, you might want to put all the checkers into a
+vector like this. What is the relation between the checker and its index?
+
+~~~clojure
+(let [checkers [high-card? pair? two-pairs? three-of-a-kind? straight?
+                flush? full-house? four-of-a-kind? straight-flush?]]
+  ...)
+~~~
+
+`(hand-has-type? hand checker-value)`
+
+~~~clojure
+(hand-has-type? pair-hand [pair? 1]) ;=> true
+(hand-has-type? pair-hand [two-pairs? 2]) ;=> false
+(hand-has-type? full-house-hand [three-of-a-kind? 3]) ;=> true
+(hand-has-type? full-house-hand [full-house? 6]) ;=> true
+(hand-has-type? full-house-hand [flush? 5]) ;=> false
+~~~
+
+To use this function, group the checkers with the corresponding values into a
+set like this.
+
+~~~clojure
+(let [checkers #{[high-card? 0]  [pair? 1]
+                 [two-pairs? 2]  [three-of-a-kind? 3]
+                 [straight? 4]   [flush? 5]
+                 [full-house? 6] [four-of-a-kind? 7]
+                 [straight-flush? 8]}]
+  ...)
+~~~
+
 </exercise>
 
 ## Data representation
@@ -467,8 +471,10 @@ functions like this:
 (value (hand ["2H" "3H" "4H" "5H" "6H"])) ;=> 4
 ~~~
 
-And we would now be able to change the internal representation to something
-like this, if we wanted to:
+Now the functions `card`, `rank` and `suit` form the abstraction for a playing
+card. They are the only functions that need to know about the internal
+representatin of the card. This means that we would now be able to change the
+internal representation to something like this, if we wanted to:
 
 ~~~ {.clojure}
 (card "2H") ;=> {:rank 2, :suit :hearts}
