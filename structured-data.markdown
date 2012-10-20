@@ -957,6 +957,16 @@ times. Otherwise it returns `false`.
 
 </exercise>
 
+Our books looked like this:
+
+~~~{.clojure}
+(def friedman {:name "Daniel Friedman" :birth-year 1944})
+(def felleisen {:name "Matthias Felleisen"})
+
+(def little-schemer {:title "The Little Schemer"
+                     :authors [friedman, felleisen]})
+~~~
+
 Now we can understand the whole implementation of `all-author-names`. We use
 
 - `fn` to introduce a helper function,
@@ -981,6 +991,125 @@ Calling our function returns the desired set:
 ;     "Octavia E. Butler" "Daniel Friedman"}
 ~~~
 
+## Representing Books, Take Two
+
+Now I would like to ask whether `little-schemer` has `felleisen` as an author
+or not. This turns out to be problematic. There is no function on vectors that
+can be used to query membership. So how about we change the representation of
+books? We now have a motivation to put authors into a set instead of a vector.
+This feels like a more natural fit, since a book never has a single author
+multiple times and our data doesn't give a natural order for the authors.
+
+New representation:
+
+~~~{.clojure}
+(def little-schemer {:title "The Little Schemer"
+                     :authors #{friedman, felleisen}})
+~~~
+
+<exercise>
+Write the function `(old-book->new-book book)` that takes a book with the
+previous representation (authors in a vector) and returns the same book in the
+new representation (authors in a set).
+
+~~~{.clojure}
+(old-book->new-book {:title "The Little Schemer"
+                     :authors [friedman, felleisen]})
+;=> {:title "The Little Schemer" :authors #{friedman, felleisen}}
+(old-book->new-book {:title "Wild Seed", :authors [octavia]})
+;=> {:title "Wild Seed", :authors #{octavia}}
+~~~
+</exercise>
+
+Here are all of the books changed to the new representation:
+
+~~~{.clojure}
+(def china {:name "China Miéville", :birth-year 1972})
+(def octavia {:name "Octavia E. Butler"
+              :birth-year 1947
+              :death-year 2006})
+(def friedman {:name "Daniel Friedman" :birth-year 1944})
+(def felleisen {:name "Matthias Felleisen"})
+
+(def cities {:title "The City and the City" :authors #{china}})
+(def wild-seed {:title "Wild Seed", :authors #{octavia}})
+(def embassytown {:title "Embassytown", :authors #{china}})
+(def little-schemer {:title "The Little Schemer"
+                     :authors #{friedman, felleisen}})
+
+(def books [cities, wild-seed, embassytown, little-schemer])
+~~~
+
+Now that the authors are in a set, it is easy to find out whether a book has
+some author or not.
+
+<exercise>
+Write the function `(has-author? book author)` that returns `true` if `author`
+is in the authors of `book` and otherwise `false`.
+
+~~~{.clojure}
+(has-author? cities china)             ;=> true
+(has-author? cities felleisen)         ;=> false
+(has-author? little-schemer felleisen) ;=> true
+(has-author? little-schemer friedman)  ;=> true
+(has-author? little-schemer octavia)   ;=> false
+~~~
+</exercise>
+
+Does our previous definition for `all-author-names` still work? It does, but
+let's take another look at it.
+
+~~~{.clojure}
+(defn all-author-names [books]
+  (let [author-names
+         (fn [book] (map :name (:authors book)))]
+    (set (apply concat (map author-names books)))))
+~~~
+
+Here we first turn each book into a sequence of names. Concatenate the
+sequences and finally turn this sequence into a set. Let's break this into two
+steps. First, let's define a function that returns all authors in a set. Then
+use this set to get the names.
+
+For sets, there is a special function `(clojure.set/union set1 set2 ...)` that
+returns a new set that has all the elements of its parameters.
+
+~~~{.clojure}
+(clojure.set/union #{1 2} #{2 3} #{1 2 3 4} #{7 8}) ;=> #{1 2 3 4 7 8}
+(apply clojure.set/union [#{1 2} #{5} #{7 8}])      ;=> #{1 2 5 7 8}
+~~~
+
+That is, `union` works like `concat` but is specialized for sets. Let's put
+this into good use:
+
+<exercise>
+Write the function `(authors books)` that returns the authors of every book in
+`books` as a set.
+
+~~~{.clojure}
+(authors [cities, wild-seed])              ;=> #{china, octavia}
+(authors [cities, wild-seed, embassytown]) ;=> #{china, octavia}
+(authors [little-schemer, cities])         ;=> #{china, friedman, felleisen}
+~~~
+</exercise>
+
+Now that we have all of our authors, defining `all-author-names` should be
+simple.
+
+<exercise>
+Write the function `(all-author-names books)` that works like the previous one
+and uses `authors`.
+
+~~~{.clojure}
+(all-author-names books)
+;=> #{"Matthias Felleisen" "China Miéville"
+;     "Octavia E. Butler" "Daniel Friedman"}
+(all-author-names [cities, wild-seed])
+;=> #{"China Miéville" "Octavia E. Butler"}
+(all-author-names []) ;=> #{}
+~~~
+</exercise>
+
 ### String Representation for Books
 
 Now that we have defined these books, I would like to have a readable string
@@ -999,6 +1128,9 @@ You can assume that every author with a `:death-year` also has a
 (author->string friedman)  ;=> "Daniel Friedman (1944 - )"
 (author->string octavia)   ;=> "Octavia E. Butler (1947 - 2006)"
 ~~~
+
+Hint: you probably want to split this string into two parts: name and years.
+Use `let` to form these and use `str` to create the final string.
 </exercise>
 
 Now we have a string representation for a single author. Some of our books had
@@ -1029,11 +1161,15 @@ following manner:
 ~~~{.clojure}
 (authors->string (:authors little-schemer))
 ;=> "Daniel Friedman (1944 - ), Matthias Felleisen"
-(authors->string [octavia])          ;=> "Octavia E. Butler (1947 - 2006)"
-(authors->string [])                 ;=> ""
-(authors->string [octavia, friedman])
+(authors->string #{octavia})          ;=> "Octavia E. Butler (1947 - 2006)"
+(authors->string #{})                 ;=> ""
+(authors->string #{octavia, friedman})
 ;=> "Octavia E. Butler (1947 - 2006), Daniel Friedman (1944 - )"
+;   order doesn't matter
 ~~~
+
+Since the authors are in a set, which doesn't have a predefined order, the
+resulting string can have the authors in any order.
 </exercise>
 
 Now that we can handle the case of multiple authors, we can move on to the
@@ -1047,7 +1183,10 @@ and returns a string representation of `book` as follows:
 (book->string wild-seed) ;=> "Wild Seed, written by Octavia E. Butler"
 (book->string little-schemer)
 ;=> "The Little Schemer, written by Daniel Friedman (1944 - ), Matthias Felleisen"
+;                                   ^-- order doesn't matter
 ~~~
+
+Again, the order of authors in the string doesn't matter.
 </exercise>
 
 And finally, we can define a string representation for a sequence of books.
@@ -1065,34 +1204,40 @@ parameter and returns a string representation of `books` like this:
 ~~~
 </exercise>
 
----------------- marker -----------------------
-
-
 ## Filtering sequences
 
 Another common function besides `map` is `filter`. It is used to select some
 elements of a sequence and disregard the rest:
 
 ~~~ {.clojure}
-(filter pos? [-4 6 -2 7 -8 3]) ;=> (6 7 3)
+(filter pos? [-4 6 -2 7 -8 3])
+;=>       (      6         7          3  )
+; value    -4    6    -2   7     -8   3
+; pos?   false true false true false true
+
 (filter (fn [x] (> (count x) 2)) ["ff" "f" "ffffff" "fff"])
 ;=> ("ffffff" "fff")
 ~~~
 
 `(filter predicate collection)` takes two parameters, a function and a
-sequencable collection. It calls the function on each element of the sequence
-and returns a sequence of the values from the collection for which the function
-returned a truthy value. In the above example the values `(6 7 3)` were
-selected because for them `pos?` returned true; for the others it returned
-false, a falsey value, and they were filtered out.
+sequencable collection. It calls `predicate` (the function) on each element of
+`collection` and returns a sequence of elements of `collection` for
+which `predicate` returned a truthy value. In the above example the values
+`(6 7 3)` were selected because for them `pos?` returned `true`; for the others
+it returned `false`, a falsey value, and they were filtered out.
 
 <exercise>
 Write the function `(books-by-author author books)`.
 
+Hint: `has-author?`
+
 ~~~ {.clojure}
-(books-by-author "China Miéville" books) ;=> (cities embassytown)
+(books-by-author china books) ;=> (cities embassytown)
+(books-by-author octavia books) ;=> (wild-seed)
 ~~~
 </exercise>
+
+------- marker -------
 
 <exercise>
 Implement `(book-titles-by-author author books)`, which returns the book
