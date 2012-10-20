@@ -140,9 +140,10 @@ Booleans        `true`, `false`      Boolean values.
 
 ## Vectors
 
-Collections are the other kind of data structure, in addition to scalars, that
-are crucial to programming. Clojure has support for a rich set of collection
-data structures. We'll go over the most important structures in this chapter.
+Collections are the other kind of values, in addition to scalars, that
+are crucial to programming. Clojure has support for a rich set of
+collection data structures. We'll go over the most important
+structures in this chapter.
 
 A *vector* is a collection that can be indexed with integers, like an array in
 other languages. It can contain values of different types.
@@ -189,11 +190,11 @@ can, however, easily create new vectors based on a vector:
 (assoc [1 2 3 4] 2 "foo") ;=> [1 2 "foo" 4]
 ~~~
 
-`conj` adds a value to a collection. Its behaviour depends on the type of
-collection: with vectors, it adds the value to the end of the vector. To be
-exact, `conj` does *not* change the given vector. Instead, it returns a new
-vector, based on the given vector, with the new element appended to this new
-vector.
+`conj` adds a value to a collection. Its behaviour depends on the type
+of collection: with vectors, it adds the value to the end of the
+vector. To be exact, `conj` does *not* change the given vector.
+Instead, it returns a new vector, based on the given vector, with the
+new element appended to the end.
 
 <exercise>
 Write the function `(cutify v)` that takes a vector as a parameter and adds
@@ -238,7 +239,7 @@ following function:
    (+ (second first-pair) (second second-pair))])
 ~~~
 
-The function takes two vectors and sums their first pairwise elements:
+The function takes two vectors and sums the elements pairwise:
 
 ~~~ {.clojure}
 (sum-pairs [42 5]   [-42 -5])   ;=> [0 0]
@@ -407,6 +408,8 @@ access collections:
 When used as a function and given a collection, a keyword looks itself up in
 the collection and returns the value associated with it.
 
+### We are a legion
+
 `count` can be used to find out the amount of elements in a collection.
 
 ~~~{.clojure}
@@ -415,8 +418,9 @@ the collection and returns the value associated with it.
 (count ":)") => 2
 ~~~
 
-As we can see, `count` tells the amount of keys for a map and the amount of
-elements for a vector. It can also be used to find out the len gth of a string.
+As we can see, `count` tells the amount of keys for a map and the
+amount of elements for a vector. It can also be used to find out the
+length of a string.
 
 Let's define some authors and a couple of books with maps and vectors.
 
@@ -479,8 +483,8 @@ Let's add some information to a book:
 
 ~~~{.clojure}
 (assoc cities :awards ["Hugo", "World Fantasy Award",
-                     "Arthur C. Clarke Award",
-                     "British Science Fiction Award"])
+                       "Arthur C. Clarke Award",
+                       "British Science Fiction Award"])
 ;=> {:awards ["Hugo" "World Fantasy Award" "Arthur C. Clarke Award"
 ;             "British Science Fiction Award"]
 ;    :title "The City and the City"
@@ -877,8 +881,8 @@ this.
 
 ### Set
 
-Our last major data structure is set. It is an unordered collection of items
-without duplicates.
+Our last major data structure is the set. It is an unordered
+collection of items without duplicates.
 
 ~~~ {.clojure}
 (set ["^^" "^^" "^__*__^"]) ;=> #{"^__*__^" "^^"}
