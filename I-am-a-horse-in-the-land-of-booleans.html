@@ -54,10 +54,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>everything is an expression / has a value</li>
 </ul>
 </section>
-<section class="level2" id="get-the-project">
-<h2>Get the project</h2>
-<p>Clone the project for this chapter:</p>
-<pre><code>git clone https://github.com/iloveponies/i-am-a-horse-in-the-land-of-booleans.git</code></pre>
+<section class="level2" id="fork-this">
+<h2>Fork this</h2>
+<p><a href="https://github.com/iloveponies/i-am-a-horse-in-the-land-of-booleans">https://github.com/iloveponies/i-am-a-horse-in-the-land-of-booleans</a></p>
+<p><a href="basic-tools.html#how-to-submit-answers-to-exercises">Here</a> are the instructions if you need them. Be sure to fork the repository behind the link above.</p>
 </section>
 <section class="level2" id="if-then-else">
 <h2>If then else</h2>
@@ -100,7 +100,7 @@ Exercise 1
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">==</span> <span class="dv">42</span>  <span class="dv">42</span>) <span class="co">;=&gt; true</span>
 (<span class="kw">==</span> <span class="fl">5.0</span>  <span class="dv">5</span>) <span class="co">;=&gt; true</span>
 (<span class="kw">=</span>  <span class="fl">5.0</span>  <span class="dv">5</span>) <span class="co">;=&gt; false !</span></code></pre>
-<p>Note the difference between <code>=</code> and <code>==</code>: <code>==</code> disregards the actual type of the numeric value, whereas <code>=</code> requires that the type numbers are of the same type.</p>
+<p>Note the difference between <code>=</code> and <code>==</code>: <code>==</code> disregards the actual type of the numeric value, whereas <code>=</code> requires that the numbers are of the same type.</p>
 <p>Less-than, greater-than and other such comparisons can be done with the regular <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code> and <code>&gt;=</code> operators:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">&lt;</span> <span class="dv">1</span> <span class="dv">2</span>)   <span class="co">;=&gt; true</span>
 (<span class="kw">&gt;</span> <span class="dv">1</span> <span class="dv">2</span>)   <span class="co">;=&gt; false</span>
@@ -274,6 +274,10 @@ Exercise 6
 (<span class="kw">or</span> false false false)            <span class="co">;=&gt; false</span>
 (<span class="kw">or</span>)                              <span class="co">;=&gt; nil</span></code></pre>
 <p>In addition to booleans, <code>and</code>, <code>or</code> and <code>not</code> accept non-boolean values as arguments as well. (Remember that <code>false</code> and <code>nil</code> are falsey and everything else is truthy.)</p>
+<p>By the way, if you have a lot of long parameters to <code>and</code>, or any function for that matter, indent them like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">and</span> very-long-boolean-holding-parameter
+     another-one-that-is-a-friend-of-the-previous
+     the-third-guy)</code></pre>
 <p><code>and</code> returns truthy if all of its arguments are truthy:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">and</span> <span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span>)   <span class="co">;=&gt; &quot;bar&quot;</span>
 (<span class="kw">and</span> <span class="st">&quot;foo&quot;</span>  false)  <span class="co">;=&gt; false</span>
@@ -287,7 +291,7 @@ Exercise 6
 (<span class="kw">not</span> [])            <span class="co">;=&gt; false</span></code></pre>
 <p>This behaviour might look surprising, but it is consistent. What’s happening is that if all the arguments to <code>and</code> are truthy, it returns the value of the last argument. Otherwise, it returns the value of the first falsey argument. Conversely, <code>or</code> returns either the first truthy value or the last falsey value.</p>
 <p>While it might seem odd that boolean functions return non-boolean values, remember that all values in Clojure in fact act as boolean values. This behaviour is useful in many situations. For an example, it allows you to provide default values for variables when taking input:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> server-port </span>(<span class="kw">or</span> (commandline-parameters <span class="kw">:port</span>) <span class="dv">80</span>))</code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> server-port </span>(<span class="kw">or</span> user-input <span class="dv">80</span>))</code></pre>
 <p>Note that this can only be used in situations where the input may not take the values <code>false</code> or <code>nil</code>.</p>
 <section class="alert alert-success">
 <h3>
