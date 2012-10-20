@@ -159,7 +159,7 @@ Exercise 1
 </section>
 <section class="level2" id="vectors">
 <h2>Vectors</h2>
-<p>Collections are the other kind of data structure, in addition to scalars, that are crucial to programming. Clojure has support for a rich set of collection data structures. We’ll go over the most important structures in this chapter.</p>
+<p>Collections are the other kind of values, in addition to scalars, that are crucial to programming. Clojure has support for a rich set of collection data structures. We’ll go over the most important structures in this chapter.</p>
 <p>A <em>vector</em> is a collection that can be indexed with integers, like an array in other languages. It can contain values of different types.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">[<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]                 <span class="co">;=&gt; [1 2 3]</span>
 [<span class="kw">:foo</span> <span class="dv">42</span> <span class="st">&quot;bar&quot;</span> (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">3</span>)] <span class="co">;=&gt; [:foo 42 &quot;bar&quot; 5]</span></code></pre>
@@ -184,7 +184,7 @@ Exercise 2
 <p>Vectors are immutable: once you have a vector, <em>you can not change it</em>. You can, however, easily create new vectors based on a vector:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">conj</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] <span class="dv">4</span>)          <span class="co">;=&gt; [1 2 3 4]</span>
 (<span class="kw">assoc</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>] <span class="dv">2</span> <span class="st">&quot;foo&quot;</span>) <span class="co">;=&gt; [1 2 &quot;foo&quot; 4]</span></code></pre>
-<p><code>conj</code> adds a value to a collection. Its behaviour depends on the type of collection: with vectors, it adds the value to the end of the vector. To be exact, <code>conj</code> does <em>not</em> change the given vector. Instead, it returns a new vector, based on the given vector, with the new element appended to this new vector.</p>
+<p><code>conj</code> adds a value to a collection. Its behaviour depends on the type of collection: with vectors, it adds the value to the end of the vector. To be exact, <code>conj</code> does <em>not</em> change the given vector. Instead, it returns a new vector, based on the given vector, with the new element appended to the end.</p>
 <section class="alert alert-success">
 <h3>
 Exercise 3
@@ -214,7 +214,7 @@ Exercise 4
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum-pairs </span>[first-pair second-pair]
   [(<span class="kw">+</span> (<span class="kw">first</span>  first-pair) (<span class="kw">first</span>  second-pair))
    (<span class="kw">+</span> (<span class="kw">second</span> first-pair) (<span class="kw">second</span> second-pair))])</code></pre>
-<p>The function takes two vectors and sums their first pairwise elements:</p>
+<p>The function takes two vectors and sums the elements pairwise:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(sum-pairs [<span class="dv">42</span> <span class="dv">5</span>]   [-<span class="dv">42</span> -<span class="dv">5</span>])   <span class="co">;=&gt; [0 0]</span>
 (sum-pairs [<span class="dv">64</span> <span class="dv">256</span>] [-<span class="dv">51</span> -<span class="dv">219</span>]) <span class="co">;=&gt; [13 37]</span></code></pre>
 <p><code>sum-pair</code> is not very pretty to look at. We can spiff it up by taking out the elements of its parameter vectors by destructuring them:</p>
@@ -324,11 +324,13 @@ Exercise 9
 <p>Keywords are even more convenient than this. They work as functions that access collections:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">:title</span> book) <span class="co">;=&gt; &quot;The City and the City&quot;</span></code></pre>
 <p>When used as a function and given a collection, a keyword looks itself up in the collection and returns the value associated with it.</p>
+<section class="level3" id="we-are-a-legion">
+<h3>We are a legion</h3>
 <p><code>count</code> can be used to find out the amount of elements in a collection.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">count</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
 (<span class="kw">count</span> {<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>}) =&gt; <span class="dv">2</span>
 (<span class="kw">count</span> <span class="st">&quot;:)&quot;</span>) =&gt; <span class="dv">2</span></code></pre>
-<p>As we can see, <code>count</code> tells the amount of keys for a map and the amount of elements for a vector. It can also be used to find out the len gth of a string.</p>
+<p>As we can see, <code>count</code> tells the amount of keys for a map and the amount of elements for a vector. It can also be used to find out the length of a string.</p>
 <p>Let’s define some authors and a couple of books with maps and vectors.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> china </span>{<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>})
 (<span class="kw">def</span><span class="fu"> octavia </span>{<span class="kw">:name</span> <span class="st">&quot;Octavia E. Butler&quot;</span>
@@ -374,8 +376,8 @@ Exercise 12
 (<span class="kw">assoc</span> {<span class="kw">:a</span> <span class="dv">1</span>} <span class="kw">:a</span> <span class="dv">2</span>) <span class="co">;=&gt; {:a 2}</span></code></pre>
 <p>Let’s add some information to a book:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">assoc</span> cities <span class="kw">:awards</span> [<span class="st">&quot;Hugo&quot;</span>, <span class="st">&quot;World Fantasy Award&quot;</span>,
-                     <span class="st">&quot;Arthur C. Clarke Award&quot;</span>,
-                     <span class="st">&quot;British Science Fiction Award&quot;</span>])
+                       <span class="st">&quot;Arthur C. Clarke Award&quot;</span>,
+                       <span class="st">&quot;British Science Fiction Award&quot;</span>])
 <span class="co">;=&gt; {:awards [&quot;Hugo&quot; &quot;World Fantasy Award&quot; &quot;Arthur C. Clarke Award&quot;</span>
 <span class="co">;             &quot;British Science Fiction Award&quot;]</span>
 <span class="co">;    :title &quot;The City and the City&quot;</span>
@@ -418,6 +420,7 @@ Exercise 14
 <p>An author is alive if the author does not have a death year.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(alive? china)   <span class="co">;=&gt; true</span>
 (alive? octavia) <span class="co">;=&gt; false</span></code></pre>
+</section>
 </section>
 </section>
 <section class="level2" id="serial-grave-digging">
@@ -605,7 +608,7 @@ Exercise 19
 </section>
 <section class="level3" id="set">
 <h3>Set</h3>
-<p>Our last major data structure is set. It is an unordered collection of items without duplicates.</p>
+<p>Our last major data structure is the set. It is an unordered collection of items without duplicates.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">set</span> [<span class="st">&quot;^^&quot;</span> <span class="st">&quot;^^&quot;</span> <span class="st">&quot;^__*__^&quot;</span>]) <span class="co">;=&gt; #{&quot;^__*__^&quot; &quot;^^&quot;}</span>
 (<span class="kw">set</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">1</span>]) <span class="co">;=&gt; #{1 2 3}</span></code></pre>
 <p>The textual form of a set is <code>#{an-elem another-elem ...}</code> and you can convert another collection into a set with the function <code>set</code>.</p>
