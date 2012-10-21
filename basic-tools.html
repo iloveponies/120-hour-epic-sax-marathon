@@ -103,8 +103,16 @@ mkdir bin</code></pre></li>
 </section>
 <section class="level2" id="how-to-submit-answers-to-exercises">
 <h2>How to submit answers to exercises</h2>
-<p>At the start of every chapter, you should go to <a href="https://github.com">Github</a> and <em>fork</em> the chapters repository. There will be a link to the appropriate repository at the beginning of every chapter. You then <em>clone</em> your own fork of the repository and start working with the exercises when you encounter them amongs the material. You create <em>commits</em> and maybe <em>push</em> them in to your own fork while working. You also run the tests with <code>lein midje</code> to see if they pass.</p>
-<p>When you want your answers graded, you push all of your work with <code>git push</code>. You then go to Github and send a <em>pull request</em>. We will run the tests on our computer and see the code. Your points will be announced FIXME and the pull request will be closed. If you didn’t get all the points and want to try again, you are free to do so. Just make modifications to the code, create a commit, push and open a <em>new</em> pull request. We once again run the tests and see the code. You will be informed about the <em>new</em> points that you got.</p>
+<p>At the start of every chapter, you should go to <a href="https://github.com">Github</a> and <em>fork</em> the chapters repository. There will be a link to the appropriate repository at the beginning of every chapter. You then <em>clone</em> your <strong>own</strong> fork of the repository and start working with the exercises when you encounter them amongs the material. You create <em>commits</em> and maybe <em>push</em> them in to your own fork while working. You also run the tests with <code>lein midje</code> to see if they pass.</p>
+<p>When you want your answers graded, you push all of your work with <code>git push</code>. You then go to Github and send a <em>pull request</em>. We will run the tests on our computer and see the code. Your points will be announced on the comment thread of the pull request and the pull request will be closed.</p>
+<section class="alert alert-error">
+<h3>
+Watch out!
+</h3>
+
+<p>The pull requests are visible to everyone. If you don’t want your grading to be public, create an anonymous Github account and pass the name of that to us.</p>
+</section>
+<p>If you didn’t get all the points and want to try again, you are free to do so. Just make modifications to the code, create a commit, push and open a <strong>new</strong> pull request. We once again run the tests and see the code. You will be informed about the <strong>new</strong> points that you got.</p>
 <p>Lets go through the first part of this process to be ready for the next chapter.</p>
 <ol type="1">
 <li><p>Go to the Github page of the repository of the next chapter. Here is the <a href="https://github.com/iloveponies/training-day">link</a>.</p></li>
@@ -116,8 +124,8 @@ mkdir bin</code></pre></li>
 lein midje</code></pre>
 <p>Instead of <code>lein midje</code>, you can issue the command</p>
 <pre><code>lein midje --lazy-test</code></pre>
-<p>This starts a loop which runs the tests again every time you make changes to any of the projects files. A very handy feature, as running plain <code>lein midje</code> has a pretty long startup time.</p></li>
-<li><p>You are now ready to start working with the exercises. When ever you encounter an exercise in the material, open the file <code>src/training_day.clj</code> and fill the appropriate function. Run <code>lein    midje</code> often to see if the tests pass.</p></li>
+<p>This starts a loop which runs the tests again every time you make changes to any of the projects files. A very handy feature, as running plain <code>lein    midje</code> has a pretty long startup time.</p></li>
+<li><p>You are now ready to start working with the exercises. When ever you encounter an exercise in the material, open the file <code>src/training_day.clj</code> and fill the appropriate function. Run <code>lein midje</code> often to see if the tests pass.</p></li>
 </ol>
 <p><a href="training-day.html">Proceed, young padawan. →</a></p>
 </section>
