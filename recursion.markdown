@@ -110,6 +110,10 @@ of values. The product of $a$, $b$ and $c$ is $a * b * c$.
 ~~~
 </exercise>
 
+<exercise>
+Write down the evaluation of `(product [1 2 4])` like we did for `sum` above.
+</exercise>
+
 To get a better grasp on what `sum` does, let's see how it's evaluated.
 
 ~~~ {.clojure}
@@ -156,10 +160,6 @@ We call this kind of computation _linear_ because the expression it constructs
 grows linearly with the size of input.
 
 <exercise>
-Write down the evaluation of `(product [1 2 4])` like we did for `sum` above.
-</exercise>
-
-<exercise>
 Write the function `(singleton? coll)` which returns `true` if the collection
 has only a one element in it and `false` otherwise.
 
@@ -184,6 +184,34 @@ Write `(my-last a-seq)` that computes the last element of a sequence.
 ~~~
 
 Hint: what is the base case here? How can you check if we're there?
+</exercise>
+
+<exercise>
+
+Write the function `(seq-max a-seq)` that computes returns the maximum element
+in `a-seq` or `nil` if `a-seq` is empty?
+
+You can use the function `(max a b)` that returns the greater of `a` and `b`.
+
+~~~clojure
+(seq-max [2 4 1 4]) ;=> 4
+(seq-max [2])       ;=> 2
+(seq-max [])        ;=> nil
+~~~
+
+</exercise>
+
+<exercise>
+
+Write the function `(longest-sequence a-seq)` that takes a sequence of
+sequences as a parameter and returns the longest one.
+
+~~~clojure
+(longest-sequence [[1 2] [] [1 2 3]]) ;=> [1 2 3]
+(longest-sequence [[1 2]])            ;=> [1 2]
+(longest-sequence [])                 ;=> nil
+~~~
+
 </exercise>
 
 ### Saving the list
@@ -539,16 +567,6 @@ _Hint:_ You can use `reverse` and `map`.
 
 </exercise>
 
-<exercise>
-Write the function `split-into-monotonics` that takes a sequence and returns
-the sequence split into monotonic pieces. Examples:
-
-~~~ {.clojure}
-(split-into-monotonics [0 1 2 1 0])   ;=> ((0 1 2) (1 0))
-(split-into-monotonics [0 5 4 7 1 3]) ;=> ((0 5) (4 7) (1 3))
-~~~
-</exercise>
-
 ### Passing state
 
 Sometimes when recursing over a structure we want to keep track of something.
@@ -754,13 +772,36 @@ Conceptually:
 
 ## Encore
 
+The following exercises are ment to be tricky. For that reason they give more
+points than the regular ones. But don't worry if 
+
+<exercise>
+
+Write the function `split-into-monotonics` that takes a sequence and returns
+the sequence split into monotonic pieces. Examples:
+
+~~~ {.clojure}
+(split-into-monotonics [0 1 2 1 0])   ;=> ((0 1 2) (1 0))
+(split-into-monotonics [0 5 4 7 1 3]) ;=> ((0 5) (4 7) (1 3))
+~~~
+
+_Hint:_ You might find useful the functions `take-while`, `drop` and `inits`.
+Make sure that your `inits` returns the prefixes from the shortest to the
+longest.
+
+~~~clojure
+(inits [1 2 3 4]) ;=> (() (1) (1 2) (1 2 3) (1 2 3 4))
+~~~
+
+</exercise>
+
 <exercise>
 Given a sequence, return all permutations of that sequence.
 
 ~~~ {.clojure}
-(permutations [])
-;=> ()
-(permutations [1 5 3])
+(permutations #{})
+;=> (())
+(permutations #{1 5 3})
 ;=> ((1 5 3) (5 1 3) (5 3 1) (1 3 5) (3 1 5) (3 5 1))
 ~~~
 
@@ -768,14 +809,13 @@ The order of the permutations doesn't matter.
 </exercise>
 
 <exercise>
-Given a sequence, return the powerset of that sequence.
+Given a set, return the powerset of that set.
 
 ~~~ {.clojure}
-(powerset [])      ;=> (())
-(powerset [1 2 4]) ;=> (() (4) (2) (2 4) (1) (1 4) (1 2) (1 2 4))
+(powerset #{})      ;=> #{#{}}
+(powerset #{1 2 4}) ;=> #{#{} #{4} #{2} #{2 4} #{1} #{1 4} #{1 2} #{1 2 4}}
 ~~~
 
-The order of the subsequences doesn't matter.
 </exercise>
 
 [Software Foundations]: http://www.cis.upenn.edu/~bcpierce/sf/Basics.html#nat
