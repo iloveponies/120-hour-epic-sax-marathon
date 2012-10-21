@@ -1239,32 +1239,95 @@ Write the function `(books-by-author author books)`.
 Hint: `has-author?`
 
 ~~~ {.clojure}
-(books-by-author china books) ;=> (cities embassytown)
+(books-by-author china books)   ;=> (cities embassytown)
 (books-by-author octavia books) ;=> (wild-seed)
 ~~~
 </exercise>
 
-------- marker -------
+~~~{.clojure}
+(def authors #{china, felleisen, octavia, friedman})
+~~~
 
 <exercise>
-Implement `(book-titles-by-author author books)`, which returns the book
-titles of the books by the given author.
+Write the function `(author-by-name name authors)` that takes a string `name`
+and a sequence of authors and returns an author with the given name if one is
+found. If one is not found, then `nil` should be returned.
 
-Use `books-by-author` as a helper function.
+Hint: remember `first`
+
+~~~{.clojure}
+(author-by-name "Octavia E. Butler" authors)                ;=> octavia
+(author-by-name "Octavia E. Butler" #{felleisen, friedman}) ;=> nil
+(author-by-name "China Miéville" authors)                   ;=> china
+(author-by-name "Goerge R. R. Martin" authors)              ;=> nil
+~~~
 </exercise>
 
 <exercise>
-Implement `(authors books)`, which returns all the authors in a set.
+Write the function `(living-authors authors)` that takes a sequence of authors
+and returns those that are alive. Remember `alive?`.
+
+~~~{.clojure}
+(living-authors authors)             ;=> (china, felleisen, friedman)
+(living-authors #{octavia})          ;=> ()
+(living-authors #{china, felleisen}) ;=> (china, felleisen)
+~~~
+
+The order in the results doesn't matter.
+</exercise>
+
+Here's another book. This one has both living and dead authors, which is a
+useful test case for the following exercises.
+
+~~~{.clojure}
+(def jrrtolkien {:name "J. R. R. Tolkien" :birth-year 1892 :death-year 1973})
+(def christopher {:name "Christopher Tolkien" :birth-year 1924})
+(def kay {:name "Guy Gavriel Kay" :birth-year 1954})
+
+(def silmarillion {:title "Silmarillion"
+                   :authors #{jrrtolkien, christopher, kay}})
+~~~
+
+And here's another with multiple dead authors:
+
+~~~{.clojure}
+(def dick {:name "Philip K. Dick", :birth-year 1928, :death-year 1982})
+(def zelazny {:name "Roger Zelazny", :birth-year 1937, :death-year 1995})
+
+(def deus-irae {:title "Deus Irae", :authors #{dick, zelazny}})
+~~~
+
+If you want to know whether a collection is empty or not, you can use `(empty?
+coll)` to do that.
+
+~~~{.clojure}
+(empty? [])  ;=> true
+(empty? #{}) ;=> true
+(empty? [1]) ;=> false
+~~~
+
+<exercise>
+Write the function `(has-a-living-author? book)` that returns `true` if `book`
+has a living author, and otherwise `false`.
+
+~~~{.clojure}
+(has-a-living-author? wild-seed)      ;=> false
+(has-a-living-author? silmarillion)   ;=> true
+(has-a-living-author? little-schemer) ;=> true
+(has-a-living-author? cities)         ;=> true
+(has-a-living-author? deus-irae)      ;=> false
+~~~
 </exercise>
 
 <exercise>
-Implement `(author-names authors)`, which returns all the author names in a
-set.
-</exercise>
+Write the function `(books-by-living-authors books)` that takes a sequence of
+books as a parameter and returns those that have a living author.
 
-<exercise>
-Using the two previous functions, implement `(books->author-names books)`,
-which returns all the books' authors' names in a set.
+~~~{.clojure}
+(books-by-living-authors books) ;=> (little-schemer cities embassytown)
+(books-by-living-authors (concat books [deus-irae, silmarillion]))
+;=> (little-schemer cities embassytown silmarillion)
+~~~
 </exercise>
 
 ### Keeping your vectors
@@ -1284,9 +1347,9 @@ situation, you can use `mapv` and `filterv`, which are variants of `map` and
 
 ## Done!
 
-Phew, that was a lot of stuff. The next chapter is even longer. :)
+Phew, that was quite a lot of stuff.
 
-[Recursion awaits! →](recursion.html)
+[Clojure with Style →](style.html)
 
 [cheat]: http://clojure.org/cheatsheet
 [ClojureDocs]: http://clojuredocs.org
