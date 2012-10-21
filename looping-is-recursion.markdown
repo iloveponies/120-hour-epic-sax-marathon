@@ -47,12 +47,13 @@ look at how its evaluation differs from the evaluation of
 In order to make factorial tail-recursive we introduce an *accumulator*.
 
 ~~~ {.clojure}
+(defn helper [acc n]
+  (if (zero? n)
+    acc
+    (helper (* acc n) (dec n))))
+
 (defn accumulating-factorial [n]
-  (let [helper (fn helper [acc n]
-                 (if (zero? n)
-                   acc
-                   (helper (* acc n) (dec n))))]
-    (helper 1 n)))
+  (helper 1 n))
 ~~~
 
 `helper` uses the return value of its recursive call directly as its return
@@ -97,6 +98,12 @@ Here we've replaced the recursive call `helper` with `recur`. Since `recur` can
 only occur in a tail position (that is, a call whose return value is directly
 returned), the compiler _knows_ the recursion is actually iteration, and can
 compile it into a simple loop. This is called _tail-call optimization_.
+
+We have also moved `helper` inside `recur-factorial` and defined it with `fn`.
+This was not possible before, because an anonymous function has no name to
+call recursively. But as we now make the recursive call with `recur`, we can
+use `fn`. The benefit of this is that the helper function was never supposed
+to be visible to anyone and now it isn't.
 
 Again, because `recur` guarantees tail-call optimization, it can be present
 _only_ in a tail position. While this might seem awkward, it's an advantage

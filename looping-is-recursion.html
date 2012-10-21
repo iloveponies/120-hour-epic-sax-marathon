@@ -68,12 +68,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>We can make this computation more efficient by using <em>tail recursion</em>. A function is <em>tail recursive</em> when its return value is calculated directly by a recursive call. <code>recursive-factorial</code> is not tail recursive, because the value of the recursive call <code>(recursive-factorial (dec n))</code> is not returned directly, but given to <code>*</code>.</p>
 <p>We’ll now introduce a tail recursive version of <code>recursive-factorial</code> and then look at how its evaluation differs from the evaluation of <code>recursive-factorial</code>.</p>
 <p>In order to make factorial tail-recursive we introduce an <em>accumulator</em>.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> accumulating-factorial </span>[n]
-  (<span class="kw">let</span> [helper (<span class="kw">fn</span> helper [acc n]
-                 (<span class="kw">if</span> (<span class="kw">zero?</span> n)
-                   acc
-                   (helper (<span class="kw">*</span> acc n) (<span class="kw">dec</span> n))))]
-    (helper <span class="dv">1</span> n)))</code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> helper </span>[acc n]
+  (<span class="kw">if</span> (<span class="kw">zero?</span> n)
+    acc
+    (helper (<span class="kw">*</span> acc n) (<span class="kw">dec</span> n))))
+
+(<span class="kw">defn</span><span class="fu"> accumulating-factorial </span>[n]
+  (helper <span class="dv">1</span> n))</code></pre>
 <p><code>helper</code> uses the return value of its recursive call directly as its return value. That means it is tail recursive. Let’s see how it evaluates:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">    (accumulating-factorial <span class="dv">5</span>)
 <span class="co">;=&gt; (helper 1 5)</span>
@@ -93,6 +94,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
                    (<span class="kw">recur</span> (<span class="kw">*</span> acc n) (<span class="kw">dec</span> n))))]
     (helper <span class="dv">1</span> number)))</code></pre>
 <p>Here we’ve replaced the recursive call <code>helper</code> with <code>recur</code>. Since <code>recur</code> can only occur in a tail position (that is, a call whose return value is directly returned), the compiler <em>knows</em> the recursion is actually iteration, and can compile it into a simple loop. This is called <em>tail-call optimization</em>.</p>
+<p>We have also moved <code>helper</code> inside <code>recur-factorial</code> and defined it with <code>fn</code>. This was not possible before, because an anonymous function has no name to call recursively. But as we now make the recursive call with <code>recur</code>, we can use <code>fn</code>. The benefit of this is that the helper function was never supposed to be visible to anyone and now it isn’t.</p>
 <p>Again, because <code>recur</code> guarantees tail-call optimization, it can be present <em>only</em> in a tail position. While this might seem awkward, it’s an advantage too. When we’ve placed <code>recur</code> in a non-tail position where Clojure can not perform tail-call optimization, the compiler will give us an error. This indicates that our request to optimize the tail call is not possible. If the compiler allowed <code>recur</code> outside tail positions (and simply performed regular recursion), we would not know whether tail-call optimization actually took place or not.</p>
 <p>In short: <code>recur</code> <em>guarantees</em> tail-call optimization by <em>requiring</em> that the call to it is in an optimizable position.</p>
 <section class="alert alert-success">
