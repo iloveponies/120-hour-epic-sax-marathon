@@ -39,7 +39,7 @@ Learn the structural weaknesses of dragons.
 
 ## [Style]
 
-Stylish Clojure.
+Polish your boots and armour.
 
 - Indentation
 - Whitespace
