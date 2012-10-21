@@ -122,7 +122,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>If a name has many words, they are separated with a hyphen <code>-</code>: <code>magical-ponies</code>, <code>book-authors</code>.</p>
 <p>Add a <code>?</code> to the end of predicates (functions returning booleans): <code>contains?</code>, <code>nil?</code>, <code>pony?</code>.</p>
 <p>Function name should reflect the result value, not the computation done: <code>radius</code> instead of <code>calculate-radius</code>, <code>dead-authors</code> instead of <code>remove-living-authors</code>, <code>author-descriptions</code> instead of <code>describe-authors</code>.</p>
-<p>Functions that create objects of certain type have names of the form <code>-&gt;object-type</code>: <code>-&gt;triangle</code>, <code>-&gt;employe</code>.</p>
+<p>Functions that create objects of certain type have names of the form <code>-&gt;object-type</code>: <code>-&gt;triangle</code>, <code>-&gt;employee</code>.</p>
 <p>Functions that turn objects of one type to another type have names of the form <code>from-type-&gt;to-type</code>: <code>authors-&gt;string</code>, `</p>
 </section>
 <section class="level2" id="whitespace">
@@ -159,7 +159,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section class="level2" id="idioms">
 <h2>Idioms</h2>
 <p>If a function is only needed inside another function, define it with <code>let</code> and <code>fn</code> inside the using function.</p>
-<p>Use <code>let</code> liberally to give intermediate results a name. If a same expression appers in two places, give it a name with <code>let</code>.</p>
+<p>Use <code>let</code> liberally to give intermediate results a name. If an expression appers in two places, give it a name with <code>let</code>. And even if it doesn’t, using let to name intermediate results makes code easier to read.</p>
+</section>
+<section class="level2" id="thats-all">
+<h2>That’s All</h2>
+<p>Now it’s time to apply these conventions in a bigger project.</p>
+<p><a href="p-p-p-pokerface.html">Move on to the world of poker →</a></p>
 </section>
 <footer>
     <p>

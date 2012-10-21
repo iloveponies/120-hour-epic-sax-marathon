@@ -157,7 +157,7 @@ of `remove-living-authors`, `author-descriptions` instead of
 `describe-authors`.
 
 Functions that create objects of certain type have names of the form
-`->object-type`: `->triangle`, `->employe`.
+`->object-type`: `->triangle`, `->employee`.
 
 Functions that turn objects of one type to another type have names of
 the form `from-type->to-type`: `authors->string`, `
@@ -213,5 +213,12 @@ As an example of these rules, here is a Leiningen project definition:
 If a function is only needed inside another function, define it with
 `let` and `fn` inside the using function.
 
-Use `let` liberally to give intermediate results a name. If a same
-expression appers in two places, give it a name with `let`.
+Use `let` liberally to give intermediate results a name. If an
+expression appers in two places, give it a name with `let`. And even if it
+doesn't, using let to name intermediate results makes code easier to read.
+
+## That's All
+
+Now it's time to apply these conventions in a bigger project.
+
+[Move on to the world of poker →](p-p-p-pokerface.html)
