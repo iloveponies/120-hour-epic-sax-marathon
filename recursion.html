@@ -157,9 +157,10 @@ Exercise 3
 <h3>
 Exercise 4
 </h3>
-<p>Compute the last element of a sequence.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(last-element [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
-(last-element [<span class="dv">2</span> <span class="dv">5</span>])   <span class="co">;=&gt; 5</span></code></pre>
+
+<p>Write <code>(my-last a-seq)</code> that computes the last element of a sequence.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(my-last [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
+(my-last [<span class="dv">2</span> <span class="dv">5</span>])   <span class="co">;=&gt; 5</span></code></pre>
 <p>Hint: what is the base case here? How can you check if we’re there?</p>
 </section>
 </section>
@@ -311,11 +312,7 @@ Exercise 9
 <section class="level3" id="nonlinear-recursion">
 <h3>Nonlinear recursion</h3>
 <p>There are other recursive computations besides linear recursion. Another common type is <em>tree recursion</em>. Here <em>tree</em> refers again to the shape of the computation. The natural use for tree recursion is with hierarchical data structures, which we will come back to later. Tree recursion can be illustrated with simple processes over numbers. For an example, let’s look at how to compute the following integer series:</p>
-<p>Let \(f(n) =\)</p>
-<ul>
-<li>\(n\) if \(n &lt; 3\),</li>
-<li>\(f(n-1) + 2*f(n-2) + 3*f(n-3)\) otherwise.</li>
-</ul>
+<p>Let \(f(n) = \begin{cases} n &amp; \text{ if } n &lt; 3 \\ f(n - 1) + 2 * f(n - 2) + 3 * f(n - 3) &amp; \text{ otherwise} \end{cases}\)</p>
 <p>Translating this to Clojure gives us the following program:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> f </span>[n]
   (<span class="kw">if</span> (<span class="kw">&lt;</span> n <span class="dv">3</span>)
@@ -383,6 +380,8 @@ Exercise 13
 <span class="co">; You can output the tails and inits in any order you like.</span>
 (inits [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; ((1 2) () (1 2 3) (1) (1 2 3 4))</span></code></pre>
 <p><em>Hint:</em> You can use <code>reverse</code> and <code>map</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reverse</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; (3 2 1)</span>
+(<span class="kw">reverse</span> [<span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span>]) <span class="co">;=&gt; (1 3 2)</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>

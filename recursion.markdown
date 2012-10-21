@@ -175,11 +175,12 @@ Do not use `count` as it can be expensive on long sequences.
 </exercise>
 
 <exercise>
-Compute the last element of a sequence.
+
+Write `(my-last a-seq)` that computes the last element of a sequence.
 
 ~~~ {.clojure}
-(last-element [1 2 3]) ;=> 3
-(last-element [2 5])   ;=> 5
+(my-last [1 2 3]) ;=> 3
+(my-last [2 5])   ;=> 5
 ~~~
 
 Hint: what is the base case here? How can you check if we're there?
@@ -443,10 +444,10 @@ structures, which we will come back to later. Tree recursion can be illustrated
 with simple processes over numbers. For an example, let's look at how to
 compute the following integer series:
 
-Let $f(n) =$
-
-- $n$ if $n < 3$,
-- $f(n-1) + 2*f(n-2) + 3*f(n-3)$ otherwise.
+Let $f(n) = \begin{cases}
+              n & \text{ if } n < 3 \\
+              f(n - 1) + 2 * f(n - 2) + 3 * f(n - 3) & \text{ otherwise}
+            \end{cases}$
 
 Translating this to Clojure gives us the following program:
 
@@ -530,6 +531,12 @@ prefixes of a sequence, respectively.
 ~~~
 
 _Hint:_ You can use `reverse` and `map`.
+
+~~~clojure
+(reverse [1 2 3]) ;=> (3 2 1)
+(reverse [2 3 1]) ;=> (1 3 2)
+~~~
+
 </exercise>
 
 <exercise>
