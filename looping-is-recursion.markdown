@@ -6,13 +6,13 @@
 
 In which we learn how to recur tails.
 
-## Get the project
+## Fork this
 
-The project with unit tests is available at:
+[https://github.com/iloveponies/looping-is-recursion](https://github.com/iloveponies/looping-is-recursion)
 
-~~~
-git clone https://github.com/iloveponies/looping-is-recursion.git
-~~~
+[Here](basic-tools.html#how-to-submit-answers-to-exercises) are the
+instructions if you need them. Be sure to fork the repository behind the link
+above.
 
 ## Starting out
 
@@ -31,7 +31,8 @@ This is the standard recursive factorial:
 Like we've seen in the [chapter on recursion][recursion], this is a linear
 recursive process, that is, it constructs an expression linear in size to its
 input, `n`. When the base case is reached, we will have the expression `(* n
-(* (dec n) (* ... (* 3 (* 2 (* 1 1))) ...)))`.
+(* (dec n) (* ... (* 3 (* 2 (* 1 1))) ...)))`. This also means that the amount
+of memory taken by `recursive-factorial` is $\mathcal{O}(n)$.
 
 We can make this computation more efficient by using _tail recursion_. A
 function is _tail recursive_ when its return value is calculated directly by a
@@ -40,19 +41,18 @@ of the recursive call `(recursive-factorial (dec n))` is not returned
 directly, but given to `*`.
 
 We'll now introduce a tail recursive version of `recursive-factorial` and then
-look at how it evaluation differs from `recursive-factorial`'s.
+look at how its evaluation differs from the evaluation of
+`recursive-factorial`.
 
-In order to make factorial tail-recursive we introduce an *accumulating
-parameter* (or *accumulator*).
+In order to make factorial tail-recursive we introduce an *accumulator*.
 
 ~~~ {.clojure}
-(defn helper [acc n]
-  (if (zero? n)
-      acc
-      (helper (* acc n) (dec n))))
-
 (defn accumulating-factorial [n]
-  (helper 1 n))
+  (let [helper (fn helper [acc n]
+                 (if (zero? n)
+                   acc
+                   (helper (* acc n) (dec n))))]
+    (helper 1 n)))
 ~~~
 
 `helper` uses the return value of its recursive call directly as its return
@@ -82,31 +82,28 @@ languages.
 
 Let's rewrite factorial one more time, now using a new construct called
 `recur`. `recur` means "recursively call this function (that we're in)", with
-the additional restriction that the recursion must be tail recursion. We can
-also move the function `helper` inside the factorial function so we do not
-accidentally expose it to other code (or users of our code).
+the additional restriction that the recursion must be tail recursion.
 
 ~~~ {.clojure}
 (defn recur-factorial [number]
   (let [helper (fn [acc n]
-          (if (zero? n)
-            acc
-            (recur (* acc n) (dec n))))]
+                 (if (zero? n)
+                   acc
+                   (recur (* acc n) (dec n))))]
     (helper 1 number)))
 ~~~
 
-Here we've replaced the recursive call `helper` with `recur`. Since `recur`
-can only occur in a tail position (that is, a call whose return value is
-directly returned), the compiler _knows_ the recursion is actually iteration,
-and can compile it into a simple loop. This is called _tail-call
-optimization_.
+Here we've replaced the recursive call `helper` with `recur`. Since `recur` can
+only occur in a tail position (that is, a call whose return value is directly
+returned), the compiler _knows_ the recursion is actually iteration, and can
+compile it into a simple loop. This is called _tail-call optimization_.
 
-Again, because `recur` guarantees tail-call optimization, it can be _only_
-present in tail position. While this might seem awkward, it's an advantage
-too: when we've placed `recur` in a non-tail position, where Clojure can not
-perform tail-call optimization, the compiler will give us an error, indicating
-that our request to optimize the tail call is not possible. If the compiler
-allowed `recur` outside tail positions (and simply performed regular
+Again, because `recur` guarantees tail-call optimization, it can be present
+_only_ in a tail position. While this might seem awkward, it's an advantage
+too. When we've placed `recur` in a non-tail position where Clojure can not
+perform tail-call optimization, the compiler will give us an error. This
+indicates that our request to optimize the tail call is not possible. If the
+compiler allowed `recur` outside tail positions (and simply performed regular
 recursion), we would not know whether tail-call optimization actually took
 place or not.
 
@@ -149,7 +146,7 @@ this. The previous code could be written like this:
 ~~~
 
 Let's dissect that. A `loop` begins with a sequence of _bindings_, just like
-in a `let` or `for`:
+in a `let`.
 
 ~~~ {.clojure}
   (loop [acc 1
@@ -157,7 +154,7 @@ in a `let` or `for`:
 ~~~
 
 This introduces the variables `acc` and `n` and gives them initial values. `n`
-gets its value from the parameter to `loopy-factorial`.
+gets its value from the parameter `loopy-factorial`.
 
 After this comes the body of the loop, which is exactly the same as the body
 of the `helper` function above:
@@ -202,7 +199,7 @@ Write the function `(seq= a-seq b-seq)` that compares two sequences for equality
 ~~~
 </exercise>
 
-<exericse>
+<exercise>
 Implement the function `(find-first-index [f seq])` that returns the first
 index in `seq` for which `f` returns true, or `nil` if no such index exists.
 
@@ -212,9 +209,10 @@ index in `seq` for which `f` returns true, or `nil` if no such index exists.
 (find-first-index #(= % 6) [:cat :dog :six :blorg 6]) ;=> 4
 (find-first-index nil? [])                            ;=> nil
 ~~~
+
 </exercise>
 
-<excercise>
+<exercise>
 Implement the function `(avg a-seq)` that computes the average of a sequence.
 
 ~~~ {.clojure}
@@ -236,7 +234,14 @@ Write the function `(parity a-seq)` that takes in a sequence and returns a
 (parity [1 1 2 1 2 3 1 2 3 4] ;=> #{2 4}
 ~~~
 
-Note: you do not need to count occurrences.
+_Hint:_ Recall the fuction `(toggle set elem)` from
+[Structured data](structured-data.html#toggle)
+
+~~~clojure
+(toggle #{1 2 3} 1) ;=> #{2 3}
+(toggle #{2 3} 1) ;=> #{1 2 3}
+~~~
+
 </exercise>
 
 <exercise>
@@ -253,7 +258,9 @@ using `loop` and `recur`. Do not use recursion.
 (fast-fibo 6) ;=> 8
 ~~~
 
-Hint: to avoid recursion, you need to keep track of $F_{n-1}$ and $F_n$ in the loop.
+_Hint:_ to avoid recursion, you need to keep track of $F_{n-1}$ and $F_n$ in the
+loop.
+
 </exercise>
 
 <exercise>
@@ -287,3 +294,4 @@ is why Clojure uses the `recur` construct: it is _guaranteed_ that a call to
 generates an _actual loop_ as JVM bytecode.
 
 [recursion]: recursion.html
+
