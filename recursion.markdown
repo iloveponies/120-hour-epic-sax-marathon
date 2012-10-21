@@ -13,11 +13,13 @@ Recursion is a large topic. This chapter covers the following:
 - Passing state, and
 - An application: merge sort.
 
-## Get the project
+## Fork this
 
-~~~
-git clone https://github.com/iloveponies/recursion.git
-~~~
+[https://github.com/iloveponies/recursion](https://github.com/iloveponies/recursion)
+
+[Here](basic-tools.html#how-to-submit-answers-to-exercises) are the
+instructions if you need them. Be sure to fork the repository behind the link
+above.
 
 ## Recap
 
@@ -35,7 +37,7 @@ This chapter talks a lot about collections and we'll need the functions
 (rest [])          ;=> ()
 ~~~
 
-`first` gets the first element of a sequence, and `rest` gets all but the
+`first` gives the first element of a sequence, and `rest` gives all but the
 first element.
 
 ## Recursion
@@ -59,12 +61,11 @@ could write:
 (cons 1
       (cons 2
             (cons 3
-                  (cons 4
-                        nil))))
+                  (cons 4 '()))))
 ;=> (1 2 3 4)
 ~~~
 
-`nil` is the empty sequence.
+`'()` is the empty sequence.
 
 To process this nested structure suggests that we should first process the
 first element of the sequence, and then do the operation again on the rest of
@@ -113,12 +114,12 @@ To get a better grasp on what `sum` does, let's see how it's evaluated.
 
 ~~~ {.clojure}
     (sum '(1 2 3 4))
-=   (sum (cons 1 (cons 2 (cons 3 (cons 4 nil)))))
-;=> (+ 1 (sum (cons 2 (cons 3 (cons 4 nil)))))
-;=> (+ 1 (+ 2 (sum (cons 3 (cons 4 nil)))))
-;=> (+ 1 (+ 2 (+ 3 (sum (cons 4 nil)))))
-;=> (+ 1 (+ 2 (+ 3 (+ 4 (sum nil)))))
-;=> (+ 1 (+ 2 (+ 3 (+ 4 0))))        ; (empty? nil) is true, so (sum nil) ;=> 0
+=   (sum (cons 1 (cons 2 (cons 3 (cons 4 '())))))
+;=> (+ 1 (sum (cons 2 (cons 3 (cons 4 '())))))
+;=> (+ 1 (+ 2 (sum (cons 3 (cons 4 '())))))
+;=> (+ 1 (+ 2 (+ 3 (sum (cons 4 '())))))
+;=> (+ 1 (+ 2 (+ 3 (+ 4 (sum '())))))
+;=> (+ 1 (+ 2 (+ 3 (+ 4 0))))        ; (empty? '()) is true, so (sum '()) ;=> 0
 ;=> (+ 1 (+ 2 (+ 3 4)))
 ;=> (+ 1 (+ 2 7))
 ;=> (+ 1 9)
@@ -129,12 +130,12 @@ Note that we expanded the list `'(1 2 3 4)` to its `cons` form. If we take a
 closer look at that form and the line with comment above, we'll see why:
 
 ~~~ {.clojure}
-   (cons 1 (cons 2 (cons 3 (cons 4 nil))))
+   (cons 1 (cons 2 (cons 3 (cons 4 '()))))
 ...
 ;=> (+    1 (+    2 (+    3 (+    4   0))))
 ~~~
 
-We replaced the `cons` operation in the recursive structure with `+` and `nil`
+We replaced the `cons` operation in the recursive structure with `+` and `'()`
 with `0`. That is, we transformed the data structure into a calculation with
 the same form but different result.
 
@@ -167,6 +168,50 @@ Compute the last element of a sequence.
 ~~~
 
 Hint: what is the base case here? How can you check if we're there?
+</exercise>
+
+### Saving the list
+
+All the functions so far, `sum`, `product` and `last-element`, transformed the
+list into a single value. This it not always the case with linear recursion.
+Our old friend `(map f a-seq)` is an good example of this. Here is a
+definition for it:
+
+~~~clojure
+(defn my-map [f a-seq]
+  (if (empty? a-seq)
+    a-seq
+    (cons (f (first a-seq))
+          (my-map (rest a-seq)))))
+~~~
+
+See how nicely it fits in the general template for linear recursion? Only
+deviation from it is the extra parameter `f`. It is function, that will become
+part of the operation that the recursion applies to the elements of the
+sequence. Here's the evaluation:
+
+~~~clojure
+(map inc [1 2 3])
+;=> (cons (inc 1)
+;         (cons (inc 2)
+;               (cons (inc 3) '())))
+;=> '(2 3 4)
+~~~
+
+So `map` calls the function `f` for every element of `a-seq` and then
+re-constructs the sequence with `cons`.
+
+<exercise>
+
+Implement the function `(my-filter f a-seq)` that works just like the standard
+`filter`
+
+~~~clojure
+(my-filter odd? [1 2 3 4]) ;=> (1 3)
+(my-filter (fn [x] (> x 9000)) [12 49 90 9001]) ;=> (9001)
+(my-filter even? [1 3 5 7]) ;=> ()
+~~~
+
 </exercise>
 
 ### Stopping before the end
@@ -239,13 +284,7 @@ There's an obvious reason why `first-in` doesn't fit our template for linear
 recursion: it has three parameters, whereas the template only takes one. We
 can ignore the first parameter for our purposes, since it does not have
 bearing on the recursive structure of the computation. `first-in` is linearly
-recursive on both its sequence parameters, though. There's actually a way to
-make `first-in` fit into our template: transform its parameters into a single
-sequence with `(map vector seq-1 seq-2)`. This means our template is probably
-enough for us as long as we remember that it does not preclude recursing over
-multiple sequences.
-
-TODO: explain `vector` and map with multiple sequences.
+recursive on both its sequence parameters, though.
 
 <exercise>
 Write the function `(seq= seq-1 seq-2)` that compares two sequences for
@@ -257,6 +296,37 @@ equality.
 (seq= [1 3 5] [])        ;=> false
 ~~~
 </exercise>
+
+<exercise>
+
+Write the function `(my-map f seq-1 seq-2)` that returns a sequence of the
+following kind . The first item is the return value of `f` called with the
+first values of `seq-1` and `seq-2`. The second item is the return value of
+`f` called with the second values of `seq-1` and `seq-2` and so forth until
+`seq-1` or `seq-2` ends.
+
+This is actually exactly how `map` works when given two sequences, but for the
+sake of practice don't use `map` when defining `my-map`.
+
+~~~clojure
+(my-map + [1 2 3] [4 4 4]) ;=> (5 6 7)
+(my-map + [1 2 3 4] [0 0 0]) ;=> (1 2 3)
+(my-map + [1 2 3] []) ;=> ()
+~~~
+
+</exercise>
+
+With the help of `my-map` (or `map`) and `vector` we can actually use our
+one-parameter template of linear recursion when we need to recurse over two
+sequences. We just zip together the two sequences and recurse over the
+resulting sequence.
+
+~~~clojure
+(vector 1 2) ;=> [1 2]
+(vector 1 2 3 4) ;=> [1 2 3 4]
+(my-map vector [1 2 3] [:a :b :c]) ;=> ([1 :a] [2 :b] [3 :c])
+(map vector [1 2 3] [:a :b :c]) ;=> ([1 :a] [2 :b] [3 :c])
+~~~
 
 ### Recursion on numbers
 
@@ -405,26 +475,28 @@ Write the function `(fib n)` which returns $F_n$.
 
 ### Sequence operations
 
-This is the code for the recursive function `repeat` that generates a list with
-one element repeated a number of times.
+We have already implemented some of the sequence functions found from the
+Clojure's standard library, namely `map` and `filter`. In the following
+exercises you should use recursion to implement some more.
 
-~~~ {.clojure}
-(defn repeat [what-to-repeat how-many-times]
-  (when (pos? how-many-times)
-    (cons what-to-repeat
-          (repeat what-to-repeat (dec how-many-times)))))
+<exercise>
 
-(repeat 2 3) ;=> (2 2 2)
+Write the function `(my-repeat how-many-times what-to-repeat)` that generates
+a list with `what-to-repeat` repeated `how-many-times` number of times.
+
+~~~clojure
+(my-repeat 2 :a)    ;=> (:a :a)
+(my-repeat 3 "lol") ;=> ("lol" "lol" "lol")
+(my-repeat -1 :a)   ;=> ()
 ~~~
 
-In the following exercises you should use recursion to build lists. Do not use
-`for`.
+</exercise>
 
 <exercise>
 Write the function `(my-range up-to)` that works like this:
 
 ~~~ {.clojure}
-(my-range 0)  ;=> nil
+(my-range 0)  ;=> ()
 (my-range 1)  ;=> (0)
 (my-range 2)  ;=> (1 0)
 (my-range 3)  ;=> (2 1 0)
@@ -432,36 +504,17 @@ Write the function `(my-range up-to)` that works like this:
 </exercise>
 
 <exercise>
-Write the function `map-1` that works like `map` but supports only one argument
-sequence.
-
-~~~ {.clojure}
-(map-1 identity [])                 ;=> ()
-(map-1 identity [1 2 3])            ;=> (1 2 3)
-(map-1 count ["aaa" "bb" "cccc"])   ;=> (3 2 4)
-(map-1 first [[1 2] [4] [7 12 28]]) ;=> (1 4 7)
-(map-1 zero? [0 2 0 13 4 0])        ;=> (true false true false false true)
-~~~
-</exercise>
-
-<exercise>
 Write the functions `tails` and `inits` that return all the suffixes and
-prefixes of a sequence, respectively. Examples:
+prefixes of a sequence, respectively.
 
 ~~~ {.clojure}
-(tails [1 2 3 4])   ;=> ((1 2 3 4) (2 3 4) (3 4) (4) ())
-(inits [1 2 3 4])   ;=> (() (1) (1 2) (1 2 3) (1 2 3 4))
+(tails [1 2 3 4]) ;=> ((1 2 3 4) (2 3 4) (3 4) (4) ())
+(inits [1 2 3 4]) ;=> (() (1) (1 2) (1 2 3) (1 2 3 4))
+; You can output the tails and inits in any order you like.
+(inits [1 2 3 4]) ;=> ((1 2) () (1 2 3) (1) (1 2 3 4))
 ~~~
 
-You can output the tails and inits in any order you like. That is,
-
-~~~ {.clojure}
-(inits [1 2 3 4])   ;=> ((1 2) () (1 2 3) (1) (1 2 3 4))
-~~~
-
-is perfectly acceptable.
-
-_Hint:_ You can use `reverse` and `map-1`.
+_Hint:_ You can use `reverse` and `map`.
 </exercise>
 
 <exercise>
@@ -488,50 +541,57 @@ our function by using a helper function that we give an initial empty state to
 as a parameter.
 
 Here's an example of a function that counts how many times a sequence contains
-a given value:
+a given element:
 
 ~~~ {.clojure}
-(defn my-count-helper [n val coll]
-  (if (empty? coll)
-    n
-    (let [new-count (if (= val (first coll))
-                      (inc n)
-                      n)]
-      (my-count-helper
-        new-count
-        val
-        (rest coll)))))
-
-(defn my-count [val coll]
-  (my-count-helper 0 val coll))
+(defn count-elem [elem coll]
+  (let [count-elem-helper
+          (fn [n elem coll]
+            (if (empty? coll)
+              n
+              (let [new-count (if (= elem (first coll))
+                                (inc n)
+                                n)]
+                (my-count-helper new-count
+                                 elem
+                                 (rest coll)))))]
+    (count-elem-helper 0 elem coll)))
 ~~~
 
-First, we define a helper function, `my-count-helper`. It takes three
-parameters: `n`, which keeps count of how many recursions have been made,
-`val`, which is the value we are looking for, and `coll`, which the function
-recurses over. With this helper function, our definition of `my-count` is a
-simple call to `my-count-helper` with `n` initialized to 0. This way users of
-`my-count` do not need to provide the initialization argument for `n`.
+First, we define a helper function, `count-elem-helper`. It takes three
+parameters:
+
+- `n`, which keeps count of how many times we have seen `elem`
+
+- `elem`, which is the element we are looking for
+
+- and `coll`, which is the collection the function recurses over.
+
+With this helper function, our definition of `count-elem` is a simple call to
+`count-elem-helper` with `n` initialized to 0. This way users of `count-elem`
+do not need to provide the initialization argument for `n`.
 
 <exercise>
 Write the function `(rotations a-seq)` that, when given a sequence, returns
 all the rotations of that sequence.
 
 ~~~ {.clojure}
-(rotations [])                  ;=> ()
-(rotations [1 2 3])             ;=> ((1 2 3) (2 3 1) (3 1 2))
-(rotations [:a :b])             ;=> ((:a :b) (:b :a))
-(rotations [1 5 9 2])           ;=> ((1 5 9 2) (2 1 5 9) (9 2 1 5) (5 9 2 1))
+(rotations [])        ;=> ()
+(rotations [1 2 3])   ;=> ((1 2 3) (2 3 1) (3 1 2))
+(rotations [:a :b])   ;=> ((:a :b) (:b :a))
+; The order of rotations does not matter.
+(rotations [:a :b])   ;=> ((:b :a) (:a :b))
+(rotations [1 5 9 2]) ;=> ((1 5 9 2) (2 1 5 9) (9 2 1 5) (5 9 2 1))
 (count (rotations [6 5 8 9 2])) ;=> 5
 ~~~
 
-The order of rotations does not matter.
+Keep in mind the function `concat`.
 
-You can use `concat` in your function. It concatenates two sequences:
 ~~~ {.clojure}
 (concat [1 2 3] [:a :b :c]) ;=> (1 2 3 :a :b :c)
 (concat [1 2] [3 4 5 6])    ;=> (1 2 3 4 5 6)
 ~~~
+
 </exercise>
 
 <exercise>
@@ -546,11 +606,10 @@ times each element occurs in a sequence. E.g.:
 You'll want to structure your code like this:
 
 ~~~ {.clojure}
-(defn frequencies-helper [freqs coll]
-  ...)
-
 (defn my-frequencies [coll]
-  (frequencies-helper {} coll))
+  (let [frequencies-helper
+          (fn [freqs coll] ...)]
+    (frequencies-helper {} coll)))
 ~~~
 
 Where `frequencies-helper` is the recursive function.
@@ -571,11 +630,57 @@ The order of elements in the output sequence doesn't matter.
 
 Hint 1: Remember that you can use `first` and `rest` on a map too!
 
+~~~clojure
+(first {:a 1 :b 2}) ;=> [:a 1]
+(rest {:a 1 :b 2 :c 3}) ;=> ([:b 2] [:c 3])
+~~~
+
 Hint 2: There are multiple ways to implement this, but consider using `concat`
 and `repeat`.
 </exercise>
 
 ### Merging and sorting
+
+As a grand finale, lets implement the classic merge sort. We have split the
+task into smaller exercises.
+
+<exercise>
+Implement `(my-take n coll)` that returns `n` first items of coll.
+
+~~~clojure
+(my-take 2 [1 2 3 4]) ;=> (1 2)
+(my-take 4 [:a :b])   ;=> (:a :b)
+~~~
+
+</exercise>
+
+<exercise>
+Implement `(my-drop n coll)` that returns all but the `n` first items of coll.
+
+~~~clojure
+(my-drop 2 [1 2 3 4]) ;=> (3 4)
+(my-drop 4 [:a :b])   ;=> ()
+~~~
+
+</exercise>
+
+<exercise> Implement the function `(halve a-seq)` that takes a sequence and
+returns one vector with two elements. The first element is the first half of
+`a-seq` and the second element is the second half of `a-seq`.
+
+To turn a result of division into an integer use `int`.
+
+~~~clojure
+(int (/ 7 2)) ;=> 3
+~~~
+
+~~~ {.clojure}
+(halve [1 2 3 4])   ;=> [(1 2) (3 4)]
+(halve [1 2 3 4 5]) ;=> [(1 2) (3 4 5)]
+(halve [1])         ;=> [() (1)]
+~~~
+
+</exercise>
 
 <exercise>
 Write the function `(seq-merge a-seq b-seq)` that takes two (low to high)
@@ -588,24 +693,19 @@ sorted number sequences and combines them into one sorted sequence. E.g.:
 </exercise>
 
 <exercise>
-Write the function `(merge-sort a-seq)` that implements [merge sort]. The idea
-of merge sort is to divide the input into subsequences, sort them, and use the
-`seq-merge` function defined above to merge the sorted subsequences. If two
-subsequences are in sorted order, merging them will result in a sorted
-sequence. If the subsequences are divided recursively into small enough pieces
-that they can be sorted with other means (e.g. trivially when the subsequences
-are one element long), the `merge` step then merges all the subsequences into
-sorted order when the recursion returns from each subsequence.
+
+Write the function `(merge-sort a-seq)` that implements [merge sort].
+
+The idea of merge sort is to divide the input into subsequences using `halve`,
+sort the subsequences recursively and use the `seq-merge` function to merge
+the sorted subsequences back together.
 
 Conceptually:
+
 - If the sequence is 0 or 1 elements long, it is already sorted.
 - Otherwise, divide the sequence into two subsequences.
 - Sort each subsequence recursively.
 - Merge the two subsequences back into one sorted sequence.
-
-This conceptual code recurses until the subsequences are very short. An
-alternative implementation might choose a threshold of 100 elements and sort
-sequences below that length with quicksort. The exercise doesn't require this.
 
 ~~~ {.clojure}
     (merge-sort [4 2 3 1])
@@ -627,25 +727,9 @@ sequences below that length with quicksort. The exercise doesn't require this.
 (merge-sort [5 3 4 17 2 100 1]) ;=> (1 2 3 4 5 17 100)
 ~~~
 
-You can use the following helper function to divide a sequence in two:
-
-~~~ {.clojure}
-(defn halve [a-seq]
-  (let [middle (/ (count a-seq) 2)]
-   [(take middle a-seq) (drop middle a-seq)]))
-~~~
-
-`(halve a-seq)` takes a sequence and returns one vector with two elements; the
-first element is the first half of `a-seq` and the second element is the
-second half of `a-seq`.
-
-~~~ {.clojure}
-(halve [1 2 3 4])   ;=> [(1 2) (3 4)]
-(halve [1 2 3 4 5]) ;=> [(1 2 3) (4 5)]
-~~~
 </exercise>
 
-## Bonus problems
+## Encore
 
 <exercise>
 Given a sequence, return all permutations of that sequence.
