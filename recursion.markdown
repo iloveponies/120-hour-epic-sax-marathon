@@ -160,6 +160,21 @@ Write down the evaluation of `(product [1 2 4])` like we did for `sum` above.
 </exercise>
 
 <exercise>
+Write the function `(singleton? coll)` which returns `true` if the collection
+has only a one element in it and `false` otherwise.
+
+Do not use `count` as it can be expensive on long sequences.
+
+~~~clojure
+(singleton? [1])     ;=> true
+(singleton? #{2})    ;=> true
+(singleton? [])      ;=> false
+(singleton? [1 2 3]) ;=> false
+~~~
+
+</exercise>
+
+<exercise>
 Compute the last element of a sequence.
 
 ~~~ {.clojure}
