@@ -173,7 +173,7 @@ chapter.
         lein midje
    Instead of `lein midje`, you can issue the command
    
-        lein midje --lazy-test
+        lein midje --lazytest
    This starts a loop which runs the tests again every time you make changes
    to any of the projects files. A very handy feature, as running plain `lein
    midje` has a pretty long startup time.
