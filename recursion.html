@@ -387,18 +387,18 @@ Exercise 13
 <p>Sometimes when recursing over a structure we want to keep track of something. For an example, we might want to count how many elements we have processed, or how many <code>:D</code> keywords we have seen. How do we do this, in the absence of state in our language? (Or at least in the absence of instructions on how to use state on these pages!)</p>
 <p>The answer is two-fold: we store the state explicitly in a parameter we pass back to ourselves on each recursion, and we hide the state from the users of our function by using a helper function that we give an initial empty state to as a parameter.</p>
 <p>Here’s an example of a function that counts how many times a sequence contains a given element:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> count-elem </span>[elem coll]
-  (<span class="kw">let</span> [count-elem-helper
-          (<span class="kw">fn</span> [n elem coll]
-            (<span class="kw">if</span> (<span class="kw">empty?</span> coll)
-              n
-              (<span class="kw">let</span> [new-count (<span class="kw">if</span> (<span class="kw">=</span> elem (<span class="kw">first</span> coll))
-                                (<span class="kw">inc</span> n)
-                                n)]
-                (my-count-helper new-count
-                                 elem
-                                 (<span class="kw">rest</span> coll)))))]
-    (count-elem-helper <span class="dv">0</span> elem coll)))</code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> count-elem-helper </span>[n elem coll]
+  (<span class="kw">if</span> (<span class="kw">empty?</span> coll)
+    n
+    (<span class="kw">let</span> [new-count (<span class="kw">if</span> (<span class="kw">=</span> elem (<span class="kw">first</span> coll))
+                      (<span class="kw">inc</span> n)
+                      n)]
+      (count-elem-helper new-count
+                         elem
+                         (<span class="kw">rest</span> coll)))))
+
+(<span class="kw">defn</span><span class="fu"> count-elem </span>[elem coll]
+    (count-elem-helper <span class="dv">0</span> elem coll))</code></pre>
 <p>First, we define a helper function, <code>count-elem-helper</code>. It takes three parameters:</p>
 <ul>
 <li><p><code>n</code>, which keeps count of how many times we have seen <code>elem</code></p></li>
@@ -430,11 +430,12 @@ Exercise 15
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-frequencies []) <span class="co">;=&gt; {}</span>
 (my-frequencies [<span class="kw">:a</span> <span class="st">&quot;moi&quot;</span> <span class="kw">:a</span> <span class="st">&quot;moi&quot;</span> <span class="st">&quot;moi&quot;</span> <span class="kw">:a</span> <span class="dv">1</span>]) <span class="co">;=&gt; {:a 3, &quot;moi&quot; 3, 1 1}</span></code></pre>
 <p>You’ll want to structure your code like this:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> my-frequencies </span>[coll]
-  (<span class="kw">let</span> [frequencies-helper
-          (<span class="kw">fn</span> [freqs coll] ...)]
-    (frequencies-helper {} coll)))</code></pre>
-<p>Where <code>frequencies-helper</code> is the recursive function.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> my-frequencies-helper </span>[freqs coll]
+  ...)
+
+(<span class="kw">defn</span><span class="fu"> my-frequencies </span>[coll]
+  (frequencies-helper {} coll))</code></pre>
+<p>Where <code>my-frequencies-helper</code> is a recursive helper function.</p>
 </section>
 <section class="alert alert-success">
 <h3>

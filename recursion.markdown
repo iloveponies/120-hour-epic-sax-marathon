@@ -544,18 +544,18 @@ Here's an example of a function that counts how many times a sequence contains
 a given element:
 
 ~~~ {.clojure}
+(defn count-elem-helper [n elem coll]
+  (if (empty? coll)
+    n
+    (let [new-count (if (= elem (first coll))
+                      (inc n)
+                      n)]
+      (count-elem-helper new-count
+                         elem
+                         (rest coll)))))
+
 (defn count-elem [elem coll]
-  (let [count-elem-helper
-          (fn [n elem coll]
-            (if (empty? coll)
-              n
-              (let [new-count (if (= elem (first coll))
-                                (inc n)
-                                n)]
-                (my-count-helper new-count
-                                 elem
-                                 (rest coll)))))]
-    (count-elem-helper 0 elem coll)))
+    (count-elem-helper 0 elem coll))
 ~~~
 
 First, we define a helper function, `count-elem-helper`. It takes three
@@ -606,13 +606,14 @@ times each element occurs in a sequence. E.g.:
 You'll want to structure your code like this:
 
 ~~~ {.clojure}
+(defn my-frequencies-helper [freqs coll]
+  ...)
+
 (defn my-frequencies [coll]
-  (let [frequencies-helper
-          (fn [freqs coll] ...)]
-    (frequencies-helper {} coll)))
+  (frequencies-helper {} coll))
 ~~~
 
-Where `frequencies-helper` is the recursive function.
+Where `my-frequencies-helper` is a recursive helper function.
 </exercise>
 
 <exercise>
