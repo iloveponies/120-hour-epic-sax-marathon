@@ -931,7 +931,10 @@ Finally, `(disj set elem)` removes `elem` from `set` if it contains `elem`:
 (disj #{:a :b :c} :c :a) ;=> #{:b}
 ~~~
 
+<a id="toggle"></a>
+
 <exercise>
+
 Write the function `(toggle a-set elem)` that removes `elem` from
 `a-set` if `a-set` contains `elem`, and adds it to the set otherwise.
 

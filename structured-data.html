@@ -630,10 +630,12 @@ Exercise 19
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:c</span>) <span class="co">;=&gt; #{:a :b}</span>
 (<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:EEEEE</span>) <span class="co">;=&gt; #{:a :c :b}</span>
 (<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:c</span> <span class="kw">:a</span>) <span class="co">;=&gt; #{:b}</span></code></pre>
+<a id="toggle"></a>
 <section class="alert alert-success">
 <h3>
 Exercise 20
 </h3>
+
 <p>Write the function <code>(toggle a-set elem)</code> that removes <code>elem</code> from <code>a-set</code> if <code>a-set</code> contains <code>elem</code>, and adds it to the set otherwise.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:d</span>) <span class="co">;=&gt; #{:a :c :b :d}</span>
 (toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:a</span>) <span class="co">;=&gt; #{:c :b}</span></code></pre>
