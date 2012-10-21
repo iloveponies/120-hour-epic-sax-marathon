@@ -830,34 +830,66 @@ Exercise 30
 </h3>
 <p>Write the function <code>(books-by-author author books)</code>.</p>
 <p>Hint: <code>has-author?</code></p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(books-by-author china books) <span class="co">;=&gt; (cities embassytown)</span>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(books-by-author china books)   <span class="co">;=&gt; (cities embassytown)</span>
 (books-by-author octavia books) <span class="co">;=&gt; (wild-seed)</span></code></pre>
 </section>
-<p>——- marker ——-</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> authors </span>#{china, felleisen, octavia, friedman})</code></pre>
 <section class="alert alert-success">
 <h3>
 Exercise 31
 </h3>
-<p>Implement <code>(book-titles-by-author author books)</code>, which returns the book titles of the books by the given author.</p>
-<p>Use <code>books-by-author</code> as a helper function.</p>
+<p>Write the function <code>(author-by-name name authors)</code> that takes a string <code>name</code> and a sequence of authors and returns an author with the given name if one is found. If one is not found, then <code>nil</code> should be returned.</p>
+<p>Hint: remember <code>first</code></p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(author-by-name <span class="st">&quot;Octavia E. Butler&quot;</span> authors)                <span class="co">;=&gt; octavia</span>
+(author-by-name <span class="st">&quot;Octavia E. Butler&quot;</span> #{felleisen, friedman}) <span class="co">;=&gt; nil</span>
+(author-by-name <span class="st">&quot;China Miéville&quot;</span> authors)                   <span class="co">;=&gt; china</span>
+(author-by-name <span class="st">&quot;Goerge R. R. Martin&quot;</span> authors)              <span class="co">;=&gt; nil</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
 Exercise 32
 </h3>
-<p>Implement <code>(authors books)</code>, which returns all the authors in a set.</p>
+<p>Write the function <code>(living-authors authors)</code> that takes a sequence of authors and returns those that are alive. Remember <code>alive?</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(living-authors authors)             <span class="co">;=&gt; (china, felleisen, friedman)</span>
+(living-authors #{octavia})          <span class="co">;=&gt; ()</span>
+(living-authors #{china, felleisen}) <span class="co">;=&gt; (china, felleisen)</span></code></pre>
+<p>The order in the results doesn’t matter.</p>
 </section>
+<p>Here’s another book. This one has both living and dead authors, which is a useful test case for the following exercises.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> jrrtolkien </span>{<span class="kw">:name</span> <span class="st">&quot;J. R. R. Tolkien&quot;</span> <span class="kw">:birth-year</span> <span class="dv">1892</span> <span class="kw">:death-year</span> <span class="dv">1973</span>})
+(<span class="kw">def</span><span class="fu"> christopher </span>{<span class="kw">:name</span> <span class="st">&quot;Christopher Tolkien&quot;</span> <span class="kw">:birth-year</span> <span class="dv">1924</span>})
+(<span class="kw">def</span><span class="fu"> kay </span>{<span class="kw">:name</span> <span class="st">&quot;Guy Gavriel Kay&quot;</span> <span class="kw">:birth-year</span> <span class="dv">1954</span>})
+
+(<span class="kw">def</span><span class="fu"> silmarillion </span>{<span class="kw">:title</span> <span class="st">&quot;Silmarillion&quot;</span>
+                   <span class="kw">:authors</span> #{jrrtolkien, christopher, kay}})</code></pre>
+<p>And here’s another with multiple dead authors:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> dick </span>{<span class="kw">:name</span> <span class="st">&quot;Philip K. Dick&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1928</span>, <span class="kw">:death-year</span> <span class="dv">1982</span>})
+(<span class="kw">def</span><span class="fu"> zelazny </span>{<span class="kw">:name</span> <span class="st">&quot;Roger Zelazny&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1937</span>, <span class="kw">:death-year</span> <span class="dv">1995</span>})
+
+(<span class="kw">def</span><span class="fu"> deus-irae </span>{<span class="kw">:title</span> <span class="st">&quot;Deus Irae&quot;</span>, <span class="kw">:authors</span> #{dick, zelazny}})</code></pre>
+<p>If you want to know whether a collection is empty or not, you can use <code>(empty? coll)</code> to do that.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">empty?</span> [])  <span class="co">;=&gt; true</span>
+(<span class="kw">empty?</span> #{}) <span class="co">;=&gt; true</span>
+(<span class="kw">empty?</span> [<span class="dv">1</span>]) <span class="co">;=&gt; false</span></code></pre>
 <section class="alert alert-success">
 <h3>
 Exercise 33
 </h3>
-<p>Implement <code>(author-names authors)</code>, which returns all the author names in a set.</p>
+<p>Write the function <code>(has-a-living-author? book)</code> that returns <code>true</code> if <code>book</code> has a living author, and otherwise <code>false</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(has-a-living-author? wild-seed)      <span class="co">;=&gt; false</span>
+(has-a-living-author? silmarillion)   <span class="co">;=&gt; true</span>
+(has-a-living-author? little-schemer) <span class="co">;=&gt; true</span>
+(has-a-living-author? cities)         <span class="co">;=&gt; true</span>
+(has-a-living-author? deus-irae)      <span class="co">;=&gt; false</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
 Exercise 34
 </h3>
-<p>Using the two previous functions, implement <code>(books-&gt;author-names books)</code>, which returns all the books’ authors’ names in a set.</p>
+<p>Write the function <code>(books-by-living-authors books)</code> that takes a sequence of books as a parameter and returns those that have a living author.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(books-by-living-authors books) <span class="co">;=&gt; (little-schemer cities embassytown)</span>
+(books-by-living-authors (<span class="kw">concat</span> books [deus-irae, silmarillion]))
+<span class="co">;=&gt; (little-schemer cities embassytown silmarillion)</span></code></pre>
 </section>
 <section class="level3" id="keeping-your-vectors">
 <h3>Keeping your vectors</h3>
@@ -870,8 +902,8 @@ Exercise 34
 </section>
 <section class="level2" id="done">
 <h2>Done!</h2>
-<p>Phew, that was a lot of stuff. The next chapter is even longer. :)</p>
-<p><a href="recursion.html">Recursion awaits! →</a></p>
+<p>Phew, that was quite a lot of stuff.</p>
+<p><a href="style.html">Clojure with Style →</a></p>
 </section>
 <footer>
     <p>
