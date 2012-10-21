@@ -9,13 +9,13 @@
 - `if` and truthiness
 - everything is an expression / has a value
 
-## Get the project
+## Fork this
 
-Clone the project for this chapter:
+[https://github.com/iloveponies/i-am-a-horse-in-the-land-of-booleans](https://github.com/iloveponies/i-am-a-horse-in-the-land-of-booleans)
 
-~~~
-git clone https://github.com/iloveponies/i-am-a-horse-in-the-land-of-booleans.git
-~~~
+[Here](basic-tools.html#how-to-submit-answers-to-exercises) are the
+instructions if you need them. Be sure to fork the repository behind
+the link above.
 
 ## If then else
 
@@ -87,8 +87,8 @@ Numerical values should be compared with `==`:
 ~~~
 
 Note the difference between `=` and `==`: `==` disregards the actual
-type of the numeric value, whereas `=` requires that the type numbers
-are of the same type.
+type of the numeric value, whereas `=` requires that the numbers are
+of the same type.
 
 Less-than, greater-than and other such comparisons can be done with
 the regular `<`, `>`, `<=` and `>=` operators:
@@ -354,6 +354,15 @@ In addition to booleans, `and`, `or` and `not` accept non-boolean values as
 arguments as well. (Remember that `false` and `nil` are falsey and everything
 else is truthy.)
 
+By the way, if you have a lot of long parameters to `and`, or any
+function for that matter, indent them like this:
+
+~~~clojure
+(and very-long-boolean-holding-parameter
+     another-one-that-is-a-friend-of-the-previous
+     the-third-guy)
+~~~
+
 `and` returns truthy if all of its arguments are truthy:
 
 ~~~ {.clojure}
@@ -384,13 +393,14 @@ last argument. Otherwise, it returns the value of the first falsey argument.
 Conversely, `or` returns either the first truthy value or the last falsey
 value.
 
-While it might seem odd that boolean functions return non-boolean values,
-remember that all values in Clojure in fact act as boolean values. This
-behaviour is useful in many situations. For an example, it allows you to
-provide default values for variables when taking input:
+While it might seem odd that boolean functions return non-boolean
+values, remember that all values in Clojure in fact act as boolean
+values. This behaviour is useful in many situations. For an example,
+it allows you to provide default values for variables when taking
+input:
 
 ~~~ {.clojure}
-(def server-port (or (commandline-parameters :port) 80))
+(def server-port (or user-input 80))
 ~~~
 
 Note that this can only be used in situations where the input may not take the
