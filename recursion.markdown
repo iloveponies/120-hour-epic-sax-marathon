@@ -295,8 +295,9 @@ Let's have a closer look at the evaluation of the second line:
 ~~~
 
 <exercise>
-Write the function `(sequence-contains? elem collection)` that returns `true`
-if the given sequence contains the given value, otherwise `false`.
+
+Write the function `(sequence-contains? elem a-seq)` that returns `true` if
+the given sequence contains the given value, otherwise `false`.
 
 ~~~ {.clojure}
 (sequence-contains? 3 [1 2 3]) ;=> true
@@ -305,6 +306,32 @@ if the given sequence contains the given value, otherwise `false`.
 ~~~
 
 Hint: remember to stop searching when you find it.
+</exercise>
+
+<exercise>
+Write the function `(my-take-while pred? a-seq)` that returns the longest
+prefix of `a-seq` where `pred?` returns `true` for every element.
+
+~~~clojure
+(my-take-while odd? [1 2 3 4])  ;=> (1)
+(my-take-while odd? [1 3 4 5])  ;=> (1 3)
+(my-take-while even? [1 3 4 5]) ;=> ()
+(my-take-while odd? [])         ;=> ()
+~~~
+
+</exercise>
+
+<exercise>
+Write the function `(my-drop-while pred? a-seq)` that drops elements from
+`a-seq` until `pred?` returns `false`.
+
+~~~clojure
+(my-drop-while odd? [1 2 3 4])  ;=> (2 3 4)
+(my-drop-while odd? [1 3 4 5])  ;=> (4 5)
+(my-drop-while even? [1 3 4 5]) ;=> (1 3 4 5)
+(my-drop-while odd? [])         ;=> ()
+~~~
+
 </exercise>
 
 ### Recursing over many sequences
