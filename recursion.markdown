@@ -110,6 +110,10 @@ of values. The product of $a$, $b$ and $c$ is $a * b * c$.
 ~~~
 </exercise>
 
+<exercise>
+Write down the evaluation of `(product [1 2 4])` like we did for `sum` above.
+</exercise>
+
 To get a better grasp on what `sum` does, let's see how it's evaluated.
 
 ~~~ {.clojure}
@@ -156,18 +160,58 @@ We call this kind of computation _linear_ because the expression it constructs
 grows linearly with the size of input.
 
 <exercise>
-Write down the evaluation of `(product [1 2 4])` like we did for `sum` above.
+Write the function `(singleton? coll)` which returns `true` if the collection
+has only a one element in it and `false` otherwise.
+
+Do not use `count` as it can be expensive on long sequences.
+
+~~~clojure
+(singleton? [1])     ;=> true
+(singleton? #{2})    ;=> true
+(singleton? [])      ;=> false
+(singleton? [1 2 3]) ;=> false
+~~~
+
 </exercise>
 
 <exercise>
-Compute the last element of a sequence.
+
+Write `(my-last a-seq)` that computes the last element of a sequence.
 
 ~~~ {.clojure}
-(last-element [1 2 3]) ;=> 3
-(last-element [2 5])   ;=> 5
+(my-last [1 2 3]) ;=> 3
+(my-last [2 5])   ;=> 5
 ~~~
 
 Hint: what is the base case here? How can you check if we're there?
+</exercise>
+
+<exercise>
+
+Write the function `(seq-max a-seq)` that computes returns the maximum element
+in `a-seq` or `nil` if `a-seq` is empty?
+
+You can use the function `(max a b)` that returns the greater of `a` and `b`.
+
+~~~clojure
+(seq-max [2 4 1 4]) ;=> 4
+(seq-max [2])       ;=> 2
+(seq-max [])        ;=> nil
+~~~
+
+</exercise>
+
+<exercise>
+
+Write the function `(longest-sequence a-seq)` that takes a sequence of
+sequences as a parameter and returns the longest one.
+
+~~~clojure
+(longest-sequence [[1 2] [] [1 2 3]]) ;=> [1 2 3]
+(longest-sequence [[1 2]])            ;=> [1 2]
+(longest-sequence [])                 ;=> nil
+~~~
+
 </exercise>
 
 ### Saving the list
@@ -251,8 +295,9 @@ Let's have a closer look at the evaluation of the second line:
 ~~~
 
 <exercise>
-Write the function `(sequence-contains? elem collection)` that returns `true`
-if the given sequence contains the given value, otherwise `false`.
+
+Write the function `(sequence-contains? elem a-seq)` that returns `true` if
+the given sequence contains the given value, otherwise `false`.
 
 ~~~ {.clojure}
 (sequence-contains? 3 [1 2 3]) ;=> true
@@ -261,6 +306,32 @@ if the given sequence contains the given value, otherwise `false`.
 ~~~
 
 Hint: remember to stop searching when you find it.
+</exercise>
+
+<exercise>
+Write the function `(my-take-while pred? a-seq)` that returns the longest
+prefix of `a-seq` where `pred?` returns `true` for every element.
+
+~~~clojure
+(my-take-while odd? [1 2 3 4])  ;=> (1)
+(my-take-while odd? [1 3 4 5])  ;=> (1 3)
+(my-take-while even? [1 3 4 5]) ;=> ()
+(my-take-while odd? [])         ;=> ()
+~~~
+
+</exercise>
+
+<exercise>
+Write the function `(my-drop-while pred? a-seq)` that drops elements from
+`a-seq` until `pred?` returns `false`.
+
+~~~clojure
+(my-drop-while odd? [1 2 3 4])  ;=> (2 3 4)
+(my-drop-while odd? [1 3 4 5])  ;=> (4 5)
+(my-drop-while even? [1 3 4 5]) ;=> (1 3 4 5)
+(my-drop-while odd? [])         ;=> ()
+~~~
+
 </exercise>
 
 ### Recursing over many sequences
@@ -428,10 +499,10 @@ structures, which we will come back to later. Tree recursion can be illustrated
 with simple processes over numbers. For an example, let's look at how to
 compute the following integer series:
 
-Let $f(n) =$
-
-- $n$ if $n < 3$,
-- $f(n-1) + 2*f(n-2) + 3*f(n-3)$ otherwise.
+Let $f(n) = \begin{cases}
+              n & \text{ if } n < 3 \\
+              f(n - 1) + 2 * f(n - 2) + 3 * f(n - 3) & \text{ otherwise}
+            \end{cases}$
 
 Translating this to Clojure gives us the following program:
 
@@ -515,16 +586,12 @@ prefixes of a sequence, respectively.
 ~~~
 
 _Hint:_ You can use `reverse` and `map`.
-</exercise>
 
-<exercise>
-Write the function `split-into-monotonics` that takes a sequence and returns
-the sequence split into monotonic pieces. Examples:
-
-~~~ {.clojure}
-(split-into-monotonics [0 1 2 1 0])   ;=> ((0 1 2) (1 0))
-(split-into-monotonics [0 5 4 7 1 3]) ;=> ((0 5) (4 7) (1 3))
+~~~clojure
+(reverse [1 2 3]) ;=> (3 2 1)
+(reverse [2 3 1]) ;=> (1 3 2)
 ~~~
+
 </exercise>
 
 ### Passing state
@@ -544,18 +611,18 @@ Here's an example of a function that counts how many times a sequence contains
 a given element:
 
 ~~~ {.clojure}
+(defn count-elem-helper [n elem coll]
+  (if (empty? coll)
+    n
+    (let [new-count (if (= elem (first coll))
+                      (inc n)
+                      n)]
+      (count-elem-helper new-count
+                         elem
+                         (rest coll)))))
+
 (defn count-elem [elem coll]
-  (let [count-elem-helper
-          (fn [n elem coll]
-            (if (empty? coll)
-              n
-              (let [new-count (if (= elem (first coll))
-                                (inc n)
-                                n)]
-                (my-count-helper new-count
-                                 elem
-                                 (rest coll)))))]
-    (count-elem-helper 0 elem coll)))
+    (count-elem-helper 0 elem coll))
 ~~~
 
 First, we define a helper function, `count-elem-helper`. It takes three
@@ -606,13 +673,14 @@ times each element occurs in a sequence. E.g.:
 You'll want to structure your code like this:
 
 ~~~ {.clojure}
+(defn my-frequencies-helper [freqs coll]
+  ...)
+
 (defn my-frequencies [coll]
-  (let [frequencies-helper
-          (fn [freqs coll] ...)]
-    (frequencies-helper {} coll)))
+  (frequencies-helper {} coll))
 ~~~
 
-Where `frequencies-helper` is the recursive function.
+Where `my-frequencies-helper` is a recursive helper function.
 </exercise>
 
 <exercise>
@@ -731,13 +799,36 @@ Conceptually:
 
 ## Encore
 
+The following exercises are ment to be tricky. For that reason they give more
+points than the regular ones. But don't worry if 
+
+<exercise>
+
+Write the function `split-into-monotonics` that takes a sequence and returns
+the sequence split into monotonic pieces. Examples:
+
+~~~ {.clojure}
+(split-into-monotonics [0 1 2 1 0])   ;=> ((0 1 2) (1 0))
+(split-into-monotonics [0 5 4 7 1 3]) ;=> ((0 5) (4 7) (1 3))
+~~~
+
+_Hint:_ You might find useful the functions `take-while`, `drop` and `inits`.
+Make sure that your `inits` returns the prefixes from the shortest to the
+longest.
+
+~~~clojure
+(inits [1 2 3 4]) ;=> (() (1) (1 2) (1 2 3) (1 2 3 4))
+~~~
+
+</exercise>
+
 <exercise>
 Given a sequence, return all permutations of that sequence.
 
 ~~~ {.clojure}
-(permutations [])
-;=> ()
-(permutations [1 5 3])
+(permutations #{})
+;=> (())
+(permutations #{1 5 3})
 ;=> ((1 5 3) (5 1 3) (5 3 1) (1 3 5) (3 1 5) (3 5 1))
 ~~~
 
@@ -745,14 +836,13 @@ The order of the permutations doesn't matter.
 </exercise>
 
 <exercise>
-Given a sequence, return the powerset of that sequence.
+Given a set, return the powerset of that set.
 
 ~~~ {.clojure}
-(powerset [])      ;=> (())
-(powerset [1 2 4]) ;=> (() (4) (2) (2 4) (1) (1 4) (1 2) (1 2 4))
+(powerset #{})      ;=> #{#{}}
+(powerset #{1 2 4}) ;=> #{#{} #{4} #{2} #{2 4} #{1} #{1 4} #{1 2} #{1 2 4}}
 ~~~
 
-The order of the subsequences doesn't matter.
 </exercise>
 
 [Software Foundations]: http://www.cis.upenn.edu/~bcpierce/sf/Basics.html#nat

@@ -19,13 +19,13 @@ structures:
 - [Clojure cheatsheet][cheat]
 </info>
 
-## Get the project
+## Fork this
 
-Clone the project for this chapter:
+[https://github.com/iloveponies/structured-data](https://github.com/iloveponies/structured-data)
 
-~~~
-git clone https://github.com/iloveponies/structured-data.git
-~~~
+[Here](basic-tools.html#how-to-submit-answers-to-exercises) are the
+instructions if you need them. Be sure to fork the repository behind the link
+above.
 
 ## Let there be names
 

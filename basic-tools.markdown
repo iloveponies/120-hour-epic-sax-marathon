@@ -16,7 +16,7 @@ things:
 - install Git
 - install Leiningen
 - make sure to have a github account
-- inform the teachers about your github account name TODO weblomake
+- inform the teachers about your github account name
 - read very carefully the submission instructions
 
 ## Editor
@@ -135,6 +135,17 @@ You then go to Github and send a *pull request*. We will run the tests on our
 computer and see the code. Your points will be announced on the comment thread
 of the pull request and the pull request will be closed.
 
+If you didn't get all the points and want to try again, you are free to do so.
+Just make modifications to the code, create a commit, push and open a **new**
+pull request. We once again run the tests and see the code. You will be
+informed about the **new** points that you got.
+
+### Tell us who you are
+
+For this system to work, we need to know who you are. Please fill out this
+form:
+[https://elomake.helsinki.fi/lomakkeet/38254/lomake.html](https://elomake.helsinki.fi/lomakkeet/38254/lomake.html)
+
 <alert>
 
 The pull requests are visible to everyone. If you don't want your grading to
@@ -142,10 +153,7 @@ be public, create an anonymous Github account and pass the name of that to us.
 
 </alert>
 
-If you didn't get all the points and want to try again, you are free to do so.
-Just make modifications to the code, create a commit, push and open a **new**
-pull request. We once again run the tests and see the code. You will be
-informed about the **new** points that you got.
+### Be prepared
 
 Lets go through the first part of this process to be ready for the next
 chapter.
