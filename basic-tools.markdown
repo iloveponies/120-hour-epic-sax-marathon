@@ -123,59 +123,65 @@ submit exercises:
 
 ## How to submit answers to exercises
 
-At the start of every chapter, you should go to [Github][Github] and
-*fork* the chapters repository. There will be a link to the
-appropriate repository at the beginning of every chapter. You then
-*clone* your own fork of the repository and start working with the
-exercises when you encounter them amongs the material. You create
-*commits* and maybe *push* them in to your own fork while working. You
-also run the tests with `lein midje` to see if they pass.
+At the start of every chapter, you should go to [Github][Github] and *fork*
+the chapters repository. There will be a link to the appropriate repository at
+the beginning of every chapter. You then *clone* your **own** fork of the
+repository and start working with the exercises when you encounter them amongs
+the material. You create *commits* and maybe *push* them in to your own fork
+while working. You also run the tests with `lein midje` to see if they pass.
 
-When you want your answers graded, you push all of your work with `git
-push`. You then go to Github and send a *pull request*. We will run
-the tests on our computer and see the code. Your points will be
-announced FIXME and the pull request will be closed. If you didn't get
-all the points and want to try again, you are free to do so. Just make
-modifications to the code, create a commit, push and open a *new* pull
-request. We once again run the tests and see the code. You will be
-informed about the *new* points that you got.
+When you want your answers graded, you push all of your work with `git push`.
+You then go to Github and send a *pull request*. We will run the tests on our
+computer and see the code. Your points will be announced on the comment thread
+of the pull request and the pull request will be closed.
 
-Lets go through the first part of this process to be ready for the
-next chapter.
+<alert>
 
-1. Go to the Github page of the repository of the next chapter. Here
-   is the [link](https://github.com/iloveponies/training-day).
+The pull requests are visible to everyone. If you don't want your grading to
+be public, create an anonymous Github account and pass the name of that to us.
 
-2. Click the Fork-button near the top-right corner of the page. You
-   will be asked to login if you haven't done so already.
+</alert>
 
-3. The Github page of your fork will open. This is the repository you
-   want to clone. Click the button that says HTTP and copy the link
-   from the box. Then issue the following command with **your**
-   version of the link. Your Github login information will be
-   requested.
+If you didn't get all the points and want to try again, you are free to do so.
+Just make modifications to the code, create a commit, push and open a **new**
+pull request. We once again run the tests and see the code. You will be
+informed about the **new** points that you got.
+
+Lets go through the first part of this process to be ready for the next
+chapter.
+
+1. Go to the Github page of the repository of the next chapter. Here is the
+   [link](https://github.com/iloveponies/training-day).
+
+2. Click the Fork-button near the top-right corner of the page. You will be
+   asked to login if you haven't done so already.
+
+3. The Github page of your fork will open. This is the repository you want to
+   clone. Click the button that says HTTP and copy the link from the box. Then
+   issue the following command with **your** version of the link. Your Github
+   login information will be requested.
 
     ~~~ {.sh}
     git clone https://github.com/rapala/training-day.git
     ~~~
     
-4. A directory `training-day` will be created. Go inside the directory
-   and issue `lein midje`. You should see output that tells you that
-   every test in the project has failed.
+4. A directory `training-day` will be created. Go inside the directory and
+   issue `lein midje`. You should see output that tells you that every test in
+   the project has failed.
 
         cd training-day
         lein midje
    Instead of `lein midje`, you can issue the command
    
-        lein midje --lazy-test
-   This starts a loop which runs the tests again every time you make
-   changes to any of the projects files. A very handy feature, as
-   running plain `lein midje` has a pretty long startup time.
+        lein midje --lazytest
+   This starts a loop which runs the tests again every time you make changes
+   to any of the projects files. A very handy feature, as running plain `lein
+   midje` has a pretty long startup time.
    
-5. You are now ready to start working with the exercises. When ever
-   you encounter an exercise in the material, open the file
-   `src/training_day.clj` and fill the appropriate function. Run `lein
-   midje` often to see if the tests pass.
+5. You are now ready to start working with the exercises. When ever you
+   encounter an exercise in the material, open the file `src/training_day.clj`
+   and fill the appropriate function. Run `lein midje` often to see if the
+   tests pass.
    
 [Proceed, young padawan. →][next]
 

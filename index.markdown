@@ -39,7 +39,7 @@ Learn the structural weaknesses of dragons.
 
 ## [Style]
 
-Stylish Clojure.
+Polish your boots and armour.
 
 - Indentation
 - Whitespace
@@ -47,13 +47,17 @@ Stylish Clojure.
 
 ## [P-P-P-Pokerface]
 
-Project: poker hand evaluator.
+Project: poker hand evaluator
 
 ## [Recursion]
 
 Down the rabbit hole.
 
-- The one function to rule them all
+- Linear recursion
+- Recursion over numbers
+- Tree recursion
+- Nonlinear recursion
+- Passing state
 
 ## [Looping is recursion]
 

@@ -667,8 +667,8 @@ it.
    question on the comment field, and we try to answer them **if**
    time permits. When you are ready, click `Send pull request`.
    
-4. You will be informed on the amount of points that you got from the
-   submited exercises. Then the pull request is closed.
+4. A comment containing the points that you got will be posted on the pull
+   request. Then the pull request is closed.
    
 If you didn't submit the solutions all at once, or some of the
 submited ones were incorrect, you can re-submit as many times as you
