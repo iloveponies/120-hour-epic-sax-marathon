@@ -4,6 +4,9 @@
 
 Here be dragons.
 
+But before those, please fill out this
+[from](https://elomake.helsinki.fi/lomakkeet/38254/lomake.html).
+
 ## [Basic tools]
 
 Get equipped in your fight against the dragons.
