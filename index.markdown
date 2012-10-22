@@ -63,6 +63,12 @@ Polish your boots and armour.
 
 Project: poker hand evaluator
 
+## [Predicates]
+
+- predicates
+- functions as values
+- `some` and `every?`
+
 ## [Recursion]
 
 Down the rabbit hole.
@@ -94,6 +100,7 @@ A blog engine written in Clojure, studied.
 [Structured data]: structured-data.html
 [I am a horse in the land of booleans]: I-am-a-horse-in-the-land-of-booleans.html
 [P-P-P-Pokerface]: p-p-p-pokerface.html
+[Predicates]: predicates.html
 [Recursion]: recursion.html
 [Sudoku]: sudoku.html
 [Style]: style.html
