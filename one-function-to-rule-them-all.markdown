@@ -109,7 +109,34 @@ Don't use `apply` to implement this function.
 
 </exercise>
 
-## Two sides of the coin
+<exercise>
+
+Write the function `(my-count a-seq)` that returns the length of a sequence.
+
+You are not to use `count` in your implementation.
+
+~~~clojure
+(my-count [])      ;=> 0
+(my-count [1 2 3]) ;=> 3
+(my-count [1])     ;=> 1
+~~~
+
+</exercise>
+
+<exercise>
+
+Write the function `(count-occurences elem a-seq)` that counts the number of
+occurences of `elem` in the `a-seq`.
+
+~~~clojure
+(count-occurences :a [:a :b :c]) ;=> 1
+(count-occurences :a [:b :c])    ;=> 0
+(count-occurences 1 [1 1 1 2])   ;=> 3
+~~~
+
+</exercise>
+
+## Two 
 
 One can call `reduce` in two different ways.
 
@@ -146,14 +173,16 @@ Lets look at an evaluation of a `reduce` call without an initial value.
 
 <exercise>
 
-Write the function `(my-count a-seq)` that returns the length of a sequence.
+Write the function `(my-interpose x a-seq)` that places `x` between every
+element of `a-seq`.
 
-You are not to use `count` in your implementation.
+Keep in mind the function `concat`.
 
 ~~~clojure
-(my-count [])      ;=> 0
-(my-count [1 2 3]) ;=> 3
-(my-count [1])     ;=> 1
+(my-interpose 0 [1 2 3])               ;=> (1 0 2 0 3)
+(my-interpose "," ["I" "me" "myself"]) ;=> ("I" "," "me" "," "myself")
+(my-interpose :a [1])                  ;=> (1)
+(my-interpose :a [])                   ;=> ()
 ~~~
 
 </exercise>
@@ -217,6 +246,19 @@ from the previous exercise.
 ~~~clojure
 (insertion-sort [2 5 3 1]) ;=> (1 2 3 5)
 (insertion-sort [1 2])     ;=> (1 2)
+~~~
+
+</exercise>
+
+<exercise>
+
+Write the fuction `(parity a-seq)` that picks into a set those elements of
+`a-seq` that occur odd number of time.
+
+~~~clojure
+(parity [:a :b :c])    ;=> #{:a :b :c}
+(parity [:a :a :b :b]) ;=> #{}
+(parity [1 2 3 1])     ;=> #{2 3}
 ~~~
 
 </exercise>

@@ -108,9 +108,30 @@ Exercise 1
 (concat-elements [[<span class="dv">1</span> <span class="dv">2</span>]])       <span class="co">;=&gt; (1 2)</span>
 (concat-elements [[<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span>]]) <span class="co">;=&gt; (1 2 3 4)</span></code></pre>
 </section>
+<section class="alert alert-success">
+<h3>
+Exercise 2
+</h3>
+
+<p>Write the function <code>(my-count a-seq)</code> that returns the length of a sequence.</p>
+<p>You are not to use <code>count</code> in your implementation.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(my-count [])      <span class="co">;=&gt; 0</span>
+(my-count [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
+(my-count [<span class="dv">1</span>])     <span class="co">;=&gt; 1</span></code></pre>
 </section>
-<section class="level2" id="two-sides-of-the-coin">
-<h2>Two sides of the coin</h2>
+<section class="alert alert-success">
+<h3>
+Exercise 3
+</h3>
+
+<p>Write the function <code>(count-occurences elem a-seq)</code> that counts the number of occurences of <code>elem</code> in the <code>a-seq</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(count-occurences <span class="kw">:a</span> [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>]) <span class="co">;=&gt; 1</span>
+(count-occurences <span class="kw">:a</span> [<span class="kw">:b</span> <span class="kw">:c</span>])    <span class="co">;=&gt; 0</span>
+(count-occurences <span class="dv">1</span> [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span>])   <span class="co">;=&gt; 3</span></code></pre>
+</section>
+</section>
+<section class="level2" id="two">
+<h2>Two</h2>
 <p>One can call <code>reduce</code> in two different ways.</p>
 <ul>
 <li><p>If the initial accumulator is provided and the input sequence is empty, reduce will return the initial accumulator value and will not call the combinator function.</p>
@@ -130,28 +151,29 @@ Exercise 1
 <span class="co">;=&gt; 9</span></code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise 2
+Exercise 4
 </h3>
 
-<p>Write the function <code>(my-count a-seq)</code> that returns the length of a sequence.</p>
-<p>You are not to use <code>count</code> in your implementation.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(my-count [])      <span class="co">;=&gt; 0</span>
-(my-count [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
-(my-count [<span class="dv">1</span>])     <span class="co">;=&gt; 1</span></code></pre>
+<p>Write the function <code>(my-interpose x a-seq)</code> that places <code>x</code> between every element of <code>a-seq</code>.</p>
+<p>Keep in mind the function <code>concat</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(my-interpose <span class="dv">0</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])               <span class="co">;=&gt; (1 0 2 0 3)</span>
+(my-interpose <span class="st">&quot;,&quot;</span> [<span class="st">&quot;I&quot;</span> <span class="st">&quot;me&quot;</span> <span class="st">&quot;myself&quot;</span>]) <span class="co">;=&gt; (&quot;I&quot; &quot;,&quot; &quot;me&quot; &quot;,&quot; &quot;myself&quot;)</span>
+(my-interpose <span class="kw">:a</span> [<span class="dv">1</span>])                  <span class="co">;=&gt; (1)</span>
+(my-interpose <span class="kw">:a</span> [])                   <span class="co">;=&gt; ()</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 3
+Exercise 5
 </h3>
 
 <p>Write the function <code>(str-cat a-seq)</code> that takes a sequence of strings and catenates them with one space character between each.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(str-cat [<span class="st">&quot;I&quot;</span> <span class="st">&quot;am&quot;</span> <span class="st">&quot;Legend&quot;</span>]) <span class="co">;=&gt; &quot;I am Legend&quot;</span>
 (str-cat [<span class="st">&quot;I&quot;</span> <span class="st">&quot;am&quot;</span> <span class="st">&quot;back&quot;</span>])   <span class="co">;=&gt; &quot;I am back&quot;</span>
-(str-cat [<span class="st">&quot;more&quot;</span> <span class="st">&quot; &quot;</span> <span class="st">&quot;space]) ;=&gt; &quot;</span>more   space<span class="st">&quot;</span></code></pre>
+(str-cat [<span class="st">&quot;more&quot;</span> <span class="st">&quot; &quot;</span> <span class="st">&quot;space&quot;</span>]) <span class="co">;=&gt; &quot;more   space&quot;</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 4
+Exercise 6
 </h3>
 
 <p>Write the function <code>(my-reverse a-seq)</code> that reverses a sequence.</p>
@@ -161,7 +183,7 @@ Exercise 4
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 5
+Exercise 7
 </h3>
 
 <p>Write the function <code>(min-max-element a-seq)</code> that returns the maximal and minimal elements of <code>a-seq</code> in a vertor like <code>[min max]</code>.</p>
@@ -171,7 +193,7 @@ Exercise 5
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 6
+Exercise 8
 </h3>
 
 <p>Write the function <code>(insert sorted-seq n)</code> that adds the number <code>n</code> into a sorted sequence of number. The ordering of the sequence must be preserved.</p>
@@ -181,12 +203,22 @@ Exercise 6
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 7
+Exercise 9
 </h3>
 
 <p>Implement <code>(insertion-sort a-seq)</code> using <code>reduce</code> and the function <code>insert</code> from the previous exercise.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(insertion-sort [<span class="dv">2</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">1</span>]) <span class="co">;=&gt; (1 2 3 5)</span>
 (insertion-sort [<span class="dv">1</span> <span class="dv">2</span>])     <span class="co">;=&gt; (1 2)</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 10
+</h3>
+
+<p>Write the fuction <code>(parity a-seq)</code> that picks into a set those elements of <code>a-seq</code> that occur odd number of time.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(parity [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>])    <span class="co">;=&gt; #{:a :b :c}</span>
+(parity [<span class="kw">:a</span> <span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:b</span>]) <span class="co">;=&gt; #{}</span>
+(parity [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span>])     <span class="co">;=&gt; #{2 3}</span></code></pre>
 </section>
 </section>
 <footer>
