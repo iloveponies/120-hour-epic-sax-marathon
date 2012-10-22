@@ -231,6 +231,10 @@ Exercise 4
 <p>And a representation for a rectangle. This will simply be a pair of points, the first being the bottom left corner and the second being the top left corner.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> rectangle </span>[bottom-left top-right]
   [bottom-left top-right])</code></pre>
+<p>When you have nested structures where you know their structure in advance, you can destructure multiple levels at a time.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [[[x1 y1] [x2 y2]] rectangle]
+  ... <span class="kw">do</span> stuff with coordinates)</code></pre>
+<p>This should prove to be useful in the following exercises.</p>
 <section class="alert alert-success">
 <h3>
 Exercise 5
