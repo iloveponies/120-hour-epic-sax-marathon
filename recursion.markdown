@@ -179,6 +179,7 @@ Do not use `count` as it can be expensive on long sequences.
 Write `(my-last a-seq)` that computes the last element of a sequence.
 
 ~~~ {.clojure}
+(my-last [])      ;=> nil
 (my-last [1 2 3]) ;=> 3
 (my-last [2 5])   ;=> 5
 ~~~
@@ -188,15 +189,27 @@ Hint: what is the base case here? How can you check if we're there?
 
 <exercise>
 
-Write the function `(seq-max a-seq)` that computes returns the maximum element
-in `a-seq` or `nil` if `a-seq` is empty?
+Write the function `(max-element a-seq)` that computes returns the maximum
+element in `a-seq` or `nil` if `a-seq` is empty?
 
 You can use the function `(max a b)` that returns the greater of `a` and `b`.
 
 ~~~clojure
-(seq-max [2 4 1 4]) ;=> 4
-(seq-max [2])       ;=> 2
-(seq-max [])        ;=> nil
+(max-element [2 4 1 4]) ;=> 4
+(max-element [2])       ;=> 2
+(max-element [])        ;=> nil
+~~~
+
+</exercise>
+
+<exercise>
+
+Write the function `(seq-max seq-1 seq-2)` that returns the longer one of
+`seq-1` and `seq-2`.
+
+~~~clojure
+(seq-max [1] [1 2])   ;=> [1 2]
+(seq-max [1 2] [3 4]) ;=> [3 4]
 ~~~
 
 </exercise>
@@ -247,8 +260,8 @@ re-constructs the sequence with `cons`.
 
 <exercise>
 
-Implement the function `(my-filter f a-seq)` that works just like the standard
-`filter`
+Implement the function `(my-filter pred? a-seq)` that works just like the
+standard `filter`.
 
 ~~~clojure
 (my-filter odd? [1 2 3 4]) ;=> (1 3)
@@ -643,7 +656,7 @@ Write the function `(rotations a-seq)` that, when given a sequence, returns
 all the rotations of that sequence.
 
 ~~~ {.clojure}
-(rotations [])        ;=> ()
+(rotations [])        ;=> (())
 (rotations [1 2 3])   ;=> ((1 2 3) (2 3 1) (3 1 2))
 (rotations [:a :b])   ;=> ((:a :b) (:b :a))
 ; The order of rotations does not matter.
@@ -673,11 +686,11 @@ times each element occurs in a sequence. E.g.:
 You'll want to structure your code like this:
 
 ~~~ {.clojure}
-(defn my-frequencies-helper [freqs coll]
+(defn my-frequencies-helper [freqs a-seq]
   ...)
 
-(defn my-frequencies [coll]
-  (frequencies-helper {} coll))
+(defn my-frequencies [a-seq]
+  (frequencies-helper {} a-seq))
 ~~~
 
 Where `my-frequencies-helper` is a recursive helper function.
@@ -799,8 +812,8 @@ Conceptually:
 
 ## Encore
 
-The following exercises are ment to be tricky. For that reason they give more
-points than the regular ones. But don't worry if 
+The following exercises are ment to be tricky. So don't dwell too long on
+them.
 
 <exercise>
 
