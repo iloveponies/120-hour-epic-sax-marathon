@@ -812,8 +812,8 @@ Conceptually:
 
 ## Encore
 
-The following exercises are ment to be tricky. For that reason they give more
-points than the regular ones. But don't worry if 
+The following exercises are ment to be tricky. So don't dwell too long on
+them.
 
 <exercise>
 
