@@ -451,7 +451,7 @@ Let's define some authors and a couple of books with maps and vectors.
 
 <exercise>
 Write the function `(title-length book)` that counts the length of the book's
-title. Use `let` to extract the title.
+title.
 
 ~~~ {.clojure}
 (title-length cities)         ;=> 21
