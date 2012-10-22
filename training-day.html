@@ -229,13 +229,13 @@ user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">
 <h3>
 Exercise 1
 </h3>
-<p>Write the following expression in the Clojure prefix syntax: \((2 * 3) + 4\). Try evaluating it in the REPL. The result should be 10.</p>
+<p>Write the following expression in the Clojure prefix syntax: \((2 * 3) + 4\). Try evaluating it in the REPL. The result should be 10. You don’t need to return this one.</p>
 </section>
 <section class="alert alert-success">
 <h3>
 Exercise 2
 </h3>
-<p>Write the expression \(3 + 4 + 5 + 6\) in Clojure syntax. Evaluate it in the REPL.</p>
+<p>Write the expression \(3 + 4 + 5 + 6\) in Clojure syntax. Evaluate it in the REPL. You don’t need to return this one.</p>
 </section>
 <p>The arithmetic operations have some special properties. Everyone of the operations works with only one operand.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">+</span> <span class="dv">1</span>) <span class="co">;=&gt; 1</span>
@@ -258,7 +258,7 @@ Exercise 2
 <h3>
 Exercise 3
 </h3>
-<p>Write a Clojure expression in the REPL that, using <code>get</code>, gets the first character in the string <code>&quot;abrakadabra&quot;</code>.</p>
+<p>Write a Clojure expression in the REPL that, using <code>get</code>, gets the first character in the string <code>&quot;abrakadabra&quot;</code>. You don’t need to return this one.</p>
 </section>
 </section>
 <section class="level2" id="functions">
@@ -281,6 +281,7 @@ Exercise 4
 </h3>
 <p>Call the following function in the REPL with your name.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">fn</span> [<span class="kw">name</span>] (<span class="kw">str</span> <span class="st">&quot;Welcome to Rivendell mr &quot;</span> <span class="kw">name</span>))</code></pre>
+<p>No need to return this one.</p>
 </section>
 <p>Now we know how to make a function, but we only got a glimpse of it and then it was gone. We have to write the definition of the function every time we want to call it. But we want something more permanent, something that we can write once and call multiple times! The functions created with <code>fn</code> are called <em>anonymous functions</em>. They are named such because they have no name. To give a name to a function we can use <code>def</code>. Let’s give the greeter function a name right away.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> hello </span>(<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>)))</code></pre>
