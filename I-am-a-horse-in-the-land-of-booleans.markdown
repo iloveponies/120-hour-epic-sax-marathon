@@ -301,20 +301,21 @@ Use the `divides?` function from the previous exercise.
 Write a function `(generic-doublificate x)` that takes one argument and
 
 - doubles it if it is a number,
-- doubles all the elements if it is a list or a vector,
 - returns nil if it is an empty collection,
+- if it is a list or a vector, returns two times the length of it
 - returns true otherwise.
 
 You can use the following functions:
 
 - `(number? n)` returns `true` if `n` is a number.
-- `(list? coll)` and `(vector? coll)` test if `coll` is a list or a vector.
 - `(empty? coll)` returns `true` if `coll` is empty.
+- `(list? coll)` and `(vector? coll)` test if `coll` is a list or a vector.
+- `(count coll)` returns the length of a list or a vector.
 
 ~~~ {.clojure}
 (generic-doublificate 1)        ;=> 2
-(generic-doublificate [1 2])    ;=> (2 4)
-(generic-doublificate '(65 21)) ;=> (130 42)
+(generic-doublificate [1 2])    ;=> 4
+(generic-doublificate '(65 21)) ;=> 4
 (generic-doublificate {})       ;=> nil
 (generic-doublificate [])       ;=> nil
 (generic-doublificate {:a 1})   ;=> true
