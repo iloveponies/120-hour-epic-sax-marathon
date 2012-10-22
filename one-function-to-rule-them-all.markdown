@@ -166,7 +166,57 @@ catenates them with one space character between each.
 ~~~clojure
 (str-cat ["I" "am" "Legend"]) ;=> "I am Legend"
 (str-cat ["I" "am" "back"])   ;=> "I am back"
-(str-cat ["more" " " "space]) ;=> "more   space"
+(str-cat ["more" " " "space"]) ;=> "more   space"
+~~~
+
+</exercise>
+
+<exercise>
+
+Write the function `(my-reverse a-seq)` that reverses a sequence.
+
+~~~clojure
+(my-reverse [1 2 3]) ;=> (3 2 1)
+(my-reverse [1 2])   ;=> (2 1)
+(my-reverse [])      ;=> ()
+~~~
+
+</exercise>
+
+<exercise>
+
+Write the function `(min-max-element a-seq)` that returns the maximal and
+minimal elements of `a-seq` in a vertor like `[min max]`.
+
+~~~clojure
+(min-max-element [2 7 3 15 4]) ;=> (2 15)
+(min-max-element [1 2 3 4])    ;=> (1 4)
+(min-max-element [1])          ;=> (1 1)
+~~~
+
+</exercise>
+
+<exercise>
+
+Write the function `(insert sorted-seq n)` that adds the number `n` into a
+sorted sequence of number. The ordering of the sequence must be preserved.
+
+~~~clojure
+(insert [] 2)      ;=> (2)
+(insert [1 3 4] 2) ;=> (1 2 3 4)
+(insert [1] 2)     ;=> (1 2)
+~~~
+
+</exercise>
+
+<exercise>
+
+Implement `(insertion-sort a-seq)` using `reduce` and the function `insert`
+from the previous exercise.
+
+~~~clojure
+(insertion-sort [2 5 3 1]) ;=> (1 2 3 5)
+(insertion-sort [1 2])     ;=> (1 2)
 ~~~
 
 </exercise>
