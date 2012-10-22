@@ -278,6 +278,16 @@ corner.
   [bottom-left top-right])
 ~~~
 
+When you have nested structures where you know their structure in advance, you
+can destructure multiple levels at a time.
+
+~~~{.clojure}
+(let [[[x1 y1] [x2 y2]] rectangle]
+  ... do stuff with coordinates)
+~~~
+
+This should prove to be useful in the following exercises.
+
 <exercise>
 Write the functions `(height rectangle)` and `(width rectangle)` that return
 the height and width of the given rectangle. Use destructuring.
@@ -441,7 +451,7 @@ Let's define some authors and a couple of books with maps and vectors.
 
 <exercise>
 Write the function `(title-length book)` that counts the length of the book's
-title. Use `let` to extract the title.
+title.
 
 ~~~ {.clojure}
 (title-length cities)         ;=> 21
