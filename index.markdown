@@ -2,6 +2,17 @@
 % 120 hour epic
 % sax marathon
 
+## News feed
+
+Important annoucements follow:
+
+- Sometimes we need to modify some exercises on the fly. When this happens,
+  new tests will appear in the main repository of the chapter (the repository
+  under the organization `iloveponies` in Github). If you know git enough, you
+  can merge the changes to your fork. Or you can just copy the new tests to
+  the test file. **You can always copy the newest test file from Github over
+  the old one on your local directory.**
+
 Here be dragons.
 
 But before those, please fill out this
