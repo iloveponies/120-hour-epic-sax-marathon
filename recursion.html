@@ -159,7 +159,8 @@ Exercise 4
 </h3>
 
 <p>Write <code>(my-last a-seq)</code> that computes the last element of a sequence.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(my-last [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(my-last [])      <span class="co">;=&gt; nil</span>
+(my-last [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
 (my-last [<span class="dv">2</span> <span class="dv">5</span>])   <span class="co">;=&gt; 5</span></code></pre>
 <p>Hint: what is the base case here? How can you check if we’re there?</p>
 </section>
@@ -168,15 +169,24 @@ Exercise 4
 Exercise 5
 </h3>
 
-<p>Write the function <code>(seq-max a-seq)</code> that computes returns the maximum element in <code>a-seq</code> or <code>nil</code> if <code>a-seq</code> is empty?</p>
+<p>Write the function <code>(max-element a-seq)</code> that computes returns the maximum element in <code>a-seq</code> or <code>nil</code> if <code>a-seq</code> is empty?</p>
 <p>You can use the function <code>(max a b)</code> that returns the greater of <code>a</code> and <code>b</code>.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(seq-max [<span class="dv">2</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">4</span>]) <span class="co">;=&gt; 4</span>
-(seq-max [<span class="dv">2</span>])       <span class="co">;=&gt; 2</span>
-(seq-max [])        <span class="co">;=&gt; nil</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(max-element [<span class="dv">2</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">4</span>]) <span class="co">;=&gt; 4</span>
+(max-element [<span class="dv">2</span>])       <span class="co">;=&gt; 2</span>
+(max-element [])        <span class="co">;=&gt; nil</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
 Exercise 6
+</h3>
+
+<p>Write the function <code>(seq-max seq-1 seq-2)</code> that returns the longer one of <code>seq-1</code> and <code>seq-2</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(seq-max [<span class="dv">1</span>] [<span class="dv">1</span> <span class="dv">2</span>])   <span class="co">;=&gt; [1 2]</span>
+(seq-max [<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; [3 4]</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 7
 </h3>
 
 <p>Write the function <code>(longest-sequence a-seq)</code> that takes a sequence of sequences as a parameter and returns the longest one.</p>
@@ -202,10 +212,10 @@ Exercise 6
 <p>So <code>map</code> calls the function <code>f</code> for every element of <code>a-seq</code> and then re-constructs the sequence with <code>cons</code>.</p>
 <section class="alert alert-success">
 <h3>
-Exercise 7
+Exercise 8
 </h3>
 
-<p>Implement the function <code>(my-filter f a-seq)</code> that works just like the standard <code>filter</code></p>
+<p>Implement the function <code>(my-filter pred? a-seq)</code> that works just like the standard <code>filter</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-filter <span class="kw">odd?</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; (1 3)</span>
 (my-filter (<span class="kw">fn</span> [x] (<span class="kw">&gt;</span> x <span class="dv">9000</span>)) [<span class="dv">12</span> <span class="dv">49</span> <span class="dv">90</span> <span class="dv">9001</span>]) <span class="co">;=&gt; (9001)</span>
 (my-filter <span class="kw">even?</span> [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">7</span>]) <span class="co">;=&gt; ()</span></code></pre>
@@ -233,7 +243,7 @@ Exercise 7
 <span class="co">;=&gt; false                      ; because (number? :D) ;=&gt; false</span></code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise 8
+Exercise 9
 </h3>
 
 <p>Write the function <code>(sequence-contains? elem a-seq)</code> that returns <code>true</code> if the given sequence contains the given value, otherwise <code>false</code>.</p>
@@ -244,7 +254,7 @@ Exercise 8
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 9
+Exercise 10
 </h3>
 <p>Write the function <code>(my-take-while pred? a-seq)</code> that returns the longest prefix of <code>a-seq</code> where <code>pred?</code> returns <code>true</code> for every element.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-take-while <span class="kw">odd?</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>])  <span class="co">;=&gt; (1)</span>
@@ -254,7 +264,7 @@ Exercise 9
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 10
+Exercise 11
 </h3>
 <p>Write the function <code>(my-drop-while pred? a-seq)</code> that drops elements from <code>a-seq</code> until <code>pred?</code> returns <code>false</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-drop-while <span class="kw">odd?</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>])  <span class="co">;=&gt; (2 3 4)</span>
@@ -275,7 +285,7 @@ Exercise 10
 <p>There’s an obvious reason why <code>first-in</code> doesn’t fit our template for linear recursion: it has three parameters, whereas the template only takes one. We can ignore the first parameter for our purposes, since it does not have bearing on the recursive structure of the computation. <code>first-in</code> is linearly recursive on both its sequence parameters, though.</p>
 <section class="alert alert-success">
 <h3>
-Exercise 11
+Exercise 12
 </h3>
 <p>Write the function <code>(seq= seq-1 seq-2)</code> that compares two sequences for equality.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(seq= [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span>] &#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span>))  <span class="co">;=&gt; true</span>
@@ -284,7 +294,7 @@ Exercise 11
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 12
+Exercise 13
 </h3>
 
 <p>Write the function <code>(my-map f seq-1 seq-2)</code> that returns a sequence of the following kind . The first item is the return value of <code>f</code> called with the first values of <code>seq-1</code> and <code>seq-2</code>. The second item is the return value of <code>f</code> called with the second values of <code>seq-1</code> and <code>seq-2</code> and so forth until <code>seq-1</code> or <code>seq-2</code> ends.</p>
@@ -342,7 +352,7 @@ Exercise 12
     (... n ... (eats-numbers (<span class="kw">dec</span> n)))))</code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise 13
+Exercise 14
 </h3>
 <p>Write the function <code>(power n k)</code> that computes the mathematical expression \(n^k\).</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(power <span class="dv">2</span> <span class="dv">2</span>)  <span class="co">;=&gt; 4</span>
@@ -369,7 +379,7 @@ Exercise 13
 <p>It is easy to see that the computation forms a tree structure.</p>
 <section class="alert alert-success">
 <h3>
-Exercise 14
+Exercise 15
 </h3>
 <p>Compute the \(n\)th <a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci number</a>. The \(n\)th Fibonacci number, \(F_n\), is defined as:</p>
 <ul>
@@ -394,7 +404,7 @@ Exercise 14
 <p>We have already implemented some of the sequence functions found from the Clojure’s standard library, namely <code>map</code> and <code>filter</code>. In the following exercises you should use recursion to implement some more.</p>
 <section class="alert alert-success">
 <h3>
-Exercise 15
+Exercise 16
 </h3>
 
 <p>Write the function <code>(my-repeat how-many-times what-to-repeat)</code> that generates a list with <code>what-to-repeat</code> repeated <code>how-many-times</code> number of times.</p>
@@ -404,7 +414,7 @@ Exercise 15
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 16
+Exercise 17
 </h3>
 <p>Write the function <code>(my-range up-to)</code> that works like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-range <span class="dv">0</span>)  <span class="co">;=&gt; ()</span>
@@ -414,7 +424,7 @@ Exercise 16
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 17
+Exercise 18
 </h3>
 <p>Write the functions <code>tails</code> and <code>inits</code> that return all the suffixes and prefixes of a sequence, respectively.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(tails [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; ((1 2 3 4) (2 3 4) (3 4) (4) ())</span>
@@ -452,10 +462,10 @@ Exercise 17
 <p>With this helper function, our definition of <code>count-elem</code> is a simple call to <code>count-elem-helper</code> with <code>n</code> initialized to 0. This way users of <code>count-elem</code> do not need to provide the initialization argument for <code>n</code>.</p>
 <section class="alert alert-success">
 <h3>
-Exercise 18
+Exercise 19
 </h3>
 <p>Write the function <code>(rotations a-seq)</code> that, when given a sequence, returns all the rotations of that sequence.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(rotations [])        <span class="co">;=&gt; ()</span>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(rotations [])        <span class="co">;=&gt; (())</span>
 (rotations [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])   <span class="co">;=&gt; ((1 2 3) (2 3 1) (3 1 2))</span>
 (rotations [<span class="kw">:a</span> <span class="kw">:b</span>])   <span class="co">;=&gt; ((:a :b) (:b :a))</span>
 <span class="co">; The order of rotations does not matter.</span>
@@ -468,22 +478,22 @@ Exercise 18
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 19
+Exercise 20
 </h3>
 <p>Write the function <code>(my-frequencies a-seq)</code> that computes a map of how many times each element occurs in a sequence. E.g.:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-frequencies []) <span class="co">;=&gt; {}</span>
 (my-frequencies [<span class="kw">:a</span> <span class="st">&quot;moi&quot;</span> <span class="kw">:a</span> <span class="st">&quot;moi&quot;</span> <span class="st">&quot;moi&quot;</span> <span class="kw">:a</span> <span class="dv">1</span>]) <span class="co">;=&gt; {:a 3, &quot;moi&quot; 3, 1 1}</span></code></pre>
 <p>You’ll want to structure your code like this:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> my-frequencies-helper </span>[freqs coll]
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> my-frequencies-helper </span>[freqs a-seq]
   ...)
 
-(<span class="kw">defn</span><span class="fu"> my-frequencies </span>[coll]
-  (frequencies-helper {} coll))</code></pre>
+(<span class="kw">defn</span><span class="fu"> my-frequencies </span>[a-seq]
+  (frequencies-helper {} a-seq))</code></pre>
 <p>Where <code>my-frequencies-helper</code> is a recursive helper function.</p>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 20
+Exercise 21
 </h3>
 <p>Write the function <code>(un-frequencies a-map)</code> which takes a map produced by <code>my-frequencies</code> and generates a sequence with the corresponding numbers of different elements.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(un-frequencies {<span class="kw">:a</span> <span class="dv">3</span> <span class="kw">:b</span> <span class="dv">2</span> <span class="st">&quot;^_^&quot;</span> <span class="dv">1</span>})             <span class="co">;=&gt; (:a :a :a &quot;^_^&quot; :b :b)</span>
@@ -501,7 +511,7 @@ Exercise 20
 <p>As a grand finale, lets implement the classic merge sort. We have split the task into smaller exercises.</p>
 <section class="alert alert-success">
 <h3>
-Exercise 21
+Exercise 22
 </h3>
 <p>Implement <code>(my-take n coll)</code> that returns <code>n</code> first items of coll.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-take <span class="dv">2</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; (1 2)</span>
@@ -509,7 +519,7 @@ Exercise 21
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 22
+Exercise 23
 </h3>
 <p>Implement <code>(my-drop n coll)</code> that returns all but the <code>n</code> first items of coll.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-drop <span class="dv">2</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; (3 4)</span>
@@ -517,7 +527,7 @@ Exercise 22
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 23
+Exercise 24
 </h3> 
 <p>Implement the function <code>(halve a-seq)</code> that takes a sequence and returns one vector with two elements. The first element is the first half of <code>a-seq</code> and the second element is the second half of <code>a-seq</code>.</p>
 <p>To turn a result of division into an integer use <code>int</code>.</p>
@@ -528,7 +538,7 @@ Exercise 23
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 24
+Exercise 25
 </h3>
 <p>Write the function <code>(seq-merge a-seq b-seq)</code> that takes two (low to high) sorted number sequences and combines them into one sorted sequence. E.g.:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(seq-merge [<span class="dv">4</span>] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">7</span>])        <span class="co">;=&gt; (1 2 4 6 7)</span>
@@ -536,7 +546,7 @@ Exercise 24
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 25
+Exercise 26
 </h3>
 
 <p>Write the function <code>(merge-sort a-seq)</code> that implements <a href="http://en.wikipedia.org/wiki/Merge_sort">merge sort</a>.</p>
@@ -570,7 +580,7 @@ Exercise 25
 <p>The following exercises are ment to be tricky. For that reason they give more points than the regular ones. But don’t worry if</p>
 <section class="alert alert-success">
 <h3>
-Exercise 26
+Exercise 27
 </h3>
 
 <p>Write the function <code>split-into-monotonics</code> that takes a sequence and returns the sequence split into monotonic pieces. Examples:</p>
@@ -581,7 +591,7 @@ Exercise 26
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 27
+Exercise 28
 </h3>
 <p>Given a sequence, return all permutations of that sequence.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(permutations #{})
@@ -592,7 +602,7 @@ Exercise 27
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 28
+Exercise 29
 </h3>
 <p>Given a set, return the powerset of that set.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(powerset #{})      <span class="co">;=&gt; #{#{}}</span>
