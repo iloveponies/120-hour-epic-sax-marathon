@@ -76,6 +76,12 @@ instructions in Linux:
     ~~~ {.sh}
     export PATH=$PATH:~/bin
     ~~~
+    
+3. Source the `~/.bashrc` file to apply the changes.
+
+    ~~~ {.sh}
+    source ~/.bashrc
+    ~~~
 
 3. Download [this][LeinInstall] script. Put it in the `~/bin`
    directory created in step 1
