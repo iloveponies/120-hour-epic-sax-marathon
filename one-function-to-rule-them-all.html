@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="120 hour epic">
+  <title>One function to rule them all</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="css/base.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span12"><div class="top-nav"><a href="index.html">← index</a></div>
+<header>
+<h1 class="title">One function to rule them all</h1>
+<h2 class="author">120 hour epic</h2>
+<h3 class="date">sax marathon</h3>
+</header>
+<section class="level2" id="synopsis">
+<h2>Synopsis</h2>
+</section>
+<section class="level2" id="fork-this">
+<h2>Fork this</h2>
+<p><a href="https://github.com/iloveponies/one-function-to-rule-them-all">https://github.com/iloveponies/one-function-to-rule-them-all</a></p>
+</section>
+<section class="level2" id="return-of-the-recursion">
+<h2>Return of the recursion</h2>
+<p>Often you want to combine elements of a collection, like calculate the sum or product of a list of numbers, or concatenate a list of strings. That is, we want to make a transformation like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">    (<span class="kw">cons</span> <span class="dv">1</span> (<span class="kw">cons</span> <span class="dv">2</span> (<span class="kw">cons</span> <span class="dv">3</span> nil)))
+<span class="co">;=&gt; (+    1 (+    2 (+    3 0)))</span></code></pre>
+<p>Our tool for this job was recursion:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum </span>[a-seq]
+  (<span class="kw">if</span> (<span class="kw">empty?</span> a-seq)
+    <span class="dv">0</span>
+    (<span class="kw">+</span> (<span class="kw">first</span> a-seq) (sum (<span class="kw">rest</span> a-seq)))))</code></pre>
+<p>To make this more efficient, we extended our toolkit with <code>recur</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum </span>[a-seq]
+  (<span class="kw">let</span> [h (<span class="kw">fn</span> [acc a-seq]
+            (<span class="kw">if</span> (<span class="kw">empty?</span> a-seq)
+              acc
+              (<span class="kw">recur</span> (<span class="kw">+</span> acc (<span class="kw">first</span> a-seq))
+                     (<span class="kw">rest</span> a-seq))))]
+    (h <span class="dv">0</span> a-seq)))</code></pre>
+<p>Now lets say that we would like to compute the product of a list of numbers. It would go like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> product </span>[a-seq]
+  (<span class="kw">let</span> [h (<span class="kw">fn</span> [acc a-seq]
+            (<span class="kw">if</span> (<span class="kw">empty?</span> a-seq)
+              acc
+              (<span class="kw">recur</span> (<span class="kw">*</span> acc (<span class="kw">first</span> a-seq))
+                     (<span class="kw">rest</span> a-seq))))]
+    (h <span class="dv">1</span> a-seq)))</code></pre>
+<p>The only two things that changed was the function <code>+</code> that was replaced with <code>*</code> and the initial value <code>0</code> that was replaced by <code>1</code>. So one starts to wonder if there is a pattern behind this all. And it turns out that there is. A function called <code>reduce</code>.</p>
+<p>So what do we get if we re-define our <code>sum</code> and <code>product</code> with <code>reduce</code>?</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum </span>[a-seq]
+  (<span class="kw">reduce</span> <span class="kw">+</span> <span class="dv">0</span> a-seq))
+(<span class="kw">defn</span><span class="fu"> product </span>[a-seq]
+  (<span class="kw">reduce</span> <span class="kw">*</span> <span class="dv">1</span> a-seq))</code></pre>
+<p>So <code>reduce</code> managed to abstract out just the two things that where different in <code>sum</code> and <code>product</code>. The initial value and the operation that composes the values into a one value. Everything else seems to be handled by <code>reduce</code>. So what does it do?</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> reduce </span>[f initial a-seq]
+  (<span class="kw">if</span> (<span class="kw">empty?</span> a-seq)
+    initial
+    (<span class="kw">recur</span> f
+           (f initial (<span class="kw">first</span> a-seq))
+           (<span class="kw">rest</span> a-seq))))</code></pre>
+<p>Lets go through an evaluation of <code>reduce</code>:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reduce</span> <span class="kw">+</span> <span class="dv">0</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])
+<span class="co">;=&gt; (reduce + (+ 0 1) [2 3])</span>
+<span class="co">;=&gt; (reduce + (+ (+ 0 1) 2) [3])</span>
+<span class="co">;=&gt; (reduce + (+ (+ (+ 0 1) 2) 3) [])</span>
+<span class="co">;=&gt; (+ (+ (+ 0 1) 2) 3)</span>
+<span class="co">;=&gt; 6</span></code></pre>
+<p>Time to put the good tool to use.</p>
+<section class="alert alert-success">
+<h3>
+Exercise 1
+</h3>
+
+<p>Write the function <code>(concat-elements a-seq)</code> that takes a sequence of sequences and concatenates them together with <code>concat</code>.</p>
+<p>Don’t use <code>apply</code> to implement this function.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(concat-elements [])            <span class="co">;=&gt; ()</span>
+(concat-elements [[<span class="dv">1</span> <span class="dv">2</span>]])       <span class="co">;=&gt; (1 2)</span>
+(concat-elements [[<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span>]]) <span class="co">;=&gt; (1 2 3 4)</span></code></pre>
+</section>
+</section>
+<section class="level2" id="two-sides-of-the-coin">
+<h2>Two sides of the coin</h2>
+<p>One can call <code>reduce</code> in two different ways.</p>
+<ul>
+<li><p>If the initial accumulator is provided and the input sequence is empty, reduce will return the initial accumulator value and will not call the combinator function.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reduce</span> (<span class="kw">fn</span> [x] (<span class="kw">/</span> x <span class="dv">0</span>)) <span class="dv">2</span> []) <span class="co">;=&gt; 2</span></code></pre></li>
+<li><p>If no initial value is given, the first element in the input sequence is used. If the input sequence only has a one value, it is returned and the combinator function is not called. If the input sequence is empty, the combintor function is called with no arguments.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reduce</span> <span class="kw">+</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])            <span class="co">;=&gt; 6</span>
+(<span class="kw">reduce</span> (<span class="kw">fn</span> [x] (<span class="kw">/</span> x <span class="dv">0</span>)) [<span class="dv">1</span>]) <span class="co">;=&gt; 1</span>
+(<span class="kw">reduce</span> <span class="kw">+</span> [])                 <span class="co">;=&gt; 0</span>
+(<span class="kw">reduce</span> <span class="kw">*</span> [])                 <span class="co">;=&gt; 1</span></code></pre></li>
+</ul>
+<p>Lets look at an evaluation of a <code>reduce</code> call without an initial value.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reduce</span> <span class="kw">+</span> [<span class="dv">4</span> <span class="dv">3</span> <span class="dv">2</span>])
+<span class="co">;=&gt; (reduce + 4 [3 2]) ; here we use the first element as the initial value</span>
+<span class="co">;=&gt; (reduce + (+ 4 3) [2])</span>
+<span class="co">;=&gt; (reduce + (+ (+ 4 3) 2) [])</span>
+<span class="co">;=&gt; (+ (+ 4 3) 2)</span>
+<span class="co">;=&gt; 9</span></code></pre>
+<section class="alert alert-success">
+<h3>
+Exercise 2
+</h3>
+
+<p>Write the function <code>(my-count a-seq)</code> that returns the length of a sequence.</p>
+<p>You are not to use <code>count</code> in your implementation.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(my-count [])      <span class="co">;=&gt; 0</span>
+(my-count [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
+(my-count [<span class="dv">1</span>])     <span class="co">;=&gt; 1</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 3
+</h3>
+
+<p>Write the function <code>(str-cat a-seq)</code> that takes a sequence of strings and catenates them with one space character between each.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(str-cat [<span class="st">&quot;I&quot;</span> <span class="st">&quot;am&quot;</span> <span class="st">&quot;Legend&quot;</span>]) <span class="co">;=&gt; &quot;I am Legend&quot;</span>
+(str-cat [<span class="st">&quot;I&quot;</span> <span class="st">&quot;am&quot;</span> <span class="st">&quot;back&quot;</span>])   <span class="co">;=&gt; &quot;I am back&quot;</span>
+(str-cat [<span class="st">&quot;more&quot;</span> <span class="st">&quot; &quot;</span> <span class="st">&quot;space]) ;=&gt; &quot;</span>more   space<span class="st">&quot;</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 4
+</h3>
+
+<p>Write the function <code>(my-reverse a-seq)</code> that reverses a sequence.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(my-reverse [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; (3 2 1)</span>
+(my-reverse [<span class="dv">1</span> <span class="dv">2</span>])   <span class="co">;=&gt; (2 1)</span>
+(my-reverse [])      <span class="co">;=&gt; ()</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 5
+</h3>
+
+<p>Write the function <code>(min-max-element a-seq)</code> that returns the maximal and minimal elements of <code>a-seq</code> in a vertor like <code>[min max]</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(min-max-element [<span class="dv">2</span> <span class="dv">7</span> <span class="dv">3</span> <span class="dv">15</span> <span class="dv">4</span>]) <span class="co">;=&gt; (2 15)</span>
+(min-max-element [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>])    <span class="co">;=&gt; (1 4)</span>
+(min-max-element [<span class="dv">1</span>])          <span class="co">;=&gt; (1 1)</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 6
+</h3>
+
+<p>Write the function <code>(insert sorted-seq n)</code> that adds the number <code>n</code> into a sorted sequence of number. The ordering of the sequence must be preserved.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(insert [] <span class="dv">2</span>)      <span class="co">;=&gt; (2)</span>
+(insert [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">4</span>] <span class="dv">2</span>) <span class="co">;=&gt; (1 2 3 4)</span>
+(insert [<span class="dv">1</span>] <span class="dv">2</span>)     <span class="co">;=&gt; (1 2)</span></code></pre>
+</section>
+<section class="alert alert-success">
+<h3>
+Exercise 7
+</h3>
+
+<p>Implement <code>(insertion-sort a-seq)</code> using <code>reduce</code> and the function <code>insert</code> from the previous exercise.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(insertion-sort [<span class="dv">2</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">1</span>]) <span class="co">;=&gt; (1 2 3 5)</span>
+(insertion-sort [<span class="dv">1</span> <span class="dv">2</span>])     <span class="co">;=&gt; (1 2)</span></code></pre>
+</section>
+</section>
+<footer>
+    <p>
+        &copy; <a href="http://iloveponies.github.com">iloveponies</a>.
+
+        <span style="float: right">
+            <a href="mailto:ilmari.vacklin@gmail.com">questions?</a>
+        </span>
+    </p>
+</footer>
+</div>
+</div>
+</div>
+</body>
+</html>
