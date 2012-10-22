@@ -235,19 +235,20 @@ Exercise 6
 <p>Write a function <code>(generic-doublificate x)</code> that takes one argument and</p>
 <ul>
 <li>doubles it if it is a number,</li>
-<li>doubles all the elements if it is a list or a vector,</li>
 <li>returns nil if it is an empty collection,</li>
+<li>if it is a list or a vector, returns two times the length of it</li>
 <li>returns true otherwise.</li>
 </ul>
 <p>You can use the following functions:</p>
 <ul>
 <li><code>(number? n)</code> returns <code>true</code> if <code>n</code> is a number.</li>
-<li><code>(list? coll)</code> and <code>(vector? coll)</code> test if <code>coll</code> is a list or a vector.</li>
 <li><code>(empty? coll)</code> returns <code>true</code> if <code>coll</code> is empty.</li>
+<li><code>(list? coll)</code> and <code>(vector? coll)</code> test if <code>coll</code> is a list or a vector.</li>
+<li><code>(count coll)</code> returns the length of a list or a vector.</li>
 </ul>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(generic-doublificate <span class="dv">1</span>)        <span class="co">;=&gt; 2</span>
-(generic-doublificate [<span class="dv">1</span> <span class="dv">2</span>])    <span class="co">;=&gt; (2 4)</span>
-(generic-doublificate &#39;(<span class="dv">65</span> <span class="dv">21</span>)) <span class="co">;=&gt; (130 42)</span>
+(generic-doublificate [<span class="dv">1</span> <span class="dv">2</span>])    <span class="co">;=&gt; 4</span>
+(generic-doublificate &#39;(<span class="dv">65</span> <span class="dv">21</span>)) <span class="co">;=&gt; 4</span>
 (generic-doublificate {})       <span class="co">;=&gt; nil</span>
 (generic-doublificate [])       <span class="co">;=&gt; nil</span>
 (generic-doublificate {<span class="kw">:a</span> <span class="dv">1</span>})   <span class="co">;=&gt; true</span></code></pre>
