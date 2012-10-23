@@ -1,4 +1,4 @@
-% One function to rule them all
+% One Function to rule them all
 % 120 hour epic
 % sax marathon
 

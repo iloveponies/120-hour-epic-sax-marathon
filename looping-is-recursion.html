@@ -218,7 +218,7 @@ Exercise 8
 <h2>Performance viewpoint</h2>
 <p>Tail recursion is efficient. This is because the compiler can replace it with a goto (this is called <em>tail-call optimisation</em>. So a tail-recursive function is about exactly as fast as the corresponding loop.</p>
 <p>However, this doesn’t exactly apply in the Java Virtual Machine. This is because the security model of the JVM makes tail-call optimisation hard. This is why Clojure uses the <code>recur</code> construct: it is <em>guaranteed</em> that a call to <code>recur</code> gets optimised. I’ll say that again. When you use <code>recur</code>, Clojure generates an <em>actual loop</em> as JVM bytecode.</p>
-<p><a href="sudoku.html">Sudoku →</a></p>
+<p><a href="one-function-to-rule-them-all.html">The one →</a></p>
 </section>
 <footer>
     <p>
