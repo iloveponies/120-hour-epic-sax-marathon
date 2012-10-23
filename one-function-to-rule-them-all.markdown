@@ -97,7 +97,7 @@ So what do we get if we re-define our `sum` and `product` with `reduce`?
   (reduce * 1 a-seq))
 ~~~
 
-Let's see this `sum` would evaluate:
+Let's see how this `sum` would evaluate:
 
 ~~~{.clojure}
 (sum            (cons 4 (cons 7 (cons 2 nil))))
@@ -153,20 +153,6 @@ Don't use `apply` to implement this function.
 
 </exercise>
 
-<exercise>
-
-Write the function `(my-count a-seq)` that returns the length of a sequence.
-
-You are not to use `count` in your implementation.
-
-~~~clojure
-(my-count [])      ;=> 0
-(my-count [1 2 3]) ;=> 3
-(my-count [1])     ;=> 1
-~~~
-
-</exercise>
-
 ## Two Sides of a Coin
 
 One can call `reduce` in two different ways:
@@ -184,8 +170,8 @@ or
 If `input-sequence` is not empty, then the second form works like this:
 
 ~~~{.clojure}
-    (reduce f (cons elem rest))
-;=> (reduce f elem rest)
+    (reduce f (cons elem rest-of-seq))
+;=> (reduce f elem rest-of-seq)
 ~~~
 
 that is, it uses the first element of the parameter sequence as the initial
@@ -193,7 +179,7 @@ accumulator value.
 
 And if `input-sequence` is empty, then:
 
-- The first form returns `initial-accumulator-value`
+- The first form just returns `initial-accumulator-value`
 - The second form returns `(combinator-function)`, that is, it calls
   `combinator-function` with zero parameters.
 
@@ -220,7 +206,7 @@ Lets look at an evaluation of a `reduce` call without an initial value.
 ~~~clojure
 (seq-min [5 3 2 6])
 ;=> (reduce min           [5 3 2 6])
-;=> (reduce min 5         [3 2 6])       ; Use the first element as the initial value
+;=> (reduce min 5         [3 2 6]) ; Use the first element as the initial value
 ;=> (reduce min (min 5 3) [2 6])
 ;=> (reduce min 3         [2 6])
 ;=> (reduce min (min 3 2) [6])
@@ -249,7 +235,7 @@ reduce.
 Write the function `(my-interpose x a-seq)` that places `x` between every
 element of `a-seq`.
 
-Keep in mind the function `concat`.
+Keep in mind how `conj` works for vectors.
 
 ~~~clojure
 (my-interpose 0 [1 2 3])               ;=> (1 0 2 0 3)
@@ -259,14 +245,14 @@ Keep in mind the function `concat`.
 ~~~
 </exercise>
 
-Let's look at another example. We implemented the function `my-count` in
+Let's look at another example. We implemented the function `count-elem` in
 [Recursion], which counts the occurrences of an element in a sequence. Let's
 reimplement that function with reduce:
 
 [Recursion]: recursion.html
 
 ~~~{.clojure}
-(defn my-count [elem a-seq]
+(defn count-elem [elem a-seq]
   (let [counter (fn [count e]
                   (if (= e elem)
                     (inc count)
@@ -275,7 +261,7 @@ reimplement that function with reduce:
 ~~~
 
 ~~~{.clojure}
-(my-count :D [13 "\o/" :D :$ :D [:D] :< "~^._.^~"])
+(count-elem :D [13 "\o/" :D :$ :D [:D] :< "~^._.^~"])
 ;=> (reduce counter 0                 [13 "\o/" :D :$ :D [:D] :< "~^._.^~"])
 ;=> (reduce counter (counter 0 13)    ["\o/" :D :$ :D [:D] :< "~^._.^~"])
 ;=> (reduce counter 0                 ["\o/" :D :$ :D [:D] :< "~^._.^~"])
@@ -328,9 +314,9 @@ Write the function `(min-max-element a-seq)` that returns the maximal and
 minimal elements of `a-seq` in a vertor like `[min max]`.
 
 ~~~clojure
-(min-max-element [2 7 3 15 4]) ;=> (2 15)
-(min-max-element [1 2 3 4])    ;=> (1 4)
-(min-max-element [1])          ;=> (1 1)
+(min-max-element [2 7 3 15 4]) ;=> [2 15]
+(min-max-element [1 2 3 4])    ;=> [1 4]
+(min-max-element [1])          ;=> [1 1]
 ~~~
 
 </exercise>
@@ -340,18 +326,16 @@ minimal elements of `a-seq` in a vertor like `[min max]`.
 Write the function `(insert sorted-seq n)` that adds the number `n` into a
 sorted sequence of number. The ordering of the sequence must be preserved.
 
+You don't need to use `reduce` for this, and you probably don't want to.
+
 ~~~clojure
 (insert [] 2)      ;=> (2)
 (insert [1 3 4] 2) ;=> (1 2 3 4)
 (insert [1] 2)     ;=> (1 2)
 ~~~
 
-</exercise>
-
-<exercise>
-
-Implement `(insertion-sort a-seq)` using `reduce` and the function `insert`
-from the previous exercise.
+Now implement `(insertion-sort a-seq)` using `reduce` and the function
+`insert`.
 
 ~~~clojure
 (insertion-sort [2 5 3 1]) ;=> (1 2 3 5)
