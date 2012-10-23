@@ -438,10 +438,10 @@ Exercise 14
 <p>How should we implement <code>all-author-names</code>?</p>
 <p>We’ll give the implementation now, and introduce the new concepts used one by one. The implementation looks like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> author-names </span>[book]
-  (<span class="kw">map</span> <span class="kw">:name</span> book))
+  (<span class="kw">map</span> <span class="kw">:name</span> (<span class="kw">:authors</span> book)))
 
 (<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
-    (<span class="kw">set</span> (<span class="kw">apply</span> <span class="kw">concat</span> (<span class="kw">map</span> author-name books))))</code></pre>
+    (<span class="kw">set</span> (<span class="kw">apply</span> <span class="kw">concat</span> (<span class="kw">map</span> author-names books))))</code></pre>
 <p>Now there’s a lot of new stuff there, so we’ll take a detour to learn it all before continuing with our book library.</p>
 <p>Let’s take a look at this <code>map</code> function.</p>
 <section class="level3" id="sequences">
