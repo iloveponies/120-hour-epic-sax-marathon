@@ -250,9 +250,9 @@ Exercise 6
 </h3>
 
 <p>Write the function <code>(min-max-element a-seq)</code> that returns the maximal and minimal elements of <code>a-seq</code> in a vertor like <code>[min max]</code>.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(min-max-element [<span class="dv">2</span> <span class="dv">7</span> <span class="dv">3</span> <span class="dv">15</span> <span class="dv">4</span>]) <span class="co">;=&gt; (2 15)</span>
-(min-max-element [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>])    <span class="co">;=&gt; (1 4)</span>
-(min-max-element [<span class="dv">1</span>])          <span class="co">;=&gt; (1 1)</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(min-max-element [<span class="dv">2</span> <span class="dv">7</span> <span class="dv">3</span> <span class="dv">15</span> <span class="dv">4</span>]) <span class="co">;=&gt; [2 15]</span>
+(min-max-element [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>])    <span class="co">;=&gt; [1 4]</span>
+(min-max-element [<span class="dv">1</span>])          <span class="co">;=&gt; [1 1]</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
@@ -260,22 +260,17 @@ Exercise 7
 </h3>
 
 <p>Write the function <code>(insert sorted-seq n)</code> that adds the number <code>n</code> into a sorted sequence of number. The ordering of the sequence must be preserved.</p>
+<p>You don’t need to use <code>reduce</code> for this, and you probably don’t want to.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(insert [] <span class="dv">2</span>)      <span class="co">;=&gt; (2)</span>
 (insert [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">4</span>] <span class="dv">2</span>) <span class="co">;=&gt; (1 2 3 4)</span>
 (insert [<span class="dv">1</span>] <span class="dv">2</span>)     <span class="co">;=&gt; (1 2)</span></code></pre>
-</section>
-<section class="alert alert-success">
-<h3>
-Exercise 8
-</h3>
-
-<p>Implement <code>(insertion-sort a-seq)</code> using <code>reduce</code> and the function <code>insert</code> from the previous exercise.</p>
+<p>Now implement <code>(insertion-sort a-seq)</code> using <code>reduce</code> and the function <code>insert</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(insertion-sort [<span class="dv">2</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">1</span>]) <span class="co">;=&gt; (1 2 3 5)</span>
 (insertion-sort [<span class="dv">1</span> <span class="dv">2</span>])     <span class="co">;=&gt; (1 2)</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 9
+Exercise 8
 </h3>
 
 <p>Write the fuction <code>(parity a-seq)</code> that picks into a set those elements of <code>a-seq</code> that occur odd number of time.</p>

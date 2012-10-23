@@ -314,9 +314,9 @@ Write the function `(min-max-element a-seq)` that returns the maximal and
 minimal elements of `a-seq` in a vertor like `[min max]`.
 
 ~~~clojure
-(min-max-element [2 7 3 15 4]) ;=> (2 15)
-(min-max-element [1 2 3 4])    ;=> (1 4)
-(min-max-element [1])          ;=> (1 1)
+(min-max-element [2 7 3 15 4]) ;=> [2 15]
+(min-max-element [1 2 3 4])    ;=> [1 4]
+(min-max-element [1])          ;=> [1 1]
 ~~~
 
 </exercise>
@@ -326,18 +326,16 @@ minimal elements of `a-seq` in a vertor like `[min max]`.
 Write the function `(insert sorted-seq n)` that adds the number `n` into a
 sorted sequence of number. The ordering of the sequence must be preserved.
 
+You don't need to use `reduce` for this, and you probably don't want to.
+
 ~~~clojure
 (insert [] 2)      ;=> (2)
 (insert [1 3 4] 2) ;=> (1 2 3 4)
 (insert [1] 2)     ;=> (1 2)
 ~~~
 
-</exercise>
-
-<exercise>
-
-Implement `(insertion-sort a-seq)` using `reduce` and the function `insert`
-from the previous exercise.
+Now implement `(insertion-sort a-seq)` using `reduce` and the function
+`insert`.
 
 ~~~clojure
 (insertion-sort [2 5 3 1]) ;=> (1 2 3 5)
