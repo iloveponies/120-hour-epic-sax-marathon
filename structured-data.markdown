@@ -585,10 +585,10 @@ one. The implementation looks like this:
 
 ~~~ {.clojure}
 (defn author-names [book]
-  (map :name book))
+  (map :name (:authors book)))
 
 (defn all-author-names [books]
-    (set (apply concat (map author-name books))))
+    (set (apply concat (map author-names books))))
 ~~~
 
 Now there's a lot of new stuff there, so we'll take a detour to learn it all
