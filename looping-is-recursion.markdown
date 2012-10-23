@@ -300,7 +300,7 @@ is why Clojure uses the `recur` construct: it is _guaranteed_ that a call to
 `recur` gets optimised. I'll say that again. When you use `recur`, Clojure
 generates an _actual loop_ as JVM bytecode.
 
-[Sudoku →](sudoku.html)
+[The one →](one-function-to-rule-them-all.html)
 
 [recursion]: recursion.html
 
