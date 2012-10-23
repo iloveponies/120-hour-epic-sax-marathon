@@ -167,19 +167,6 @@ You are not to use `count` in your implementation.
 
 </exercise>
 
-<exercise>
-
-Write the function `(count-occurences elem a-seq)` that counts the number of
-occurences of `elem` in the `a-seq`.
-
-~~~clojure
-(count-occurences :a [:a :b :c]) ;=> 1
-(count-occurences :a [:b :c])    ;=> 0
-(count-occurences 1 [1 1 1 2])   ;=> 3
-~~~
-
-</exercise>
-
 ## Two Sides of a Coin
 
 One can call `reduce` in two different ways:
@@ -204,7 +191,7 @@ If `input-sequence` is not empty, then the second form works like this:
 that is, it uses the first element of the parameter sequence as the initial
 accumulator value.
 
-And f `input-sequence` is empty, then:
+And if `input-sequence` is empty, then:
 
 - The first form returns `initial-accumulator-value`
 - The second form returns `(combinator-function)`, that is, it calls
@@ -212,6 +199,7 @@ And f `input-sequence` is empty, then:
 
 
 Let's try this version without initial value:
+
 ~~~{.clojure}
 (defn seq-min [a-seq]
   (reduce min a-seq))
@@ -231,14 +219,14 @@ Lets look at an evaluation of a `reduce` call without an initial value.
 
 ~~~clojure
 (seq-min [5 3 2 6])
-;=> (reduce min [5 3 2 6])
-;=> (reduce min 5 [3 2 6])       ; Use the first element as the initial value
+;=> (reduce min           [5 3 2 6])
+;=> (reduce min 5         [3 2 6])       ; Use the first element as the initial value
 ;=> (reduce min (min 5 3) [2 6])
-; = (reduce min 3 [2 6])
+;=> (reduce min 3         [2 6])
 ;=> (reduce min (min 3 2) [6])
-; = (reduce min 2 [6])
+;=> (reduce min 2         [6])
 ;=> (reduce min (min 2 6) [])
-; = (reduce min 2 [])
+;=> (reduce min 2         [])
 ;=> 2
 ~~~
 

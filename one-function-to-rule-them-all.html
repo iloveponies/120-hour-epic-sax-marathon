@@ -149,16 +149,6 @@ Exercise 2
 (my-count [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
 (my-count [<span class="dv">1</span>])     <span class="co">;=&gt; 1</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
-Exercise 3
-</h3>
-
-<p>Write the function <code>(count-occurences elem a-seq)</code> that counts the number of occurences of <code>elem</code> in the <code>a-seq</code>.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(count-occurences <span class="kw">:a</span> [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>]) <span class="co">;=&gt; 1</span>
-(count-occurences <span class="kw">:a</span> [<span class="kw">:b</span> <span class="kw">:c</span>])    <span class="co">;=&gt; 0</span>
-(count-occurences <span class="dv">1</span> [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span>])   <span class="co">;=&gt; 3</span></code></pre>
-</section>
 </section>
 <section class="level2" id="two-sides-of-a-coin">
 <h2>Two Sides of a Coin</h2>
@@ -170,28 +160,35 @@ Exercise 3
 <pre class="sourceCode clojure"><code class="sourceCode clojure">    (<span class="kw">reduce</span> f (<span class="kw">cons</span> elem <span class="kw">rest</span>))
 <span class="co">;=&gt; (reduce f elem rest)</span></code></pre>
 <p>that is, it uses the first element of the parameter sequence as the initial accumulator value.</p>
-<p>And f <code>input-sequence</code> is empty, then:</p>
+<p>And if <code>input-sequence</code> is empty, then:</p>
 <ul>
 <li>The first form returns <code>initial-accumulator-value</code></li>
 <li>The second form returns <code>(combinator-function)</code>, that is, it calls <code>combinator-function</code> with zero parameters.</li>
 </ul>
-<p>Let’s try this version without initial value: <sub>~</sub>{.clojure} (defn seq-min [a-seq] (reduce min a-seq))</p>
-<p>(seq-min [1]) =&gt; 1 (seq-min [5 3 2 6]) =&gt; 2 (seq-min []) =&gt; java.lang.IllegalArgumentException: Wrong number of args (0) passed to: core$min (NO_SOURCE_FILE:0) <sub>~</sub></p>
+<p>Let’s try this version without initial value:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> seq-min </span>[a-seq]
+  (<span class="kw">reduce</span> <span class="kw">min</span> a-seq))
+
+(seq-min [<span class="dv">1</span>])       =&gt; <span class="dv">1</span>
+(seq-min [<span class="dv">5</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">6</span>]) =&gt; <span class="dv">2</span>
+(seq-min [])
+  =&gt; java.lang.IllegalArgumentException:
+     Wrong number of args (<span class="dv">0</span>) passed to: core$min (NO_SOURCE_FILE<span class="kw">:0</span>)</code></pre>
 <p>Now the call with empty sequence results in an exception, since <code>min</code> is not defined for 0 arguments. Since <code>seq-min</code> used <code>reduce</code> without an initial value, it called <code>(min)</code> when it was given an empty sequence.</p>
 <p>Lets look at an evaluation of a <code>reduce</code> call without an initial value.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(seq-min [<span class="dv">5</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">6</span>])
-<span class="co">;=&gt; (reduce min [5 3 2 6])</span>
-<span class="co">;=&gt; (reduce min 5 [3 2 6])       ; Use the first element as the initial value</span>
+<span class="co">;=&gt; (reduce min           [5 3 2 6])</span>
+<span class="co">;=&gt; (reduce min 5         [3 2 6])       ; Use the first element as the initial value</span>
 <span class="co">;=&gt; (reduce min (min 5 3) [2 6])</span>
-<span class="co">; = (reduce min 3 [2 6])</span>
+<span class="co">;=&gt; (reduce min 3         [2 6])</span>
 <span class="co">;=&gt; (reduce min (min 3 2) [6])</span>
-<span class="co">; = (reduce min 2 [6])</span>
+<span class="co">;=&gt; (reduce min 2         [6])</span>
 <span class="co">;=&gt; (reduce min (min 2 6) [])</span>
-<span class="co">; = (reduce min 2 [])</span>
+<span class="co">;=&gt; (reduce min 2         [])</span>
 <span class="co">;=&gt; 2</span></code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise 4
+Exercise 3
 </h3>
 <p>Write the function <code>(str-cat a-seq)</code> that takes a sequence of strings and catenates them with one space character between each.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(str-cat [<span class="st">&quot;I&quot;</span> <span class="st">&quot;am&quot;</span> <span class="st">&quot;Legend&quot;</span>])  <span class="co">;=&gt; &quot;I am Legend&quot;</span>
@@ -202,7 +199,7 @@ Exercise 4
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 5
+Exercise 4
 </h3>
 <p>Write the function <code>(my-interpose x a-seq)</code> that places <code>x</code> between every element of <code>a-seq</code>.</p>
 <p>Keep in mind the function <code>concat</code>.</p>
@@ -239,7 +236,7 @@ Exercise 5
 <span class="co">;=&gt; 2</span></code></pre>
 <section class="alert alert-success">
 <h3>
-Exercise 6
+Exercise 5
 </h3>
 
 <p>Write the function <code>(my-count a-seq)</code> that returns the length of a sequence.</p>
@@ -250,7 +247,7 @@ Exercise 6
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 7
+Exercise 6
 </h3>
 
 <p>Write the function <code>(my-reverse a-seq)</code> that reverses a sequence.</p>
@@ -260,7 +257,7 @@ Exercise 7
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 8
+Exercise 7
 </h3>
 
 <p>Write the function <code>(min-max-element a-seq)</code> that returns the maximal and minimal elements of <code>a-seq</code> in a vertor like <code>[min max]</code>.</p>
@@ -270,7 +267,7 @@ Exercise 8
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 9
+Exercise 8
 </h3>
 
 <p>Write the function <code>(insert sorted-seq n)</code> that adds the number <code>n</code> into a sorted sequence of number. The ordering of the sequence must be preserved.</p>
@@ -280,7 +277,7 @@ Exercise 9
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 10
+Exercise 9
 </h3>
 
 <p>Implement <code>(insertion-sort a-seq)</code> using <code>reduce</code> and the function <code>insert</code> from the previous exercise.</p>
@@ -289,7 +286,7 @@ Exercise 10
 </section>
 <section class="alert alert-success">
 <h3>
-Exercise 11
+Exercise 10
 </h3>
 
 <p>Write the fuction <code>(parity a-seq)</code> that picks into a set those elements of <code>a-seq</code> that occur odd number of time.</p>
