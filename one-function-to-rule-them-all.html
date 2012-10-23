@@ -55,34 +55,64 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Often you want to combine elements of a collection, like calculate the sum or product of a list of numbers, or concatenate a list of strings. That is, we want to make a transformation like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">    (<span class="kw">cons</span> <span class="dv">1</span> (<span class="kw">cons</span> <span class="dv">2</span> (<span class="kw">cons</span> <span class="dv">3</span> nil)))
 <span class="co">;=&gt; (+    1 (+    2 (+    3 0)))</span></code></pre>
+<p>Or like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">    (<span class="kw">cons</span> <span class="dv">1</span> (<span class="kw">cons</span> <span class="dv">2</span> (<span class="kw">cons</span> <span class="dv">3</span> nil)))
+<span class="co">;=&gt; (*    1 (*    2 (*    3 0)))</span></code></pre>
+<!-- ******* -->
+
 <p>Our tool for this job was recursion:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum </span>[a-seq]
   (<span class="kw">if</span> (<span class="kw">empty?</span> a-seq)
     <span class="dv">0</span>
     (<span class="kw">+</span> (<span class="kw">first</span> a-seq) (sum (<span class="kw">rest</span> a-seq)))))</code></pre>
-<p>To make this more efficient, we extended our toolkit with <code>recur</code>:</p>
+<p>To make this more efficient, we made this tail recursive using <code>recur</code> and an accumulator:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum </span>[a-seq]
-  (<span class="kw">let</span> [h (<span class="kw">fn</span> [acc a-seq]
-            (<span class="kw">if</span> (<span class="kw">empty?</span> a-seq)
-              acc
-              (<span class="kw">recur</span> (<span class="kw">+</span> acc (<span class="kw">first</span> a-seq))
-                     (<span class="kw">rest</span> a-seq))))]
-    (h <span class="dv">0</span> a-seq)))</code></pre>
+  (<span class="kw">let</span> [sum-helper (<span class="kw">fn</span> [acc a-seq]
+                     (<span class="kw">if</span> (<span class="kw">empty?</span> a-seq)
+                       acc
+                       (<span class="kw">recur</span> (<span class="kw">+</span> acc (<span class="kw">first</span> a-seq))
+                              (<span class="kw">rest</span> a-seq))))]
+    (sum-helper <span class="dv">0</span> a-seq)))</code></pre>
+<p>This iterative <code>sum</code> would evaluate like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="co">;function evaluation                                        accumulator value</span>
+(sum              (<span class="kw">cons</span> <span class="dv">1</span> (<span class="kw">cons</span> <span class="dv">2</span> (<span class="kw">cons</span> <span class="dv">3</span> (<span class="kw">cons</span> <span class="dv">4</span> nil))))) <span class="co">;</span>
+<span class="co">;=&gt; (sum-helper 0 (cons 1 (cons 2 (cons 3 (cons 4 nil))))) ; 0</span>
+<span class="co">;=&gt; (sum-helper 1 (cons 2 (cons 3 (cons 4 nil))))          ; (+ 0 1) =&gt; 1</span>
+<span class="co">;=&gt; (sum-helper 3 (cons 3 (cons 4 nil)))                   ; (+ 1 2) =&gt; 3</span>
+<span class="co">;=&gt; (sum-helper 6 (cons 4 nil))                            ; (+ 3 3) =&gt; 6</span>
+<span class="co">;=&gt; (sum-helper 10 nil)                                    ; (+ 6 4) =&gt; 10</span>
+<span class="co">;=&gt; 10</span></code></pre>
 <p>Now lets say that we would like to compute the product of a list of numbers. It would go like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> product </span>[a-seq]
-  (<span class="kw">let</span> [h (<span class="kw">fn</span> [acc a-seq]
-            (<span class="kw">if</span> (<span class="kw">empty?</span> a-seq)
-              acc
-              (<span class="kw">recur</span> (<span class="kw">*</span> acc (<span class="kw">first</span> a-seq))
-                     (<span class="kw">rest</span> a-seq))))]
-    (h <span class="dv">1</span> a-seq)))</code></pre>
+  (<span class="kw">let</span> [product-helper (<span class="kw">fn</span> [acc a-seq]
+                         (<span class="kw">if</span> (<span class="kw">empty?</span> a-seq)
+                           acc
+                           (<span class="kw">recur</span> (<span class="kw">*</span> acc (<span class="kw">first</span> a-seq))
+                                  (<span class="kw">rest</span> a-seq))))]
+    (product-helper <span class="dv">1</span> a-seq)))</code></pre>
 <p>The only two things that changed was the function <code>+</code> that was replaced with <code>*</code> and the initial value <code>0</code> that was replaced by <code>1</code>. So one starts to wonder if there is a pattern behind this all. And it turns out that there is. A function called <code>reduce</code>.</p>
+<p><code>(reduce combining-function initial-accumulator-value a-sequence)</code> takes:</p>
+<ul>
+<li>a function that is used to combine the current accumulator value and the current element of the parameter sequence</li>
+<li>an initial value for the accumulator</li>
+<li>a sequence</li>
+</ul>
 <p>So what do we get if we re-define our <code>sum</code> and <code>product</code> with <code>reduce</code>?</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum </span>[a-seq]
   (<span class="kw">reduce</span> <span class="kw">+</span> <span class="dv">0</span> a-seq))
 (<span class="kw">defn</span><span class="fu"> product </span>[a-seq]
   (<span class="kw">reduce</span> <span class="kw">*</span> <span class="dv">1</span> a-seq))</code></pre>
-<p>So <code>reduce</code> managed to abstract out just the two things that where different in <code>sum</code> and <code>product</code>. The initial value and the operation that composes the values into a one value. Everything else seems to be handled by <code>reduce</code>. So what does it do?</p>
+<p>Let’s see this <code>sum</code> would evaluate:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(sum            (<span class="kw">cons</span> <span class="dv">4</span> (<span class="kw">cons</span> <span class="dv">7</span> (<span class="kw">cons</span> <span class="dv">2</span> nil))))
+<span class="co">;=&gt; (reduce + 0 (cons 4 (cons 7 (cons 2 nil))))</span>
+<span class="co">;=&gt; (reduce + (+ 0 4) (cons 7 (cons 2 nil)))    ; accumulator: 0, element: 4</span>
+<span class="co">;=&gt; (reduce + 4 (cons 7 (cons 2 nil)))          ; (+ 0 4) =&gt; 4</span>
+<span class="co">;=&gt; (reduce + (+ 4 7) (cons 2 nil))             ; accumulator: 4, element: 7</span>
+<span class="co">;=&gt; (reduce + 11 (cons 2 nil))                  ; (+ 4 7) =&gt; 11</span>
+<span class="co">;=&gt; (reduce + (+ 11 2) nil)                     ; accumulator: 11, element: 2</span>
+<span class="co">;=&gt; (reduce + 13 nil)                           ; (+ 11 2) =&gt; 13</span>
+<span class="co">;=&gt; 13                                          ; accumulator: 13</span></code></pre>
+<p>So <code>reduce</code> managed to abstract out just the two things that where different in <code>sum</code> and <code>product</code>. The initial value and the operation that composes the values into a one value. Everything else seems to be handled by <code>reduce</code>. So how does it work?</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> reduce </span>[f initial a-seq]
   (<span class="kw">if</span> (<span class="kw">empty?</span> a-seq)
     initial
@@ -90,9 +120,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
            (f initial (<span class="kw">first</span> a-seq))
            (<span class="kw">rest</span> a-seq))))</code></pre>
 <p>Lets go through an evaluation of <code>reduce</code>:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reduce</span> <span class="kw">+</span> <span class="dv">0</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])
-<span class="co">;=&gt; (reduce + (+ 0 1) [2 3])</span>
-<span class="co">;=&gt; (reduce + (+ (+ 0 1) 2) [3])</span>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">    (<span class="kw">reduce</span> <span class="kw">+</span> <span class="dv">0</span>                   [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])
+<span class="co">;=&gt; (reduce + (+ 0 1)             [2 3])</span>
+<span class="co">;=&gt; (reduce + (+ (+ 0 1) 2)       [3])</span>
 <span class="co">;=&gt; (reduce + (+ (+ (+ 0 1) 2) 3) [])</span>
 <span class="co">;=&gt; (+ (+ (+ 0 1) 2) 3)</span>
 <span class="co">;=&gt; 6</span></code></pre>
@@ -108,26 +138,6 @@ Exercise 1
 (concat-elements [[<span class="dv">1</span> <span class="dv">2</span>]])       <span class="co">;=&gt; (1 2)</span>
 (concat-elements [[<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span>]]) <span class="co">;=&gt; (1 2 3 4)</span></code></pre>
 </section>
-</section>
-<section class="level2" id="two-sides-of-the-coin">
-<h2>Two sides of the coin</h2>
-<p>One can call <code>reduce</code> in two different ways.</p>
-<ul>
-<li><p>If the initial accumulator is provided and the input sequence is empty, reduce will return the initial accumulator value and will not call the combinator function.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reduce</span> (<span class="kw">fn</span> [x] (<span class="kw">/</span> x <span class="dv">0</span>)) <span class="dv">2</span> []) <span class="co">;=&gt; 2</span></code></pre></li>
-<li><p>If no initial value is given, the first element in the input sequence is used. If the input sequence only has a one value, it is returned and the combinator function is not called. If the input sequence is empty, the combintor function is called with no arguments.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reduce</span> <span class="kw">+</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])            <span class="co">;=&gt; 6</span>
-(<span class="kw">reduce</span> (<span class="kw">fn</span> [x] (<span class="kw">/</span> x <span class="dv">0</span>)) [<span class="dv">1</span>]) <span class="co">;=&gt; 1</span>
-(<span class="kw">reduce</span> <span class="kw">+</span> [])                 <span class="co">;=&gt; 0</span>
-(<span class="kw">reduce</span> <span class="kw">*</span> [])                 <span class="co">;=&gt; 1</span></code></pre></li>
-</ul>
-<p>Lets look at an evaluation of a <code>reduce</code> call without an initial value.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reduce</span> <span class="kw">+</span> [<span class="dv">4</span> <span class="dv">3</span> <span class="dv">2</span>])
-<span class="co">;=&gt; (reduce + 4 [3 2]) ; here we use the first element as the initial value</span>
-<span class="co">;=&gt; (reduce + (+ 4 3) [2])</span>
-<span class="co">;=&gt; (reduce + (+ (+ 4 3) 2) [])</span>
-<span class="co">;=&gt; (+ (+ 4 3) 2)</span>
-<span class="co">;=&gt; 9</span></code></pre>
 <section class="alert alert-success">
 <h3>
 Exercise 2
@@ -139,16 +149,74 @@ Exercise 2
 (my-count [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
 (my-count [<span class="dv">1</span>])     <span class="co">;=&gt; 1</span></code></pre>
 </section>
+</section>
+<section class="level2" id="two-sides-of-the-coin">
+<h2>Two sides of the coin</h2>
+<p>One can call <code>reduce</code> in two different ways:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reduce</span> combinator-function initial-accumulator-value input-sequence)</code></pre>
+<p>or</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reduce</span> combinator-function                           input-sequence)</code></pre>
+<p>If <code>input-sequence</code> is not empty, then the second form works like this:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">    (<span class="kw">reduce</span> f (<span class="kw">cons</span> elem <span class="kw">rest</span>))
+<span class="co">;=&gt; (reduce f elem rest)</span></code></pre>
+<p>that is, it uses the first element of the parameter sequence as the initial accumulator value.</p>
+<p>And f <code>input-sequence</code> is empty, then:</p>
+<ul>
+<li>The first form returns <code>initial-accumulator-value</code></li>
+<li>The second form returns <code>(combinator-function)</code>, that is, it calls <code>combinator-function</code> with zero parameters.</li>
+</ul>
+<p>Let’s try this version without initial value: <sub>~</sub>{.clojure} (defn seq-min [a-seq] (reduce min a-seq))</p>
+<p>(seq-min [1]) =&gt; 1 (seq-min [5 3 2 6]) =&gt; 2 (seq-min []) =&gt; java.lang.IllegalArgumentException: Wrong number of args (0) passed to: core$min (NO_SOURCE_FILE:0) <sub>~</sub></p>
+<p>Now the call with empty sequence results in an exception, since <code>min</code> is not defined for 0 arguments. Since <code>seq-min</code> used <code>reduce</code> without an initial value, it called <code>(min)</code> when it was given an empty sequence.</p>
+<p>Lets look at an evaluation of a <code>reduce</code> call without an initial value.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(seq-min [<span class="dv">5</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">6</span>])
+<span class="co">;=&gt; (reduce min [5 3 2 6])</span>
+<span class="co">;=&gt; (reduce min 5 [3 2 6])       ; Use the first element as the initial value</span>
+<span class="co">;=&gt; (reduce min (min 5 3) [2 6])</span>
+<span class="co">; = (reduce min 3 [2 6])</span>
+<span class="co">;=&gt; (reduce min (min 3 2) [6])</span>
+<span class="co">; = (reduce min 2 [6])</span>
+<span class="co">;=&gt; (reduce min (min 2 6) [])</span>
+<span class="co">; = (reduce min 2 [])</span>
+<span class="co">;=&gt; 2</span></code></pre>
 <section class="alert alert-success">
 <h3>
 Exercise 3
 </h3>
 
 <p>Write the function <code>(str-cat a-seq)</code> that takes a sequence of strings and catenates them with one space character between each.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(str-cat [<span class="st">&quot;I&quot;</span> <span class="st">&quot;am&quot;</span> <span class="st">&quot;Legend&quot;</span>]) <span class="co">;=&gt; &quot;I am Legend&quot;</span>
-(str-cat [<span class="st">&quot;I&quot;</span> <span class="st">&quot;am&quot;</span> <span class="st">&quot;back&quot;</span>])   <span class="co">;=&gt; &quot;I am back&quot;</span>
-(str-cat [<span class="st">&quot;more&quot;</span> <span class="st">&quot; &quot;</span> <span class="st">&quot;space]) ;=&gt; &quot;</span>more   space<span class="st">&quot;</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(str-cat [<span class="st">&quot;I&quot;</span> <span class="st">&quot;am&quot;</span> <span class="st">&quot;Legend&quot;</span>])  <span class="co">;=&gt; &quot;I am Legend&quot;</span>
+(str-cat [<span class="st">&quot;I&quot;</span> <span class="st">&quot;am&quot;</span> <span class="st">&quot;back&quot;</span>])    <span class="co">;=&gt; &quot;I am back&quot;</span>
+(str-cat [<span class="st">&quot;more&quot;</span> <span class="st">&quot; &quot;</span> <span class="st">&quot;space&quot;</span>]) <span class="co">;=&gt; &quot;more   space&quot;</span>
+(str-cat [])                   <span class="co">;=&gt; &quot;&quot;</span></code></pre>
+<p>You probably want to handle the special case of empty parameter outside reduce.</p>
 </section>
+<p>Let’s look at another example. We implemented the function my-count in <a href="recursion.html">Recursion</a>, which counts the occurrences of an element in a sequence. Let’s reimplement that function with reduce:</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> my-count </span>[elem a-seq]
+  (<span class="kw">let</span> [counter (<span class="kw">fn</span> [<span class="kw">count</span> <span class="kw">e</span>]
+                  (<span class="kw">if</span> (<span class="kw">=</span> <span class="kw">e</span> elem)
+                    (<span class="kw">inc</span> <span class="kw">count</span>)
+                    <span class="kw">count</span>))]
+    (<span class="kw">reduce</span> counter <span class="dv">0</span> a-seq)))</code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(my-count <span class="kw">:D</span> [<span class="dv">13</span> <span class="st">&quot;\o/&quot;</span> <span class="kw">:D</span> :$ <span class="kw">:D</span> [<span class="kw">:D</span>] :&lt; <span class="st">&quot;~^._.^~&quot;</span>])
+<span class="co">;=&gt; (reduce counter 0                 [13 &quot;\o/&quot; :D :$ :D [:D] :&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter (counter 0 13)    [&quot;\o/&quot; :D :$ :D [:D] :&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter 0                 [&quot;\o/&quot; :D :$ :D [:D] :&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter (counter 0 &quot;\o/&quot;) [:D :$ :D [:D] :&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter 0                 [:D :$ :D [:D] :&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter (counter 0 :D)    [:$ :D [:D] :&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter 1                 [:$ :D [:D] :&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter (counter 1 :$)    [:D [:D] :&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter 1                 [:D [:D] :&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter (counter 1 :D)    [[:D] :&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter 2                 [[:D] :&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter (counter 2 [:D])  [:&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter 2                 [:&lt; &quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter (counter 2 :&lt;)    [&quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter 2                 [&quot;~^._.^~&quot;])</span>
+<span class="co">;=&gt; (reduce counter (counter 2 &quot;~^._.^~&quot;) [])</span>
+<span class="co">;=&gt; (reduce counter 2 [])</span>
+<span class="co">;=&gt; 2</span></code></pre>
 <section class="alert alert-success">
 <h3>
 Exercise 4
