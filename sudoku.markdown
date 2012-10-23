@@ -314,3 +314,4 @@ solution is valid.
 A sudoku is valid if each row, each column and each block contains the numbers
 from 1 to 9 exactly once. Let's write functions for checking each of these
 conditions.
+
