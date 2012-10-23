@@ -510,3 +510,5 @@ are sequences.
 ~~~
 
 </exercise>
+
+[Sudoku →](sudoku.html)
