@@ -485,6 +485,6 @@ internal representation to something like this, if we wanted to:
 Now that you have mastered evaluating poker hands, it's time to understand
 recursion.
 
-[Recursion Awaits →](recursion.html)
+[Predicates →](predicates.html)
 
 [PokerHand]: http://en.wikipedia.org/wiki/Poker_hands

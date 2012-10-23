@@ -83,6 +83,12 @@ Down the rabbit hole.
 
 Calling tails.
 
+## [One Function to rule them all]
+
+> One Function to rule them all, One Function to find them, <br />
+> One Function to bring them all and in the darkness bind them <br />
+> In the Land of Code where the Off-By-Ones lie.
+
 ## [blorg blorg blorg]
 
 A blog engine written in Clojure, studied.
@@ -105,4 +111,5 @@ A blog engine written in Clojure, studied.
 [Sudoku]: sudoku.html
 [Style]: style.html
 [Looping is recursion]: looping-is-recursion.html
+[One function to rule them all]: one-function-to-rule-them-all.html
 [blorg blorg blorg]: blorg.html

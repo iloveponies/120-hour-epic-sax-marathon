@@ -910,6 +910,8 @@ Given a set, return the powerset of that set.
 
 </exercise>
 
+[Hoop a loop →](looping-is-recursion.html)
+
 [Software Foundations]: http://www.cis.upenn.edu/~bcpierce/sf/Basics.html#nat
 [Fibonacci number]: http://en.wikipedia.org/wiki/Fibonacci_number
 [SICP on recursion]: http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-11.html#%_sec_1.2
