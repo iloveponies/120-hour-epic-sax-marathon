@@ -4,6 +4,9 @@
 
 ## Synopsis
 
+- `reduce`
+- variable arguments
+
 ## Fork this
 
 [https://github.com/iloveponies/one-function-to-rule-them-all](https://github.com/iloveponies/one-function-to-rule-them-all)
@@ -353,6 +356,157 @@ Write the fuction `(parity a-seq)` that picks into a set those elements of
 (parity [:a :b :c])    ;=> #{:a :b :c}
 (parity [:a :a :b :b]) ;=> #{}
 (parity [1 2 3 1])     ;=> #{2 3}
+~~~
+
+</exercise>
+
+## Var...argghhhh!
+
+As you may have noticed, some functions in Clojure can take variable amount of
+parameters.
+
+~~~clojure
+(+ 1 1)       ;=> 2
+(+ 1 1 1 1 1) ;=> 5
+~~~
+
+Not surprisingly, one can define such functions themselve.
+
+~~~clojure
+(defn one-or-two
+  ([x] 1)
+  ([x y] 2))
+~~~
+
+This function has two separate definitions. Each definition is separated from
+the others by enclosing it in parentheses. Each of the definitions takes a
+different amount of parameters. This is called *arity overloading*. In
+English, the right definition is chosen based on how many parameters were
+given to the function. This function can be called with one or two parameters.
+
+~~~clojure
+(one-or-two :a)  ;=> 1
+(one-or-two 5 6) ;=> 2
+(one-or-two 1 2 3)
+;=> ArityException
+;     Wrong number of args (3) passed to: user$one-or-two
+;     clojure.lang.AFn.throwArity (AFn.java:437)
+~~~
+
+<exercise>
+
+Write the function `minus` that takes one or two parameters.
+
+- If given a one parameter $x$, it returns $-x$.
+- If given to parameters $x$ and $y$, it returns $x - y$.
+
+~~~clojure
+(minus 2)   ;=> -2
+(minus 4 3) ;=> 1
+~~~
+
+</exercise>
+
+But what if you don't know the amount of parameters given before hand? Lets
+look at a definition of `max`:
+
+~~~clojure
+(defn max
+  ([x] x)                         ; one parameter
+  ([x y] (if (> x y) x y))        ; two parameters
+  ([x y & more]                   ; more than two parameters
+    (reduce max (max x y) more)))
+~~~
+
+First of all, the function has three separate definitions. If we call the
+function with one or two parameters, the first and second definitions are
+used, respectively.
+
+The third definition of `max` is using *variable arguments*. It means that the
+function can be called with any amount of parameters. The first two parameters
+are given names `x` and `y` and the rest of the parameters are grouped into a
+sequence and given a name `more`. Lets look at an evaluation:
+
+~~~clojure
+(max 1 2 3 4)
+;=> (reduce max (max 1 2) '(3 4))
+;=> (reduce max 2         '(3 4))
+;=> (reduce max (max 2 3) '(4))
+;=> (reduce max 3         '(4))
+;=> (reduce max (max 3 4) '())
+;=> (reduce max 4         '())
+;=> 4
+~~~
+
+<exercise>
+
+Write the function `count-params` that accepts any number of parameters and
+returns how many it was called with. You need only a one definition for this.
+
+~~~clojure
+(count-params)            ;=> 0
+(count-params :a)         ;=> 1
+(count-params :a 1 :b :c) ;=> 4
+~~~
+
+</exercise>
+
+<exercise>
+
+Write the function `my-*` that takes any number of parameters.
+
+- If no parameters are given, return 1
+- If one parameter $x$ is given, return $x$.
+- If two parameters $x$ and $y$ are given, return $xy$.
+- If more than two parameters $x$, $y$, $\dots$ are given, return their
+  product $x \cdot y \cdots$.
+
+You are free to use `*`, but not `apply`.
+  
+~~~clojure
+(my-*)           ;=> 1
+(my-* 4 3)       ;=> 12
+(my-* 1 2 3 4 5) ;=> 120
+~~~
+
+</exercise>
+
+<exercise>
+
+Remember the function `pred-and` that you implemented in
+[Predicates](predicates.html)? Write a new definition for it that works for
+any amount of parameters.
+
+- If no parameters are given, return a predicate that always returns `true`.
+- If only one predicate `p` is given, return `p`.
+- If two predicates are given, return a predicate that returns `true` if both
+  of them return `true` and `false` otherwise.
+- If more than two predicates are given, return a predicate that returns
+  `true` only if all of the predicates return `true` and `false` otherwise.
+
+~~~clojure
+(filter (pred-and) [1 0 -2])                    ;=> (1 0 -2)
+(filter (pred-and pos? odd?) [1 2 -4 0 6 7 -3]) ;=> (1 7)
+(filter (pred-and number? decimal? pos? even?)
+        [1 0 -2 :a 7 "a" 2])                    ;=> (0 2)
+~~~
+
+</exercise>
+
+## Encore
+
+The next exercise is a bit trickier.
+
+<exercise>
+
+Write the function `my-map` that works just like standard `map`. It takes one
+or more sequences and a function `f` that takes as many parameters as there
+are sequences.
+
+~~~clojure
+(my-map inc [1 2 3 4])                  ;=> (2 3 4 5)
+(my-map + [1 1 1] [1 1 1] [1 1 1])      ;=> (3 3 3)
+(my-map vector [1 2 3] [1 2 3] [1 2 3]) ;=> ((1 1 1) (1 1 1) (1 1 1))
 ~~~
 
 </exercise>

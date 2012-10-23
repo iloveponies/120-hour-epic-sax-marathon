@@ -4,7 +4,7 @@
 
 ## Synopsis
 
-<alert>TODO</alert>
+<alert>Work in progress!</alert>
 
 ## Get the project
 
@@ -27,8 +27,10 @@ git clone https://github.com/iloveponies/sudoku.git
     - difference
     - set equality
     - contains
+    
+## Fight!
 
-First of all, we need to have a representation for sudokus. Here is one.
+First of all, we need to have a representation for sudoku boards. Here is one.
 
 ~~~ {.clojure}
 (board [[5 3 0 0 7 0 0 0 0]
@@ -42,7 +44,7 @@ First of all, we need to have a representation for sudokus. Here is one.
         [0 0 0 0 8 0 0 7 9]])
 ~~~
 
-Here `0` is used to encode an empty square in sudoku.
+Here `0` is used to encode an empty square in a sudoku board.
 
 The `board` function is intended to transform a nested vector structure to
 some internal representation. Since these nested vectors work just fine for
@@ -62,27 +64,6 @@ Using `identity`, we can define `board` easily:
 (def board identity)
 ~~~
 
-In sudoku, every line, every column and every block needs to have the numbers
-from 1 to 9 exactly once. Blocks are 3x3 areas inside the sudoku board.
-
-<alert>
-TODO: make some better visualization
-</alert>
-
-~~~ {.clojure}
-[[1 1 1 2 2 2 3 3 3]
- [1 1 1 2 2 2 3 3 3]
- [1 1 1 2 2 2 3 3 3]
- [4 4 4 5 5 5 6 6 6]
- [4 4 4 5 5 5 6 6 6]
- [4 4 4 5 5 5 6 6 6]
- [7 7 7 8 8 8 9 9 9]
- [7 7 7 8 8 8 9 9 9]
- [7 7 7 8 8 8 9 9 9]]
-~~~
-
-Here squares with the same number in them are in the same block.
-
 You're going to need the set of numbers used in sudoku often, so let's define
 them as a set:
 
@@ -90,9 +71,27 @@ them as a set:
 (def all-values #{1 2 3 4 5 6 7 8 9})
 ~~~
 
+In sudoku, one needs to fill a board so that every line, every column and
+every block has the numbers from 1 to 9 exactly once. Blocks are 3x3 areas
+inside the sudoku board.
+
+~~~ {.clojure}
+;[[5 3 0 | 0 7 0 | 0 0 0]
+; [6 0 0 | 1 9 5 | 0 0 0]
+; [0 9 8 | 0 0 0 | 0 6 0]
+; -------+-------+-------
+; [8 0 0 | 0 6 0 | 0 0 3]
+; [4 0 0 | 8 0 3 | 0 0 1]
+; [7 0 0 | 0 2 0 | 0 0 6]
+; -------+-------+-------
+; [0 6 0 | 0 0 0 | 2 8 0]
+; [0 0 0 | 4 1 9 | 0 0 5]
+; [0 0 0 | 0 8 0 | 0 7 9]]
+~~~
+
 ## Working with nested structures
 
-Getting values from nested structures with `get` is ugly:
+Getting values from nested structures with `get` gets ugly:
 
 ~~~ {.clojure}
 (get (get [["a" "b"] ["c" "d"]] 0) 1)
@@ -103,8 +102,7 @@ Getting values from nested structures with `get` is ugly:
 To remedy this, there is `(get-in nested-structure directives)`
 
 ~~~ {.clojure}
-(get-in [["a" "b"] ["c" "d"]]
-        [0 1])
+(get-in [["a" "b"] ["c" "d"]] [0 1])
 ;=> (get (get [["a" "b"] ["c" "d"]] 0) 1)
 ;=> (get ["a" "b"]                     1)
 ;=> "b"
@@ -114,7 +112,8 @@ It works with everything that supports get, including maps and vectors.
 
 ~~~ {.clojure}
 (def cities {:title "The City and the City"
-         :author {:name "China Miéville", :birth-year 1972}})
+             :author {:name "China Miéville"
+                      :birth-year 1972}})
 
 (get-in cities [:author :name])
 ;=> (get (get cities :author)                       :name)
@@ -220,6 +219,24 @@ combinations:
 ;=> ("John 1" "John 2" "John 3" "Robert 1" "Robert 2" "Robert 3")
 ~~~
 
+To make working with coordinates a bit easier, lets write a function that
+returns a sequence of coordinate pairs.
+
+<exercise>
+Write the function `(coord-pairs coord-sequence)` that returns all
+coordinate-pairs of the form `[row col]` where `row` is from `coord-sequence`
+and `col` is from `coord-sequence`.
+
+~~~ {.clojure}
+(coord-pairs [0 1])   ;=> [[0 0] [0 1]
+                      ;   [1 0] [1 1]]
+
+(coord-pairs [0 1 2]) ;=> [[0 0] [0 1] [0 2]
+                      ;   [1 0] [1 1] [1 2]
+                      ;   [2 0] [2 1] [2 2]]
+~~~
+</exercise>
+
 <exercise>
 Write the function `(block-values board coordinates)` that returns a set with
 all numbers in the block of `coordinates`.
@@ -269,24 +286,6 @@ Remember that we already defined the set `all-values`.
 ~~~ {.clojure}
 (valid-values-for sudoku-board [0 0]) ;=> #{}
 (valid-values-for sudoku-board [0 2]) ;=> #{1 2 4})
-~~~
-</exercise>
-
-To make working with coordinates a bit easier, lets write a function that
-returns a sequence of coordinate pairs.
-
-<exercise>
-Write the function `(coord-pairs coord-sequence)` that returns all
-coordinate-pairs of the form `[row col]` where `row` is from `coord-sequence`
-and `col` is from `coord-sequence`.
-
-~~~ {.clojure}
-(coord-pairs [0 1])   ;=> [[0 0] [0 1]
-                      ;   [1 0] [1 1]]
-
-(coord-pairs [0 1 2]) ;=> [[0 0] [0 1] [0 2]
-                      ;   [1 0] [1 1] [1 2]
-                      ;   [2 0] [2 1] [2 2]]
 ~~~
 </exercise>
 
