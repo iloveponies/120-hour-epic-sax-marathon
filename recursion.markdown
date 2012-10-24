@@ -813,9 +813,13 @@ Conceptually:
 ## Encore
 
 The following exercises are ment to be tricky. So don't dwell too long on
-them.
+them. Move along and come back later.
+
+These exercises will give extra points.
 
 <exercise>
+
+2 points
 
 Write the function `split-into-monotonics` that takes a sequence and returns
 the sequence split into monotonic pieces. Examples:
@@ -836,6 +840,9 @@ longest.
 </exercise>
 
 <exercise>
+
+3 points
+
 Given a sequence, return all permutations of that sequence.
 
 ~~~ {.clojure}
@@ -849,6 +856,9 @@ The order of the permutations doesn't matter.
 </exercise>
 
 <exercise>
+
+3 points
+
 Given a set, return the powerset of that set.
 
 ~~~ {.clojure}
