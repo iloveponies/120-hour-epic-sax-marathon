@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./pull-request-numbers $1 | tail -1
+pull-request-numbers $1 | tail -1

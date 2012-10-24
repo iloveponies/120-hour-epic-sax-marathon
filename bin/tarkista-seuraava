@@ -1,6 +1,6 @@
 #!/bin/bash
 
 CHAPTER=$1
-NUMBER=`./next-pull-request-number $1`
+NUMBER=`next-pull-request-number $1`
 
-./tarkista $CHAPTER $NUMBER
+tarkista $CHAPTER $NUMBER

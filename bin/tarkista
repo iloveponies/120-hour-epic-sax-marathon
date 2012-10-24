@@ -13,7 +13,7 @@ NUMBER=$2
 REQUEST=$BASE$CHAPTER/pull/$NUMBER
 CHANGES=$REQUEST/files
 
-chromium-browser $CHANGES
+chromium $CHANGES
 
 read
 
