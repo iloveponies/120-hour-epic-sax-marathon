@@ -265,7 +265,7 @@ definition for it:
   (if (empty? a-seq)
     a-seq
     (cons (f (first a-seq))
-          (my-map (rest a-seq)))))
+          (my-map f (rest a-seq)))))
 ~~~
 
 See how nicely it fits in the general template for linear recursion? Only
