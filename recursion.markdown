@@ -2,6 +2,32 @@
 % 120 hour epic
 % sax marathon
 
+<alert>
+
+Tests for this chapter were updated on 23.10. 23:00. If you forked and cloned
+the project for this chapter before that, you can update your tests in the
+following way:
+
+ONLY DO THIS IF YOU HAVEN'T CHANGED THE TEST FILE
+
+First save you changes so far with git:
+
+~~~
+git commit -a -m "message here"
+~~~
+
+Then pull our changes with the following command:
+
+~~~
+git pull https://github.com/iloveponies/recursion.git
+~~~
+
+Alternatively, you can copy the new tests from
+[Here](https://github.com/iloveponies/recursion/blob/master/test/recursion_test.clj)
+and replace your current ones with these.
+
+</alert>
+
 ## Synopsis
 
 Recursion is a large topic. This chapter covers the following:
@@ -134,9 +160,9 @@ Note that we expanded the list `'(1 2 3 4)` to its `cons` form. If we take a
 closer look at that form and the line with comment above, we'll see why:
 
 ~~~ {.clojure}
-   (cons 1 (cons 2 (cons 3 (cons 4 '()))))
+    (cons 1 (cons 2 (cons 3 (cons 4 '()))))
 ...
-;=> (+    1 (+    2 (+    3 (+    4   0))))
+;=> (+    1 (+    2 (+    3 (+    4  0 ))))
 ~~~
 
 We replaced the `cons` operation in the recursive structure with `+` and `'()`
@@ -161,7 +187,7 @@ grows linearly with the size of input.
 
 <exercise>
 Write the function `(singleton? coll)` which returns `true` if the collection
-has only a one element in it and `false` otherwise.
+has only one element in it and `false` otherwise.
 
 Do not use `count` as it can be expensive on long sequences.
 
@@ -231,7 +257,7 @@ sequences as a parameter and returns the longest one.
 
 All the functions so far, `sum`, `product` and `last-element`, transformed the
 list into a single value. This it not always the case with linear recursion.
-Our old friend `(map f a-seq)` is an good example of this. Here is a
+Our old friend `(map f a-seq)` is a good example of this. Here is the
 definition for it:
 
 ~~~clojure
@@ -300,7 +326,7 @@ find a non-number.
 Let's have a closer look at the evaluation of the second line:
 
 ~~~ {.clojure}
-   (only-numbers? [1 2 :D 3 4])
+    (only-numbers? [1 2 :D 3 4])
 ;=> (only-numbers? [2 :D 3 4]) ; (number? 1) => true, so we now need to check
                                ; if all the rest are numbers.
 ;=> (only-numbers? [:D 3 4])   ; because (number? 2) ;=> true
@@ -393,23 +419,49 @@ This is actually exactly how `map` works when given two sequences, but for the
 sake of practice don't use `map` when defining `my-map`.
 
 ~~~clojure
-(my-map + [1 2 3] [4 4 4]) ;=> (5 6 7)
+(my-map + [1 2 3] [4 4 4])   ;=> (5 6 7)
 (my-map + [1 2 3 4] [0 0 0]) ;=> (1 2 3)
-(my-map + [1 2 3] []) ;=> ()
+(my-map + [1 2 3] [])        ;=> ()
 ~~~
 
 </exercise>
 
-With the help of `my-map` (or `map`) and `vector` we can actually use our
-one-parameter template of linear recursion when we need to recurse over two
-sequences. We just zip together the two sequences and recurse over the
-resulting sequence.
+This behaviour of `map` with multiple sequence arguments can come in handy at
+times. One useful function to use with it is `vector`.
+
+`vector` makes a vector of its arguments.
+
+~~~{.clojure}
+(vector 1 2)     ;=> [1 2]
+(vector 1 2 3 4) ;=> [1 2 3 4]
+~~~
+
+With `map`, you can use this to turn two sequences into a sequence of pairs:
 
 ~~~clojure
-(vector 1 2) ;=> [1 2]
-(vector 1 2 3 4) ;=> [1 2 3 4]
-(my-map vector [1 2 3] [:a :b :c]) ;=> ([1 :a] [2 :b] [3 :c])
 (map vector [1 2 3] [:a :b :c]) ;=> ([1 :a] [2 :b] [3 :c])
+(map vector [1 2 3 4] [2 3 4])  ;=> [1 2] [2 3] [3 4]
+~~~
+
+You can use this to get an indexed version of a sequence:
+
+~~~{.clojure}
+(defn indexed [a-seq]
+  (let [indexes (range 0 (count a-seq))]
+    (map vector indexes a-seq)))
+
+(indexed [:a :b :c]) ;=> ([0 :a] [1 :b] [2 :c])
+~~~
+
+Sometimes you need all consecutive pairs from a sequence. This, too, can be
+achieved with `map` and `vector`:
+
+~~~{.clojure}
+(defn consecutives [a-seq]
+  (map vector a-seq (rest a-seq)))
+
+(consecutives [:a :b :c]) ;=> ([:a :b] [:b :c])
+(consecutives [1 2 3 4])  ;=> ([1 2] [2 3] [3 4])
 ~~~
 
 ### Recursion on numbers
@@ -417,8 +469,8 @@ resulting sequence.
 Another common data structure to recurse over are numbers. (Even though you
 might not think of numbers as data structures!) Recursing over numbers is very
 similar to recursing over sequences. As an example, let's define a function to
-calculate the factorial of a number. (Factorial of n is 1 * 2 * ... * (n-1) *
-n.)
+calculate the factorial of a number. (Factorial of $n$ is $1 \cdot 2 \cdots (n-1) \cdot
+n$.)
 
 ~~~ {.clojure}
 (defn factorial [n]
@@ -514,7 +566,7 @@ compute the following integer series:
 
 Let $f(n) = \begin{cases}
               n & \text{ if } n < 3 \\
-              f(n - 1) + 2 * f(n - 2) + 3 * f(n - 3) & \text{ otherwise}
+              f(n - 1) + 2 \cdot f(n - 2) + 3 \cdot f(n - 3) & \text{ otherwise}
             \end{cases}$
 
 Translating this to Clojure gives us the following program:
