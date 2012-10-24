@@ -1,0 +1,12 @@
+#!/bin/bash
+
+BASE=https://github.com/iloveponies/
+CHAPTER=$1
+
+wget $BASE$CHAPTER/issues -O - \
+    | grep "pull/" \
+    | grep "Code Attached" \
+    | sed "s/<span.*<\/span>//" \
+    | sed "s/<a href.*pull\///" \
+    | sed "s/\".*//" \
+    | sed "s/\s*//"

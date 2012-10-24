@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#if [ $# -ne 2 ]
+#then
+#    echo "wrong number of arguments"
+#    exit
+#fi
+
+BASE=https://github.com/iloveponies/
+CHAPTER=$1
+NUMBER=$2
+
+REQUEST=$BASE$CHAPTER/pull/$NUMBER
+CHANGES=$REQUEST/files
+
+chromium $CHANGES
+
+read
+
+hub checkout $REQUEST opiskelija &&
+    lein midje &&
+    hub checkout master &&
+    hub branch -d opiskelija

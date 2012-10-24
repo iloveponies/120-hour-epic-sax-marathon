@@ -499,6 +499,8 @@ The next exercise is a bit trickier.
 
 <exercise>
 
+3 points
+
 Write the function `my-map` that works just like standard `map`. It takes one
 or more sequences and a function `f` that takes as many parameters as there
 are sequences.
