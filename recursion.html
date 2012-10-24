@@ -215,7 +215,7 @@ Exercise 7
   (<span class="kw">if</span> (<span class="kw">empty?</span> a-seq)
     a-seq
     (<span class="kw">cons</span> (f (<span class="kw">first</span> a-seq))
-          (my-map (<span class="kw">rest</span> a-seq)))))</code></pre>
+          (my-map f (<span class="kw">rest</span> a-seq)))))</code></pre>
 <p>See how nicely it fits in the general template for linear recursion? Only deviation from it is the extra parameter <code>f</code>. It is function, that will become part of the operation that the recursion applies to the elements of the sequence. Here’s the evaluation:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">map</span> <span class="kw">inc</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])
 <span class="co">;=&gt; (cons (inc 1)</span>
