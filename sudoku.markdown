@@ -5,11 +5,9 @@
 ## Synopsis
 
 
-## Get the project
+## Fork this
 
-~~~
-git clone https://github.com/iloveponies/sudoku.git
-~~~
+[https://github.com/iloveponies/sudoku](https://github.com/iloveponies/sudoku)
 
 <!-- TODO?
   - not=
