@@ -18,6 +18,7 @@ chromium-browser $CHANGES
 read
 
 hub checkout $REQUEST opiskelija &&
+    hub checkout master test/* &&
     lein midje &&
     hub checkout master &&
     hub branch -d opiskelija
