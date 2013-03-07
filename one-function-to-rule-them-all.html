@@ -370,7 +370,7 @@ Exercise 12
 </ul>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">filter</span> (pred-and) [<span class="dv">1</span> <span class="dv">0</span> -<span class="dv">2</span>])                    <span class="co">;=&gt; (1 0 -2)</span>
 (<span class="kw">filter</span> (pred-and <span class="kw">pos?</span> <span class="kw">odd?</span>) [<span class="dv">1</span> <span class="dv">2</span> -<span class="dv">4</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">7</span> -<span class="dv">3</span>]) <span class="co">;=&gt; (1 7)</span>
-(<span class="kw">filter</span> (pred-and <span class="kw">number?</span> <span class="kw">decimal?</span> <span class="kw">pos?</span> <span class="kw">even?</span>)
+(<span class="kw">filter</span> (pred-and <span class="kw">number?</span> <span class="kw">integer?</span> <span class="kw">pos?</span> <span class="kw">even?</span>)
         [<span class="dv">1</span> <span class="dv">0</span> -<span class="dv">2</span> <span class="kw">:a</span> <span class="dv">7</span> <span class="st">&quot;a&quot;</span> <span class="dv">2</span>])                    <span class="co">;=&gt; (0 2)</span></code></pre>
 </section>
 </section>
