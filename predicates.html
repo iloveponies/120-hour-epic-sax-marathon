@@ -180,18 +180,20 @@ Exercise 5
 <p>It also always returns <code>true</code> with an empty collection.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">every?</span> <span class="kw">pos?</span> [])  <span class="co">;=&gt; true</span>
 (<span class="kw">every?</span> <span class="kw">pos?</span> nil) <span class="co">;=&gt; true</span></code></pre>
-<p>Here’s a function that you can use to check if a character is whitespace:</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> whitespace</span>? [character]
-  (Character/isWhitespace character))</code></pre>
 <section class="alert alert-success">
 <h3>
 Exercise 6
 </h3>
-<p>Write the function <code>(blank? string)</code> that takes a string as a parameter and returns <code>true</code> if <code>string</code> is empty, nil, or only contains whitespace.</p>
-<p>Remember that strings can be used as a sequence of characters with sequence functions like <code>every?</code>.</p>
+<p>Write the function <code>(blank? string)</code> that takes a string as a parameter and returns <code>true</code> if <code>string</code> is empty, nil, or contains only whitespace.</p>
+<p>Remember that strings can be used as a sequence of characters with sequence functions like <code>every?</code>. A function <code>whitespace?</code> that tells if a character is whitespace is defined for you in the source file.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(blank? <span class="st">&quot; </span>\t\n\t<span class="st"> &quot;</span>) <span class="co">;=&gt; true</span>
 (blank? <span class="st">&quot;  </span>\t<span class="st"> a&quot;</span>)   <span class="co">;=&gt; false</span>
 (blank? <span class="st">&quot;&quot;</span>)         <span class="co">;=&gt; true</span></code></pre>
+</section>
+<section class="alert alert-info">
+<h3>
+Hint
+</h3>
 <p>You have just implemented a function with the same semantics as <code>isWhitespace</code> in Apache Commons. Here is the <a href="http://svn.apache.org/viewvc/commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/StringUtils.java?view=markup">Java implemention</a> from Apache Commons:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="dv">5370</span>        <span class="kw">public</span> <span class="dt">static</span> <span class="dt">boolean</span> <span class="fu">isWhitespace</span>(CharSequence cs) {
 <span class="dv">5371</span>            <span class="kw">if</span> (cs == <span class="kw">null</span>) {
@@ -208,9 +210,7 @@ Exercise 6
 <p>This is a good example about how the ability to easily pass around functions as parameters can improve clarity.</p>
 </section>
 <p>Earlier we had some books, let’s add some data to them. Let’s keep track of some awards.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> awards </span>#{<span class="kw">:locus</span>, <span class="kw">:world-fantasy</span>, <span class="kw">:hugo</span>})
-
-(<span class="kw">def</span><span class="fu"> china </span>{<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>})
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> china </span>{<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>})
 (<span class="kw">def</span><span class="fu"> octavia </span>{<span class="kw">:name</span> <span class="st">&quot;Octavia E. Butler&quot;</span>
               <span class="kw">:birth-year</span> <span class="dv">1947</span>
               <span class="kw">:death-year</span> <span class="dv">2006</span>})
@@ -244,10 +244,18 @@ Exercise 7
 Exercise 8
 </h3>
 <p>Write the function <code>(HAS-ALL-THE-AWARDS? book awards)</code> that returns <code>true</code> if <code>book</code> has won every award in <code>awards</code>.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(HAS-ALL-THE-AWARDS? cities awards)          <span class="co">;=&gt; true</span>
-(HAS-ALL-THE-AWARDS? lord-of-light awards)   <span class="co">;=&gt; false</span>
-(HAS-ALL-THE-AWARDS? lord-of-light #{<span class="kw">:hugo</span>}) <span class="co">;=&gt; true</span>
-(HAS-ALL-THE-AWARDS? scanner-darkly #{})     <span class="co">;=&gt; true</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(HAS-ALL-THE-AWARDS? cities #{<span class="kw">:locus</span>})
+<span class="co">;=&gt; true</span>
+(HAS-ALL-THE-AWARDS? cities #{<span class="kw">:locus</span> <span class="kw">:world-fantasy</span> <span class="kw">:hugo</span>})
+<span class="co">;=&gt; true</span>
+(HAS-ALL-THE-AWARDS? cities #{<span class="kw">:locus</span> <span class="kw">:world-fantasy</span> <span class="kw">:hugo</span> <span class="kw">:pulitzer</span>})
+<span class="co">;=&gt; false</span>
+(HAS-ALL-THE-AWARDS? lord-of-light #{<span class="kw">:locus</span> <span class="kw">:world-fantasy</span> <span class="kw">:hugo</span>})
+<span class="co">;=&gt; false</span>
+(HAS-ALL-THE-AWARDS? lord-of-light #{<span class="kw">:hugo</span>})
+<span class="co">;=&gt; true</span>
+(HAS-ALL-THE-AWARDS? scanner-darkly #{})
+<span class="co">;=&gt; true</span></code></pre>
 </section>
 </section>
 <section class="level2" id="and-then-there-were-some">

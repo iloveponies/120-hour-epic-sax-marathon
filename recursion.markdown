@@ -2,32 +2,6 @@
 % 120 hour epic
 % sax marathon
 
-<alert>
-
-Tests for this chapter were updated on 23.10. 23:00. If you forked and cloned
-the project for this chapter before that, you can update your tests in the
-following way:
-
-ONLY DO THIS IF YOU HAVEN'T CHANGED THE TEST FILE
-
-First save you changes so far with git:
-
-~~~
-git commit -a -m "message here"
-~~~
-
-Then pull our changes with the following command:
-
-~~~
-git pull https://github.com/iloveponies/recursion.git
-~~~
-
-Alternatively, you can copy the new tests from
-[Here](https://github.com/iloveponies/recursion/blob/master/test/recursion_test.clj)
-and replace your current ones with these.
-
-</alert>
-
 ## Synopsis
 
 Recursion is a large topic. This chapter covers the following:
@@ -287,7 +261,7 @@ re-constructs the sequence with `cons`.
 <exercise>
 
 Implement the function `(my-filter pred? a-seq)` that works just like the
-standard `filter`.
+standard `filter`. Don't use `remove`.
 
 ~~~clojure
 (my-filter odd? [1 2 3 4]) ;=> (1 3)
@@ -817,7 +791,8 @@ To turn a result of division into an integer use `int`.
 
 <exercise>
 Write the function `(seq-merge a-seq b-seq)` that takes two (low to high)
-sorted number sequences and combines them into one sorted sequence. E.g.:
+sorted number sequences and combines them into one sorted sequence.
+Don't use sort (nor implement it yourself, yet).
 
 ~~~ {.clojure}
 (seq-merge [4] [1 2 6 7])        ;=> (1 2 4 6 7)
