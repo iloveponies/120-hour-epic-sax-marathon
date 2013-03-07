@@ -1,3 +1,6 @@
 #!/bin/sh
 
-lein midje | grep -E 'ex [[:digit:]]{1,2} .' | cut -d" " -f 2,3 | uniq
+lein midje \
+| egrep '[^"]*"[0-9]+' \
+| sed -r 's|[^"]*"([0-9]+ [^"]+)".*|\1|g' \
+| uniq
