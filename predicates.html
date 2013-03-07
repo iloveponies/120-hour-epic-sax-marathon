@@ -257,7 +257,10 @@ Exercise 8
 (<span class="kw">some</span> whitespace? <span class="st">&quot;Kekkonen Kekkonen&quot;</span>) <span class="co">;=&gt; True</span>
 (<span class="kw">some</span> <span class="kw">even?</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])                   <span class="co">;=&gt; true</span>
 (<span class="kw">some</span> <span class="kw">even?</span> [<span class="dv">1</span> <span class="dv">3</span>])                     <span class="co">;=&gt; false</span></code></pre>
-<p><code>some</code> is not actually a predicate. It returns the first truthy value returned by <code>pred</code>.</p>
+<p>Why <code>some</code> and not <code>some?</code>? Well, <code>some</code> is not actually a predicate. It returns the first truthy value returned by <code>pred</code>, and functions ending in <code>?</code> should return strictly <code>true</code> or <code>false</code>. This is often useful, but sometimes you need to be careful with it.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">some</span> <span class="kw">first</span> [[] [<span class="dv">1</span> <span class="dv">2</span>] []]) <span class="co">;=&gt; 1</span>
+(<span class="kw">some</span> <span class="kw">first</span> [[] [false true] []] <span class="co">;=&gt; nil</span>
+(<span class="kw">some</span> <span class="kw">nil?</span> [<span class="dv">1</span> nil <span class="dv">2</span>]) <span class="co">;=&gt; true</span></code></pre>
 <section class="alert alert-success">
 <h3>
 Exercise 9
@@ -266,10 +269,13 @@ Exercise 9
 <p>Hint: You might find <code>map</code>, <code>filter</code> and <code>first</code> useful (you won’t necessarily need them all).</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-some <span class="kw">even?</span> [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">7</span>])       <span class="co">;=&gt; falsey</span>
 (my-some <span class="kw">even?</span> [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">8</span>])     <span class="co">;=&gt; true</span>
-(my-some <span class="kw">neg?</span> [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">8</span>])      <span class="co">;=&gt; falsey</span>
 (my-some <span class="kw">neg?</span> [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">7</span> <span class="dv">8</span>])    <span class="co">;=&gt; falsey</span>
 (my-some <span class="kw">neg?</span> [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">7</span> -<span class="dv">1</span> <span class="dv">8</span>]) <span class="co">;=&gt; true</span>
-(my-some <span class="kw">neg?</span> [])               <span class="co">;=&gt; falsey</span></code></pre>
+(my-some <span class="kw">neg?</span> [])               <span class="co">;=&gt; falsey</span>
+(my-some <span class="kw">first</span> [[false] [<span class="dv">1</span>]])   <span class="co">;=&gt; 1</span>
+(my-some <span class="kw">first</span> [[false] []])    <span class="co">;=&gt; falsey</span>
+(my-some <span class="kw">nil?</span> [<span class="dv">1</span> <span class="dv">2</span>])            <span class="co">;=&gt; falsey</span>
+(my-some <span class="kw">nil?</span> [<span class="dv">1</span> nil <span class="dv">2</span>])        <span class="co">;=&gt; true</span></code></pre>
 </section>
 <section class="alert alert-success">
 <h3>
