@@ -482,6 +482,8 @@ multiple authors, otherwise `false`.
 ~~~
 </exercise>
 
+### Adding Values to a Map
+
 `(assoc a-map a-key a-value)` sets the value of `a-key` in `a-map` to be `a-value`.
 
 ~~~{.clojure}
@@ -1029,12 +1031,32 @@ Write the function `(old-book->new-book book)` that takes a book with the
 previous representation (authors in a vector) and returns the same book in the
 new representation (authors in a set).
 
+Use `assoc` to change the representation. Do not construct a new map using the
+map literal syntax.
+
 ~~~{.clojure}
 (old-book->new-book {:title "The Little Schemer"
                      :authors [friedman, felleisen]})
 ;=> {:title "The Little Schemer" :authors #{friedman, felleisen}}
 (old-book->new-book {:title "Wild Seed", :authors [octavia]})
 ;=> {:title "Wild Seed", :authors #{octavia}}
+~~~
+
+The reason to use `assoc` is that it allows us to keep any additional key-value
+pairs intact. Earlier we had an example where we added a list of awards to a
+book. By using `assoc`, these additional key-value pairs do not disappear anywhere
+during the transformation.
+
+~~~{.clojure}
+(old-book->new-book
+  {:awards ["Hugo" "World Fantasy Award" "Arthur C. Clarke Award"
+            "British Science Fiction Award"]
+   :title "The City and the City"
+   :authors [{:birth-year 1972, :name "China Miéville"}]})
+;=> {:awards ["Hugo" "World Fantasy Award" "Arthur C. Clarke Award"
+;             "British Science Fiction Award"]
+;    :title "The City and the City"
+;    :authors #{{:birth-year 1972, :name "China Miéville"}}}
 ~~~
 </exercise>
 
