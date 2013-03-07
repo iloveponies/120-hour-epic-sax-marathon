@@ -791,7 +791,8 @@ To turn a result of division into an integer use `int`.
 
 <exercise>
 Write the function `(seq-merge a-seq b-seq)` that takes two (low to high)
-sorted number sequences and combines them into one sorted sequence. E.g.:
+sorted number sequences and combines them into one sorted sequence.
+Don't use sort (nor implement it yourself, yet).
 
 ~~~ {.clojure}
 (seq-merge [4] [1 2 6 7])        ;=> (1 2 4 6 7)
