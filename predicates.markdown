@@ -259,28 +259,25 @@ It also always returns `true` with an empty collection.
 (every? pos? nil) ;=> true
 ~~~
 
-Here's a function that you can use to check if a character is whitespace:
-
-~~~{.clojure}
-(defn whitespace? [character]
-  (Character/isWhitespace character))
-~~~
-
 <exercise>
 Write the function `(blank? string)` that takes a string as a parameter and
-returns `true` if `string` is empty, nil, or only contains whitespace.
+returns `true` if `string` is empty, nil, or contains only whitespace.
 
-Remember that strings can be used as a sequence of characters with sequence
-functions like `every?`.
+Remember that strings can be used as a sequence of characters with
+sequence functions like `every?`. A function `whitespace?` that tells
+if a character is whitespace is defined for you in the source file.
 
 ~~~{.clojure}
 (blank? " \t\n\t ") ;=> true
 (blank? "  \t a")   ;=> false
 (blank? "")         ;=> true
 ~~~
+</exercise>
 
-You have just implemented a function with the same semantics as `isWhitespace`
-in Apache Commons. Here is the [Java implemention] [isWhitespace] from Apache Commons:
+<info>
+You have just implemented a function with the same semantics as
+`isWhitespace` in Apache Commons. Here is the [Java implemention]
+[isWhitespace] from Apache Commons:
 
 [isWhitespace]: http://svn.apache.org/viewvc/commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/StringUtils.java?view=markup
 
@@ -301,7 +298,7 @@ in Apache Commons. Here is the [Java implemention] [isWhitespace] from Apache Co
 
 This is a good example about how the ability to easily pass around functions
 as parameters can improve clarity.
-</exercise>
+</info>
 
 Earlier we had some books, let's add some data to them. Let's keep track of
 some awards.
