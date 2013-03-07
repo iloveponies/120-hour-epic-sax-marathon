@@ -369,8 +369,16 @@ returns a truthy value for some element in `a-seq` and otherwise it returns
 (some even? [1 3])                     ;=> false
 ~~~
 
-`some` is not actually a predicate. It returns the first truthy value returned
-by `pred`.
+Why `some` and not `some?`? Well, `some` is not actually a predicate.
+It returns the first truthy value returned by `pred`, and functions
+ending in `?` should return strictly `true` or `false`. This is often
+useful, but sometimes you need to be careful with it.
+
+~~~{.clojure}
+(some first [[] [1 2] []]) ;=> 1
+(some first [[] [false true] []] ;=> nil
+(some nil? [1 nil 2]) ;=> true
+~~~
 
 <exercise>
 Write you own implementation for `some` called `my-some`.
@@ -381,10 +389,13 @@ need them all).
 ~~~{.clojure}
 (my-some even? [1 3 5 7])       ;=> falsey
 (my-some even? [1 3 5 7 8])     ;=> true
-(my-some neg? [1 3 5 7 8])      ;=> falsey
 (my-some neg? [1 3 5 0 7 8])    ;=> falsey
 (my-some neg? [1 3 5 0 7 -1 8]) ;=> true
 (my-some neg? [])               ;=> falsey
+(my-some first [[false] [1]])   ;=> 1
+(my-some first [[false] []])    ;=> falsey
+(my-some nil? [1 2])            ;=> falsey
+(my-some nil? [1 nil 2])        ;=> true
 ~~~
 </exercise>
 
