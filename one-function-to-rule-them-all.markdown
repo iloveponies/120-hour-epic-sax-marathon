@@ -487,7 +487,7 @@ any amount of parameters.
 ~~~clojure
 (filter (pred-and) [1 0 -2])                    ;=> (1 0 -2)
 (filter (pred-and pos? odd?) [1 2 -4 0 6 7 -3]) ;=> (1 7)
-(filter (pred-and number? decimal? pos? even?)
+(filter (pred-and number? integer? pos? even?)
         [1 0 -2 :a 7 "a" 2])                    ;=> (0 2)
 ~~~
 

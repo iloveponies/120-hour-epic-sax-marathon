@@ -58,15 +58,21 @@ Any value can be turned into `true` or `false` with the `boolean` function:
 ~~~ {.clojure}
 (boolean "foo")   ;=> true
 (boolean nil)     ;=> false
-(boolean (+ 2 3)) ;=> true
-(boolean true)    ;=> true
-(boolean false)   ;=> false
 ~~~
 
 <exercise>
-Implement `(my-boolean x)`, which works like the built-in
-`boolean` function: for `nil` and `false`, it returns `false`, and for all
-other values it returns `true`. You can use `if` in its implementation.
+Implement `(boolean x)`, which works like the built-in `boolean`
+function: for `nil` and `false`, it returns `false`, and for all other
+values it returns `true`. You can use `if` in its implementation, but
+not the build-in `boolean`.
+
+~~~{.clojure}
+(boolean "foo") ;=> true
+(boolean nil) ;=> false
+(boolean (+ 2 3)) ;=> true
+(boolean true) ;=> true
+(boolean false) ;=> false
+~~~
 </exercise>
 
 ## Comparing values
