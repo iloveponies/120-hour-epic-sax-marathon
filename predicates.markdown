@@ -259,28 +259,25 @@ It also always returns `true` with an empty collection.
 (every? pos? nil) ;=> true
 ~~~
 
-Here's a function that you can use to check if a character is whitespace:
-
-~~~{.clojure}
-(defn whitespace? [character]
-  (Character/isWhitespace character))
-~~~
-
 <exercise>
 Write the function `(blank? string)` that takes a string as a parameter and
-returns `true` if `string` is empty, nil, or only contains whitespace.
+returns `true` if `string` is empty, nil, or contains only whitespace.
 
-Remember that strings can be used as a sequence of characters with sequence
-functions like `every?`.
+Remember that strings can be used as a sequence of characters with
+sequence functions like `every?`. A function `whitespace?` that tells
+if a character is whitespace is defined for you in the source file.
 
 ~~~{.clojure}
 (blank? " \t\n\t ") ;=> true
 (blank? "  \t a")   ;=> false
 (blank? "")         ;=> true
 ~~~
+</exercise>
 
-You have just implemented a function with the same semantics as `isWhitespace`
-in Apache Commons. Here is the [Java implemention] [isWhitespace] from Apache Commons:
+<info>
+You have just implemented a function with the same semantics as
+`isWhitespace` in Apache Commons. Here is the [Java implemention]
+[isWhitespace] from Apache Commons:
 
 [isWhitespace]: http://svn.apache.org/viewvc/commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/StringUtils.java?view=markup
 
@@ -301,14 +298,12 @@ in Apache Commons. Here is the [Java implemention] [isWhitespace] from Apache Co
 
 This is a good example about how the ability to easily pass around functions
 as parameters can improve clarity.
-</exercise>
+</info>
 
 Earlier we had some books, let's add some data to them. Let's keep track of
 some awards.
 
 ~~~{.clojure}
-(def awards #{:locus, :world-fantasy, :hugo})
-
 (def china {:name "China Miéville", :birth-year 1972})
 (def octavia {:name "Octavia E. Butler"
               :birth-year 1947
@@ -348,10 +343,18 @@ Write the function `(HAS-ALL-THE-AWARDS? book awards)` that returns `true` if
 `book` has won every award in `awards`.
 
 ~~~{.clojure}
-(HAS-ALL-THE-AWARDS? cities awards)          ;=> true
-(HAS-ALL-THE-AWARDS? lord-of-light awards)   ;=> false
-(HAS-ALL-THE-AWARDS? lord-of-light #{:hugo}) ;=> true
-(HAS-ALL-THE-AWARDS? scanner-darkly #{})     ;=> true
+(HAS-ALL-THE-AWARDS? cities #{:locus})
+;=> true
+(HAS-ALL-THE-AWARDS? cities #{:locus :world-fantasy :hugo})
+;=> true
+(HAS-ALL-THE-AWARDS? cities #{:locus :world-fantasy :hugo :pulitzer})
+;=> false
+(HAS-ALL-THE-AWARDS? lord-of-light #{:locus :world-fantasy :hugo})
+;=> false
+(HAS-ALL-THE-AWARDS? lord-of-light #{:hugo})
+;=> true
+(HAS-ALL-THE-AWARDS? scanner-darkly #{})
+;=> true
 ~~~
 </exercise>
 
@@ -369,8 +372,16 @@ returns a truthy value for some element in `a-seq` and otherwise it returns
 (some even? [1 3])                     ;=> false
 ~~~
 
-`some` is not actually a predicate. It returns the first truthy value returned
-by `pred`.
+Why `some` and not `some?`? Well, `some` is not actually a predicate.
+It returns the first truthy value returned by `pred`, and functions
+ending in `?` should return strictly `true` or `false`. This is often
+useful, but sometimes you need to be careful with it.
+
+~~~{.clojure}
+(some first [[] [1 2] []]) ;=> 1
+(some first [[] [false true] []] ;=> nil
+(some nil? [1 nil 2]) ;=> true
+~~~
 
 <exercise>
 Write you own implementation for `some` called `my-some`.
@@ -381,10 +392,13 @@ need them all).
 ~~~{.clojure}
 (my-some even? [1 3 5 7])       ;=> falsey
 (my-some even? [1 3 5 7 8])     ;=> true
-(my-some neg? [1 3 5 7 8])      ;=> falsey
 (my-some neg? [1 3 5 0 7 8])    ;=> falsey
 (my-some neg? [1 3 5 0 7 -1 8]) ;=> true
 (my-some neg? [])               ;=> falsey
+(my-some first [[false] [1]])   ;=> 1
+(my-some first [[false] []])    ;=> falsey
+(my-some nil? [1 2])            ;=> falsey
+(my-some nil? [1 nil 2])        ;=> true
 ~~~
 </exercise>
 
