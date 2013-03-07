@@ -210,9 +210,7 @@ Hint
 <p>This is a good example about how the ability to easily pass around functions as parameters can improve clarity.</p>
 </section>
 <p>Earlier we had some books, let’s add some data to them. Let’s keep track of some awards.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> awards </span>#{<span class="kw">:locus</span>, <span class="kw">:world-fantasy</span>, <span class="kw">:hugo</span>})
-
-(<span class="kw">def</span><span class="fu"> china </span>{<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>})
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> china </span>{<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>})
 (<span class="kw">def</span><span class="fu"> octavia </span>{<span class="kw">:name</span> <span class="st">&quot;Octavia E. Butler&quot;</span>
               <span class="kw">:birth-year</span> <span class="dv">1947</span>
               <span class="kw">:death-year</span> <span class="dv">2006</span>})
@@ -246,10 +244,18 @@ Exercise 7
 Exercise 8
 </h3>
 <p>Write the function <code>(HAS-ALL-THE-AWARDS? book awards)</code> that returns <code>true</code> if <code>book</code> has won every award in <code>awards</code>.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(HAS-ALL-THE-AWARDS? cities awards)          <span class="co">;=&gt; true</span>
-(HAS-ALL-THE-AWARDS? lord-of-light awards)   <span class="co">;=&gt; false</span>
-(HAS-ALL-THE-AWARDS? lord-of-light #{<span class="kw">:hugo</span>}) <span class="co">;=&gt; true</span>
-(HAS-ALL-THE-AWARDS? scanner-darkly #{})     <span class="co">;=&gt; true</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(HAS-ALL-THE-AWARDS? cities #{<span class="kw">:locus</span>})
+<span class="co">;=&gt; true</span>
+(HAS-ALL-THE-AWARDS? cities #{<span class="kw">:locus</span> <span class="kw">:world-fantasy</span> <span class="kw">:hugo</span>})
+<span class="co">;=&gt; true</span>
+(HAS-ALL-THE-AWARDS? cities #{<span class="kw">:locus</span> <span class="kw">:world-fantasy</span> <span class="kw">:hugo</span> <span class="kw">:pulitzer</span>})
+<span class="co">;=&gt; false</span>
+(HAS-ALL-THE-AWARDS? lord-of-light #{<span class="kw">:locus</span> <span class="kw">:world-fantasy</span> <span class="kw">:hugo</span>})
+<span class="co">;=&gt; false</span>
+(HAS-ALL-THE-AWARDS? lord-of-light #{<span class="kw">:hugo</span>})
+<span class="co">;=&gt; true</span>
+(HAS-ALL-THE-AWARDS? scanner-darkly #{})
+<span class="co">;=&gt; true</span></code></pre>
 </section>
 </section>
 <section class="level2" id="and-then-there-were-some">

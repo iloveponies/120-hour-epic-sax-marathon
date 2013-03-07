@@ -304,8 +304,6 @@ Earlier we had some books, let's add some data to them. Let's keep track of
 some awards.
 
 ~~~{.clojure}
-(def awards #{:locus, :world-fantasy, :hugo})
-
 (def china {:name "China Miéville", :birth-year 1972})
 (def octavia {:name "Octavia E. Butler"
               :birth-year 1947
@@ -345,10 +343,18 @@ Write the function `(HAS-ALL-THE-AWARDS? book awards)` that returns `true` if
 `book` has won every award in `awards`.
 
 ~~~{.clojure}
-(HAS-ALL-THE-AWARDS? cities awards)          ;=> true
-(HAS-ALL-THE-AWARDS? lord-of-light awards)   ;=> false
-(HAS-ALL-THE-AWARDS? lord-of-light #{:hugo}) ;=> true
-(HAS-ALL-THE-AWARDS? scanner-darkly #{})     ;=> true
+(HAS-ALL-THE-AWARDS? cities #{:locus})
+;=> true
+(HAS-ALL-THE-AWARDS? cities #{:locus :world-fantasy :hugo})
+;=> true
+(HAS-ALL-THE-AWARDS? cities #{:locus :world-fantasy :hugo :pulitzer})
+;=> false
+(HAS-ALL-THE-AWARDS? lord-of-light #{:locus :world-fantasy :hugo})
+;=> false
+(HAS-ALL-THE-AWARDS? lord-of-light #{:hugo})
+;=> true
+(HAS-ALL-THE-AWARDS? scanner-darkly #{})
+;=> true
 ~~~
 </exercise>
 
