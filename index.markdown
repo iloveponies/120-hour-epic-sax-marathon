@@ -6,37 +6,6 @@
 
 Important annoucements follow:
 
-- Sometimes we need to modify some exercises on the fly. When this happens,
-  new tests will appear in the main repository of the chapter (the repository
-  under the organization `iloveponies` in Github). If you know git enough, you
-  can merge the changes to your fork. Or you can just copy the new tests to
-  the test file. **You can always copy the newest test file from Github over
-  the old one on your local directory.**
-
-- The deadline for returning solutions is Friday 23:59
-
-- This course will give you 2-4 study creadits based on how many points you
-  got. Every exercise gives a one point unless a different amount is
-  explicitly mentioned.
-  
-    ~~~clojure
-    user=> (print-table [{'points 60 'credits 2}
-                         {'points 90 'credits 3}
-                         {'points 120 'credits 4}])
-    ================
-    credits | points
-    ================
-    2       | 60    
-    3       | 90    
-    4       | 120   
-    ================
-    ~~~
-
-Here be dragons.
-
-But before those, please fill out this
-[from](https://elomake.helsinki.fi/lomakkeet/38254/lomake.html).
-
 ## [Basic tools]
 
 Get equipped in your fight against the dragons.
