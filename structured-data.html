@@ -375,6 +375,9 @@ Exercise 12
 (multiple-authors? wild-seed)      <span class="co">;=&gt; false</span>
 (multiple-authors? little-schemer) <span class="co">;=&gt; true</span></code></pre>
 </section>
+</section>
+<section class="level3" id="adding-values-to-a-map">
+<h3>Adding Values to a Map</h3>
 <p><code>(assoc a-map a-key a-value)</code> sets the value of <code>a-key</code> in <code>a-map</code> to be <code>a-value</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">assoc</span> {<span class="kw">:a</span> <span class="dv">1</span>} <span class="kw">:b</span> <span class="dv">2</span>) <span class="co">;=&gt; {:b 2, :a 1}</span>
 (<span class="kw">assoc</span> {<span class="kw">:a</span> <span class="dv">1</span>} <span class="kw">:a</span> <span class="dv">2</span>) <span class="co">;=&gt; {:a 2}</span></code></pre>
@@ -692,11 +695,22 @@ Exercise 21
 Exercise 22
 </h3>
 <p>Write the function <code>(old-book-&gt;new-book book)</code> that takes a book with the previous representation (authors in a vector) and returns the same book in the new representation (authors in a set).</p>
+<p>Use <code>assoc</code> to change the representation. Do not construct a new map using the map literal syntax.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(old-book-&gt;new-book {<span class="kw">:title</span> <span class="st">&quot;The Little Schemer&quot;</span>
                      <span class="kw">:authors</span> [friedman, felleisen]})
 <span class="co">;=&gt; {:title &quot;The Little Schemer&quot; :authors #{friedman, felleisen}}</span>
 (old-book-&gt;new-book {<span class="kw">:title</span> <span class="st">&quot;Wild Seed&quot;</span>, <span class="kw">:authors</span> [octavia]})
 <span class="co">;=&gt; {:title &quot;Wild Seed&quot;, :authors #{octavia}}</span></code></pre>
+<p>The reason to use <code>assoc</code> is that it allows us to keep any additional key-value pairs intact. Earlier we had an example where we added a list of awards to a book. By using <code>assoc</code>, these additional key-value pairs do not disappear anywhere during the transformation.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(old-book-&gt;new-book
+  {<span class="kw">:awards</span> [<span class="st">&quot;Hugo&quot;</span> <span class="st">&quot;World Fantasy Award&quot;</span> <span class="st">&quot;Arthur C. Clarke Award&quot;</span>
+            <span class="st">&quot;British Science Fiction Award&quot;</span>]
+   <span class="kw">:title</span> <span class="st">&quot;The City and the City&quot;</span>
+   <span class="kw">:authors</span> [{<span class="kw">:birth-year</span> <span class="dv">1972</span>, <span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>}]})
+<span class="co">;=&gt; {:awards [&quot;Hugo&quot; &quot;World Fantasy Award&quot; &quot;Arthur C. Clarke Award&quot;</span>
+<span class="co">;             &quot;British Science Fiction Award&quot;]</span>
+<span class="co">;    :title &quot;The City and the City&quot;</span>
+<span class="co">;    :authors #{{:birth-year 1972, :name &quot;China Miéville&quot;}}}</span></code></pre>
 </section>
 <p>Here are all of the books changed to the new representation:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> china </span>{<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>})
