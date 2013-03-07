@@ -80,15 +80,17 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <p>Any value can be turned into <code>true</code> or <code>false</code> with the <code>boolean</code> function:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">boolean</span> <span class="st">&quot;foo&quot;</span>)   <span class="co">;=&gt; true</span>
-(<span class="kw">boolean</span> nil)     <span class="co">;=&gt; false</span>
-(<span class="kw">boolean</span> (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">3</span>)) <span class="co">;=&gt; true</span>
-(<span class="kw">boolean</span> true)    <span class="co">;=&gt; true</span>
-(<span class="kw">boolean</span> false)   <span class="co">;=&gt; false</span></code></pre>
+(<span class="kw">boolean</span> nil)     <span class="co">;=&gt; false</span></code></pre>
 <section class="alert alert-success">
 <h3>
 Exercise 1
 </h3>
-<p>Implement <code>(my-boolean x)</code>, which works like the built-in <code>boolean</code> function: for <code>nil</code> and <code>false</code>, it returns <code>false</code>, and for all other values it returns <code>true</code>. You can use <code>if</code> in its implementation.</p>
+<p>Implement <code>(boolean x)</code>, which works like the built-in <code>boolean</code> function: for <code>nil</code> and <code>false</code>, it returns <code>false</code>, and for all other values it returns <code>true</code>. You can use <code>if</code> in its implementation, but not the build-in <code>boolean</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">boolean</span> <span class="st">&quot;foo&quot;</span>) <span class="co">;=&gt; true</span>
+(<span class="kw">boolean</span> nil) <span class="co">;=&gt; false</span>
+(<span class="kw">boolean</span> (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">3</span>)) <span class="co">;=&gt; true</span>
+(<span class="kw">boolean</span> true) <span class="co">;=&gt; true</span>
+(<span class="kw">boolean</span> false) <span class="co">;=&gt; false</span></code></pre>
 </section>
 </section>
 <section class="level2" id="comparing-values">
