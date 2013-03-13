@@ -12,7 +12,7 @@
 To successfully work through this course, you need to do the following
 things:
 
-- install a sane editor: Ligh Table, Vim or Emacs
+- install a sane editor: Light Table, Vim or Emacs
 - install Git
 - install Leiningen
 - make sure to have a github account
@@ -25,25 +25,22 @@ As a lisp, Clojure requires some support from the text editor to be
 pleasant to write. Luckily a guy named Chris Granger has started a
 project to create The editor called Light Table. It's still quite
 alfa, but works nicely for your purposes during this course.
-[Check it out][LightTable]. When in doubt, use this. To install Light
-Table, follow the instructions for your platform found behind the
-link.
+[Check it out][LightTable]. When in doubt, use this.
 
-Light Table has two modes, Instarepl and Table. At first, you should
-get familiar with the Instarepl. It is a tool in which you can write
-Clojure code, run it and instantly see the results. This is a great
-environment to test ideas and also to solve the exercises. Many think
-that working in the repl is one of the best things in Clojure
-developement.
+Light Table is more or less like an ordinary editor with some IDE like
+features. The thing that sets Light Table apart is the Instarepl. It
+is a tool in which you can write Clojure code, run it and instantly
+see the results. This is a great environment to test ideas and also to
+solve the exercises. Many think that working in the repl is one of the
+best things in Clojure developement.
 
-When you open Light Table, you are presented with the choice between
-Instarepl and Table. Select Instarepl. A short tutorial tells you the
-basics of Instarepl. After that you can write code on the left hand
-side, evaluate everything with `Ctrl+Enter` and see the results on the
-right hand side. The lower right corner has a button that opens the
-menu.
+When you open Light Table, you get a Welcome screen and menus in the
+left hand side. To get going, you can open an Instarepl by selecting
+`command`, writing `open instarepl` to the box and selecting the
+presented choice. This opens a tab to which you can start writing
+Clojure code.
 
-Not suprisingly, both Vim and Emacs have plug-ins to work with
+Not suprisingly, both Vim and Emacs have good plug-ins to work with
 Clojure. For the basics, one should install the clojure-mode from the
 Emacs package manager. For a more complete set of tools we can
 recommend [Emacs Starter Kit][EST]. In Vim, [VimClojure][VimClojure]
@@ -56,9 +53,7 @@ handles various tasks related to projects, including building the
 project, declaring and fetching dependencies, opening an interactive
 session inside the project, and other such things.
 
-We use Leiningen version 2 preview on this course. It is the
-recommended version and it is what you get when you follow these
-instructions in Linux:
+Here's the instructions for installing Leiningen in Linux:
 
 1. In your home directory, create a directory called `bin` if it does
    not exist all ready.
@@ -104,8 +99,7 @@ midje           Run all [Midje] tests.
 repl            Open an interactive Clojure session.
 new             Create a new Clojure project.
 
-To get more information about for example the repl command, run `lein
-help repl`.
+To get more information about a command, run `lein help <command>`.
 
 The heart of every Leiningen project is the file `project.clj` at the
 top level of the projects directroy tree. It contains information
@@ -150,7 +144,6 @@ informed about the **new** points that you got.
 
 For this system to work, we need to know who you are. Please fill out this
 form:
-[https://elomake.helsinki.fi/lomakkeet/38254/lomake.html](https://elomake.helsinki.fi/lomakkeet/38254/lomake.html)
 
 <alert>
 
@@ -187,7 +180,7 @@ chapter.
         lein midje
    Instead of `lein midje`, you can issue the command
    
-        lein midje --lazytest
+        lein midje :autotest
    This starts a loop which runs the tests again every time you make changes
    to any of the projects files. A very handy feature, as running plain `lein
    midje` has a pretty long startup time.
@@ -199,13 +192,13 @@ chapter.
    
 [Proceed, young padawan. →][next]
 
-[LightTable]: http://app.kodowa.com/playground
+[LightTable]: http://www.lighttable.com/
 [EST]: https://github.com/technomancy/emacs-starter-kit
 [VimClojure]: https://github.com/vim-scripts/VimClojure
 [Git]: http://git-scm.com
 [Github]: https://github.com
 [Leiningen]: https://github.com/technomancy/leiningen
-[LeinInstall]: https://raw.github.com/technomancy/leiningen/preview/bin/lein
+[LeinInstall]: https://raw.github.com/technomancy/leiningen/stable/bin/lein
 [Midje]: https://github.com/marick/Midje
 [Ubuntu]: http://ubuntu.com
 [Vim]: http://vim.org

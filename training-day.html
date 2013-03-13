@@ -128,18 +128,17 @@ FAIL &quot;square&quot; at (training_day_test.clj:10)
 <p>One of the nice features of Clojure is the REPL. It is an interactive session in which you can write code and see it executed immediately. Here you have two choices. Light Table has a really nice REPL called Instarepl, and Leiningen provides the classical REPL. We encourage you to test out Instarepl even once. It’s pretty awsome.</p>
 <section class="level3" id="light-table">
 <h3>Light Table</h3>
-<p>Follow the installation instructions found <a href="http://app.kodowa.com/playground">here</a> if you haven’t already. In Linux, you run the <code>launcher.jar</code> as you would run any .jar file and then navigate to <code>localhost:8833</code> in Chrome (or Chromium). Select Instarepl when confronted with the choice.</p>
-<p>On the left side you have a box. Click under the last line of text, press <code>Enter</code> to get some breathing space and type <code>(+ 1 2)</code>. The answer should appear as the last line on the right hand side like this</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>) =&gt; <span class="dv">3</span></code></pre>
+<p>Follow the installation instructions found in the previous chapter if you haven’t already. In Linux, you run the file <code>LightTable</code> as you would run any binary.</p>
+<p>On the left side you have a menu. Select <code>command</code> and write <code>open instarepl</code> into the box. Click on the presented choice to open the Instarepl tab. Type <code>(+ 1 2)</code> into the text are. Small blue boxes near the bottom of the window should indicate that something is happening. Soon the answer to your question should appear right next to the code you wrote.</p>
 <p>If something went sideways, please let us know by raising your hand.</p>
 </section>
 <section class="level3" id="good-ol-repl">
 <h3>Good ol’ repl</h3>
-<p>If you don’t want to use Light Table, there is always the <code>lein repl</code>. Issue that command in the terminal and a interactive Clojure session starts. It should look like this:</p>
+<p>If you don’t want to use Light Table, there is always the <code>lein repl</code>. Issue that command in the terminal and an interactive Clojure session starts. It should look like this:</p>
 <pre><code>me@my-computer:~$ lein repl
 nREPL server started on port 50443
 Welcome to REPL-y!
-Clojure 1.4.0
+Clojure 1.5.0
     Exit: Control+D or (exit) or (quit)
 Commands: (user/help)
     Docs: (doc function-name-here)
@@ -267,7 +266,7 @@ Exercise 3
 <p>Lets start writing a function <code>(hello who)</code>, which returns an English greeting for the user. Functions are created with <code>fn</code>. Write the following in you REPL and evaluate it.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))</code></pre>
 <p>The REPL should tell you that it was a function. Instarepl just says</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>)) =&gt; <span class="kw">fn</span></code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>)) <span class="kw">fn</span></code></pre>
 <p>As usual, <code>lein repl</code> is a bit more verbose and states</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>))
 #&lt;user$eval326$fn__327 user$eval326$fn__327<span class="kw">@4a2d09aa&gt;</span></code></pre>
@@ -281,11 +280,10 @@ Exercise 4
 </h3>
 <p>Call the following function in the REPL with your name.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">fn</span> [<span class="kw">name</span>] (<span class="kw">str</span> <span class="st">&quot;Welcome to Rivendell mr &quot;</span> <span class="kw">name</span>))</code></pre>
-<p>No need to return this one.</p>
 </section>
-<p>Now we know how to make a function, but we only got a glimpse of it and then it was gone. We have to write the definition of the function every time we want to call it. But we want something more permanent, something that we can write once and call multiple times! The functions created with <code>fn</code> are called <em>anonymous functions</em>. They are named such because they have no name. To give a name to a function we can use <code>def</code>. Let’s give the greeter function a name right away.</p>
+<p>Now we know how to make a function, but we only got a glimpse of it and then it was gone. We have to write the definition of the function every time we want to call it. But we want something more permanent, something that we can write once and call multiple times! The functions created with <code>fn</code> are called <em>anonymous functions</em>. They are called that because they have no name. To give a name to a function we can use <code>def</code>. Let’s give the greeter function a name right away.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> hello </span>(<span class="kw">fn</span> [who] (<span class="kw">str</span> <span class="st">&quot;Hello, &quot;</span> who <span class="st">&quot;!&quot;</span>)))</code></pre>
-<p>Don’t forget to evaluate that one. Now we can call this function. Write <code>(hello &quot;beautiful&quot;)</code> in your REPL to get a instant compliment. In the name of sex-equality evaluate also <code>(hello &quot;handsome&quot;)</code>.</p>
+<p>That definition is also an expression, so don’t forget to evaluate it. Now we can call this function. Write <code>(hello &quot;beautiful&quot;)</code> in your REPL to get a instant compliment. In the name of sex-equality evaluate also <code>(hello &quot;handsome&quot;)</code>.</p>
 <p>So what just happened? Well, <code>def</code> gives a name to a value. In the previous case the value is what we get when we evaluate <code>(fn [who] (str &quot;Hello, &quot; who &quot;!&quot;))</code>. And what do we get when we evaluate that? A function. So we gave the name <code>hello</code> to a function that gives out greetings.</p>
 <section class="alert alert-success">
 <h3>
@@ -353,7 +351,7 @@ Watch out!
 
 <p>See how the namespace is called <code>training-day</code>, but the file is <code>training_day.clj</code>? This is intentional. If a namespace name has an hyphen, the corresponding file name should have an underscore.</p>
 </section>
-<p>We are at cross roads again. Choose to right set of instructions based on your REPL.</p>
+<p>We are at cross roads. Choose to right set of instructions based on your REPL.</p>
 <section class="alert alert-info">
 <h3>
 Hint
@@ -361,8 +359,7 @@ Hint
 
 <section class="level4" id="light-table-1">
 <h4>Light Table</h4>
-<p>Have an Instarepl open? If not, open it now.</p>
-<p>From the lower right corner menu, select Connect. From the overlay, click Connect, and find the directory <code>training-day</code> that was created when you followed the instructions at the end of last chaper. Have the directory selected? Good, hit <code>Enter</code>.</p>
+<p>From the menu, select <code>workspace</code> and the <code>Add folder</code>. Find the directory <code>training-day</code> and open it. The project is now added to Light Table. Open the Instarepl again.</p>
 </section>
 <section class="level4" id="lein-repl">
 <h4>lein repl</h4>
@@ -370,7 +367,7 @@ Hint
 </section> <!-- BUG in pandoc. This is required to forcefully close
                 the info section -->
 </section>
-<p>Now as you have your REPLs open, evaluate the following.</p>
+<p>Now as you have your REPLs open, write the following in it. Light Table might ask you which client you want to use. Select training-day.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">use</span> &#39;training-day)
 hai</code></pre>
 <p>Were you greeted in all CAPS? If not, please raise your hand.</p>
