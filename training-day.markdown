@@ -152,32 +152,30 @@ to test out Instarepl even once. It's pretty awsome.
 
 ### Light Table
 
-Follow the installation instructions found [here][LightTable] if you
-haven't already. In Linux, you run the `launcher.jar` as you would run
-any .jar file and then navigate to `localhost:8833` in Chrome (or
-Chromium). Select Instarepl when confronted with the choice.
+Follow the installation instructions found in the previous chapter if
+you haven't already. In Linux, you run the file `LightTable` as you
+would run any binary.
 
-On the left side you have a box. Click under the last line of text,
-press `Enter` to get some breathing space and type `(+ 1 2)`. The
-answer should appear as the last line on the right hand side like this
-
-~~~clojure
-(+ 1 2) => 3
-~~~
+On the left side you have a menu. Select `command` and write `open
+instarepl` into the box. Click on the presented choice to open the
+Instarepl tab. Type `(+ 1 2)` into the text are. Small blue boxes near
+the bottom of the window should indicate that something is happening.
+Soon the answer to your question should appear right next to the code
+you wrote.
 
 If something went sideways, please let us know by raising your hand.
 
 ### Good ol' repl
 
 If you don't want to use Light Table, there is always the `lein repl`.
-Issue that command in the terminal and a interactive Clojure session
+Issue that command in the terminal and an interactive Clojure session
 starts. It should look like this:
 
 ~~~
 me@my-computer:~$ lein repl
 nREPL server started on port 50443
 Welcome to REPL-y!
-Clojure 1.4.0
+Clojure 1.5.0
     Exit: Control+D or (exit) or (quit)
 Commands: (user/help)
     Docs: (doc function-name-here)
@@ -378,7 +376,7 @@ following in you REPL and evaluate it.
 The REPL should tell you that it was a function. Instarepl just says
 
 ~~~clojure
-(fn [who] (str "Hello, " who "!")) => fn
+(fn [who] (str "Hello, " who "!")) fn
 ~~~
 
 As usual, `lein repl` is a bit more verbose and states
@@ -414,8 +412,6 @@ Call the following function in the REPL with your name.
 (fn [name] (str "Welcome to Rivendell mr " name))
 ~~~
 
-No need to return this one.
-
 </exercise>
 
 Now we know how to make a function, but we only got a glimpse of it
@@ -423,16 +419,17 @@ and then it was gone. We have to write the definition of the function
 every time we want to call it. But we want something more permanent,
 something that we can write once and call multiple times! The
 functions created with `fn` are called *anonymous functions*. They are
-named such because they have no name. To give a name to a function we
+called that because they have no name. To give a name to a function we
 can use `def`. Let's give the greeter function a name right away.
 
 ~~~clojure
 (def hello (fn [who] (str "Hello, " who "!")))
 ~~~
 
-Don't forget to evaluate that one. Now we can call this function.
-Write `(hello "beautiful")` in your REPL to get a instant compliment.
-In the name of sex-equality evaluate also `(hello "handsome")`.
+That definition is also an expression, so don't forget to evaluate it.
+Now we can call this function. Write `(hello "beautiful")` in your
+REPL to get a instant compliment. In the name of sex-equality evaluate
+also `(hello "handsome")`.
 
 So what just happened? Well, `def` gives a name to a value. In the
 previous case the value is what we get when we evaluate `(fn [who]
@@ -567,19 +564,16 @@ hyphen, the corresponding file name should have an underscore.
 
 </alert>
 
-We are at cross roads again. Choose to right set of instructions based
-on your REPL.
+We are at cross roads. Choose to right set of instructions based on
+your REPL.
 
 <info>
 
 #### Light Table
  
-Have an Instarepl open? If not, open it now.
-
-From the lower right corner menu, select Connect. From the overlay,
-click Connect, and find the directory `training-day` that was created
-when you followed the instructions at the end of last chaper. Have the
-directory selected? Good, hit `Enter`.
+From the menu, select `workspace` and the `Add folder`. Find the
+directory `training-day` and open it. The project is now added to
+Light Table. Open the Instarepl again.
 
 #### lein repl
 
@@ -589,7 +583,8 @@ Navigate to the directory `training-day`, and run `lein repl`.
                 the info section -->
 </info>
 
-Now as you have your REPLs open, evaluate the following.
+Now as you have your REPLs open, write the following in it. Light
+Table might ask you which client you want to use. Select training-day.
 
 ~~~clojure
 (use 'training-day)
@@ -682,4 +677,3 @@ create a **new** pull request.
 
 [Midje]: https://github.com/marick/Midje
 [Git]: http://git-scm.com
-[LightTable]: http://app.kodowa.com/playground
