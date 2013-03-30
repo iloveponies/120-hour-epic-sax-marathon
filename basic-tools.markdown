@@ -12,12 +12,25 @@
 To successfully work through this course, you need to do the following
 things:
 
+- install Java
 - install a sane editor: Light Table, Vim or Emacs
 - install Git
 - install Leiningen
 - make sure to have a github account
 - inform the teachers about your github account name
 - read very carefully the submission instructions
+
+## Java
+
+Clojure runs on JVM, so you need to have the Java JDK installed. On
+Linux this is easily done using the distribution's package manager.
+
+On Windows you need to download the latest JDK from Oracle's site and
+install it. You also need to add the JDK bin directory to the Path.
+Right click Computer, select Properties, select Advanced system
+settings, select Environment Variables and Edit the Path to contain
+the `bin` directory of the JDK installation usually found under
+`Program Files`. Don't hesitate to ask if you encounter any problems.
 
 ## Editor
 
@@ -91,6 +104,20 @@ Here's the instructions for installing Leiningen in Linux:
    download the rest of Leiningen. After the download is complete you
    get a list of services provided by Leiningen.
 
+In Windows you need to do the following:
+
+1. Download the GNU wget binary from [here][wget] and place it in a
+   appropriate directory.
+   
+2. Download the Leiningen [batch file][LeinInstallWindows] and place
+   it in an appropriate directory (same place as wget is fine).
+   
+3. Add the previous directories to Path. Right click Computer, select
+   Properties, select Advanced system settings, select Environment
+   Variables... and Edit `Path` to contain the directories.
+   
+4. Open `cmd.exe` and run `lein self-install`.
+
 The table below contains some important Leiningen commands.
 
 Command         Description
@@ -112,6 +139,11 @@ a tool that keeps track of changes made to files under a directory
 tree. We use this tool to distribute pre-made Leiningen projects in
 which you can complete the exercises of every chapter. You also use
 Git to submit your answers. If you have any problems with Git, ask.
+
+To install Git on Linux, use your distribution's package manager. In
+Windows, point your browser to [http://git-scm.com/][Git], where you
+can find both the binaries and a comprehensive documentation. On
+Windows it's the easiest to use the Git-bash that comes with Git.
 
 There are three basic commands that you need to know to successfully
 submit exercises:
@@ -143,7 +175,7 @@ informed about the **new** points that you got.
 ### Tell us who you are
 
 For this system to work, we need to know who you are. Please fill out this
-form:
+form if you haven't already:
 
 <alert>
 
@@ -199,9 +231,12 @@ chapter.
 [Github]: https://github.com
 [Leiningen]: https://github.com/technomancy/leiningen
 [LeinInstall]: https://raw.github.com/technomancy/leiningen/stable/bin/lein
+[LeinInstallWindows]: https://raw.github.com/technomancy/leiningen/stable/bin/lein.bat
 [Midje]: https://github.com/marick/Midje
 [Ubuntu]: http://ubuntu.com
 [Vim]: http://vim.org
 [next]: training-day.html
 [vm]: http://cs.helsinki.fi/ilmari.vacklin/ClojureBox.zip
 [VirtualBox]: http://virtualbox.org
+[PowerShell]: http://www.microsoft.com/powershell
+[wget]: http://users.ugent.be/~bpuype/wget/#download

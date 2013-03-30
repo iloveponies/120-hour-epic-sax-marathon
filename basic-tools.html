@@ -35,6 +35,7 @@
 <h2>First things first</h2>
 <p>To successfully work through this course, you need to do the following things:</p>
 <ul>
+<li>install Java</li>
 <li>install a sane editor: Light Table, Vim or Emacs</li>
 <li>install Git</li>
 <li>install Leiningen</li>
@@ -42,6 +43,11 @@
 <li>inform the teachers about your github account name</li>
 <li>read very carefully the submission instructions</li>
 </ul>
+</section>
+<section class="level2" id="java">
+<h2>Java</h2>
+<p>Clojure runs on JVM, so you need to have the Java JDK installed. On Linux this is easily done using the distribution’s package manager.</p>
+<p>On Windows you need to download the latest JDK from Oracle’s site and install it. You also need to add the JDK bin directory to the Path. Right click Computer, select Properties, select Advanced system settings, select Environment Variables and Edit the Path to contain the <code>bin</code> directory of the JDK installation usually found under <code>Program Files</code>. Don’t hesitate to ask if you encounter any problems.</p>
 </section>
 <section class="level2" id="editor">
 <h2>Editor</h2>
@@ -66,6 +72,13 @@ mkdir bin</code></pre></li>
 <li><p>Make the script you just downloaded executable.</p>
 <pre class="sh"><code>chmod +x ~/bin/lein</code></pre></li>
 <li><p>In any directory, issue the command <code>lein help</code>. This will first download the rest of Leiningen. After the download is complete you get a list of services provided by Leiningen.</p></li>
+</ol>
+<p>In Windows you need to do the following:</p>
+<ol type="1">
+<li><p>Download the GNU wget binary from <a href="http://users.ugent.be/~bpuype/wget/#download">here</a> and place it in a appropriate directory.</p></li>
+<li><p>Download the Leiningen <a href="https://raw.github.com/technomancy/leiningen/stable/bin/lein.bat">batch file</a> and place it in an appropriate directory (same place as wget is fine).</p></li>
+<li><p>Add the previous directories to Path. Right click Computer, select Properties, select Advanced system settings, select Environment Variables… and Edit <code>Path</code> to contain the directories.</p></li>
+<li><p>Open <code>cmd.exe</code> and run <code>lein self-install</code>.</p></li>
 </ol>
 <p>The table below contains some important Leiningen commands.</p>
 <table>
@@ -96,6 +109,7 @@ mkdir bin</code></pre></li>
 <section class="level2" id="git">
 <h2>Git</h2>
 <p><a href="http://git-scm.com">Git</a> is an distributed version control system. A fancy name for a tool that keeps track of changes made to files under a directory tree. We use this tool to distribute pre-made Leiningen projects in which you can complete the exercises of every chapter. You also use Git to submit your answers. If you have any problems with Git, ask.</p>
+<p>To install Git on Linux, use your distribution’s package manager. In Windows, point your browser to <a href="http://git-scm.com">http://git-scm.com/</a>, where you can find both the binaries and a comprehensive documentation. On Windows it’s the easiest to use the Git-bash that comes with Git.</p>
 <p>There are three basic commands that you need to know to successfully submit exercises:</p>
 <ul>
 <li><code>git clone</code> will copy a repository</li>
@@ -110,7 +124,7 @@ mkdir bin</code></pre></li>
 <p>If you didn’t get all the points and want to try again, you are free to do so. Just make modifications to the code, create a commit, push and open a <strong>new</strong> pull request. We once again run the tests and see the code. You will be informed about the <strong>new</strong> points that you got.</p>
 <section class="level3" id="tell-us-who-you-are">
 <h3>Tell us who you are</h3>
-<p>For this system to work, we need to know who you are. Please fill out this form:</p>
+<p>For this system to work, we need to know who you are. Please fill out this form if you haven’t already:</p>
 <section class="alert alert-error">
 <h3>
 Watch out!
