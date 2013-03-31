@@ -174,8 +174,8 @@ informed about the **new** points that you got.
 
 ### Tell us who you are
 
-For this system to work, we need to know who you are. Please fill out this
-form if you haven't already:
+For this system to work, we need to know who you are. If you haven't
+already, please fill out [this form][Form].
 
 <alert>
 
@@ -224,6 +224,7 @@ chapter.
    
 [Proceed, young padawan. →][next]
 
+[Form]: https://elomake.helsinki.fi/lomakkeet/42235/lomake.html
 [LightTable]: http://www.lighttable.com/
 [EST]: https://github.com/technomancy/emacs-starter-kit
 [VimClojure]: https://github.com/vim-scripts/VimClojure
@@ -238,5 +239,4 @@ chapter.
 [next]: training-day.html
 [vm]: http://cs.helsinki.fi/ilmari.vacklin/ClojureBox.zip
 [VirtualBox]: http://virtualbox.org
-[PowerShell]: http://www.microsoft.com/powershell
 [wget]: http://users.ugent.be/~bpuype/wget/#download
