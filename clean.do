@@ -1,1 +1,0 @@
-./remove-generated-pages
