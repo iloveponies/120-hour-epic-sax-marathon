@@ -162,15 +162,25 @@ repository and start working with the exercises when you encounter them amongs
 the material. You create *commits* and maybe *push* them in to your own fork
 while working. You also run the tests with `lein midje` to see if they pass.
 
-When you want your answers graded, you push all of your work with `git push`.
-You then go to Github and send a *pull request*. We will run the tests on our
-computer and see the code. Your points will be announced on the comment thread
-of the pull request and the pull request will be closed.
+When you want your answers graded, you push all of your work with `git
+push`. You then go to Github and send a *pull request*. At this point,
+[Travis][Travis] kicks in. It runs the tests for your
+code and then comments on the pull request whether the tests passed or
+failed. A link is also provided to see the nitty-gritty details.
 
-If you didn't get all the points and want to try again, you are free to do so.
-Just make modifications to the code, create a commit, push and open a **new**
-pull request. We once again run the tests and see the code. You will be
-informed about the **new** points that you got.
+If you didn't get all the tests to pass on the first go, don't worry,
+you can try again. Just make modifications to the code, create a
+commit, and push. The pull request will be updated, Travis will rerun
+the tests and a new comment about the build status will be posted. You
+can keep trying as many times as you want.
+
+We read the pull requests now and then and sometimes comment on the
+code. You should also check your pull requests to see if something
+needs to be fixed before points can be awarded. If all tests passed
+and everything looks good, we will announce your points on the
+comments and close the pull request. After the deadline, all the pull
+requests will be closed, and you will get points for those exercises
+that you succesfully completed.
 
 ### Tell us who you are
 
@@ -201,7 +211,7 @@ chapter.
    login information will be requested.
 
     ~~~ {.sh}
-    git clone https://github.com/rapala/training-day.git
+    git clone https://github.com/<my-account>/training-day.git
     ~~~
     
 4. A directory `training-day` will be created. Go inside the directory and
@@ -240,3 +250,4 @@ chapter.
 [vm]: http://cs.helsinki.fi/ilmari.vacklin/ClojureBox.zip
 [VirtualBox]: http://virtualbox.org
 [wget]: http://users.ugent.be/~bpuype/wget/#download
+[Travis]: http://travis-ci.org
