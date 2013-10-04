@@ -5,13 +5,14 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="120 hour epic">
   <title>One Function to rule them all</title>
+  <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; }
+table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 code > span.kw { color: #007020; font-weight: bold; }
@@ -28,7 +29,7 @@ code > span.fu { color: #06287e; }
 code > span.er { color: #ff0000; font-weight: bold; }
   </style>
   <link rel="stylesheet" href="css/base.css">
-  <script src="https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -44,18 +45,18 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 class="author">120 hour epic</h2>
 <h3 class="date">sax marathon</h3>
 </header>
-<section class="level2" id="synopsis">
+<section id="synopsis" class="level2">
 <h2>Synopsis</h2>
 <ul>
 <li><code>reduce</code></li>
 <li>variable arguments</li>
 </ul>
 </section>
-<section class="level2" id="fork-this">
+<section id="fork-this" class="level2">
 <h2>Fork this</h2>
 <p><a href="https://github.com/iloveponies/one-function-to-rule-them-all">https://github.com/iloveponies/one-function-to-rule-them-all</a></p>
 </section>
-<section class="level2" id="return-of-the-recursion">
+<section id="return-of-the-recursion" class="level2">
 <h2>Return of the recursion</h2>
 <p>Often you want to combine elements of a collection, like calculate the sum or product of a list of numbers, or concatenate a list of strings. That is, we want to make a transformation like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">    (<span class="kw">cons</span> <span class="dv">1</span> (<span class="kw">cons</span> <span class="dv">2</span> (<span class="kw">cons</span> <span class="dv">3</span> nil)))
@@ -132,8 +133,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="co">;=&gt; (+ (+ (+ 0 1) 2) 3)</span>
 <span class="co">;=&gt; 6</span></code></pre>
 <p>Time to put the good tool to use.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 1
 </h3>
 
@@ -143,8 +143,9 @@ Exercise 1
 (concat-elements [[<span class="dv">1</span> <span class="dv">2</span>]])       <span class="co">;=&gt; (1 2)</span>
 (concat-elements [[<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span>]]) <span class="co">;=&gt; (1 2 3 4)</span></code></pre>
 </section>
+
 </section>
-<section class="level2" id="two-sides-of-a-coin">
+<section id="two-sides-of-a-coin" class="level2">
 <h2>Two Sides of a Coin</h2>
 <p>One can call <code>reduce</code> in two different ways:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reduce</span> combinator-function initial-accumulator-value input-sequence)</code></pre>
@@ -180,8 +181,7 @@ Exercise 1
 <span class="co">;=&gt; (reduce min (min 2 6) [])</span>
 <span class="co">;=&gt; (reduce min 2         [])</span>
 <span class="co">;=&gt; 2</span></code></pre>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 2
 </h3>
 <p>Write the function <code>(str-cat a-seq)</code> that takes a sequence of strings and catenates them with one space character between each.</p>
@@ -191,8 +191,8 @@ Exercise 2
 (str-cat [])                   <span class="co">;=&gt; &quot;&quot;</span></code></pre>
 <p>You probably want to handle the special case of empty parameter outside reduce.</p>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 3
 </h3>
 <p>Write the function <code>(my-interpose x a-seq)</code> that places <code>x</code> between every element of <code>a-seq</code>.</p>
@@ -202,6 +202,7 @@ Exercise 3
 (my-interpose <span class="kw">:a</span> [<span class="dv">1</span>])                  <span class="co">;=&gt; (1)</span>
 (my-interpose <span class="kw">:a</span> [])                   <span class="co">;=&gt; ()</span></code></pre>
 </section>
+
 <p>Let’s look at another example. We implemented the function <code>count-elem</code> in <a href="recursion.html">Recursion</a>, which counts the occurrences of an element in a sequence. Let’s reimplement that function with reduce:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> count-elem </span>[elem a-seq]
   (<span class="kw">let</span> [counter (<span class="kw">fn</span> [<span class="kw">count</span> <span class="kw">e</span>]
@@ -228,8 +229,7 @@ Exercise 3
 <span class="co">;=&gt; (reduce counter (counter 2 &quot;~^._.^~&quot;) [])</span>
 <span class="co">;=&gt; (reduce counter 2 [])</span>
 <span class="co">;=&gt; 2</span></code></pre>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 4
 </h3>
 
@@ -239,8 +239,8 @@ Exercise 4
 (my-count [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
 (my-count [<span class="dv">1</span>])     <span class="co">;=&gt; 1</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 5
 </h3>
 
@@ -249,8 +249,8 @@ Exercise 5
 (my-reverse [<span class="dv">1</span> <span class="dv">2</span>])   <span class="co">;=&gt; (2 1)</span>
 (my-reverse [])      <span class="co">;=&gt; ()</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 6
 </h3>
 
@@ -259,8 +259,8 @@ Exercise 6
 (min-max-element [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>])    <span class="co">;=&gt; [1 4]</span>
 (min-max-element [<span class="dv">1</span>])          <span class="co">;=&gt; [1 1]</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 7
 </h3>
 
@@ -273,8 +273,8 @@ Exercise 7
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(insertion-sort [<span class="dv">2</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">1</span>]) <span class="co">;=&gt; (1 2 3 5)</span>
 (insertion-sort [<span class="dv">1</span> <span class="dv">2</span>])     <span class="co">;=&gt; (1 2)</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 8
 </h3>
 
@@ -283,8 +283,9 @@ Exercise 8
 (parity [<span class="kw">:a</span> <span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:b</span>]) <span class="co">;=&gt; #{}</span>
 (parity [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span>])     <span class="co">;=&gt; #{2 3}</span></code></pre>
 </section>
+
 </section>
-<section class="level2" id="varargghhhh">
+<section id="varargghhhh" class="level2">
 <h2>Var…argghhhh!</h2>
 <p>As you may have noticed, some functions in Clojure can take variable amount of parameters.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">1</span>)       <span class="co">;=&gt; 2</span>
@@ -300,19 +301,19 @@ Exercise 8
 <span class="co">;=&gt; ArityException</span>
 <span class="co">;     Wrong number of args (3) passed to: user$one-or-two</span>
 <span class="co">;     clojure.lang.AFn.throwArity (AFn.java:437)</span></code></pre>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 9
 </h3>
 
 <p>Write the function <code>minus</code> that takes one or two parameters.</p>
 <ul>
-<li>If given a one parameter \(x\), it returns \(-x\).</li>
-<li>If given to parameters \(x\) and \(y\), it returns \(x - y\).</li>
+<li>If given a one parameter <span class="math">\(x\)</span>, it returns <span class="math">\(-x\)</span>.</li>
+<li>If given to parameters <span class="math">\(x\)</span> and <span class="math">\(y\)</span>, it returns <span class="math">\(x - y\)</span>.</li>
 </ul>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(minus <span class="dv">2</span>)   <span class="co">;=&gt; -2</span>
 (minus <span class="dv">4</span> <span class="dv">3</span>) <span class="co">;=&gt; 1</span></code></pre>
 </section>
+
 <p>But what if you don’t know the amount of parameters given before hand? Lets look at a definition of <code>max</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> max</span>
   ([x] x)                         <span class="co">; one parameter</span>
@@ -329,8 +330,7 @@ Exercise 9
 <span class="co">;=&gt; (reduce max (max 3 4) &#39;())</span>
 <span class="co">;=&gt; (reduce max 4         &#39;())</span>
 <span class="co">;=&gt; 4</span></code></pre>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 10
 </h3>
 
@@ -339,25 +339,25 @@ Exercise 10
 (count-params <span class="kw">:a</span>)         <span class="co">;=&gt; 1</span>
 (count-params <span class="kw">:a</span> <span class="dv">1</span> <span class="kw">:b</span> <span class="kw">:c</span>) <span class="co">;=&gt; 4</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 11
 </h3>
 
 <p>Write the function <code>my-*</code> that takes any number of parameters.</p>
 <ul>
 <li>If no parameters are given, return 1</li>
-<li>If one parameter \(x\) is given, return \(x\).</li>
-<li>If two parameters \(x\) and \(y\) are given, return \(xy\).</li>
-<li>If more than two parameters \(x\), \(y\), \(\dots\) are given, return their product \(x \cdot y \cdots\).</li>
+<li>If one parameter <span class="math">\(x\)</span> is given, return <span class="math">\(x\)</span>.</li>
+<li>If two parameters <span class="math">\(x\)</span> and <span class="math">\(y\)</span> are given, return <span class="math">\(xy\)</span>.</li>
+<li>If more than two parameters <span class="math">\(x\)</span>, <span class="math">\(y\)</span>, <span class="math">\(\dots\)</span> are given, return their product <span class="math">\(x \cdot y \cdots\)</span>.</li>
 </ul>
 <p>You are free to use <code>*</code>, but not <code>apply</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-*)           <span class="co">;=&gt; 1</span>
 (my-* <span class="dv">4</span> <span class="dv">3</span>)       <span class="co">;=&gt; 12</span>
 (my-* <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>) <span class="co">;=&gt; 120</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 12
 </h3>
 
@@ -373,12 +373,12 @@ Exercise 12
 (<span class="kw">filter</span> (pred-and <span class="kw">number?</span> <span class="kw">integer?</span> <span class="kw">pos?</span> <span class="kw">even?</span>)
         [<span class="dv">1</span> <span class="dv">0</span> -<span class="dv">2</span> <span class="kw">:a</span> <span class="dv">7</span> <span class="st">&quot;a&quot;</span> <span class="dv">2</span>])                    <span class="co">;=&gt; (0 2)</span></code></pre>
 </section>
+
 </section>
-<section class="level2" id="encore">
+<section id="encore" class="level2">
 <h2>Encore</h2>
 <p>The next exercise is a bit trickier.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 13
 </h3>
 
@@ -388,6 +388,7 @@ Exercise 13
 (my-map <span class="kw">+</span> [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>])      <span class="co">;=&gt; (3 3 3)</span>
 (my-map <span class="kw">vector</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; ((1 1 1) (2 2 2) (3 3 3))</span></code></pre>
 </section>
+
 <p><a href="sudoku.html">Sudoku →</a></p>
 </section>
 <footer>

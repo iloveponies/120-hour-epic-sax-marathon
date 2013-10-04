@@ -5,13 +5,14 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="120 hour epic">
   <title>Recursion</title>
+  <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; }
+table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 code > span.kw { color: #007020; font-weight: bold; }
@@ -28,7 +29,7 @@ code > span.fu { color: #06287e; }
 code > span.er { color: #ff0000; font-weight: bold; }
   </style>
   <link rel="stylesheet" href="css/base.css">
-  <script src="https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -44,7 +45,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 class="author">120 hour epic</h2>
 <h3 class="date">sax marathon</h3>
 </header>
-<section class="level2" id="synopsis">
+<section id="synopsis" class="level2">
 <h2>Synopsis</h2>
 <p>Recursion is a large topic. This chapter covers the following:</p>
 <ul>
@@ -56,12 +57,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>An application: merge sort.</li>
 </ul>
 </section>
-<section class="level2" id="fork-this">
+<section id="fork-this" class="level2">
 <h2>Fork this</h2>
 <p><a href="https://github.com/iloveponies/recursion">https://github.com/iloveponies/recursion</a></p>
 <p><a href="basic-tools.html#how-to-submit-answers-to-exercises">Here</a> are the instructions if you need them. Be sure to fork the repository behind the link above.</p>
 </section>
-<section class="level2" id="recap">
+<section id="recap" class="level2">
 <h2>Recap</h2>
 <p>This chapter talks a lot about collections and we’ll need the functions <code>first</code> and <code>rest</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">doc</span> <span class="kw">first</span>)
@@ -74,10 +75,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 (<span class="kw">rest</span> [])          <span class="co">;=&gt; ()</span></code></pre>
 <p><code>first</code> gives the first element of a sequence, and <code>rest</code> gives all but the first element.</p>
 </section>
-<section class="level2" id="recursion">
+<section id="recursion" class="level2">
 <h2>Recursion</h2>
 <p>So far we’ve manipulated collections with functions like <code>map</code> and <code>filter</code>. How do they work? They are all based on <em>recursion</em>. Recursion is the low-level method of iteration found in functional languages. While the higher-level functions like <code>map</code> are usually nicer to use than implementing the equivalent algorithm with recursion ourselves, there are often situations when the structure of the algorithm or the data it operates on is such that the existing higher-level functions do not quite work on it.</p>
-<section class="level3" id="lists-are-recursive-structures">
+<section id="lists-are-recursive-structures" class="level3">
 <h3>Lists are recursive structures</h3>
 <p>Let’s look at the function <code>cons</code>. It takes two parameters, a value and a sequence, and returns a new sequence with the value added to the front of the original sequence. For an example, to construct the sequence <code>(1 2 3 4)</code>, we could write:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">cons</span> <span class="dv">1</span>
@@ -101,23 +102,23 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <p>Imagine an arrow drawn from the second <em>sum</em> to the first <em>sum</em>. This is the recursive nature of the algorithm.</p>
 <p>The call to <code>sum</code> begins by inspecting <code>coll</code>. If <code>coll</code> is empty, <code>sum</code> immediately returns 0. If <code>coll</code> is not empty, <code>sum</code> takes its first element and adds it to the sum of the rest of the elements of <code>coll</code>. The value 0 is the base case of the algorithm, which determines when the calculation stops. If we did not have a base case, the calculation would continue infinitely.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 1
 </h3>
-<p>Write the function <code>(product coll)</code> that computes the product of a collection of values. The product of \(a\), \(b\) and \(c\) is \(a * b * c\).</p>
+<p>Write the function <code>(product coll)</code> that computes the product of a collection of values. The product of <span class="math">\(a\)</span>, <span class="math">\(b\)</span> and <span class="math">\(c\)</span> is <span class="math">\(a * b * c\)</span>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(product [])        <span class="co">;=&gt; 1  ; special case</span>
 (product [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])   <span class="co">;=&gt; 6</span>
 (product [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; 24</span>
 (product [<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span>])   <span class="co">;=&gt; 0</span>
 (product #{<span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>})  <span class="co">;=&gt; 24 ; works for sets too!</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 2
 </h3>
 <p>Write down the evaluation of <code>(product [1 2 4])</code> like we did for <code>sum</code> above.</p>
 </section>
+
 <p>To get a better grasp on what <code>sum</code> does, let’s see how it’s evaluated.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">    (sum &#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>))
 <span class="kw">=</span>   (sum (<span class="kw">cons</span> <span class="dv">1</span> (<span class="kw">cons</span> <span class="dv">2</span> (<span class="kw">cons</span> <span class="dv">3</span> (<span class="kw">cons</span> <span class="dv">4</span> &#39;())))))
@@ -142,8 +143,7 @@ Exercise 2
     (... (<span class="kw">first</span> coll) ... (eats-coll (<span class="kw">rest</span> coll)))))</code></pre>
 <p>The first branch of the <code>if</code> is the base case and determines the value of <code>eats-coll</code> when given an empty collection. The second branch determines what operation to apply on the elements of the collection.</p>
 <p>We call this kind of computation <em>linear</em> because the expression it constructs grows linearly with the size of input.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 3
 </h3>
 <p>Write the function <code>(singleton? coll)</code> which returns <code>true</code> if the collection has only one element in it and <code>false</code> otherwise.</p>
@@ -153,8 +153,8 @@ Exercise 3
 (singleton? [])      <span class="co">;=&gt; false</span>
 (singleton? [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; false</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 4
 </h3>
 
@@ -164,8 +164,8 @@ Exercise 4
 (my-last [<span class="dv">2</span> <span class="dv">5</span>])   <span class="co">;=&gt; 5</span></code></pre>
 <p>Hint: what is the base case here? How can you check if we’re there?</p>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 5
 </h3>
 
@@ -175,8 +175,8 @@ Exercise 5
 (max-element [<span class="dv">2</span>])       <span class="co">;=&gt; 2</span>
 (max-element [])        <span class="co">;=&gt; nil</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 6
 </h3>
 
@@ -184,8 +184,8 @@ Exercise 6
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(seq-max [<span class="dv">1</span>] [<span class="dv">1</span> <span class="dv">2</span>])   <span class="co">;=&gt; [1 2]</span>
 (seq-max [<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; [3 4]</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 7
 </h3>
 
@@ -194,8 +194,9 @@ Exercise 7
 (longest-sequence [[<span class="dv">1</span> <span class="dv">2</span>]])            <span class="co">;=&gt; [1 2]</span>
 (longest-sequence [])                 <span class="co">;=&gt; nil</span></code></pre>
 </section>
+
 </section>
-<section class="level3" id="saving-the-list">
+<section id="saving-the-list" class="level3">
 <h3>Saving the list</h3>
 <p>All the functions so far, <code>sum</code>, <code>product</code> and <code>last-element</code>, transformed the list into a single value. This it not always the case with linear recursion. Our old friend <code>(map f a-seq)</code> is a good example of this. Here is the definition for it:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> my-map </span>[f a-seq]
@@ -210,8 +211,7 @@ Exercise 7
 <span class="co">;               (cons (inc 3) &#39;())))</span>
 <span class="co">;=&gt; &#39;(2 3 4)</span></code></pre>
 <p>So <code>map</code> calls the function <code>f</code> for every element of <code>a-seq</code> and then re-constructs the sequence with <code>cons</code>.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 8
 </h3>
 
@@ -220,8 +220,9 @@ Exercise 8
 (my-filter (<span class="kw">fn</span> [x] (<span class="kw">&gt;</span> x <span class="dv">9000</span>)) [<span class="dv">12</span> <span class="dv">49</span> <span class="dv">90</span> <span class="dv">9001</span>]) <span class="co">;=&gt; (9001)</span>
 (my-filter <span class="kw">even?</span> [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">7</span>]) <span class="co">;=&gt; ()</span></code></pre>
 </section>
+
 </section>
-<section class="level3" id="stopping-before-the-end">
+<section id="stopping-before-the-end" class="level3">
 <h3>Stopping before the end</h3>
 <p>Sometimes you can find the answer before hitting the base case. For example, the following function checks if a sequence contains only numbers. If we find something that isn’t a number on the way through, we can immediately stop and return <code>false</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> only-numbers</span>? [coll]
@@ -241,8 +242,7 @@ Exercise 8
                                <span class="co">; if all the rest are numbers.</span>
 <span class="co">;=&gt; (only-numbers? [:D 3 4])   ; because (number? 2) ;=&gt; true</span>
 <span class="co">;=&gt; false                      ; because (number? :D) ;=&gt; false</span></code></pre>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 9
 </h3>
 
@@ -252,8 +252,8 @@ Exercise 9
 (sequence-contains? <span class="kw">:pony</span> [])  <span class="co">;=&gt; false</span></code></pre>
 <p>Hint: remember to stop searching when you find it.</p>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 10
 </h3>
 <p>Write the function <code>(my-take-while pred? a-seq)</code> that returns the longest prefix of <code>a-seq</code> where <code>pred?</code> returns <code>true</code> for every element.</p>
@@ -262,8 +262,8 @@ Exercise 10
 (my-take-while <span class="kw">even?</span> [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>]) <span class="co">;=&gt; ()</span>
 (my-take-while <span class="kw">odd?</span> [])         <span class="co">;=&gt; ()</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 11
 </h3>
 <p>Write the function <code>(my-drop-while pred? a-seq)</code> that drops elements from <code>a-seq</code> until <code>pred?</code> returns <code>false</code>.</p>
@@ -272,8 +272,9 @@ Exercise 11
 (my-drop-while <span class="kw">even?</span> [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>]) <span class="co">;=&gt; (1 3 4 5)</span>
 (my-drop-while <span class="kw">odd?</span> [])         <span class="co">;=&gt; ()</span></code></pre>
 </section>
+
 </section>
-<section class="level3" id="recursing-over-many-sequences">
+<section id="recursing-over-many-sequences" class="level3">
 <h3>Recursing over many sequences</h3>
 <p>The template for linear recursion is very simple and is often <em>too</em> simple. For an example, consider the function <code>(first-in val seq-1 seq-2)</code>, which returns <code>1</code> if the value <code>val</code> is found first in <code>seq-1</code> and <code>2</code> if in <code>seq-2</code>. If <code>val</code> is not found in either sequence, <code>first-in</code> returns <code>0</code>. <code>val</code> must not be <code>nil</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> first-in </span>[<span class="kw">val</span> seq<span class="dv">-1</span> seq<span class="dv">-2</span>]
@@ -283,8 +284,7 @@ Exercise 11
     (<span class="kw">=</span> (<span class="kw">first</span> seq<span class="dv">-2</span>) <span class="kw">val</span>) <span class="dv">2</span>
     <span class="kw">:else</span> (first-in <span class="kw">val</span> (<span class="kw">rest</span> seq<span class="dv">-1</span>) (<span class="kw">rest</span> seq<span class="dv">-2</span>))))</code></pre>
 <p>There’s an obvious reason why <code>first-in</code> doesn’t fit our template for linear recursion: it has three parameters, whereas the template only takes one. We can ignore the first parameter for our purposes, since it does not have bearing on the recursive structure of the computation. <code>first-in</code> is linearly recursive on both its sequence parameters, though.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 12
 </h3>
 <p>Write the function <code>(seq= seq-1 seq-2)</code> that compares two sequences for equality.</p>
@@ -292,8 +292,8 @@ Exercise 12
 (seq= [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; false</span>
 (seq= [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span>] [])        <span class="co">;=&gt; false</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 13
 </h3>
 
@@ -303,6 +303,7 @@ Exercise 13
 (my-map <span class="kw">+</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>] [<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]) <span class="co">;=&gt; (1 2 3)</span>
 (my-map <span class="kw">+</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [])        <span class="co">;=&gt; ()</span></code></pre>
 </section>
+
 <p>This behaviour of <code>map</code> with multiple sequence arguments can come in handy at times. One useful function to use with it is <code>vector</code>.</p>
 <p><code>vector</code> makes a vector of its arguments.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">vector</span> <span class="dv">1</span> <span class="dv">2</span>)     <span class="co">;=&gt; [1 2]</span>
@@ -323,9 +324,9 @@ Exercise 13
 (consecutives [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>]) <span class="co">;=&gt; ([:a :b] [:b :c])</span>
 (consecutives [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>])  <span class="co">;=&gt; ([1 2] [2 3] [3 4])</span></code></pre>
 </section>
-<section class="level3" id="recursion-on-numbers">
+<section id="recursion-on-numbers" class="level3">
 <h3>Recursion on numbers</h3>
-<p>Another common data structure to recurse over are numbers. (Even though you might not think of numbers as data structures!) Recursing over numbers is very similar to recursing over sequences. As an example, let’s define a function to calculate the factorial of a number. (Factorial of \(n\) is \(1 \cdot 2 \cdots (n-1) \cdot n\).)</p>
+<p>Another common data structure to recurse over are numbers. (Even though you might not think of numbers as data structures!) Recursing over numbers is very similar to recursing over sequences. As an example, let’s define a function to calculate the factorial of a number. (Factorial of <span class="math">\(n\)</span> is <span class="math">\(1 \cdot 2 \cdots (n-1) \cdot n\)</span>.)</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> factorial </span>[n]
   (<span class="kw">if</span> (<span class="kw">zero?</span> n)
     <span class="dv">1</span>
@@ -364,21 +365,21 @@ Exercise 13
   (<span class="kw">if</span> (<span class="kw">zero?</span> n)
     ...
     (... n ... (eats-numbers (<span class="kw">dec</span> n)))))</code></pre>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 14
 </h3>
-<p>Write the function <code>(power n k)</code> that computes the mathematical expression \(n^k\).</p>
+<p>Write the function <code>(power n k)</code> that computes the mathematical expression <span class="math">\(n^k\)</span>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(power <span class="dv">2</span> <span class="dv">2</span>)  <span class="co">;=&gt; 4</span>
 (power <span class="dv">5</span> <span class="dv">3</span>)  <span class="co">;=&gt; 125</span>
 (power <span class="dv">7</span> <span class="dv">0</span>)  <span class="co">;=&gt; 1</span>
 (power <span class="dv">0</span> <span class="dv">10</span>) <span class="co">;=&gt; 0</span></code></pre>
 </section>
+
 </section>
-<section class="level3" id="nonlinear-recursion">
+<section id="nonlinear-recursion" class="level3">
 <h3>Nonlinear recursion</h3>
 <p>There are other recursive computations besides linear recursion. Another common type is <em>tree recursion</em>. Here <em>tree</em> refers again to the shape of the computation. The natural use for tree recursion is with hierarchical data structures, which we will come back to later. Tree recursion can be illustrated with simple processes over numbers. For an example, let’s look at how to compute the following integer series:</p>
-<p>Let \(f(n) = \begin{cases} n &amp; \text{ if } n &lt; 3 \\ f(n - 1) + 2 \cdot f(n - 2) + 3 \cdot f(n - 3) &amp; \text{ otherwise} \end{cases}\)</p>
+<p>Let <span class="math">\(f(n) = \begin{cases}               n &amp; \text{ if } n &lt; 3 \\               f(n - 1) + 2 \cdot f(n - 2) + 3 \cdot f(n - 3) &amp; \text{ otherwise}             \end{cases}\)</span></p>
 <p>Translating this to Clojure gives us the following program:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> f </span>[n]
   (<span class="kw">if</span> (<span class="kw">&lt;</span> n <span class="dv">3</span>)
@@ -388,20 +389,19 @@ Exercise 14
        (<span class="kw">*</span> <span class="dv">3</span> (f (<span class="kw">-</span> n <span class="dv">3</span>))))))</code></pre>
 <p>(The odd alignment is for clarity.) Consider how this function evaluates:</p>
 <figure>
-<img src="img/tree-recursion.png" alt="Tree recursion"><figcaption>Tree recursion</figcaption>
+<img src="img/tree-recursion.png" alt="Tree recursion" /><figcaption>Tree recursion</figcaption>
 </figure>
 <p>It is easy to see that the computation forms a tree structure.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 15
 </h3>
-<p>Compute the \(n\)th <a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci number</a>. The \(n\)th Fibonacci number, \(F_n\), is defined as:</p>
+<p>Compute the <span class="math">\(n\)</span>th <a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci number</a>. The <span class="math">\(n\)</span>th Fibonacci number, <span class="math">\(F_n\)</span>, is defined as:</p>
 <ul>
-<li>\(F_0 = 0\)</li>
-<li>\(F_1 = 1\)</li>
-<li>\(F_n = F_{n-1} + F_{n-2}\)</li>
+<li><span class="math">\(F_0 = 0\)</span></li>
+<li><span class="math">\(F_1 = 1\)</span></li>
+<li><span class="math">\(F_n = F_{n-1} + F_{n-2}\)</span></li>
 </ul>
-<p>Write the function <code>(fib n)</code> which returns \(F_n\).</p>
+<p>Write the function <code>(fib n)</code> which returns <span class="math">\(F_n\)</span>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(fib <span class="dv">0</span>) <span class="co">;=&gt; 0</span>
 (fib <span class="dv">1</span>) <span class="co">;=&gt; 1</span>
 (fib <span class="dv">2</span>) <span class="co">;=&gt; 1</span>
@@ -412,12 +412,12 @@ Exercise 15
 ...
 (fib <span class="dv">10</span>) <span class="co">;=&gt; 55</span></code></pre>
 </section>
+
 </section>
-<section class="level3" id="sequence-operations">
+<section id="sequence-operations" class="level3">
 <h3>Sequence operations</h3>
 <p>We have already implemented some of the sequence functions found from the Clojure’s standard library, namely <code>map</code> and <code>filter</code>. In the following exercises you should use recursion to implement some more.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 16
 </h3>
 
@@ -426,8 +426,8 @@ Exercise 16
 (my-repeat <span class="dv">3</span> <span class="st">&quot;lol&quot;</span>) <span class="co">;=&gt; (&quot;lol&quot; &quot;lol&quot; &quot;lol&quot;)</span>
 (my-repeat -<span class="dv">1</span> <span class="kw">:a</span>)   <span class="co">;=&gt; ()</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 17
 </h3>
 <p>Write the function <code>(my-range up-to)</code> that works like this:</p>
@@ -436,8 +436,8 @@ Exercise 17
 (my-range <span class="dv">2</span>)  <span class="co">;=&gt; (1 0)</span>
 (my-range <span class="dv">3</span>)  <span class="co">;=&gt; (2 1 0)</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 18
 </h3>
 <p>Write the functions <code>tails</code> and <code>inits</code> that return all the suffixes and prefixes of a sequence, respectively.</p>
@@ -449,8 +449,9 @@ Exercise 18
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">reverse</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; (3 2 1)</span>
 (<span class="kw">reverse</span> [<span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span>]) <span class="co">;=&gt; (1 3 2)</span></code></pre>
 </section>
+
 </section>
-<section class="level3" id="passing-state">
+<section id="passing-state" class="level3">
 <h3>Passing state</h3>
 <p>Sometimes when recursing over a structure we want to keep track of something. For an example, we might want to count how many elements we have processed, or how many <code>:D</code> keywords we have seen. How do we do this, in the absence of state in our language? (Or at least in the absence of instructions on how to use state on these pages!)</p>
 <p>The answer is two-fold: we store the state explicitly in a parameter we pass back to ourselves on each recursion, and we hide the state from the users of our function by using a helper function that we give an initial empty state to as a parameter.</p>
@@ -474,8 +475,7 @@ Exercise 18
 <li><p>and <code>coll</code>, which is the collection the function recurses over.</p></li>
 </ul>
 <p>With this helper function, our definition of <code>count-elem</code> is a simple call to <code>count-elem-helper</code> with <code>n</code> initialized to 0. This way users of <code>count-elem</code> do not need to provide the initialization argument for <code>n</code>.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 19
 </h3>
 <p>Write the function <code>(rotations a-seq)</code> that, when given a sequence, returns all the rotations of that sequence.</p>
@@ -490,8 +490,8 @@ Exercise 19
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">concat</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>]) <span class="co">;=&gt; (1 2 3 :a :b :c)</span>
 (<span class="kw">concat</span> [<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>])    <span class="co">;=&gt; (1 2 3 4 5 6)</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 20
 </h3>
 <p>Write the function <code>(my-frequencies a-seq)</code> that computes a map of how many times each element occurs in a sequence. E.g.:</p>
@@ -505,8 +505,8 @@ Exercise 20
   (frequencies-helper {} a-seq))</code></pre>
 <p>Where <code>my-frequencies-helper</code> is a recursive helper function.</p>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 21
 </h3>
 <p>Write the function <code>(un-frequencies a-map)</code> which takes a map produced by <code>my-frequencies</code> and generates a sequence with the corresponding numbers of different elements.</p>
@@ -519,28 +519,28 @@ Exercise 21
 (<span class="kw">rest</span> {<span class="kw">:a</span> <span class="dv">1</span> <span class="kw">:b</span> <span class="dv">2</span> <span class="kw">:c</span> <span class="dv">3</span>}) <span class="co">;=&gt; ([:b 2] [:c 3])</span></code></pre>
 <p>Hint 2: There are multiple ways to implement this, but consider using <code>concat</code> and <code>repeat</code>.</p>
 </section>
+
 </section>
-<section class="level3" id="merging-and-sorting">
+<section id="merging-and-sorting" class="level3">
 <h3>Merging and sorting</h3>
 <p>As a grand finale, lets implement the classic merge sort. We have split the task into smaller exercises.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 22
 </h3>
 <p>Implement <code>(my-take n coll)</code> that returns <code>n</code> first items of coll.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-take <span class="dv">2</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; (1 2)</span>
 (my-take <span class="dv">4</span> [<span class="kw">:a</span> <span class="kw">:b</span>])   <span class="co">;=&gt; (:a :b)</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 23
 </h3>
 <p>Implement <code>(my-drop n coll)</code> that returns all but the <code>n</code> first items of coll.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-drop <span class="dv">2</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; (3 4)</span>
 (my-drop <span class="dv">4</span> [<span class="kw">:a</span> <span class="kw">:b</span>])   <span class="co">;=&gt; ()</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 24
 </h3> 
 <p>Implement the function <code>(halve a-seq)</code> that takes a sequence and returns one vector with two elements. The first element is the first half of <code>a-seq</code> and the second element is the second half of <code>a-seq</code>.</p>
@@ -550,16 +550,16 @@ Exercise 24
 (halve [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>]) <span class="co">;=&gt; [(1 2) (3 4 5)]</span>
 (halve [<span class="dv">1</span>])         <span class="co">;=&gt; [() (1)]</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 25
 </h3>
 <p>Write the function <code>(seq-merge a-seq b-seq)</code> that takes two (low to high) sorted number sequences and combines them into one sorted sequence. Don’t use sort (nor implement it yourself, yet).</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(seq-merge [<span class="dv">4</span>] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">7</span>])        <span class="co">;=&gt; (1 2 4 6 7)</span>
 (seq-merge [<span class="dv">1</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">9</span>] [<span class="dv">2</span> <span class="dv">2</span> <span class="dv">8</span> <span class="dv">10</span>]) <span class="co">;=&gt; (1 2 2 5 7 8 9 10)</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 26
 </h3>
 
@@ -587,14 +587,14 @@ Exercise 26
 (merge-sort [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])            <span class="co">;=&gt; (1 2 3)</span>
 (merge-sort [<span class="dv">5</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">17</span> <span class="dv">2</span> <span class="dv">100</span> <span class="dv">1</span>]) <span class="co">;=&gt; (1 2 3 4 5 17 100)</span></code></pre>
 </section>
+
 </section>
 </section>
-<section class="level2" id="encore">
+<section id="encore" class="level2">
 <h2>Encore</h2>
 <p>The following exercises are ment to be tricky. So don’t dwell too long on them. Move along and come back later.</p>
 <p>These exercises will give extra points.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 27
 </h3>
 
@@ -605,8 +605,8 @@ Exercise 27
 <p><em>Hint:</em> You might find useful the functions <code>take-while</code>, <code>drop</code> and <code>inits</code>. Make sure that your <code>inits</code> returns the prefixes from the shortest to the longest.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(inits [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; (() (1) (1 2) (1 2 3) (1 2 3 4))</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 28
 </h3>
 
@@ -618,8 +618,8 @@ Exercise 28
 <span class="co">;=&gt; ((1 5 3) (5 1 3) (5 3 1) (1 3 5) (3 1 5) (3 5 1))</span></code></pre>
 <p>The order of the permutations doesn’t matter.</p>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 29
 </h3>
 
@@ -628,6 +628,7 @@ Exercise 29
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(powerset #{})      <span class="co">;=&gt; #{#{}}</span>
 (powerset #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span>}) <span class="co">;=&gt; #{#{} #{4} #{2} #{2 4} #{1} #{1 4} #{1 2} #{1 2 4}}</span></code></pre>
 </section>
+
 <p><a href="looping-is-recursion.html">Hoop a loop →</a></p>
 </section>
 <footer>

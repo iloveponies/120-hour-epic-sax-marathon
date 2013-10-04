@@ -5,13 +5,14 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="120 hour epic">
   <title>Sudoku</title>
+  <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; }
+table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 code > span.kw { color: #007020; font-weight: bold; }
@@ -28,7 +29,7 @@ code > span.fu { color: #06287e; }
 code > span.er { color: #ff0000; font-weight: bold; }
   </style>
   <link rel="stylesheet" href="css/base.css">
-  <script src="https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -44,10 +45,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 class="author">120 hour epic</h2>
 <h3 class="date">sax marathon</h3>
 </header>
-<section class="level2" id="synopsis">
+<section id="synopsis" class="level2">
 <h2>Synopsis</h2>
 </section>
-<section class="level2" id="fork-this">
+<section id="fork-this" class="level2">
 <h2>Fork this</h2>
 <p><a href="https://github.com/iloveponies/sudoku">https://github.com/iloveponies/sudoku</a></p>
 <!-- TODO?
@@ -55,7 +56,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 -->
 
 </section>
-<section class="level2" id="fight">
+<section id="fight" class="level2">
 <h2>Fight!</h2>
 <p>First of all, we need to have a representation for sudoku boards. Here is one.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(board [[<span class="dv">5</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">7</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]
@@ -89,7 +90,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="co">; [0 0 0 | 4 1 9 | 0 0 5]</span>
 <span class="co">; [0 0 0 | 0 8 0 | 0 7 9]]</span></code></pre>
 </section>
-<section class="level2" id="working-with-nested-structures">
+<section id="working-with-nested-structures" class="level2">
 <h2>Working with nested structures</h2>
 <p>Getting values from nested structures with <code>get</code> gets ugly:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">get</span> (<span class="kw">get</span> [[<span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span>] [<span class="st">&quot;c&quot;</span> <span class="st">&quot;d&quot;</span>]] <span class="dv">0</span>) <span class="dv">1</span>)
@@ -132,25 +133,24 @@ code > span.er { color: #ff0000; font-weight: bold; }
           [<span class="dv">9</span> <span class="dv">6</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">8</span> <span class="dv">4</span>]
           [<span class="dv">2</span> <span class="dv">8</span> <span class="dv">7</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">9</span> <span class="dv">6</span> <span class="dv">3</span> <span class="dv">5</span>]
           [<span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">8</span> <span class="dv">6</span> <span class="dv">1</span> <span class="dv">7</span> <span class="dv">9</span>]]))</code></pre>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 1
 </h3>
 <p>Write the function <code>(value-at board coordinates)</code> that returns the value at <code>coordinate</code> in <code>board</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(value-at sudoku-board [<span class="dv">0</span> <span class="dv">1</span>]) <span class="co">;=&gt; 3</span>
 (value-at sudoku-board [<span class="dv">0</span> <span class="dv">0</span>]) <span class="co">;=&gt; 5</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 2
 </h3>
 <p>Write the function <code>(has-value? board coordinates)</code> that returns <code>false</code> if the square at <code>coordinates</code> is empty (has <code>0</code>), and otherwise <code>true</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(has-value? sudoku-board [<span class="dv">0</span> <span class="dv">0</span>]) <span class="co">;=&gt; true</span>
 (has-value? sudoku-board [<span class="dv">0</span> <span class="dv">2</span>]) <span class="co">;=&gt; false</span></code></pre>
 </section>
+
 <p>Now we can check if square is empty. To figure out which numbers are valid for a square we need to know which are already taken. Let’s write a couple of functions to figure this out.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 3
 </h3>
 <p>Write the function <code>(row-values board coordinates)</code> that returns a set with all numbers on the row of the coordinates</p>
@@ -158,14 +158,15 @@ Exercise 3
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(row-values sudoku-board [<span class="dv">0</span> <span class="dv">2</span>]) <span class="co">;=&gt; #{0 5 3 7}</span>
 (row-values sudoku-board [<span class="dv">3</span> <span class="dv">2</span>]) <span class="co">;=&gt; #{0 8 6 3}</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 4
 </h3>
 <p>Write the function <code>(col-values board coordinates)</code> that returns a set with all numbers on the col of the coordinates</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(col-values sudoku-board [<span class="dv">0</span> <span class="dv">2</span>]) <span class="co">;=&gt; #{0 8}</span>
 (col-values sudoku-board [<span class="dv">4</span> <span class="dv">8</span>]) <span class="co">;=&gt; #{3 1 6 0 5 9}</span></code></pre>
 </section>
+
 <p>Finally, we need to figure out what numbers are inside the block of a square.</p>
 <p>To make working with blocks a little easier, let’s take a small detour.</p>
 <p>You can use <code>for</code> to go through a sequence like with <code>map</code>:</p>
@@ -180,8 +181,7 @@ Exercise 4
 <span class="co">;=&gt; (&quot;John 1&quot; &quot;John 2&quot; &quot;John 3&quot; &quot;Jane 1&quot; &quot;Jane 2&quot; &quot;Jane 3&quot;)</span></code></pre>
 <p>If you happen to be familiar with list comprehensions from some other language, <code>for</code> is a Clojures list comprehension form.</p>
 <p>To make working with coordinates a bit easier, let’s write a function that returns a sequence of coordinate pairs.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 5
 </h3>
 <p>Write the function <code>(coord-pairs coord-sequence)</code> that returns all coordinate-pairs of the form <code>[row col]</code> where <code>row</code> is from <code>coord-sequence</code> and <code>col</code> is from <code>coord-sequence</code>.</p>
@@ -192,8 +192,8 @@ Exercise 5
                       <span class="co">;    [1 0] [1 1] [1 2]</span>
                       <span class="co">;    [2 0] [2 1] [2 2]]</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 6
 </h3>
 <p>Write the function <code>(block-values board coordinates)</code> that returns a set with all numbers in the block of <code>coordinates</code>.</p>
@@ -201,6 +201,7 @@ Exercise 6
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(block-values sudoku-board [<span class="dv">0</span> <span class="dv">2</span>]) <span class="co">;=&gt; #{0 5 3 6 8 9}</span>
 (block-values sudoku-board [<span class="dv">4</span> <span class="dv">5</span>]) <span class="co">;=&gt; #{0 6 8 3 2}</span></code></pre>
 </section>
+
 <p>The <code>clojure.set</code> namespace has some useful functions for working with sets. <code>(clojure.set/union set1 set2 ...)</code> returns a set containing all the elements of its arguments:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(clojure.set/union #{<span class="dv">1</span> <span class="dv">2</span>} #{<span class="dv">2</span> <span class="dv">3</span>} #{<span class="dv">7</span>}) <span class="co">;=&gt; #{1 2 3 7}</span></code></pre>
 <p>In the project file, <code>clojure.set</code> is required with the shorthand <code>set</code>, so you can also just write:</p>
@@ -208,8 +209,7 @@ Exercise 6
 <p>Another helpful set operation is <code>(set/difference set1 set2)</code>, which returns a set with all elements of <code>set1</code> except those that are also in <code>set2</code>. Or put another way, removes all elements of <code>set2</code> from <code>set1</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(set/difference #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>} #{<span class="dv">1</span> <span class="dv">3</span>})   <span class="co">;=&gt; #{2}</span>
 (set/difference #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>} #{<span class="dv">2</span> <span class="dv">4</span> <span class="dv">5</span>}) <span class="co">;=&gt; #{1 3}</span></code></pre>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 7
 </h3>
 <p>Write the function <code>(valid-values board coordinates)</code> that returns a set with all valid numbers for the square at <code>coordinates</code>.</p>
@@ -218,9 +218,9 @@ Exercise 7
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(valid-values-for sudoku-board [<span class="dv">0</span> <span class="dv">0</span>]) <span class="co">;=&gt; #{}</span>
 (valid-values-for sudoku-board [<span class="dv">0</span> <span class="dv">2</span>]) <span class="co">;=&gt; #{1 2 4})</span></code></pre>
 </section>
+
 <p>Next, let’s write a function to figure out if a sudoku board is completely filled.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 8
 </h3>
 <p>Write the function <code>(filled? board)</code> which returns <code>true</code> if there are no empty squares in <code>board</code>, and otherwise <code>false</code>.</p>
@@ -229,11 +229,11 @@ Exercise 8
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(filled? sudoku-board) <span class="co">;=&gt; false</span>
 (filled? solved-board) <span class="co">;=&gt; true</span></code></pre>
 </section>
+
 <p>Now that we can check if a board is full, it would be nice to know the solution is valid.</p>
 <p>A sudoku is valid if each row, each column and each block contains the numbers from 1 to 9 exactly once. Let’s write functions for checking each of these conditions.</p>
 <p>To start, let’s write some functions to get the values for each row, column and block.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 9
 </h3>
 <p>Write the function <code>(rows board)</code> that returns a sequence of value sets for each row of <code>board</code>. That is, the first set in <code>(rows board)</code> is a set that has every element of the first row of <code>board</code> as element and so on.</p>
@@ -277,8 +277,8 @@ Exercise 9
                     <span class="co">;    #{1 2 3 4 5 6 7 8 9}</span>
                     <span class="co">;    #{1 2 3 4 5 6 7 8 9}]</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 10
 </h3>
 <p>Write the function <code>(blocks board)</code> that returns the values of each block in <code>board</code> as a sequence of sets.</p>
@@ -302,9 +302,9 @@ Exercise 10
                       <span class="co">;    #{1 2 3 4 5 6 7 8 9}</span>
                       <span class="co">;    #{1 2 3 4 5 6 7 8 9}])</span></code></pre>
 </section>
+
 <p>Now we can get the values used in every row, column and block. Let’s write functions that check if every row, column and block is valid as per the rules of sudoku.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 11
 </h3>
 <p>Write the function <code>(valid-rows? board)</code> that returns <code>true</code> if every row in <code>board</code> is a valid filled row.</p>
@@ -317,15 +317,16 @@ Exercise 11
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(valid-blocks? solved-board)  <span class="co">;=&gt; truthy</span>
 (valid-blocks? invalid-board) <span class="co">;=&gt; falsey</span></code></pre>
 </section>
+
 <p>Finally, we can write a function that checks if the whole board is a valid solution.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 12
 </h3>
 <p>Write the function <code>(valid-solution? board)</code> that returns <code>true</code> if <code>board</code> is a valid solution to sudoku.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(valid-solution? solved-board)  <span class="co">;=&gt; truthy</span>
 (valid-solution? invalid-board) <span class="co">;=&gt; falsey)</span></code></pre>
 </section>
+
 <p>Now we can verify whether or not a solution is valid. However, if we want to actually solve a sudoku, we need to be able to modify a partial solution.</p>
 <p>Earlier we saw how useful <code>get-in</code> can be when indexing nested structures. Theres a similar function for changing nested structures, called <code>assoc-in</code>. <code>(assoc-in nested-structure path new-value)</code> changes the value pointed by <code>path</code>, which is a sequence of keys. Here’s an example:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure"> (<span class="kw">assoc-in</span> [[<span class="kw">:a</span> <span class="kw">:b</span>] [<span class="kw">:c</span> <span class="kw">:d</span>]] [<span class="dv">1</span>                                  <span class="dv">0</span>] <span class="kw">:E</span>)
@@ -334,8 +335,7 @@ Exercise 12
 <span class="co">;=&gt; (assoc [[:a :b] [:c :d]]  1 [:E :d])</span>
 <span class="co">;=&gt;        [[:a :b] [:E :d]]</span></code></pre>
 <p>Now we can write a function to change a single value in our representation of a sudoku.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 13
 </h3>
 <p>Write the function <code>(set-value-at board coord new-value)</code> that changes the value at <code>coord</code> in <code>board</code> to <code>new-value</code>.</p>
@@ -363,16 +363,17 @@ Exercise 13
 
 (set-value-at before-change [<span class="dv">2</span> <span class="dv">1</span>] <span class="dv">4</span>)</code></pre>
 </section>
+
 <p>Now that we can change the board, the next obstacle is figuring out what to change. Now we need to find an empty point in the sudoku board.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 14
 </h3>
-<p>Write the function <code>(find-empty-point board)</code> that returns coordinates to an empty point (that is, in our representation has value \(0\)).</p>
+<p>Write the function <code>(find-empty-point board)</code> that returns coordinates to an empty point (that is, in our representation has value <span class="math">\(0\)</span>).</p>
 </section>
+
 <p>Okay, so now we can find an empty location and we also know what the valid values for that location are. What’s left is to try each one of those values in that location and trying to solve the rest. This is called backtracking search. You try one choice and recurse, if the recursive call didn’t find any solutions, try the next choice. If none of the choices return a valid solution, return <code>nil</code>.</p>
 <p>Let’s take a small detour and see an example of backtracking search.</p>
-<section class="level3" id="subset-sum">
+<section id="subset-sum" class="level3">
 <h3>Subset Sum</h3>
 <p>Subset sub is a classic problem. Here’s how it goes. You are given:</p>
 <ul>
@@ -420,11 +421,10 @@ Exercise 14
   (<span class="kw">first</span> (subset-sum-helper a-set #{} target)))</code></pre>
 <p>And due to the way Clojure uses laziness, this actually cuts the computation after a solution is found (well, to be exact, after 32 solutions have been found due to the way Clojure chunks lazy sequences).</p>
 </section>
-<section class="level3" id="solving-sudokus">
+<section id="solving-sudokus" class="level3">
 <h3>Solving Sudokus</h3>
 <p>It’s finally time to write the search for a solution to sudokus.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 15
 </h3>
 <p>Write the function <code>(solve board)</code> which takes a sudoku board as a parameter and returns a valid solution to the given sudoku.</p>
@@ -444,6 +444,8 @@ Exercise 15
 </ul></li>
 </ul>
 </section>
+
+
 </section>
 </section>
 <footer>
