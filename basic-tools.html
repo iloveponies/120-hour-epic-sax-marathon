@@ -121,8 +121,9 @@ mkdir bin</code></pre></li>
 <section id="how-to-submit-answers-to-exercises" class="level2">
 <h2>How to submit answers to exercises</h2>
 <p>At the start of every chapter, you should go to <a href="https://github.com">Github</a> and <em>fork</em> the chapters repository. There will be a link to the appropriate repository at the beginning of every chapter. You then <em>clone</em> your <strong>own</strong> fork of the repository and start working with the exercises when you encounter them amongs the material. You create <em>commits</em> and maybe <em>push</em> them in to your own fork while working. You also run the tests with <code>lein midje</code> to see if they pass.</p>
-<p>When you want your answers graded, you push all of your work with <code>git push</code>. You then go to Github and send a <em>pull request</em>. We will run the tests on our computer and see the code. Your points will be announced on the comment thread of the pull request and the pull request will be closed.</p>
-<p>If you didn’t get all the points and want to try again, you are free to do so. Just make modifications to the code, create a commit, push and open a <strong>new</strong> pull request. We once again run the tests and see the code. You will be informed about the <strong>new</strong> points that you got.</p>
+<p>When you want your answers graded, you push all of your work with <code>git push</code>. You then go to Github and send a <em>pull request</em>. At this point, <a href="http://travis-ci.org">Travis</a> kicks in. It runs the tests for your code and then comments on the pull request whether the tests passed or failed. A link is also provided to see the nitty-gritty details.</p>
+<p>If you didn’t get all the tests to pass on the first go, don’t worry, you can try again. Just make modifications to the code, create a commit, and push. The pull request will be updated, Travis will rerun the tests and a new comment about the build status will be posted. You can keep trying as many times as you want.</p>
+<p>We read the pull requests now and then and sometimes comment on the code. You should also check your pull requests to see if something needs to be fixed before points can be awarded. If all tests passed and everything looks good, we will announce your points on the comments and close the pull request. After the deadline, all the pull requests will be closed, and you will get points for those exercises that you succesfully completed.</p>
 <section id="tell-us-who-you-are" class="level3">
 <h3>Tell us who you are</h3>
 <p>For this system to work, we need to know who you are. If you haven’t already, please fill out <a href="https://elomake.helsinki.fi/lomakkeet/42235/lomake.html">this form</a>.</p>
@@ -141,7 +142,7 @@ Watch out!
 <li><p>Go to the Github page of the repository of the next chapter. Here is the <a href="https://github.com/iloveponies/training-day">link</a>.</p></li>
 <li><p>Click the Fork-button near the top-right corner of the page. You will be asked to login if you haven’t done so already.</p></li>
 <li><p>The Github page of your fork will open. This is the repository you want to clone. Click the button that says HTTP and copy the link from the box. Then issue the following command with <strong>your</strong> version of the link. Your Github login information will be requested.</p>
-<pre class="sh"><code>git clone https://github.com/rapala/training-day.git</code></pre></li>
+<pre class="sh"><code>git clone https://github.com/&lt;my-account&gt;/training-day.git</code></pre></li>
 <li><p>A directory <code>training-day</code> will be created. Go inside the directory and issue <code>lein midje</code>. You should see output that tells you that every test in the project has failed.</p>
 <pre><code>cd training-day
 lein midje</code></pre>
