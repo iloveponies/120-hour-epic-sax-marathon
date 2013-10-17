@@ -5,14 +5,16 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="120 hour epic">
   <title>Looping is recursion</title>
-  <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
+    q { quotes: "“" "”" "‘" "’"; }
+  </style>
+  <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
+table.sourceCode { width: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 code > span.kw { color: #007020; font-weight: bold; }
@@ -29,7 +31,7 @@ code > span.fu { color: #06287e; }
 code > span.er { color: #ff0000; font-weight: bold; }
   </style>
   <link rel="stylesheet" href="css/base.css">
-  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -45,16 +47,16 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 class="author">120 hour epic</h2>
 <h3 class="date">sax marathon</h3>
 </header>
-<section id="synopsis" class="level2">
+<section class="level2" id="synopsis">
 <h2>Synopsis</h2>
 <p>In which we learn how to recur tails.</p>
 </section>
-<section id="fork-this" class="level2">
+<section class="level2" id="fork-this">
 <h2>Fork this</h2>
 <p><a href="https://github.com/iloveponies/looping-is-recursion">https://github.com/iloveponies/looping-is-recursion</a></p>
 <p><a href="basic-tools.html#how-to-submit-answers-to-exercises">Here</a> are the instructions if you need them. Be sure to fork the repository behind the link above.</p>
 </section>
-<section id="starting-out" class="level2">
+<section class="level2" id="starting-out">
 <h2>Starting out</h2>
 <p>Clojure has a form called <code>loop</code>. But it’s not actually a looping construct, it is <em>recursive</em> in nature. Let’s start with some examples.</p>
 <p>This is the standard recursive factorial:</p>
@@ -62,7 +64,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
   (<span class="kw">if</span> (<span class="kw">zero?</span> n)
       <span class="dv">1</span>
       (<span class="kw">*</span> n (recursive-factorial (<span class="kw">dec</span> n)))))</code></pre>
-<p>Like we’ve seen in the <a href="recursion.html">chapter on recursion</a>, this is a linear recursive process, that is, it constructs an expression linear in size to its input, <code>n</code>. When the base case is reached, we will have the expression <code>(* n (* (dec n) (* ... (* 3 (* 2 (* 1 1))) ...)))</code>. This also means that the amount of memory taken by <code>recursive-factorial</code> is <span class="math">\(\mathcal{O}(n)\)</span>.</p>
+<p>Like we’ve seen in the <a href="recursion.html">chapter on recursion</a>, this is a linear recursive process, that is, it constructs an expression linear in size to its input, <code>n</code>. When the base case is reached, we will have the expression <code>(* n (* (dec n) (* ... (* 3 (* 2 (* 1 1))) ...)))</code>. This also means that the amount of memory taken by <code>recursive-factorial</code> is \(\mathcal{O}(n)\).</p>
 <p>We can make this computation more efficient by using <em>tail recursion</em>. A function is <em>tail recursive</em> when its return value is calculated directly by a recursive call. <code>recursive-factorial</code> is not tail recursive, because the value of the recursive call <code>(recursive-factorial (dec n))</code> is not returned directly, but given to <code>*</code>.</p>
 <p>We’ll now introduce a tail recursive version of <code>recursive-factorial</code> and then look at how its evaluation differs from the evaluation of <code>recursive-factorial</code>.</p>
 <p>In order to make factorial tail-recursive we introduce an <em>accumulator</em>.</p>
@@ -84,7 +86,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="co">;=&gt; 120</span></code></pre>
 <p>Now we see that evaluating <code>helper</code> does not grow the expression we are computing. This is because we do not add any structure around the recursive call. That keeps the structure of the returned expression constantly <code>(helper ...)</code> and the parameters vary. Since we can’t build the computation as a recursive expression, we’re instead computing each step explicitly into the <code>acc</code> accumulator.</p>
 <p>This is a <em>linear iterative process</em> or just <em>linear iteration</em> (compared to <em>linear recursion</em>). It is indeed similar to iteration in imperative languages.</p>
-<p>Let’s rewrite factorial one more time, now using a new construct called <code>recur</code>. <code>recur</code> means “recursively call this function (that we’re in)”, with the additional restriction that the recursion must be tail recursion.</p>
+<p>Let’s rewrite factorial one more time, now using a new construct called <code>recur</code>. <code>recur</code> means <q>recursively call this function (that we’re in)</q>, with the additional restriction that the recursion must be tail recursion.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> recur-factorial </span>[number]
   (<span class="kw">let</span> [helper (<span class="kw">fn</span> [acc n]
                  (<span class="kw">if</span> (<span class="kw">zero?</span> n)
@@ -95,17 +97,18 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>We have also moved <code>helper</code> inside <code>recur-factorial</code> and defined it with <code>fn</code>. This was not possible before, because an anonymous function has no name to call recursively. But as we now make the recursive call with <code>recur</code>, we can use <code>fn</code>. The benefit of this is that the helper function was never supposed to be visible to anyone and now it isn’t.</p>
 <p>Again, because <code>recur</code> guarantees tail-call optimization, it can be present <em>only</em> in a tail position. While this might seem awkward, it’s an advantage too. When we’ve placed <code>recur</code> in a non-tail position where Clojure can not perform tail-call optimization, the compiler will give us an error. This indicates that our request to optimize the tail call is not possible. If the compiler allowed <code>recur</code> outside tail positions (and simply performed regular recursion), we would not know whether tail-call optimization actually took place or not.</p>
 <p>In short: <code>recur</code> <em>guarantees</em> tail-call optimization by <em>requiring</em> that the call to it is in an optimizable position.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 1
 </h3>
-<p>Write the function <code>(power n k)</code> that computes the mathematical expression <span class="math">\(n^k\)</span>.</p>
+<p>Write the function <code>(power n k)</code> that computes the mathematical expression \(n^k\).</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(power <span class="dv">2</span> <span class="dv">2</span>)  <span class="co">;=&gt; 4</span>
 (power <span class="dv">5</span> <span class="dv">3</span>)  <span class="co">;=&gt; 125</span>
 (power <span class="dv">7</span> <span class="dv">0</span>)  <span class="co">;=&gt; 1</span>
 (power <span class="dv">0</span> <span class="dv">10</span>) <span class="co">;=&gt; 0</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 2
 </h3>
 <p>Compute the last element of a sequence.</p>
@@ -113,7 +116,6 @@ Exercise 2
 (last-element [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
 (last-element [<span class="dv">2</span> <span class="dv">5</span>])   <span class="co">;=&gt; 5</span></code></pre>
 </section>
-
 <p>Because defining the sort of helper functions like <code>helper</code> in our <code>factorial</code> is quite usual in functional programming, there is a utility called <code>loop</code> for this. The previous code could be written like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> loopy-factorial </span>[down-from]
   (<span class="kw">loop</span> [acc <span class="dv">1</span>
@@ -129,7 +131,7 @@ Exercise 2
 <pre class="sourceCode clojure"><code class="sourceCode clojure">    (<span class="kw">if</span> (<span class="kw">zero?</span> n)
       acc
       (<span class="kw">recur</span> (<span class="kw">*</span> acc n) (<span class="kw">dec</span> n)))))</code></pre>
-<p>Inside a <code>loop</code> we can think of a <code>recur</code> meaning “go to the start of the loop, and give the variables these new values”. So after that <code>recur</code> call the variable <code>n</code> gets the new value <code>(dec n)</code>, and <code>acc</code> gets the new value <code>(* n acc)</code>. That is, calling <code>recur</code> either calls the function iteratively, or iterates a <code>loop</code>, whichever is innermost.</p>
+<p>Inside a <code>loop</code> we can think of a <code>recur</code> meaning <q>go to the start of the loop, and give the variables these new values</q>. So after that <code>recur</code> call the variable <code>n</code> gets the new value <code>(dec n)</code>, and <code>acc</code> gets the new value <code>(* n acc)</code>. That is, calling <code>recur</code> either calls the function iteratively, or iterates a <code>loop</code>, whichever is innermost.</p>
 <p>This kind of corresponds to the following Java loop (if you want to look at it that way):</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure"><span class="kw">int</span> n <span class="kw">=</span> number<span class="co">;</span>
 <span class="kw">int</span> acc <span class="kw">=</span> <span class="dv">1</span><span class="co">;</span>
@@ -142,7 +144,8 @@ Exercise 2
     }
 }
 return acc<span class="co">;</span></code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 3
 </h3>
 <p>Write the function <code>(seq= a-seq b-seq)</code> that compares two sequences for equality.</p>
@@ -150,8 +153,8 @@ Exercise 3
 (seq= [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; false</span>
 (seq= [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span>] [])        <span class="co">;=&gt; false</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 4
 </h3>
 <p>Implement the function <code>(find-first-index [f seq])</code> that returns the first index in <code>seq</code> for which <code>f</code> returns true, or <code>nil</code> if no such index exists.</p>
@@ -160,8 +163,8 @@ Exercise 4
 (find-first-index #(<span class="kw">=</span> % <span class="dv">6</span>) [<span class="kw">:cat</span> <span class="kw">:dog</span> <span class="kw">:six</span> <span class="kw">:blorg</span> <span class="dv">6</span>]) <span class="co">;=&gt; 4</span>
 (find-first-index <span class="kw">nil?</span> [])                            <span class="co">;=&gt; nil</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 5
 </h3>
 <p>Implement the function <code>(avg a-seq)</code> that computes the average of a sequence.</p>
@@ -170,8 +173,8 @@ Exercise 5
 (avg [<span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span>]) <span class="co">;=&gt; 1/2 ;; or 0.5</span></code></pre>
 <p><em>Hint:</em> You need to keep track of two things in the loop.</p>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 6
 </h3>
 <p>Write the function <code>(parity a-seq)</code> that takes in a sequence and returns a <em>set</em> of those elements that occur an odd number of times in the sequence.</p>
@@ -182,8 +185,8 @@ Exercise 6
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(toggle #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>} <span class="dv">1</span>) <span class="co">;=&gt; #{2 3}</span>
 (toggle #{<span class="dv">2</span> <span class="dv">3</span>} <span class="dv">1</span>) <span class="co">;=&gt; #{1 2 3}</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 7
 </h3>
 <p>Write the function <code>(fast-fibo n)</code> that computes the <code>n</code>th fibonacci number using <code>loop</code> and <code>recur</code>. Do not use recursion.</p>
@@ -194,10 +197,10 @@ Exercise 7
 (fast-fibo <span class="dv">4</span>) <span class="co">;=&gt; 3</span>
 (fast-fibo <span class="dv">5</span>) <span class="co">;=&gt; 5</span>
 (fast-fibo <span class="dv">6</span>) <span class="co">;=&gt; 8</span></code></pre>
-<p><em>Hint:</em> to avoid recursion, you need to keep track of <span class="math">\(F_{n-1}\)</span> and <span class="math">\(F_n\)</span> in the loop.</p>
+<p><em>Hint:</em> to avoid recursion, you need to keep track of \(F_{n-1}\) and \(F_n\) in the loop.</p>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 8
 </h3>
 <p>Write the function <code>(cut-at-repetition a-seq)</code> that takes in a sequence and returns elements from the sequence up to the first repetition.</p>
@@ -210,9 +213,8 @@ Exercise 8
 <p><em>Hint:</em> Remember that <code>conj</code>ing onto a vector appends the element.</p>
 <p><em>Hint:</em> You can search in a sequence with <code>some</code>.</p>
 </section>
-
 </section>
-<section id="performance-viewpoint" class="level2">
+<section class="level2" id="performance-viewpoint">
 <h2>Performance viewpoint</h2>
 <p>Tail recursion is efficient. This is because the compiler can replace it with a goto (this is called <em>tail-call optimisation</em>. So a tail-recursive function is about exactly as fast as the corresponding loop.</p>
 <p>However, this doesn’t exactly apply in the Java Virtual Machine. This is because the security model of the JVM makes tail-call optimisation hard. This is why Clojure uses the <code>recur</code> construct: it is <em>guaranteed</em> that a call to <code>recur</code> gets optimised. I’ll say that again. When you use <code>recur</code>, Clojure generates an <em>actual loop</em> as JVM bytecode.</p>

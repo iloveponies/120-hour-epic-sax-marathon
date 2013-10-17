@@ -5,14 +5,13 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="120 hour epic">
   <title>Predicates</title>
-  <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
+table.sourceCode { width: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 code > span.kw { color: #007020; font-weight: bold; }
@@ -44,23 +43,24 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 class="author">120 hour epic</h2>
 <h3 class="date">sax marathon</h3>
 </header>
-<section id="synopsis" class="level2">
+<section class="level2" id="synopsis">
 <h2>Synopsis</h2>
 <p>Stuff about predicates and functions as values</p>
 </section>
-<section id="fork-this" class="level2">
+<section class="level2" id="fork-this">
 <h2>Fork this</h2>
 <p><a href="https://github.com/iloveponies/predicates">https://github.com/iloveponies/predicates</a></p>
 <p><a href="basic-tools.html#how-to-submit-answers-to-exercises">Here</a> are the instructions if you need them. Be sure to fork the repository behind the link above.</p>
 </section>
-<section id="functions-as-parameters" class="level2">
+<section class="level2" id="functions-as-parameters">
 <h2>Functions as Parameters</h2>
 <p>So how do you write a funtion that takes a function as a parameter? Well, for starters, let’s define a function called <code>(apply-1 f x)</code> that should return <code>(f x)</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> apply-1 </span>[f x]
   (f x))</code></pre>
 <p>When you take a function as a parameter, you treat it like any other parameter. In clojure functions are just normal values and you can pass them around however you like. Calling a function parameter works like calling any other function.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(apply<span class="dv">-1</span> <span class="kw">str</span> <span class="dv">13</span>) <span class="co">;=&gt; (str 13) ;=&gt; &quot;13&quot;</span></code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 1
 </h3>
 <p>Write the function <code>(sum-f f g x)</code> that returns <code>(+ (f x) (g x))</code>.</p>
@@ -68,9 +68,8 @@ Exercise 1
 (sum-f <span class="kw">inc</span> <span class="kw">identity</span> <span class="dv">5</span>) <span class="co">;=&gt; 11</span>
 (sum-f <span class="kw">identity</span> <span class="kw">-</span> <span class="dv">10</span>) <span class="co">;=&gt; 0</span></code></pre>
 </section>
-
 </section>
-<section id="functions-as-return-values" class="level2">
+<section class="level2" id="functions-as-return-values">
 <h2>Functions as Return Values</h2>
 <p>A function that returns a boolean value (<code>false</code> or <code>true</code>) is called a predicate. Usually their name ends in a question mark <code>?</code>. We’ve already defined a bunch of them and used them with <code>filter</code>.</p>
 <p>Let’s write a function that returns a predicate. Suppose that I want to get all numbers greater than some limit from a sequence. I need a predicate for this grater than testing. Here’s a function that returns such predicates.</p>
@@ -79,7 +78,8 @@ Exercise 1
 <p>We’ve already formed helper functions with <code>fn</code>. Since these functions are just values, we can just return them.</p>
 <p>Let’s try it out:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">filter</span> (greater-than <span class="dv">5</span>) [<span class="dv">4</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">9</span> <span class="dv">2</span> <span class="dv">12</span>]) <span class="co">;=&gt; (6 9 12)</span></code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 2
 </h3>
 <p>Write the functions <code>(less-than n)</code> and <code>(equal-to n)</code> that work like <code>greater-than</code>. Use <code>==</code> as comparison in <code>equal-to</code></p>
@@ -88,8 +88,7 @@ Exercise 2
 (<span class="kw">filter</span> (equal-to <span class="dv">2</span>) [<span class="dv">2</span> <span class="dv">1</span> <span class="dv">3</span> <span class="fl">2.0</span>])    <span class="co">;=&gt; (2 2.0)</span>
 (<span class="kw">filter</span> (equal-to <span class="dv">2</span>) [<span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>])      <span class="co">;=&gt; ()</span></code></pre>
 </section>
-
-<section id="keywords-and-sets-as-predicates" class="level3">
+<section class="level3" id="keywords-and-sets-as-predicates">
 <h3>Keywords and Sets as Predicates</h3>
 <p>When you have a bunch of maps, you often want to filter those that have a certain <code>:keyword</code> as a key. Most of the time, you can just use the <code>:keyword</code> itself as a predicate.</p>
 <p>Here are some graphic novels, some of them belong to a series and some are stand alones.</p>
@@ -120,17 +119,17 @@ Exercise 2
 <p>Trouble arises, as mentioned, if the set happens to have falsey values in it.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">filter</span> #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> nil} [<span class="dv">0</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">6</span> nil]) <span class="co">;=&gt; (2)</span></code></pre>
 <p>Let’s write a function that turns sets into predicates that works correctly even in this case.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 3
 </h3>
 <p>Write the function <code>(set-&gt;predicate a-set)</code> that takes a set as a parameter and returns a predicate that takes a parameter <code>x</code> and - returns <code>true</code> if <code>x</code> is in <code>a-seq</code> - otherwise returns <code>false</code></p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">filter</span> (set-&gt;predicate #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>})     [<span class="dv">0</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">6</span>])       <span class="co">;=&gt; (2)</span>
 (<span class="kw">filter</span> (set-&gt;predicate #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> nil}) [<span class="dv">2</span> nil <span class="dv">4</span> nil <span class="dv">6</span>]) <span class="co">;=&gt; (2 nil nil)</span></code></pre>
 </section>
-
 </section>
 </section>
-<section id="functions-that-both-take-functions-as-parameters-and-return-functions" class="level2">
+<section class="level2" id="functions-that-both-take-functions-as-parameters-and-return-functions">
 <h2>Functions that both Take Functions as Parameters and Return Functions</h2>
 <p>Sometimes you have a predicate that almost does what you want. For an example, suppose I want to filter all non-negative values from a sequence. There’s <code>neg?</code> and <code>pos?</code>, but neither allow <code>0</code>. I could do something like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> non-negatives </span>[a-seq]
@@ -152,7 +151,8 @@ Exercise 3
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> complement </span>[predicate]
   (<span class="kw">fn</span> [x] (<span class="kw">not</span> (predicate x))))</code></pre>
 <p>Sometimes you have multiple predicates and you want to know whethet a value or some values pass all of them. Let’s create a helper function to do just that.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 4
 </h3>
 <p>Write the function <code>(pred-and pred1 pred2)</code> that returns a new predicate that: - returns <code>true</code> if both <code>pred1</code> and <code>pred2</code> return <code>true</code> - otherwise returns <code>false</code></p>
@@ -163,17 +163,16 @@ Exercise 4
 (<span class="kw">filter</span> (pred-and (<span class="kw">complement</span> <span class="kw">nil?</span>) <span class="kw">empty?</span>) [[] &#39;() nil {} #{}])
 <span class="co">;=&gt; [[] &#39;() {} #{}]</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 5
 </h3>
 <p>Write the function <code>(pred-or pred1 pred2)</code> that takes two predicates and returns a new predicate that: - returns <code>true</code> if <code>pred1</code> or <code>pred2</code> returns true - otherwise returns <code>false</code></p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">filter</span> (pred-or <span class="kw">pos?</span> <span class="kw">odd?</span>) [<span class="dv">1</span> <span class="dv">2</span> -<span class="dv">4</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">7</span> -<span class="dv">3</span>])  <span class="co">;=&gt; [1 2 6 7 -3]</span>
 (<span class="kw">filter</span> (pred-or <span class="kw">pos?</span> <span class="kw">even?</span>) [<span class="dv">1</span> <span class="dv">2</span> -<span class="dv">4</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">7</span> -<span class="dv">3</span>]) <span class="co">;=&gt; [1 2 -4 0 6 7]</span></code></pre>
 </section>
-
 </section>
-<section id="every" class="level2">
+<section class="level2" id="every">
 <h2>Every</h2>
 <p>Sometimes you want to know if every element in a sequence satisfies a predicate. To do that, there’s <code>(every? predicate a-seq)</code>. It returns <code>true</code> if <code>predicate</code> returns a truthy value for every element in <code>a-seq</code>. Otherwise it returns <code>false</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">every?</span> <span class="kw">pos?</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])   <span class="co">;=&gt; true</span>
@@ -181,7 +180,8 @@ Exercise 5
 <p>It also always returns <code>true</code> with an empty collection.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">every?</span> <span class="kw">pos?</span> [])  <span class="co">;=&gt; true</span>
 (<span class="kw">every?</span> <span class="kw">pos?</span> nil) <span class="co">;=&gt; true</span></code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 6
 </h3>
 <p>Write the function <code>(blank? string)</code> that takes a string as a parameter and returns <code>true</code> if <code>string</code> is empty, nil, or contains only whitespace.</p>
@@ -190,8 +190,8 @@ Exercise 6
 (blank? <span class="st">&quot;  </span>\t<span class="st"> a&quot;</span>)   <span class="co">;=&gt; false</span>
 (blank? <span class="st">&quot;&quot;</span>)         <span class="co">;=&gt; true</span></code></pre>
 </section>
-
-<section class="alert alert-info"><h3>
+<section class="alert alert-info">
+<h3>
 Hint
 </h3>
 <p>You have just implemented a function with the same semantics as <code>isWhitespace</code> in Apache Commons. Here is the <a href="http://svn.apache.org/viewvc/commons/proper/lang/trunk/src/main/java/org/apache/commons/lang3/StringUtils.java?view=markup">Java implemention</a> from Apache Commons:</p>
@@ -209,7 +209,6 @@ Hint
 <span class="dv">5381</span>        }</code></pre>
 <p>This is a good example about how the ability to easily pass around functions as parameters can improve clarity.</p>
 </section>
-
 <p>Earlier we had some books, let’s add some data to them. Let’s keep track of some awards.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> china </span>{<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>})
 (<span class="kw">def</span><span class="fu"> octavia </span>{<span class="kw">:name</span> <span class="st">&quot;Octavia E. Butler&quot;</span>
@@ -232,15 +231,16 @@ Hint
 
 (<span class="kw">def</span><span class="fu"> books </span>#{cities, wild-seed, lord-of-light,
              deus-irae, ysabel, scanner-darkly}])</code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 7
 </h3>
 <p>Write the function <code>(has-award? book award)</code> that returns <code>true</code> if <code>book</code> has won <code>award</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(has-award? ysabel <span class="kw">:world-fantasy</span>) <span class="co">;=&gt; true</span>
 (has-award? scanner-darkly <span class="kw">:hugo</span>)  <span class="co">;=&gt; false</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 8
 </h3>
 <p>Write the function <code>(HAS-ALL-THE-AWARDS? book awards)</code> that returns <code>true</code> if <code>book</code> has won every award in <code>awards</code>.</p>
@@ -257,9 +257,8 @@ Exercise 8
 (HAS-ALL-THE-AWARDS? scanner-darkly #{})
 <span class="co">;=&gt; true</span></code></pre>
 </section>
-
 </section>
-<section id="and-then-there-were-some" class="level2">
+<section class="level2" id="and-then-there-were-some">
 <h2>And Then There Were Some</h2>
 <p>Finally, when you wan’t to know if at least one element of a sequence passes a predicate, there is <code>(some pred a-seq)</code> which returns a truthy value if <code>pred</code> returns a truthy value for some element in <code>a-seq</code> and otherwise it returns <code>nil</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">some</span> whitespace? <span class="st">&quot;Kekkonen&quot;</span>)          <span class="co">;=&gt; nil</span>
@@ -270,7 +269,8 @@ Exercise 8
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">some</span> <span class="kw">first</span> [[] [<span class="dv">1</span> <span class="dv">2</span>] []]) <span class="co">;=&gt; 1</span>
 (<span class="kw">some</span> <span class="kw">first</span> [[] [false true] []] <span class="co">;=&gt; nil</span>
 (<span class="kw">some</span> <span class="kw">nil?</span> [<span class="dv">1</span> nil <span class="dv">2</span>]) <span class="co">;=&gt; true</span></code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 9
 </h3>
 <p>Write you own implementation for <code>some</code> called <code>my-some</code>.</p>
@@ -285,8 +285,8 @@ Exercise 9
 (my-some <span class="kw">nil?</span> [<span class="dv">1</span> <span class="dv">2</span>])            <span class="co">;=&gt; falsey</span>
 (my-some <span class="kw">nil?</span> [<span class="dv">1</span> nil <span class="dv">2</span>])        <span class="co">;=&gt; true</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 10
 </h3>
 <p>Write your own implementation for <code>every?</code> called <code>my-every?</code>.</p>
@@ -296,8 +296,8 @@ Exercise 10
 (my-every? <span class="kw">even?</span> [<span class="dv">2</span> <span class="dv">4</span> <span class="dv">6</span>])    <span class="co">;=&gt; true</span>
 (my-every? <span class="kw">even?</span> [])         <span class="co">;=&gt; true</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 11
 </h3>
 <p>Write the function <code>(prime? n)</code> that returns <code>true</code> if <code>n</code> is a <a href="http://en.wikipedia.org/wiki/Prime_number">prime number</a> and otherwise <code>false</code>.</p>
@@ -315,7 +315,6 @@ Exercise 11
 (prime? <span class="dv">10</span>) <span class="co">;=&gt; false</span>
 (<span class="kw">filter</span> prime? (<span class="kw">range</span> <span class="dv">2</span> <span class="dv">50</span>)) <span class="co">;=&gt; (2 3 5 7 11 13 17 19 23 29 31 37 41 43 47)</span></code></pre>
 </section>
-
 <p><a href="recursion.html">Recursion awaits! →</a></p>
 </section>
 <footer>

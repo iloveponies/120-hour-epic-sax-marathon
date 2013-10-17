@@ -5,14 +5,13 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="120 hour epic">
   <title>Structured data</title>
-  <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
+table.sourceCode { width: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 code > span.kw { color: #007020; font-weight: bold; }
@@ -29,7 +28,7 @@ code > span.fu { color: #06287e; }
 code > span.er { color: #ff0000; font-weight: bold; }
   </style>
   <link rel="stylesheet" href="css/base.css">
-  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -45,7 +44,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 class="author">120 hour epic</h2>
 <h3 class="date">sax marathon</h3>
 </header>
-<section id="synopsis" class="level2">
+<section class="level2" id="synopsis">
 <h2>Synopsis</h2>
 <p>In which we learn to work with structured data.</p>
 <ul>
@@ -54,7 +53,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Vectors</li>
 <li>Maps</li>
 </ul>
-<section class="alert alert-info"><h3>
+<section class="alert alert-info">
+<h3>
 Hint
 </h3>
 <p>The following web pages are good references to Clojure builtins and data structures:</p>
@@ -63,14 +63,13 @@ Hint
 <li><a href="http://clojure.org/cheatsheet">Clojure cheatsheet</a></li>
 </ul>
 </section>
-
 </section>
-<section id="fork-this" class="level2">
+<section class="level2" id="fork-this">
 <h2>Fork this</h2>
 <p><a href="https://github.com/iloveponies/structured-data">https://github.com/iloveponies/structured-data</a></p>
 <p><a href="basic-tools.html#how-to-submit-answers-to-exercises">Here</a> are the instructions if you need them. Be sure to fork the repository behind the link above.</p>
 </section>
-<section id="let-there-be-names" class="level2">
+<section class="level2" id="let-there-be-names">
 <h2>Let there be names</h2>
 <p>We often want to give a piece of data name, either because the act of naming gives clarity to the code, or because we want to refer to the data many times. As we have seen, namespace global names are declared with <code>def</code>. A function or value that is needed only inside one function can be given a <em>local name</em> with <code>let</code>.</p>
 <p>As an example, let’s define a function for calculating the length of a triangle’s hypotenuse, given the length of its two legs:</p>
@@ -96,7 +95,8 @@ Unable to <span class="kw">resolve</span> symbol: x in this context, compiling:(
 <p>Note the indentation in <code>let</code>: the names inside the brackets are all aligned together, and the expressions are indented with two spaces.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [x <span class="dv">42</span>]
   (indented x))</code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 1
 </h3>
 <p>The following function does a thing:</p>
@@ -104,7 +104,6 @@ Exercise 1
   (Math/pow (<span class="kw">+</span> x x) (<span class="kw">+</span> x x)))</code></pre>
 <p>Change the function <code>do-a-thing</code> so that it uses <code>let</code> to give a name to the common expression <code>(+ x x)</code> in its body.</p>
 </section>
-
 <p>The names declared in a <code>let</code> expression can refer to previous names in the same expression:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [a <span class="dv">10</span>
       b (<span class="kw">+</span> a <span class="dv">8</span>)]
@@ -117,7 +116,7 @@ Exercise 1
 <span class="co">; CompilerException java.lang.RuntimeException: Unable to resolve symbol:</span>
 <span class="co">; b in this context, compiling:(NO_SOURCE_PATH:1)</span></code></pre>
 </section>
-<section id="simple-values" class="level2">
+<section class="level2" id="simple-values">
 <h2>Simple values</h2>
 <p>Now that we know how to give names to values, let’s look at what kind of values Clojure supports.</p>
 <p>Scalar values are the regular, singular simple values like <code>42</code>, <code>&quot;foo&quot;</code> or <code>true</code>. The following table describes some of them.</p>
@@ -158,7 +157,7 @@ Exercise 1
 </tbody>
 </table>
 </section>
-<section id="vectors" class="level2">
+<section class="level2" id="vectors">
 <h2>Vectors</h2>
 <p>Collections are the other kind of values, in addition to scalars, that are crucial to programming. Clojure has support for a rich set of collection data structures. We’ll go over the most important structures in this chapter.</p>
 <p>A <em>vector</em> is a collection that can be indexed with integers, like an array in other languages. It can contain values of different types.</p>
@@ -170,7 +169,8 @@ Exercise 1
 (<span class="kw">get</span> [<span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span> <span class="st">&quot;c&quot;</span>] <span class="dv">15</span>) <span class="co">;=&gt; nil</span>
 (<span class="kw">get</span> [<span class="st">&quot;x&quot;</span>] <span class="dv">0</span>)          <span class="co">;=&gt; &quot;x&quot;</span></code></pre>
 <p>Trying to index a vector beyond its size does <em>not</em> throw an exception. The special value <code>nil</code> is returned, instead.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 2
 </h3>
 <p>Write the function <code>(spiff v)</code> that takes a vector and returns the sum of the first and third elements of the vector. What happens when you pass in a vector that is too short?</p>
@@ -179,14 +179,14 @@ Exercise 2
 (spiff [<span class="dv">1</span> <span class="dv">2</span>])         <span class="co">;=&gt; ?</span>
 (spiff [])            <span class="co">;=&gt; ?</span></code></pre>
 </section>
-
-<section id="basic-vector-operations" class="level3">
+<section class="level3" id="basic-vector-operations">
 <h3>Basic vector operations</h3>
 <p>Vectors are immutable: once you have a vector, <em>you can not change it</em>. You can, however, easily create new vectors based on a vector:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">conj</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] <span class="dv">4</span>)          <span class="co">;=&gt; [1 2 3 4]</span>
 (<span class="kw">assoc</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>] <span class="dv">2</span> <span class="st">&quot;foo&quot;</span>) <span class="co">;=&gt; [1 2 &quot;foo&quot; 4]</span></code></pre>
 <p><code>conj</code> adds a value to a collection. Its behaviour depends on the type of collection: with vectors, it adds the value to the end of the vector. To be exact, <code>conj</code> does <em>not</em> change the given vector. Instead, it returns a new vector, based on the given vector, with the new element appended to the end.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 3
 </h3>
 <p>Write the function <code>(cutify v)</code> that takes a vector as a parameter and adds <code>&quot;&lt;3&quot;</code> to its end.</p>
@@ -196,21 +196,20 @@ Exercise 3
 <!-- "> -->
 
 </section>
-
 </section>
-<section id="vectors-a-postmodern-deconstruction" class="level3">
+<section class="level3" id="vectors-a-postmodern-deconstruction">
 <h3>Vectors: A Postmodern Deconstruction</h3>
 <p>Another way of extracting values from a vector is by <em>destructuring</em> it:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [[x y z] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>]]
   (<span class="kw">str</span> x y z))
 <span class="co">;=&gt; &quot;123&quot;</span></code></pre>
 <p>Here, instead of giving a name to the vector <code>[1 2 3 4 5 6]</code>, we indicate with the brackets in <code>[x y z]</code> that we want to destructure the vector instead. Inside the brackets, we give names to the first three elements of the vector. <code>x</code> will be given the value of the first element, <code>1</code>; <code>b</code> will be <code>2</code> and <code>c</code> will be <code>3</code>. The concatenation of these values that <code>str</code> returns is <code>&quot;123&quot;</code>.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 4
 </h3>
 <p>Rewrite our earlier function <code>spiff</code> by destructuring its parameter. Call this new function <code>spiff-destructuring</code>.</p>
 </section>
-
 <p>You can destructure function parameters directly. For an example, take the following function:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> sum-pairs </span>[first-pair second-pair]
   [(<span class="kw">+</span> (<span class="kw">first</span>  first-pair) (<span class="kw">first</span>  second-pair))
@@ -224,7 +223,7 @@ Exercise 4
 <p><code>sum-pairs</code> still takes two parameter vectors, but now it does not give names to its parameters. Instead, it gives names to their first two elements by destructuring the parameters. We could have also destructured the parameters with a <code>let</code>.</p>
 </section>
 </section>
-<section id="thinking-with-boxes" class="level2">
+<section class="level2" id="thinking-with-boxes">
 <h2>Thinking With Boxes</h2>
 <p>Let’s define a simple representation for a two-dimensional point. It will simply be a pair (2-element vector) of two numbers.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> point </span>[x y]
@@ -236,7 +235,8 @@ Exercise 4
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [[[x1 y1] [x2 y2]] rectangle]
   ... <span class="kw">do</span> stuff with coordinates)</code></pre>
 <p>This should prove to be useful in the following exercises.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 5
 </h3>
 <p>Write the functions <code>(height rectangle)</code> and <code>(width rectangle)</code> that return the height and width of the given rectangle. Use destructuring.</p>
@@ -248,8 +248,8 @@ Exercise 5
 (width (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">1</span> <span class="dv">1</span>]))  =&gt; <span class="dv">0</span>
 (width (rectangle [<span class="dv">3</span> <span class="dv">1</span>] [<span class="dv">10</span> <span class="dv">4</span>])) =&gt; <span class="dv">7</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 6
 </h3>
 <p>Write the function <code>(square? rectangle)</code> that returns <code>true</code> if <code>rectangle</code> is a square and otherwise <code>false</code>.</p>
@@ -259,8 +259,8 @@ Exercise 6
 (square? (rectangle [<span class="dv">3</span> <span class="dv">2</span>] [<span class="dv">1</span> <span class="dv">0</span>])) <span class="co">;=&gt; true</span>
 (square? (rectangle [<span class="dv">3</span> <span class="dv">2</span>] [<span class="dv">1</span> <span class="dv">1</span>])) <span class="co">;=&gt; false</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 7
 </h3>
 <p>Write the function <code>(area rectangle)</code> that returns the area of the given rectangle.</p>
@@ -269,12 +269,12 @@ Exercise 7
 (area (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">4</span> <span class="dv">3</span>]))  =&gt; <span class="dv">12</span>
 (area (rectangle [<span class="dv">3</span> <span class="dv">1</span>] [<span class="dv">10</span> <span class="dv">4</span>])) =&gt; <span class="dv">21</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 8
 </h3>
 <p>Write the function <code>(contains-point? rectangle point)</code> that returns <code>true</code> if <code>rectangle</code> contains <code>point</code> and otherwise <code>false</code>.</p>
-<p>Remember that you can give <code>&lt;=</code> multiple parameters. <code>(&lt;= x y z)</code> returns <code>true</code> if <span class="math">\(x \leq y \leq z\)</span> holds. Otherwise <code>false</code>.</p>
+<p>Remember that you can give <code>&lt;=</code> multiple parameters. <code>(&lt;= x y z)</code> returns <code>true</code> if \(x \leq y \leq z\) holds. Otherwise <code>false</code>.</p>
 <!-- >> -->
 
 <p>Hint: <code>and</code> is useful.</p>
@@ -292,8 +292,8 @@ Exercise 8
 (contains-point? (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">1</span> <span class="dv">1</span>])
                  (point <span class="dv">1</span> <span class="dv">1</span>))            <span class="co">;=&gt; true</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 9
 </h3>
 <p>Write the function <code>(contains-rectangle? outer inner)</code> that returns <code>true</code> if the rectangle <code>inner</code> is inside the rectangle <code>outer</code> and otherwise <code>false</code>.</p>
@@ -307,9 +307,8 @@ Exercise 9
 (contains-rectangle? (rectangle [<span class="dv">0</span> <span class="dv">0</span>] [<span class="dv">1</span> <span class="dv">1</span>])
                      (rectangle [<span class="dv">1</span> <span class="dv">1</span>] [<span class="dv">2</span> <span class="dv">2</span>])) <span class="co">;=&gt; false</span></code></pre>
 </section>
-
 </section>
-<section id="maps" class="level2">
+<section class="level2" id="maps">
 <h2>Maps</h2>
 <p>Where a vector associates integers to values, a <em>map</em> is not restricted to integer keys. You can use any kind of value as a key. A map is written with curly brackets, <code>{}</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">{<span class="st">&quot;foo&quot;</span> <span class="dv">42</span>, <span class="st">&quot;bar&quot;</span> <span class="dv">666</span>}
@@ -329,7 +328,7 @@ Exercise 9
 <p>Keywords are even more convenient than this. They work as functions that access collections:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">:title</span> book) <span class="co">;=&gt; &quot;The City and the City&quot;</span></code></pre>
 <p>When used as a function and given a collection, a keyword looks itself up in the collection and returns the value associated with it.</p>
-<section id="we-are-a-legion" class="level3">
+<section class="level3" id="we-are-a-legion">
 <h3>We are a legion</h3>
 <p><code>count</code> can be used to find out the amount of elements in a collection.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">count</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
@@ -349,7 +348,8 @@ Exercise 9
 (<span class="kw">def</span><span class="fu"> embassytown </span>{<span class="kw">:title</span> <span class="st">&quot;Embassytown&quot;</span>, <span class="kw">:authors</span> [china]})
 (<span class="kw">def</span><span class="fu"> little-schemer </span>{<span class="kw">:title</span> <span class="st">&quot;The Little Schemer&quot;</span>
                      <span class="kw">:authors</span> [friedman, felleisen]})</code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 10
 </h3>
 <p>Write the function <code>(title-length book)</code> that counts the length of the book’s title.</p>
@@ -357,8 +357,8 @@ Exercise 10
 (title-length wild-seed)      <span class="co">;=&gt; 9</span>
 (title-length little-schemer) <span class="co">;=&gt; 18</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 11
 </h3>
 <p>Write the function <code>(author-count book)</code> that returns the amount of authors that <code>book</code> has.</p>
@@ -366,8 +366,8 @@ Exercise 11
 (author-count wild-seed)      <span class="co">;=&gt; 1</span>
 (author-count little-schemer) <span class="co">;=&gt; 2</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 12
 </h3>
 <p>Write the function <code>(multiple-authors? book)</code> that returns <code>true</code> if <code>book</code> has multiple authors, otherwise <code>false</code>.</p>
@@ -375,9 +375,8 @@ Exercise 12
 (multiple-authors? wild-seed)      <span class="co">;=&gt; false</span>
 (multiple-authors? little-schemer) <span class="co">;=&gt; true</span></code></pre>
 </section>
-
 </section>
-<section id="adding-values-to-a-map" class="level3">
+<section class="level3" id="adding-values-to-a-map">
 <h3>Adding Values to a Map</h3>
 <p><code>(assoc a-map a-key a-value)</code> sets the value of <code>a-key</code> in <code>a-map</code> to be <code>a-value</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">assoc</span> {<span class="kw">:a</span> <span class="dv">1</span>} <span class="kw">:b</span> <span class="dv">2</span>) <span class="co">;=&gt; {:b 2, :a 1}</span>
@@ -399,7 +398,8 @@ Exercise 12
       new      (<span class="kw">assoc</span> original <span class="dv">2</span> <span class="st">&quot;foo&quot;</span>)]
   original)
 <span class="co">;=&gt; [1 2 3 4]</span></code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 13
 </h3>
 <p>Use <code>assoc</code> and <code>conj</code> to write the function <code>(add-author book new-author)</code> that takes a book and an author as a parameter and adds <code>author</code> to <code>book</code>s authors.</p>
@@ -412,7 +412,6 @@ Exercise 13
 (add-author {<span class="kw">:authors</span> [{<span class="kw">:name</span> <span class="st">&quot;Juhana&quot;</span>}]} {<span class="kw">:name</span> <span class="st">&quot;Jani&quot;</span>})
 <span class="co">;=&gt; {:authors [{:name &quot;Juhana&quot;} {:name &quot;Jani&quot;}]}</span></code></pre>
 </section>
-
 <p>The keys and values of a map can be of any data type, and one map can contain any number of different data types as both keys and values.</p>
 <p><code>(contains? a-map a-key)</code> can be used to check if <code>a-map</code> has a value for <code>a-key</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">contains?</span> {<span class="st">&quot;a&quot;</span> <span class="dv">1</span>} <span class="st">&quot;a&quot;</span>)   <span class="co">;=&gt; true</span>
@@ -420,7 +419,8 @@ Exercise 13
 (<span class="kw">contains?</span> {<span class="st">&quot;a&quot;</span> nil} <span class="st">&quot;a&quot;</span>) <span class="co">;=&gt; true</span>
 (<span class="kw">contains?</span> cities <span class="kw">:title</span>) <span class="co">;=&gt; true</span>
 (<span class="kw">contains?</span> cities <span class="kw">:name</span>)  <span class="co">;=&gt; false</span></code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 14
 </h3>
 <p>Write the function <code>(alive? author)</code> which takes an author map and returns <code>true</code> if the <code>author</code> is alive, otherwise <code>false</code>.</p>
@@ -428,10 +428,9 @@ Exercise 14
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(alive? china)   <span class="co">;=&gt; true</span>
 (alive? octavia) <span class="co">;=&gt; false</span></code></pre>
 </section>
-
 </section>
 </section>
-<section id="serial-grave-digging" class="level2">
+<section class="level2" id="serial-grave-digging">
 <h2>Serial grave digging</h2>
 <p>We know how to extract information from a single book or author. However, we often want to extract information from a collection of items. As an example, given a collection of books, we want the names of all the authors:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> books </span>[cities, wild-seed, embassytown, little-schemer])
@@ -448,7 +447,7 @@ Exercise 14
     (<span class="kw">set</span> (<span class="kw">apply</span> <span class="kw">concat</span> (<span class="kw">map</span> author-names books))))</code></pre>
 <p>Now there’s a lot of new stuff there, so we’ll take a detour to learn it all before continuing with our book library.</p>
 <p>Let’s take a look at this <code>map</code> function.</p>
-<section id="sequences" class="level3">
+<section class="level3" id="sequences">
 <h3>Sequences</h3>
 <p>Before talking about <code>map</code>, we need to introduce a new concept: the <em>sequence</em>. Many of Clojure’s functions that operate on vectors and other collections actually operate on sequences. The <code>(seq collection)</code> function returns a sequence constructed from a collection, such as a vector or a map.</p>
 <p>Sequences have the following operations:</p>
@@ -469,7 +468,7 @@ Exercise 14
 (<span class="kw">rest</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])   <span class="co">;=&gt; (2 3)</span>
 (<span class="kw">cons</span> <span class="dv">0</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; (0 1 2 3)</span></code></pre>
 </section>
-<section id="the-map-function" class="level3">
+<section class="level3" id="the-map-function">
 <h3>The map function</h3>
 <p><code>(map function collection)</code> takes two parameters, a function and a sequenceable collection. It calls the function on each element of the sequence and returns a sequence of the return values.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> munge </span>[x]
@@ -479,14 +478,14 @@ Exercise 14
 <span class="co">;=&gt; ((munge 1) (munge 2) (munge 3) (munge 4)) ; [note below]</span>
 <span class="co">;=&gt; ( 43        44        45        46)</span></code></pre>
 <p><em>Note:</em> You can’t paste the result line (or the middle one) to the REPL, as it is the printed form of a sequence.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 15
 </h3>
 <p>Write the function <code>(element-lengths collection)</code> that returns the lengths of every item in <code>collection</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(element-lengths [<span class="st">&quot;foo&quot;</span> <span class="st">&quot;bar&quot;</span> <span class="st">&quot;&quot;</span> <span class="st">&quot;quux&quot;</span>])  <span class="co">;=&gt; (3 3 0 4)</span>
 (element-lengths [<span class="st">&quot;x&quot;</span> [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>] {<span class="kw">:y</span> <span class="dv">42</span>}]) <span class="co">;=&gt; (1 3 1)</span></code></pre>
 </section>
-
 <p>Earlier, we briefly introduces the <code>fn</code> special form that can be used to create functions. This is useful when you want a function that is only visible in the definition of another function. Quite often you want to use <code>let</code> to give name to this helper function.</p>
 <p>Let’s rewrite the example above in this style:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> mungefy </span>[a-seq]
@@ -494,7 +493,8 @@ Exercise 15
     (<span class="kw">map</span> munge a-seq)))</code></pre>
 <p>Now the function <code>munge</code> is only visible inside the definition of <code>mungefy</code>. It should work like the previous one.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(mungefy [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; (43 44 45 46)</span></code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 16
 </h3>
 <p>Use <code>map</code> to write the function <code>(second-elements collection)</code> that takes a vector of vectors and returns a sequence of the second elements.</p>
@@ -504,7 +504,6 @@ Exercise 16
 (second-elements [[<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>] [<span class="dv">1</span>] [<span class="st">&quot;a&quot;</span> <span class="st">&quot;s&quot;</span> <span class="st">&quot;d&quot;</span> <span class="st">&quot;f&quot;</span>]])
 <span class="co">;=&gt; (2 nil &quot;s&quot;)</span></code></pre>
 </section>
-
 <p>When you have a sequence of maps, the fact that <code>:keywords</code> are also functions can be helpful.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">:name</span> {<span class="kw">:name</span> <span class="st">&quot;MEEEE&quot;</span>, <span class="kw">:secret</span> <span class="st">&quot;Awesome&quot;</span>}) <span class="co">;=&gt;  &quot;MEEEE&quot;</span></code></pre>
 <p>You can therefore use a <code>:keyword</code> as the function parameter of <code>map</code>.</p>
@@ -514,7 +513,8 @@ Exercise 16
               {<span class="kw">:name</span> <span class="st">&quot;King of All Cosmos&quot;</span> <span class="kw">:age</span> -<span class="dv">6</span>}]]
   (<span class="kw">map</span> <span class="kw">:age</span> people))
 <span class="co">;=&gt; (3 42 72 -6)</span></code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 17
 </h3>
 <p>Write the function <code>(titles books)</code> that takes a collection of books and returns their titles.</p>
@@ -539,7 +539,6 @@ Exercise 17
 ;=&gt; (&quot;The City and the City&quot; &quot;Wild Seed&quot;
 ;    &quot;Embassytown&quot; &quot;The Little Schemer&quot;)</code></pre>
 </section>
-
 <p>Okey, so now that <code>map</code> has been gone over, let’s see the definition of <code>all-author-names</code> again.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> author-names </span>[book]
   (<span class="kw">map</span> <span class="kw">:name</span> (<span class="kw">:authors</span> book)))
@@ -566,7 +565,7 @@ Exercise 17
 <p>So we end up only giving <code>concat</code> one argument and it simply returns the argument. What we want is to give the elements of <code>(map author-names books)</code> to <code>concat</code> as arguments.</p>
 <p>No worries, there is a way to do this. Let’s check out <code>apply</code>.</p>
 </section>
-<section id="apply-now-redux" class="level3">
+<section class="level3" id="apply-now-redux">
 <h3>Apply Now, Redux</h3>
 <p><code>(apply function a-seq)</code> applies <code>function</code> to the arguments in <code>a-seq</code>. Here’s an example:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">apply</span> <span class="kw">+</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])
@@ -578,7 +577,8 @@ Exercise 17
 <span class="co">;=&gt; (&quot;China Miéville&quot; &quot;Octavia E. Butler&quot;)</span></code></pre>
 <p>More generally, <code>apply</code> works like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">apply</span> function [arg1 arg2 arg3 ...]) =&gt; (function arg1 arg2 arg3 ...)</code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 18
 </h3>
 <p>Write the function <code>(stars n)</code> that returns a string with <code>n</code> aterisks <code>\*</code>.</p>
@@ -592,8 +592,8 @@ Exercise 18
 <!-- ********* -->
 
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 19
 </h3>
 <p>Write the function <code>(monotonic? a-seq)</code> that returns <code>true</code> if <code>a-seq</code> is monotonic and otherwise <code>false</code>.</p>
@@ -606,7 +606,6 @@ Exercise 19
 (monotonic? [<span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span>])     <span class="co">;=&gt; true    Not strictly monotonic</span>
 (monotonic? [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">0</span>])   <span class="co">;=&gt; false</span></code></pre>
 </section>
-
 <p>So now we can put all authors into a single list. There’s just one problem left. What is that? Well, let’s see what happens if we put together everything seen so far.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">apply</span> <span class="kw">concat</span> (<span class="kw">map</span> author-names books))
 <span class="co">;=&gt; (&quot;China Miéville&quot; &quot;Octavia E. Butler&quot;</span>
@@ -614,7 +613,7 @@ Exercise 19
 <span class="co">;    &quot;Matthias Felleisen&quot;)</span></code></pre>
 <p>We had two books by China Miéville, so his name is in the resulting sequence twice. But when we want to see the authors, we are usually not interested in duplicates. So lets turn the sequence into a data structure that supports this.</p>
 </section>
-<section id="set" class="level3">
+<section class="level3" id="set">
 <h3>Set</h3>
 <p>Our last major data structure is the set. It is an unordered collection of items without duplicates.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">set</span> [<span class="st">&quot;^^&quot;</span> <span class="st">&quot;^^&quot;</span> <span class="st">&quot;^__*__^&quot;</span>]) <span class="co">;=&gt; #{&quot;^__*__^&quot; &quot;^^&quot;}</span>
@@ -638,8 +637,9 @@ Exercise 19
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:c</span>) <span class="co">;=&gt; #{:a :b}</span>
 (<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:EEEEE</span>) <span class="co">;=&gt; #{:a :c :b}</span>
 (<span class="kw">disj</span> #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:c</span> <span class="kw">:a</span>) <span class="co">;=&gt; #{:b}</span></code></pre>
-<p><a id="toggle"></a></p>
-<section class="alert alert-success"><h3>
+<a id="toggle"></a>
+<section class="alert alert-success">
+<h3>
 Exercise 20
 </h3>
 
@@ -647,11 +647,11 @@ Exercise 20
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:d</span>) <span class="co">;=&gt; #{:a :c :b :d}</span>
 (toggle #{<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>} <span class="kw">:a</span>) <span class="co">;=&gt; #{:c :b}</span></code></pre>
 </section>
-
 <p>If you want to know the size of a set, <code>count</code> also works with sets.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">count</span> #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>}) <span class="co">;=&gt; 3</span>
 (<span class="kw">count</span> (<span class="kw">set</span> [<span class="dv">1</span> <span class="dv">2</span>])) <span class="co">;=&gt; 2</span></code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 21
 </h3>
 <p>Write the function <code>(contains-duplicates? sequence)</code> that takes a sequence as a parameter and returns <code>true</code> if <code>sequence</code> contains some element multiple times. Otherwise it returns <code>false</code>.</p>
@@ -659,7 +659,6 @@ Exercise 21
 (contains-duplicates? [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> -<span class="dv">40</span>]) <span class="co">;=&gt; false</span>
 (contains-duplicates? [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="st">&quot;a&quot;</span> <span class="st">&quot;a&quot;</span>]) <span class="co">;=&gt; true</span></code></pre>
 </section>
-
 <p>Our books looked like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> friedman </span>{<span class="kw">:name</span> <span class="st">&quot;Daniel Friedman&quot;</span> <span class="kw">:birth-year</span> <span class="dv">1944</span>})
 (<span class="kw">def</span><span class="fu"> felleisen </span>{<span class="kw">:name</span> <span class="st">&quot;Matthias Felleisen&quot;</span>})
@@ -685,13 +684,14 @@ Exercise 21
 <span class="co">;     &quot;Octavia E. Butler&quot; &quot;Daniel Friedman&quot;}</span></code></pre>
 </section>
 </section>
-<section id="representing-books-take-two" class="level2">
+<section class="level2" id="representing-books-take-two">
 <h2>Representing Books, Take Two</h2>
 <p>Now I would like to ask whether <code>little-schemer</code> has <code>felleisen</code> as an author or not. This turns out to be problematic. There is no function on vectors that can be used to query membership. So how about we change the representation of books? We now have a motivation to put authors into a set instead of a vector. This feels like a more natural fit, since a book never has a single author multiple times and our data doesn’t give a natural order for the authors.</p>
 <p>New representation:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> little-schemer </span>{<span class="kw">:title</span> <span class="st">&quot;The Little Schemer&quot;</span>
                      <span class="kw">:authors</span> #{friedman, felleisen}})</code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 22
 </h3>
 <p>Write the function <code>(old-book-&gt;new-book book)</code> that takes a book with the previous representation (authors in a vector) and returns the same book in the new representation (authors in a set).</p>
@@ -712,7 +712,6 @@ Exercise 22
 <span class="co">;    :title &quot;The City and the City&quot;</span>
 <span class="co">;    :authors #{{:birth-year 1972, :name &quot;China Miéville&quot;}}}</span></code></pre>
 </section>
-
 <p>Here are all of the books changed to the new representation:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> china </span>{<span class="kw">:name</span> <span class="st">&quot;China Miéville&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1972</span>})
 (<span class="kw">def</span><span class="fu"> octavia </span>{<span class="kw">:name</span> <span class="st">&quot;Octavia E. Butler&quot;</span>
@@ -729,7 +728,8 @@ Exercise 22
 
 (<span class="kw">def</span><span class="fu"> books </span>[cities, wild-seed, embassytown, little-schemer])</code></pre>
 <p>Now that the authors are in a set, it is easy to find out whether a book has some author or not.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 23
 </h3>
 <p>Write the function <code>(has-author? book author)</code> that returns <code>true</code> if <code>author</code> is in the authors of <code>book</code> and otherwise <code>false</code>.</p>
@@ -739,7 +739,6 @@ Exercise 23
 (has-author? little-schemer friedman)  <span class="co">;=&gt; true</span>
 (has-author? little-schemer octavia)   <span class="co">;=&gt; false</span></code></pre>
 </section>
-
 <p>Does our previous definition for <code>all-author-names</code> still work? It does, but let’s take another look at it.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> all-author-names </span>[books]
   (<span class="kw">let</span> [author-names
@@ -750,7 +749,8 @@ Exercise 23
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(clojure.set/union #{<span class="dv">1</span> <span class="dv">2</span>} #{<span class="dv">2</span> <span class="dv">3</span>} #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>} #{<span class="dv">7</span> <span class="dv">8</span>}) <span class="co">;=&gt; #{1 2 3 4 7 8}</span>
 (<span class="kw">apply</span> clojure.set/union [#{<span class="dv">1</span> <span class="dv">2</span>} #{<span class="dv">5</span>} #{<span class="dv">7</span> <span class="dv">8</span>}])      <span class="co">;=&gt; #{1 2 5 7 8}</span></code></pre>
 <p>That is, <code>union</code> works like <code>concat</code> but is specialized for sets. Let’s put this into good use:</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 24
 </h3>
 <p>Write the function <code>(authors books)</code> that returns the authors of every book in <code>books</code> as a set.</p>
@@ -758,9 +758,9 @@ Exercise 24
 (authors [cities, wild-seed, embassytown]) <span class="co">;=&gt; #{china, octavia}</span>
 (authors [little-schemer, cities])         <span class="co">;=&gt; #{china, friedman, felleisen}</span></code></pre>
 </section>
-
 <p>Now that we have all of our authors, defining <code>all-author-names</code> should be simple.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 25
 </h3>
 <p>Write the function <code>(all-author-names books)</code> that works like the previous one and uses <code>authors</code>.</p>
@@ -771,11 +771,11 @@ Exercise 25
 <span class="co">;=&gt; #{&quot;China Miéville&quot; &quot;Octavia E. Butler&quot;}</span>
 (all-author-names []) <span class="co">;=&gt; #{}</span></code></pre>
 </section>
-
-<section id="string-representation-for-books" class="level3">
+<section class="level3" id="string-representation-for-books">
 <h3>String Representation for Books</h3>
 <p>Now that we have defined these books, I would like to have a readable string representation for them. Let’s start by defining a representation for a single author.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 26
 </h3>
 <p>Write the function <code>(author-&gt;string author)</code> that returns a string representation of <code>author</code> as follows:</p>
@@ -785,7 +785,6 @@ Exercise 26
 (author-&gt;string octavia)   <span class="co">;=&gt; &quot;Octavia E. Butler (1947 - 2006)&quot;</span></code></pre>
 <p>Hint: you probably want to split this string into two parts: name and years. Use <code>let</code> to form these and use <code>str</code> to create the final string.</p>
 </section>
-
 <p>Now we have a string representation for a single author. Some of our books had multiple authors, so we need to figure out a way to give a string representation for multiple authors. To do this, we need a handy helper function.</p>
 <p>Sometimes you want to add something in between the elements of a sequence. For that, there is <code>(interpose separator a-seq)</code>, which returns a new sequence that has <code>separator</code> between each element of <code>a-seq</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">interpose</span> <span class="st">&quot;:&quot;</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])        <span class="co">;=&gt; (1 &quot;:&quot; 2 &quot;:&quot; 3)</span>
@@ -794,7 +793,8 @@ Exercise 26
 
 (<span class="kw">apply</span> <span class="kw">str</span> (<span class="kw">interpose</span> <span class="st">&quot; and &quot;</span> [<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>])) <span class="co">;=&gt; &quot;a and b&quot;</span></code></pre>
 <p>With this, it shouldn’t be too hard to get a nice representation for a sequence of authors.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 27
 </h3>
 <p>Write the function <code>(authors-&gt;string authors)</code> which takes a sequence of authors as a parameter and returns a string representation of <code>authors</code> in the following manner:</p>
@@ -807,9 +807,9 @@ Exercise 27
 <span class="co">;   order doesn&#39;t matter</span></code></pre>
 <p>Since the authors are in a set, which doesn’t have a predefined order, the resulting string can have the authors in any order.</p>
 </section>
-
 <p>Now that we can handle the case of multiple authors, we can move on to the string representation of a single book.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 28
 </h3>
 <p>Write the function <code>(book-&gt;string book)</code> takes a single book as a parameter and returns a string representation of <code>book</code> as follows:</p>
@@ -819,9 +819,9 @@ Exercise 28
 <span class="co">;                                   ^-- order doesn&#39;t matter</span></code></pre>
 <p>Again, the order of authors in the string doesn’t matter.</p>
 </section>
-
 <p>And finally, we can define a string representation for a sequence of books.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 29
 </h3>
 <p>Write the function <code>(books-&gt;string books)</code> that takes a sequence of books as a parameter and returns a string representation of <code>books</code> like this:</p>
@@ -831,10 +831,9 @@ Exercise 29
 (books-&gt;string [little-schemer, cities, wild-seed])
 <span class="co">;=&gt; &quot;3 books. The Little Schemer, written by Daniel Friedman (1944 - ), Matthias Felleisen. The City and the City, written by China Miéville (1972 - ). Wild Seed, written by Octavia E. Butler (1947 - 2006).&quot;</span></code></pre>
 </section>
-
 </section>
 </section>
-<section id="filtering-sequences" class="level2">
+<section class="level2" id="filtering-sequences">
 <h2>Filtering sequences</h2>
 <p>Another common function besides <code>map</code> is <code>filter</code>. It is used to select some elements of a sequence and disregard the rest:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">filter</span> <span class="kw">pos?</span> [-<span class="dv">4</span> <span class="dv">6</span> -<span class="dv">2</span> <span class="dv">7</span> -<span class="dv">8</span> <span class="dv">3</span>])
@@ -845,7 +844,8 @@ Exercise 29
 (<span class="kw">filter</span> (<span class="kw">fn</span> [x] (<span class="kw">&gt;</span> (<span class="kw">count</span> x) <span class="dv">2</span>)) [<span class="st">&quot;ff&quot;</span> <span class="st">&quot;f&quot;</span> <span class="st">&quot;ffffff&quot;</span> <span class="st">&quot;fff&quot;</span>])
 <span class="co">;=&gt; (&quot;ffffff&quot; &quot;fff&quot;)</span></code></pre>
 <p><code>(filter predicate collection)</code> takes two parameters, a function and a sequencable collection. It calls <code>predicate</code> (the function) on each element of <code>collection</code> and returns a sequence of elements of <code>collection</code> for which <code>predicate</code> returned a truthy value. In the above example the values <code>(6 7 3)</code> were selected because for them <code>pos?</code> returned <code>true</code>; for the others it returned <code>false</code>, a falsey value, and they were filtered out.</p>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 30
 </h3>
 <p>Write the function <code>(books-by-author author books)</code>.</p>
@@ -853,9 +853,9 @@ Exercise 30
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(books-by-author china books)   <span class="co">;=&gt; (cities embassytown)</span>
 (books-by-author octavia books) <span class="co">;=&gt; (wild-seed)</span></code></pre>
 </section>
-
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> authors </span>#{china, felleisen, octavia, friedman})</code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 31
 </h3>
 <p>Write the function <code>(author-by-name name authors)</code> that takes a string <code>name</code> and a sequence of authors and returns an author with the given name if one is found. If one is not found, then <code>nil</code> should be returned.</p>
@@ -865,8 +865,8 @@ Exercise 31
 (author-by-name <span class="st">&quot;China Miéville&quot;</span> authors)                   <span class="co">;=&gt; china</span>
 (author-by-name <span class="st">&quot;Goerge R. R. Martin&quot;</span> authors)              <span class="co">;=&gt; nil</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 32
 </h3>
 <p>Write the function <code>(living-authors authors)</code> that takes a sequence of authors and returns those that are alive. Remember <code>alive?</code>.</p>
@@ -875,7 +875,6 @@ Exercise 32
 (living-authors #{china, felleisen}) <span class="co">;=&gt; (china, felleisen)</span></code></pre>
 <p>The order in the results doesn’t matter.</p>
 </section>
-
 <p>Here’s another book. This one has both living and dead authors, which is a useful test case for the following exercises.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> jrrtolkien </span>{<span class="kw">:name</span> <span class="st">&quot;J. R. R. Tolkien&quot;</span> <span class="kw">:birth-year</span> <span class="dv">1892</span> <span class="kw">:death-year</span> <span class="dv">1973</span>})
 (<span class="kw">def</span><span class="fu"> christopher </span>{<span class="kw">:name</span> <span class="st">&quot;Christopher Tolkien&quot;</span> <span class="kw">:birth-year</span> <span class="dv">1924</span>})
@@ -892,7 +891,8 @@ Exercise 32
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">empty?</span> [])  <span class="co">;=&gt; true</span>
 (<span class="kw">empty?</span> #{}) <span class="co">;=&gt; true</span>
 (<span class="kw">empty?</span> [<span class="dv">1</span>]) <span class="co">;=&gt; false</span></code></pre>
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 33
 </h3>
 <p>Write the function <code>(has-a-living-author? book)</code> that returns <code>true</code> if <code>book</code> has a living author, and otherwise <code>false</code>.</p>
@@ -902,8 +902,8 @@ Exercise 33
 (has-a-living-author? cities)         <span class="co">;=&gt; true</span>
 (has-a-living-author? deus-irae)      <span class="co">;=&gt; false</span></code></pre>
 </section>
-
-<section class="alert alert-success"><h3>
+<section class="alert alert-success">
+<h3>
 Exercise 34
 </h3>
 <p>Write the function <code>(books-by-living-authors books)</code> that takes a sequence of books as a parameter and returns those that have a living author.</p>
@@ -911,8 +911,7 @@ Exercise 34
 (books-by-living-authors (<span class="kw">concat</span> books [deus-irae, silmarillion]))
 <span class="co">;=&gt; (little-schemer cities embassytown silmarillion)</span></code></pre>
 </section>
-
-<section id="keeping-your-vectors" class="level3">
+<section class="level3" id="keeping-your-vectors">
 <h3>Keeping your vectors</h3>
 <p><code>map</code> and <code>filter</code> always return sequences, regardless of the collection type given as a parameter. Sometimes, however, you want the result to be a vector. For an example, you may want to index the vector afterwards. In this situation, you can use <code>mapv</code> and <code>filterv</code>, which are variants of <code>map</code> and <code>filter</code> that always return vectors.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(mapv ... [...])    <span class="co">;=&gt; [...]</span>
@@ -921,7 +920,7 @@ Exercise 34
 (mapv ... #{...})   <span class="co">;=&gt; [...]</span></code></pre>
 </section>
 </section>
-<section id="done" class="level2">
+<section class="level2" id="done">
 <h2>Done!</h2>
 <p>Phew, that was quite a lot of stuff.</p>
 <p><a href="style.html">Clojure with Style →</a></p>

@@ -5,14 +5,16 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="120 hour epic">
   <title>blorg blorg blorg</title>
-  <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
+    q { quotes: "“" "”" "‘" "’"; }
+  </style>
+  <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
+table.sourceCode { width: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 code > span.kw { color: #007020; font-weight: bold; }
@@ -44,21 +46,21 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 class="author">120 hour epic</h2>
 <h3 class="date">sax marathon</h3>
 </header>
-<section id="synopsis" class="level2">
+<section class="level2" id="synopsis">
 <h2>Synopsis</h2>
 <p>In which we follow along an implementation of a blog engine.</p>
 <ul>
 <li>State.</li>
 <li>Using libraries.</li>
 <li>Organizing code.</li>
-<li>The principle of “simple”.</li>
+<li>The principle of <q>simple</q>.</li>
 </ul>
 </section>
-<section id="description" class="level2">
+<section class="level2" id="description">
 <h2>Description</h2>
 <p>This chapter is special in that there are no exercises. Instead, we will take an existing project and study its code and development.</p>
 </section>
-<section id="get-the-project" class="level2">
+<section class="level2" id="get-the-project">
 <h2>Get the project</h2>
 <p>The project is available at:</p>
 <pre><code>git clone https://github.com/iloveponies/blorg.git</code></pre>
@@ -66,16 +68,16 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>To begin with, check out the tag <code>initial</code> to see the first version of the code:</p>
 <pre><code>git checkout initial</code></pre>
 </section>
-<section id="the-idea" class="level2">
+<section class="level2" id="the-idea">
 <h2>The idea</h2>
 <p>So far we have programmed various Clojure exercises and at least one larger project (poker hands). It all feels decidedly… unhipster, though. It’s hardly <a href="http://www.mongodb-is-web-scale.com/">webscale</a>!</p>
 <p>We want to write a blog engine, and not just any engine, but one written with Clojure. We also want to use ready-made libraries for writing web applications instead of inventing our own wheel (as satisfying it would be). Additionally, we want to keep the implementation as simple as possible.</p>
-<section id="exploratory-coding-or-why-we-dont-have-tests-yet" class="level3">
+<section class="level3" id="exploratory-coding-or-why-we-dont-have-tests-yet">
 <h3>Exploratory coding, or why we don’t have tests yet</h3>
 <p>We don’t really know what we’re doing yet; we’re mostly gluing together existing libraries and defining a very simple model for blog posts. We decide to not write unit tests, and instead implement a <em>prototype</em> instead. We are prepared to throw away this code and reimplement a new version with tests. Alternatively, we might use the prototype itself as the production version and write tests for it after the fact.</p>
 </section>
 </section>
-<section id="initial-implementation" class="level2">
+<section class="level2" id="initial-implementation">
 <h2>Initial implementation</h2>
 <p>Using the <code>initial</code> tag we can see our first implementation. First, we should take a look at the project definition, which tells us what libraries we are using. The project definition resides in the <code>project.clj</code> file in the project root directory:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(defproject blorg <span class="st">&quot;0.1.0-SNAPSHOT&quot;</span>
@@ -83,7 +85,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
                  [noir <span class="st">&quot;1.3.0-beta7&quot;</span>]]
   <span class="kw">:main</span> blorg.core)</code></pre>
 <p>This definition tells Leiningen that blorg requires Clojure version 1.4.0 and the <a href="http://webnoir.org">noir</a> library version 1.3.0-beta7. It also specifies that the namespace <code>blorg.core</code> contains the main function to be called when the user runs <code>lein run</code>.</p>
-<section id="the-first-page" class="level3">
+<section class="level3" id="the-first-page">
 <h3>The first page</h3>
 <p>Our initial implementation resides in one file, <code>src/blorg/core.clj</code>. It contains very little code, so let us study it. First, let us take a look at the whole file to see the overall structure. You do not need to understand what each bit does yet; we’ll go through each part individually.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">ns</span> blorg.core
@@ -117,13 +119,13 @@ You can view the site at http://localhost:8080
 #&lt;Server org.eclipse.jetty.server.Server@eaecb09&gt;
 2012-05-24 12:50:49.819:INFO:oejs.AbstractConnector:Started SelectChannelConnector@0.0.0.0:8080</code></pre>
 <p>The output contains one warning, which you we will fix later, and a bunch of interesting lines about the HTTP server launching. The line <code>You can view the site at http://localhost:8080</code> sounds promising. Open that URL in the browser and you should see the first version of our blog:</p>
-<p><a href="img/blorg-initial.png"></p>
+<a href="img/blorg-initial.png">
 <figure>
-<img src="img/blorg-initial.png" alt="First version of the blog." /><figcaption>First version of the blog.</figcaption>
+<img src="img/blorg-initial.png" alt="First version of the blog."><figcaption>First version of the blog.</figcaption>
 </figure>
-<p></a></p>
+</a>
 </section>
-<section id="the-implementation-of-the-first-page" class="level3">
+<section class="level3" id="the-implementation-of-the-first-page">
 <h3>The implementation of the first page</h3>
 <p>Now that we know what the code does, we can go through each part individually.</p>
 <p>First, we start with a regular namespace declaration, which contains our <code>use</code> and <code>require</code> declarations:</p>
@@ -161,17 +163,17 @@ You can view the site at http://localhost:8080
 <p>The last function in our file is <code>-main</code>: it is the function Clojure calls when we run the application with <code>lein run</code>.</p>
 </section>
 </section>
-<section id="adding-new-posts" class="level2">
+<section class="level2" id="adding-new-posts">
 <h2>Adding new posts</h2>
 <p>Our first version of the blog was a good demonstration that we knew how to wire together the libraries we use (noir, hiccup) and how to use them to render posts to users.</p>
 <p>Next we would like to add a feature to the blog that make it actually useful: adding posts. We’d like the blog page to always show, at the bottom, a form for adding a new post. The form should have two input fields: one for the title of the post and one for the body content. The form should also have a submit button that adds the post to the list of posts.</p>
 <p>Check out the <code>state</code> tag:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">git checkout state</code></pre>
-<section id="implementation-requirements" class="level3">
+<section class="level3" id="implementation-requirements">
 <h3>Implementation requirements</h3>
 <p>We need to implement two things: the form on the blog page, and an endpoint that the form is POSTed to by the browser.</p>
 </section>
-<section id="the-form" class="level3">
+<section class="level3" id="the-form">
 <h3>The form</h3>
 <p>We define the form in its own function for clarity:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> add-form </span>[]
@@ -190,7 +192,7 @@ You can view the site at http://localhost:8080
 <p>We’ve put the form in its own <code>&lt;section&gt;</code> tag, and we use <code>hiccup.form</code>’s <code>form-to</code> function to define the form. The <code>[:br]</code> vectors make sure the form elements are properly vertical.</p>
 <p>If you think this definition is a bit ugly, you’re absolutely right. We’ll fix it soon. However, we don’t yet have any way of delivering style information with CSS to the browser. This was the quickest way of adding a form, which we need right now to test the adding of posts.</p>
 </section>
-<section id="the-end-point" class="level3">
+<section class="level3" id="the-end-point">
 <h3>The end-point</h3>
 <p>We declare a new page with <code>defpage</code> to handle the POST submission from the form:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(defpage [<span class="kw">:post</span> <span class="st">&quot;/&quot;</span>] {<span class="kw">:keys</span> [title <span class="kw">content</span>]}
@@ -199,10 +201,10 @@ You can view the site at http://localhost:8080
 <p>The first parameter to <code>defpage</code>, <code>[:post &quot;/&quot;]</code>, declares that this page handels only HTTP POST requests. The second parameter, <code>{:keys [title content]}</code> extracts the <code>title</code> and <code>content</code> fields from the POST request.</p>
 <p>The next line adds a new post to the vector of posts. To understand it, we need to introduce a new syntax form and a new concept.</p>
 </section>
-<section id="the-...-...-syntax" class="level3">
+<section class="level3" id="the-...-...-syntax">
 <h3>The <code>#(... % ...)</code> syntax</h3>
 </section>
-<section id="atoms" class="level3">
+<section class="level3" id="atoms">
 <h3>Atoms</h3>
 </section>
 </section>

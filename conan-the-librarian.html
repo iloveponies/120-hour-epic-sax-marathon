@@ -5,14 +5,16 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="120 hour epic">
   <title>Conan the Librarian</title>
-  <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
+    q { quotes: "“" "”" "‘" "’"; }
+  </style>
+  <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
+table.sourceCode { width: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 code > span.kw { color: #007020; font-weight: bold; }
@@ -44,7 +46,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 class="author">120 hour epic</h2>
 <h3 class="date">sax marathon</h3>
 </header>
-<section id="synopsis" class="level2">
+<section class="level2" id="synopsis">
 <h2>Synopsis</h2>
 <blockquote>
 <p>In which we befriend the REPL and create a library catalog.</p>
@@ -54,14 +56,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Building a set of functions that help each other.</li>
 </ul>
 </section>
-<section id="your-mission-if-you-should-choose-to-accept-it-is" class="level2">
+<section class="level2" id="your-mission-if-you-should-choose-to-accept-it-is">
 <h2>Your mission, if you should choose to accept it, is…</h2>
 <p>In the secret dossier called Project Gutenberg data you will find a catalog of a subset of the Finnish books on Project Gutenberg. The data is in a Clojure vector and can be read into a program easily:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">def</span><span class="fu"> books </span>(<span class="kw">load-file</span> <span class="st">&quot;books.clj&quot;</span>))</code></pre>
-<section class="alert alert-error">
-TODO: This doesn’t work?!
-</section>
-
+<p><section class="alert alert-error">TODO: This doesn’t work?!</section></p>
 <p>The elements in <code>books</code> are maps that each represents a book, like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">{<span class="kw">:title</span> <span class="st">&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;</span>
  <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>, <span class="kw">:birth-year</span> <span class="dv">1814</span>, <span class="kw">:death-year</span> <span class="dv">1882</span>}}</code></pre>
@@ -70,27 +69,23 @@ TODO: This doesn’t work?!
 <pre class="sourceCode clojure"><code class="sourceCode clojure">{<span class="kw">:title</span> <span class="st">&quot;Contigo Pan y Cebolla&quot;</span>,
  <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Gorostiza, Manuel Eduardo  de&quot;</span>}}</code></pre>
 <p>In other words, an author is a map with at least the key <code>:name</code>, and optionally also <code>:birth-year</code> and <code>:death-year</code>. All authors who have either <code>:birth-year</code> <em>or</em> <code>:death-year</code> have both. (We checked.)</p>
-<p>This is a feature of the original data. The data has another peculiarity: some authors’ names contain a birth year in the form “Name of Author, 1234-”, where 1234 is the birth year. This is an artifact of the data extraction script we used to transform the data into a Clojure map.</p>
+<p>This is a feature of the original data. The data has another peculiarity: some authors’ names contain a birth year in the form <q>Name of Author, 1234-</q>, where 1234 is the birth year. This is an artifact of the data extraction script we used to transform the data into a Clojure map.</p>
 <p>However, there is a lot we can do – even with this imperfect data. Imperfect data is also a good example of the kind of data you often encounter in real world situations, such as scraping websites or, in general, communicating with third party systems you have no control over.</p>
 </section>
-<section id="wants-and-needs" class="level2">
+<section class="level2" id="wants-and-needs">
 <h2>Wants and needs</h2>
 <p>Our goal is to write a <em>catalog</em>, a data structure that we can query to find all the titles by a certain author.</p>
-<section class="alert alert-error">
-TODO: Some REPL prototyping here.
-</section>
-
+<p><section class="alert alert-error">TODO: Some REPL prototyping here.</section></p>
 <p>Now that we have prototyped in the REPL and hopefully have some idea of what we want to implement, we can start writing code in a file. We’re going to cheat and not tell you what the final function is like. Instead, we will build up to it, bottom-up, with successive helper methods.</p>
 <p>First, this is how the function we will eventually implement will work:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(author-catalog books {<span class="kw">:name</span> <span class="st">&quot;Gorostiza, Manuel Eduardo  de&quot;</span>})
 <span class="co">;=&gt; (TODO)</span></code></pre>
 </section>
-<section id="practice-makes-perfect" class="level2">
+<section class="level2" id="practice-makes-perfect">
 <h2>Practice makes perfect</h2>
 <p>Let’s start building the helper functions we need to implement <code>author-catalog</code>.</p>
 <p>First, though, let’s write a few practice functions to make sure we understand how the data is structured. An interesting feature in the data is the missing birth and death years for some authors. Let’s see how we could detect these authors.</p>
 <section class="exercise alert alert-success">
-
 <p>Implement the function <code>(author-has-years? author)</code>, which returns <code>true</code> or <code>false</code> depending on whether the given <code>author</code> has the <code>:birth-year</code> and <code>:death-year</code> entries.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(author-has-years? {<span class="kw">:title</span> <span class="st">&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;</span>
                     <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>,
@@ -102,10 +97,8 @@ TODO: Some REPL prototyping here.
 <span class="co">;                   :author {:name &quot;Gorostiza, Manuel Eduardo  de&quot;}})</span>
 <span class="co">;=&gt; false</span></code></pre>
 </section>
-
 <p>Now that we have a function to detect if an author map contains the year information, we can, for an example, write a function that will return all the books whose authors do have the year information. We do not need this for our catalog, but it is a good practice function.</p>
 <section class="exercise alert alert-success">
-
 <p>Write the function <code>(books-with-author-years books)</code>, which returns those books from <code>books</code> whose <code>:author</code> has <code>:death-year</code> and <code>:birth-year</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(books-with-author-years
     [{<span class="kw">:title</span> <span class="st">&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;</span>
@@ -119,13 +112,11 @@ TODO: Some REPL prototyping here.
 <span class="co">;              :birth-year 1814,</span>
 <span class="co">;              :death-year 1882}})</span></code></pre>
 </section>
-
 </section>
-<section id="its-dangerous-to-go-alone-take-this." class="level2">
+<section class="level2" id="its-dangerous-to-go-alone-take-this.">
 <h2>It’s dangerous to go alone! Take this.</h2>
 <p>Now we begin to write the actual helper functions we know we will need to implement <code>author-catalog</code>.</p>
 <section class="exercise alert alert-success">
-
 <p><code>(authors books)</code> returns a collection of authors. The returned collection should not contain the same author multiple times even if the author has multiple books in <code>books</code>.</p>
 <p>You can use <code>distinct</code> to remove duplicates from a sequence.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(authors [{<span class="kw">:title</span> <span class="st">&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;</span>
@@ -147,10 +138,8 @@ TODO: Some REPL prototyping here.
       <span class="kw">:birth-year</span> <span class="dv">1814</span>,
       <span class="kw">:death-year</span> <span class="dv">1882</span>})</code></pre>
 </section>
-
 <p>Another useful function will be <code>author-names</code>:</p>
 <section class="exercise alert alert-success">
-
 <p><code>(author-names books)</code> returns a collection of author names, without duplicates.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(author-names [{<span class="kw">:title</span> <span class="st">&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;</span>
                 <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>,
@@ -162,13 +151,11 @@ TODO: Some REPL prototyping here.
                          <span class="kw">:death-year</span> <span class="dv">1932</span>}}])
 <span class="co">;=&gt; (&quot;Hoffmann, Franz&quot;, &quot;Järnefelt, Arvid&quot;)</span></code></pre>
 </section>
-
 </section>
-<section id="the-boss-fight" class="level2">
+<section class="level2" id="the-boss-fight">
 <h2>The boss fight</h2>
 <p>We now implement the <code>author-catalog</code> function. It is an example of one kind of a view (or catalog) into the Project Gutenberg data. You are encouraged to write other kinds of views. For an example, it would be interesting to catalog authors by their birth year.</p>
 <section class="exercise alert alert-success">
-
 <p>Write the function <code>(author-catalog books)</code> that returns a new map of the catalog data with <em>author names</em> as keys and the respective <em>book titles</em> as values. For an example:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(author-catalog [{<span class="kw">:title</span> <span class="st">&quot;Nuoren Robertin matka Grönlantiin isäänsä hakemaan&quot;</span>
                   <span class="kw">:author</span> {<span class="kw">:name</span> <span class="st">&quot;Hoffmann, Franz&quot;</span>,
@@ -187,8 +174,6 @@ TODO: Some REPL prototyping here.
 <span class="co">;    &quot;Järnefelt, Arvid&quot;</span>
 <span class="co">;    (&quot;Elämän meri&quot;, &quot;Ihmiskohtaloja&quot;)}</span></code></pre>
 </section>
-
-
 </section>
 <footer>
     <p>
