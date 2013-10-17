@@ -1,3 +1,7 @@
 .redo/
 !*.hs
 filters/
+*.html
+!before.html
+!after.html
+!header.html
