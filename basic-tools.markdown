@@ -78,29 +78,9 @@ Here's the instructions for installing Leiningen in Linux:
    download the rest of Leiningen. After the download is complete you
    get a list of services provided by Leiningen.
 
-In Windows you need to do the following:
-
-1. Download the GNU wget binary from [here][wget] and place it in a
-   appropriate directory. For the sake of this guide, lets call it
-   `C:\Users\MyUser\mybin`.
-
-2. Download the Leiningen [batch file][LeinInstallWindows] and place
-   it in `C:\Users\MyUser\mybin`.
-
-3. Add the previous directories to Path. Right click Computer, select
-   Properties, select Advanced system settings, select Environment
-   Variables. If you don't have a user variable called `Path` click
-   `New..` and make a variable named `Path` with the value
-   `%Path%;C:\Users\MyUser\mybin`. Else edit the variable `Path` and
-   add `;C:\Users\MyUser\mybin` at the end of the value.
-
-4. If you haven't already, now is a good time to also add Java to the
-   Path. You need to locate the directory that contains java.exe which
-   is usually `C:\Programming Files (x86)\Java\jre7\bin` in a 64 bit
-   installation. Also append this directory to the value of the Path
-   variable, separated with a `;`.
-
-5. Open `powershell` and run `lein self-install`.
+For Windows there is an
+[installer](http://leiningen-win-installer.djpowell.net/) that does
+all this for you. You only need to have Java installed.
 
 The table below contains some important Leiningen commands.
 
