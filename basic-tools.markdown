@@ -81,16 +81,20 @@ Here's the instructions for installing Leiningen in Linux:
 In Windows you need to do the following:
 
 1. Download the GNU wget binary from [here][wget] and place it in a
-   appropriate directory.
+   appropriate directory. For the sake of this guide, lets call it
+   `C:\Users\MyUser\mybin`.
 
 2. Download the Leiningen [batch file][LeinInstallWindows] and place
-   it in an appropriate directory (same place as wget is fine).
+   it in `C:\Users\MyUser\mybin`.
 
 3. Add the previous directories to Path. Right click Computer, select
    Properties, select Advanced system settings, select Environment
-   Variables... and Edit `Path` to contain the directories.
+   Variables. If you don't have a user variable called `Path` click
+   `New..` and make a variable named `Path` with the value
+   `%Path%;C:\Users\MyUser\mybin`. Else edit the variable `Path` and
+   add `;C:\Users\MyUser\mybin` at the end of the value.
 
-4. Open `cmd.exe` and run `lein self-install`.
+4. Open `powershell` and run `lein self-install`.
 
 The table below contains some important Leiningen commands.
 
