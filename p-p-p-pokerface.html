@@ -5,13 +5,14 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="120 hour epic">
   <title>P-P-P-Pokerface</title>
+  <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; }
+table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 code > span.kw { color: #007020; font-weight: bold; }
@@ -43,16 +44,16 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 class="author">120 hour epic</h2>
 <h3 class="date">sax marathon</h3>
 </header>
-<section class="level2" id="synopsis">
+<section id="synopsis" class="level2">
 <h2>Synopsis</h2>
 <p>Here we’ll implement a poker hand evaluator in Clojure.</p>
 </section>
-<section class="level2" id="fork-this">
+<section id="fork-this" class="level2">
 <h2>Fork this</h2>
 <p><a href="https://github.com/iloveponies/p-p-p-pokerface">https://github.com/iloveponies/p-p-p-pokerface</a></p>
 <p><a href="basic-tools.html#how-to-submit-answers-to-exercises">Here</a> are the instructions if you need them. Be sure to fork the repository behind the link above.</p>
 </section>
-<section class="level2" id="data-representation">
+<section id="data-representation" class="level2">
 <h2>Data representation</h2>
 <p>A traditional playing card has a rank and a suit. The rank is a number from 2 to 10, J, Q, K or A and the suit is Clubs, Diamonds, Hearts or Spades.</p>
 <p>We want a simple way to represent poker hands and cards. A card is simply going to be a string of the form <code>&quot;5C&quot;</code> where the first character represents the rank and the second character represents the suit. To keep the representation at 2 characters, we’ll use the following coding for values between 10 and 14:</p>
@@ -88,7 +89,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </table>
 <p>So, for example, the Queen of Hearts is <code>&quot;QH&quot;</code> and the Ace of Spades is <code>&quot;AS&quot;</code>.</p>
 </section>
-<section class="level2" id="rank-and-suit">
+<section id="rank-and-suit" class="level2">
 <h2>Rank and suit</h2>
 <p>We’ll want a couple of helper functions to read the rank and suit of a card.</p>
 <p>A useful thing to note is that Strings are sequencable, so you can use sequence destructuring on them:</p>
@@ -100,8 +101,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>And finally, remember that you can use <code>(str value)</code> to turn anything into its string representation, including characters.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">str</span> <span class="ch">\C</span>) <span class="co">;=&gt; &quot;C&quot;</span></code></pre>
 <p>You should now be able to write the <code>(suit card)</code> function that returns the suit of a card.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 1
 </h3>
 <p>Write the function <code>(suit card)</code> which takes a singe card and returns the suit of the card as a one character string.</p>
@@ -110,6 +110,7 @@ Exercise 1
 (suit <span class="st">&quot;2C&quot;</span>) <span class="co">;=&gt; &quot;C&quot;</span>
 (suit <span class="st">&quot;3S&quot;</span>) <span class="co">;=&gt; &quot;S&quot;</span></code></pre>
 </section>
+
 <p>To get the rank, you’ll need to convert a character into an integer. To see if a character is a digit, like <code>\5</code> or <code>\2</code>, you can use <code>(Character/isDigit char)</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(Character/isDigit <span class="ch">\5</span>) <span class="co">;=&gt; true</span>
 (Character/isDigit <span class="ch">\A</span>) <span class="co">;=&gt; false</span></code></pre>
@@ -124,8 +125,7 @@ Exercise 1
 
 (replacements <span class="ch">\B</span>) <span class="co">;=&gt; 20</span></code></pre>
 <p>You can now write the <code>(rank card)</code> function.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 2
 </h3>
 <p>Write the function <code>(rank card)</code> which takes a single card and returns the rank as a number between 2 and 14.</p>
@@ -137,8 +137,9 @@ Exercise 2
 (rank <span class="st">&quot;KS&quot;</span>) <span class="co">;=&gt; 13</span>
 (rank <span class="st">&quot;AS&quot;</span>) <span class="co">;=&gt; 14</span></code></pre>
 </section>
+
 </section>
-<section class="level2" id="some-additional-functions">
+<section id="some-additional-functions" class="level2">
 <h2>Some additional functions</h2>
 <p>Here’s a couple of functions that should prove useful.</p>
 <p><code>(frequencies sequence)</code> is used to see how many times an element appears in a sequence. It returns a map where elements are mapped to their appearance counts:</p>
@@ -160,7 +161,7 @@ Exercise 2
 <span class="co">;=&gt; 5</span></code></pre>
 <p>That’s quite a lot to remember, but these should provide useful when detecting different hands. If you get stuck, the functions introduced above might help.</p>
 </section>
-<section class="level2" id="hands">
+<section id="hands" class="level2">
 <h2>Hands</h2>
 <p>If you don’t remember a hand, the <a href="http://en.wikipedia.org/wiki/Poker_hands">Poker hands article</a> at Wikipedia has them listed and explained.</p>
 <p>Our representation for a poker hand is simply a vector of cards:</p>
@@ -179,38 +180,38 @@ Exercise 2
 (<span class="kw">def</span><span class="fu"> straight-flush-hand          </span>[<span class="st">&quot;2H&quot;</span> <span class="st">&quot;3H&quot;</span> <span class="st">&quot;6H&quot;</span> <span class="st">&quot;5H&quot;</span> <span class="st">&quot;4H&quot;</span>])
 (<span class="kw">def</span><span class="fu"> low-ace-straight-flush-hand  </span>[<span class="st">&quot;2D&quot;</span> <span class="st">&quot;3D&quot;</span> <span class="st">&quot;4D&quot;</span> <span class="st">&quot;5D&quot;</span> <span class="st">&quot;AD&quot;</span>])
 (<span class="kw">def</span><span class="fu"> high-ace-straight-flush-hand </span>[<span class="st">&quot;TS&quot;</span> <span class="st">&quot;AS&quot;</span> <span class="st">&quot;QS&quot;</span> <span class="st">&quot;KS&quot;</span> <span class="st">&quot;JS&quot;</span>])</code></pre>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 3
 </h3>
 <p>Write the function <code>(pair? hand)</code> that returns <code>true</code> if there is a pair in <code>hand</code> and <code>false</code> if there is no pair in <code>hand</code>.</p>
 <pre><code>(pair? pair-hand)  ;=&gt; true
 (pair? high-seven) ;=&gt; false</code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 4
 </h3>
 <p>Write the function <code>(three-of-a-kind? hand)</code> that returns <code>true</code> if the hand contains a three of a kind.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(three-of-a-kind? two-pairs-hand)       <span class="co">;=&gt; false</span>
 (three-of-a-kind? three-of-a-kind-hand) <span class="co">;=&gt; true</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 5
 </h3>
 <p>Write the function <code>(four-of-a-kind? hand)</code> that returns <code>true</code> if the hand contains a four of a kind.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(four-of-a-kind? two-pairs-hand)      <span class="co">;=&gt; false</span>
 (four-of-a-kind? four-of-a-kind-hand) <span class="co">;=&gt; true</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 6
 </h3>
 <p>Write the function <code>(flush? hand)</code> that returns <code>true</code> if the hand is a flush.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(flush? pair-hand)  <span class="co">;=&gt; false</span>
 (flush? flush-hand) <span class="co">;=&gt; true)</span></code></pre>
 </section>
+
 <p><code>(sort a-seq)</code> returns a sequence with the elements of <code>a-seq</code> in a sorted order.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">sort</span> [<span class="dv">5</span> -<span class="dv">1</span> <span class="dv">3</span> <span class="dv">17</span> -<span class="dv">10</span>]) <span class="co">;=&gt; (-10 -1 3 5 17)</span>
 (<span class="kw">sort</span> [<span class="dv">6</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">3</span>])     <span class="co">;=&gt; (3 4 5 6 7)</span>
@@ -229,16 +230,15 @@ Exercise 6
 
 (<span class="kw">=</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] (<span class="kw">seq</span> [<span class="dv">1</span> <span class="dv">2</span>])) <span class="co">;=&gt; false</span></code></pre>
 <p>Two sequences are equal if their elements are equal and in the same order.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 7
 </h3>
 <p>Write the function <code>(full-house? hand)</code> that returns <code>true</code> if <code>hand</code> is a full house, and otherwise <code>false</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(full-house? three-of-a-kind-hand) <span class="co">;=&gt; false</span>
 (full-house? full-house-hand)      <span class="co">;=&gt; true</span></code></pre>
 </section>
-<section class="alert alert-success">
-<h3>
+
+<section class="alert alert-success"><h3>
 Exercise 8
 </h3>
 <p>Write the function <code>(two-pairs? hand)</code> that return <code>true</code> if <code>hand</code> has two pairs, and otherwise <code>false</code>.</p>
@@ -247,14 +247,14 @@ Exercise 8
 (two-pairs? pair-hand)           <span class="co">;=&gt; false</span>
 (two-pairs? four-of-a-kind-hand) <span class="co">;=&gt; true</span></code></pre>
 </section>
+
 <p>In a straight, an ace is accepted as either 1 or 14, so both of the following hands have a straight:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">[<span class="st">&quot;2H&quot;</span> <span class="st">&quot;3S&quot;</span> <span class="st">&quot;4C&quot;</span> <span class="st">&quot;5D&quot;</span> <span class="st">&quot;AD&quot;</span>]
 [<span class="st">&quot;TH&quot;</span> <span class="st">&quot;AS&quot;</span> <span class="st">&quot;QC&quot;</span> <span class="st">&quot;KD&quot;</span> <span class="st">&quot;JD&quot;</span>]</code></pre>
 <p>A useful function here is <code>(replace replace-map a-seq)</code>. It takes a map of replacements and a sequence and replaces the keys of <code>replace-map</code> in <code>a-seq</code> with their associated values.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">replace</span> {<span class="dv">1</span> <span class="st">&quot;a&quot;</span>, <span class="dv">2</span> <span class="st">&quot;b&quot;</span>} [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; [&quot;a&quot; &quot;b&quot; 3 4]</span></code></pre>
 <p>Finally we can implement <code>straight?</code>.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 9
 </h3>
 <p>Write the function <code>(straight? hand)</code> that returns <code>true</code> if <code>hand</code> is a straight, and otherwise <code>false</code>.</p>
@@ -265,9 +265,9 @@ Exercise 9
 (straight? [<span class="st">&quot;2H&quot;</span> <span class="st">&quot;2D&quot;</span> <span class="st">&quot;3H&quot;</span> <span class="st">&quot;4H&quot;</span> <span class="st">&quot;5H&quot;</span>]) <span class="co">;=&gt; false</span>
 (straight? high-ace-straight-hand)     <span class="co">;=&gt; true</span></code></pre>
 </section>
+
 <p>And finally, there’s straight flush. This shouldn’t be very difficult after having already defined flush and straight.</p>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 10
 </h3>
 <p>Write the function <code>(straight-flush? hand)</code> which returns <code>true</code> if the hand is a straight flush, that is both a straight and a flush, and otherwise <code>false</code>.</p>
@@ -277,6 +277,7 @@ Exercise 10
 (straight-flush? low-ace-straight-flush-hand)  <span class="co">;=&gt; true</span>
 (straight-flush? high-ace-straight-flush-hand) <span class="co">;=&gt; true</span></code></pre>
 </section>
+
 <p>Now that we have functions that check for each hand type, it would be nice to be able to assign a value to each hand. We’re going to use the following values:</p>
 <table>
 <thead>
@@ -324,8 +325,7 @@ Exercise 10
 </tr>
 </tbody>
 </table>
-<section class="alert alert-success">
-<h3>
+<section class="alert alert-success"><h3>
 Exercise 11
 </h3>
 <p>Write the function <code>(value hand)</code>, which returns the value of a hand according to the table above.</p>
@@ -366,8 +366,9 @@ Exercise 11
                  [straight-flush? <span class="dv">8</span>]}]
   ...)</code></pre>
 </section>
+
 </section>
-<section class="level2" id="data-representation-1">
+<section id="data-representation-1" class="level2">
 <h2>Data representation</h2>
 <p>Our representation for poker hands is rather simple, but it allows us to use existing sequence and other functions to work with them. However, the current API is bound to the representation. This has the unfortunate consequence that we can not change the internal representation of cards or hands without changing the external API. There can be good reasons to change the internal representation, including efficiency.</p>
 <p>No worries, this is fixable. Let’s create two functions for creating a card and creating a hand from the representation we already use:</p>
@@ -385,7 +386,7 @@ Exercise 11
 <p>Now the functions <code>card</code>, <code>rank</code> and <code>suit</code> form the abstraction for a playing card. They are the only functions that need to know about the internal representatin of the card. This means that we would now be able to change the internal representation to something like this, if we wanted to:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(card <span class="st">&quot;2H&quot;</span>) <span class="co">;=&gt; {:rank 2, :suit :hearts}</span></code></pre>
 </section>
-<section class="level2" id="whats-next">
+<section id="whats-next" class="level2">
 <h2>What’s Next</h2>
 <p>Now that you have mastered evaluating poker hands, it’s time to understand recursion.</p>
 <p><a href="predicates.html">Predicates →</a></p>
@@ -395,7 +396,7 @@ Exercise 11
         &copy; <a href="http://iloveponies.github.com">iloveponies</a>.
 
         <span style="float: right">
-            <a href="mailto:ilmari.vacklin@gmail.com">questions?</a>
+            <a href="mailto:juhana.laurinharju@cs.helsinki.fi">questions?</a>
         </span>
     </p>
 </footer>

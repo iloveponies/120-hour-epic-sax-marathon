@@ -5,6 +5,7 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="120 hour epic">
   <title>Basic Tools</title>
+  <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -24,14 +25,14 @@
 <h2 class="author">120 hour epic</h2>
 <h3 class="date">sax marathon</h3>
 </header>
-<section class="level2" id="synopis">
+<section id="synopis" class="level2">
 <h2>Synopis</h2>
 <ul>
 <li>the development environment</li>
 <li>how to submit exercise answers</li>
 </ul>
 </section>
-<section class="level2" id="first-things-first">
+<section id="first-things-first" class="level2">
 <h2>First things first</h2>
 <p>To successfully work through this course, you need to do the following things:</p>
 <ul>
@@ -44,12 +45,12 @@
 <li>read very carefully the submission instructions</li>
 </ul>
 </section>
-<section class="level2" id="java">
+<section id="java" class="level2">
 <h2>Java</h2>
 <p>Clojure runs on JVM, so you need to have the Java JDK installed. On Linux this is easily done using the distribution’s package manager.</p>
 <p>On Windows you need to download the latest JDK from Oracle’s site and install it. You also need to add the JDK bin directory to the Path. Right click Computer, select Properties, select Advanced system settings, select Environment Variables and Edit the Path to contain the <code>bin</code> directory of the JDK installation usually found under <code>Program Files</code>. Don’t hesitate to ask if you encounter any problems.</p>
 </section>
-<section class="level2" id="your-very-own-butler">
+<section id="your-very-own-butler" class="level2">
 <h2>Your very own butler</h2>
 <p><a href="https://github.com/technomancy/leiningen">Leiningen</a> is a project management tool for Clojure projects. It handles various tasks related to projects, including building the project, declaring and fetching dependencies, opening an interactive session inside the project, and other such things.</p>
 <p>Here’s the instructions for installing Leiningen in Linux:</p>
@@ -66,13 +67,7 @@ mkdir bin</code></pre></li>
 <pre class="sh"><code>chmod +x ~/bin/lein</code></pre></li>
 <li><p>In any directory, issue the command <code>lein help</code>. This will first download the rest of Leiningen. After the download is complete you get a list of services provided by Leiningen.</p></li>
 </ol>
-<p>In Windows you need to do the following:</p>
-<ol type="1">
-<li><p>Download the GNU wget binary from <a href="http://users.ugent.be/~bpuype/wget/#download">here</a> and place it in a appropriate directory.</p></li>
-<li><p>Download the Leiningen <a href="https://raw.github.com/technomancy/leiningen/stable/bin/lein.bat">batch file</a> and place it in an appropriate directory (same place as wget is fine).</p></li>
-<li><p>Add the previous directories to Path. Right click Computer, select Properties, select Advanced system settings, select Environment Variables… and Edit <code>Path</code> to contain the directories.</p></li>
-<li><p>Open <code>cmd.exe</code> and run <code>lein self-install</code>.</p></li>
-</ol>
+<p>For Windows there is an <a href="http://leiningen-win-installer.djpowell.net/">installer</a> that does all this for you. You only need to have Java installed.</p>
 <p>The table below contains some important Leiningen commands.</p>
 <table>
 <thead>
@@ -97,37 +92,37 @@ mkdir bin</code></pre></li>
 </tbody>
 </table>
 <p>To get more information about a command, run <code>lein help &lt;command&gt;</code>.</p>
-<p>The heart of every Leiningen project is the file <code>project.clj</code> at the top level of the projects directroy tree. It contains information about the projects name, version and dependecies among others.</p>
+<p>The heart of every Leiningen project is the file <code>project.clj</code> at the top level of the projects directory tree. It contains information about the projects name, version and dependecies among other things.</p>
 </section>
-<section class="level2" id="git">
+<section id="git" class="level2">
 <h2>Git</h2>
 <p><a href="http://git-scm.com">Git</a> is an distributed version control system. A fancy name for a tool that keeps track of changes made to files under a directory tree. We use this tool to distribute pre-made Leiningen projects in which you can complete the exercises of every chapter. You also use Git to submit your answers. If you have any problems with Git, ask.</p>
-<p>To install Git on Linux, use your distribution’s package manager. In Windows, point your browser to <a href="http://git-scm.com">http://git-scm.com/</a>, where you can find both the binaries and a comprehensive documentation. On Windows it’s the easiest to use the Git-bash that comes with Git.</p>
+<p>To install Git on Linux, use your distribution’s package manager. In Windows, point your browser to <a href="http://git-scm.com">http://git-scm.com/</a>, where you can find both the binaries and comprehensive documentation. On Windows it’s easiest to use the Git-bash that comes with Git.</p>
 <p>There are three basic commands that you need to know to successfully submit exercises:</p>
 <ul>
-<li><code>git clone</code> will copy a repository</li>
-<li><code>git commit -a -m &quot;message goes here&quot;</code> will inform git about all the changes you made. The message should summarise what has changed.</li>
+<li><code>git clone</code> will clone you a local copy of a repository</li>
+<li><code>git commit -a -m &quot;message goes here&quot;</code> will add your changes into the git repository. The message should summarise what has changed.</li>
 <li><code>git push</code> will upload the changes previously commited to github</li>
 </ul>
 </section>
-<section class="level2" id="how-to-submit-answers-to-exercises">
+<section id="how-to-submit-answers-to-exercises" class="level2">
 <h2>How to submit answers to exercises</h2>
-<p>At the start of every chapter, you should go to <a href="https://github.com">Github</a> and <em>fork</em> the chapters repository. There will be a link to the appropriate repository at the beginning of every chapter. You then <em>clone</em> your <strong>own</strong> fork of the repository and start working with the exercises when you encounter them amongs the material. You create <em>commits</em> and maybe <em>push</em> them in to your own fork while working. You also run the tests with <code>lein midje</code> to see if they pass.</p>
+<p>At the start of every chapter, you should go to <a href="https://github.com">Github</a> and <em>fork</em> the chapters repository. There will be a link to the appropriate repository at the beginning of every chapter. You then <em>clone</em> your <strong>own</strong> fork of the repository and start working with the exercises when you encounter them among the material. You create <em>commits</em> and maybe <em>push</em> them in to your own fork while working. You also run the tests with <code>lein midje</code> to see if they pass.</p>
 <p>When you want your answers graded, you push all of your work with <code>git push</code>. You then go to Github and send a <em>pull request</em>. At this point, <a href="http://travis-ci.org">Travis</a> kicks in. It runs the tests for your code and then comments on the pull request whether the tests passed or failed. A link is also provided to see the nitty-gritty details.</p>
 <p>If you didn’t get all the tests to pass on the first go, don’t worry, you can try again. Just make modifications to the code, create a commit, and push. The pull request will be updated, Travis will rerun the tests and a new comment about the build status will be posted. You can keep trying as many times as you want.</p>
-<p>We read the pull requests now and then and sometimes comment on the code. You should also check your pull requests to see if something needs to be fixed before points can be awarded. If all tests passed and everything looks good, we will announce your points on the comments and close the pull request. After the deadline, all the pull requests will be closed, and you will get points for those exercises that you succesfully completed.</p>
-<section class="level3" id="tell-us-who-you-are">
+<p>We read the pull requests every now and then and sometimes comment on your code. You should also check your pull requests to see if something needs to be fixed before points can be awarded. If the tests for an exercise pass and the code makes sense, you will get the points. If you did something really weird, we might ask you to fix your solution. After the deadline, all pull requests made before the deadline will be closed and graded.</p>
+<section id="tell-us-who-you-are" class="level3">
 <h3>Tell us who you are</h3>
 <p>For this system to work, we need to know who you are. If you haven’t already, please fill out <a href="https://elomake.helsinki.fi/lomakkeet/42235/lomake.html">this form</a>.</p>
-<section class="alert alert-error">
-<h3>
+<section class="alert alert-error"><h3>
 Watch out!
 </h3>
 
 <p>The pull requests are visible to everyone. If you don’t want your grading to be public, create an anonymous Github account and pass the name of that to us.</p>
 </section>
+
 </section>
-<section class="level3" id="be-prepared">
+<section id="be-prepared" class="level3">
 <h3>Be prepared</h3>
 <p>Lets go through the first part of this process to be ready for the next chapter.</p>
 <ol type="1">
@@ -136,16 +131,16 @@ Watch out!
 <li><p>The Github page of your fork will open. This is the repository you want to clone. Click the button that says HTTP and copy the link from the box. Then issue the following command with <strong>your</strong> version of the link. Your Github login information will be requested.</p>
 <pre class="sh"><code>git clone https://github.com/&lt;my-account&gt;/training-day.git</code></pre></li>
 <li><p>A directory <code>training-day</code> will be created. Go inside the directory and issue <code>lein midje</code>. You should see output that tells you that every test in the project has failed.</p>
-<pre><code>cd training-day
+<pre class="sh"><code>cd training-day
 lein midje</code></pre>
 <p>Instead of <code>lein midje</code>, you can issue the command</p>
-<pre><code>lein midje :autotest</code></pre>
-<p>This starts a loop which runs the tests again every time you make changes to any of the projects files. A very handy feature, as running plain <code>lein    midje</code> has a pretty long startup time.</p></li>
-<li><p>You are now ready to start working with the exercises. When ever you encounter an exercise in the material, open the file <code>src/training_day.clj</code> and fill the appropriate function. Run <code>lein midje</code> often to see if the tests pass.</p></li>
+<pre class="sh"><code>lein midje :autotest</code></pre>
+<p>This starts a loop which runs the tests again every time you make changes to any of the projects files. A very handy feature, as running plain <code>lein midje</code> has a pretty long startup time.</p></li>
+<li><p>You are now ready to start working with the exercises. Whenever you encounter an exercise in the material, open the file <code>src/training_day.clj</code> and fill the appropriate function. Run <code>lein midje</code> often to see if the tests pass.</p></li>
 </ol>
 </section>
 </section>
-<section class="level2" id="editor">
+<section id="editor" class="level2">
 <h2>Editor</h2>
 <p>As a lisp, Clojure requires some support from the text editor to be pleasant to write. Luckily a guy named Chris Granger has started a project to create The editor called Light Table. It’s still quite beta (you might encounter some bugs), but works nicely for your purposes during this course. <a href="http://www.lighttable.com/">Check it out</a>. When in doubt, use this.</p>
 <p>Light Table is more or less like an ordinary editor with some IDE like features. The thing that sets Light Table apart is the Instarepl. It is a tool in which you can write Clojure code, run it and instantly see the results. This is a great environment to test ideas and also to solve the exercises. Many think that working in the repl is one of the best things in Clojure developement.</p>
@@ -185,7 +180,7 @@ lein midje</code></pre>
         &copy; <a href="http://iloveponies.github.com">iloveponies</a>.
 
         <span style="float: right">
-            <a href="mailto:ilmari.vacklin@gmail.com">questions?</a>
+            <a href="mailto:juhana.laurinharju@cs.helsinki.fi">questions?</a>
         </span>
     </p>
 </footer>
