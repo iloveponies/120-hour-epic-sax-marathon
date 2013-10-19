@@ -32,32 +32,6 @@ settings, select Environment Variables and Edit the Path to contain
 the `bin` directory of the JDK installation usually found under
 `Program Files`. Don't hesitate to ask if you encounter any problems.
 
-## Editor
-
-As a lisp, Clojure requires some support from the text editor to be
-pleasant to write. Luckily a guy named Chris Granger has started a
-project to create The editor called Light Table. It's still quite
-alfa, but works nicely for your purposes during this course.
-[Check it out][LightTable]. When in doubt, use this.
-
-Light Table is more or less like an ordinary editor with some IDE like
-features. The thing that sets Light Table apart is the Instarepl. It
-is a tool in which you can write Clojure code, run it and instantly
-see the results. This is a great environment to test ideas and also to
-solve the exercises. Many think that working in the repl is one of the
-best things in Clojure developement.
-
-When you open Light Table, you get a Welcome screen and menus in the
-left hand side. To get going, you can open an Instarepl by selecting
-`command`, writing `open instarepl` to the box and selecting the
-presented choice. This opens a tab to which you can start writing
-Clojure code.
-
-Not suprisingly, both Vim and Emacs have good plug-ins to work with
-Clojure. For the basics, one should install the clojure-mode from the
-Emacs package manager. For a more complete set of tools we can
-recommend [Emacs Starter Kit][EST]. In Vim, [VimClojure][VimClojure]
-provides you with the necessary goodies.
 
 ## Your very own butler
 
@@ -70,7 +44,7 @@ Here's the instructions for installing Leiningen in Linux:
 
 1. In your home directory, create a directory called `bin` if it does
    not exist all ready.
-  
+
     ~~~ {.sh}
     cd ~
     mkdir bin
@@ -84,7 +58,7 @@ Here's the instructions for installing Leiningen in Linux:
     ~~~ {.sh}
     export PATH=$PATH:~/bin
     ~~~
-    
+
 3. Source the `~/.bashrc` file to apply the changes.
 
     ~~~ {.sh}
@@ -93,7 +67,7 @@ Here's the instructions for installing Leiningen in Linux:
 
 3. Download [this][LeinInstall] script. Put it in the `~/bin`
    directory created in step 1
-  
+
 4. Make the script you just downloaded executable.
 
     ~~~ {.sh}
@@ -108,14 +82,14 @@ In Windows you need to do the following:
 
 1. Download the GNU wget binary from [here][wget] and place it in a
    appropriate directory.
-   
+
 2. Download the Leiningen [batch file][LeinInstallWindows] and place
    it in an appropriate directory (same place as wget is fine).
-   
+
 3. Add the previous directories to Path. Right click Computer, select
    Properties, select Advanced system settings, select Environment
    Variables... and Edit `Path` to contain the directories.
-   
+
 4. Open `cmd.exe` and run `lein self-install`.
 
 The table below contains some important Leiningen commands.
@@ -155,9 +129,9 @@ submit exercises:
 
 ## How to submit answers to exercises
 
-At the start of every chapter, you should go to [Github][Github] and *fork*
-the chapters repository. There will be a link to the appropriate repository at
-the beginning of every chapter. You then *clone* your **own** fork of the
+At the start of every chapter, you should go to [Github][Github] and *fork* the
+chapters repository. There will be a link to the appropriate repository at the
+beginning of every chapter. You then *clone* your **own** fork of the
 repository and start working with the exercises when you encounter them amongs
 the material. You create *commits* and maybe *push* them in to your own fork
 while working. You also run the tests with `lein midje` to see if they pass.
@@ -213,7 +187,7 @@ chapter.
     ~~~ {.sh}
     git clone https://github.com/<my-account>/training-day.git
     ~~~
-    
+
 4. A directory `training-day` will be created. Go inside the directory and
    issue `lein midje`. You should see output that tells you that every test in
    the project has failed.
@@ -221,17 +195,84 @@ chapter.
         cd training-day
         lein midje
    Instead of `lein midje`, you can issue the command
-   
+
         lein midje :autotest
    This starts a loop which runs the tests again every time you make changes
    to any of the projects files. A very handy feature, as running plain `lein
    midje` has a pretty long startup time.
-   
+
 5. You are now ready to start working with the exercises. When ever you
    encounter an exercise in the material, open the file `src/training_day.clj`
    and fill the appropriate function. Run `lein midje` often to see if the
    tests pass.
-   
+
+## Editor
+
+As a lisp, Clojure requires some support from the text editor to be pleasant to
+write. Luckily a guy named Chris Granger has started a project to create The
+editor called Light Table. It's still quite beta (you might encounter some
+bugs), but works nicely for your purposes during this course.  [Check it
+out][LightTable]. When in doubt, use this.
+
+Light Table is more or less like an ordinary editor with some IDE like
+features. The thing that sets Light Table apart is the Instarepl. It
+is a tool in which you can write Clojure code, run it and instantly
+see the results. This is a great environment to test ideas and also to
+solve the exercises. Many think that working in the repl is one of the
+best things in Clojure developement.
+
+When you open Light Table, you want to open your project.
+
+1. Open `View -> Workspace`
+2. Click `folder`
+3. Open the directory of the project that you just cloned with Git
+4. Open `View -> Commands` (shortcut Ctrl+Space)
+5. Search for `connect` and select `Connect: Add Connection`
+6. Select Clojure
+7. Select the `project.clj` file in the directory of the cloned project
+
+Optionally, if you have a larger monitor, you can split Light Table into two
+columns:
+
+1. Open the command bar
+2. Search for tabset
+3. Click `Tabset: Add a tabset`
+
+You can now move tabs between these tabsets by dragging them from one to
+another.
+
+Finally, to start using Light Tables awesome instarepl, do the following:
+
+1. Using the command bar, search for instarepl
+2. Select `Instarepl: Open a clojure instarepl`
+3. Light Table might ask you which connection you want the instarepl to use.
+   Select the project you connected earlier to (`training-day 1.0.0-SNAPSHOT`)
+
+Now that you have an instarepl open, you can write some clojure to it, like `(+
+2 3)`. Finally, to use this instarepl to test your implementations in the
+exercise file, you need to `use` the namespace. To do this, write
+
+~~~{.clj}
+(use 'training-day)
+~~~
+
+in the beginning of the instarepl window. Now you can, for example, evaluate
+
+~~~{.clj}
+(square 7)
+~~~
+
+below the `use` row and in general use anything defined in the namespace you
+just used. For more information about Light Table, see the shortish
+[docs][LightTableDocs] page.
+
+Not suprisingly, both Vim and Emacs have good plug-ins to work with Clojure.
+For the basics, one should install the clojure-mode from the Emacs package
+manager. For a more complete set of tools we can recommend [Emacs Starter
+Kit][EST]. In Vim, [VimClojure][VimClojure] provides you with the necessary
+goodies. There is also a [Clojure indentation plugin][SublimeIndent] for
+[Sublime Text][Sublime] if that is your poison of choice.
+
 [Proceed, young padawan. →][next]
 
 [Form]: https://elomake.helsinki.fi/lomakkeet/42235/lomake.html
@@ -251,3 +292,6 @@ chapter.
 [VirtualBox]: http://virtualbox.org
 [wget]: http://users.ugent.be/~bpuype/wget/#download
 [Travis]: http://travis-ci.org
+[LightTableDocs]: http://docs.lighttable.com/
+[Sublime]: http://www.sublimetext.com/
+[SublimeIndent]: https://github.com/odyssomay/sublime-lispindent
