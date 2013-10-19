@@ -94,7 +94,7 @@ To get more information about a command, run `lein help <command>`.
 
 The heart of every Leiningen project is the file `project.clj` at the
 top level of the projects directroy tree. It contains information
-about the projects name, version and dependecies among others.
+about the projects name, version and dependecies among other things.
 
 ## Git
 
@@ -182,14 +182,18 @@ chapter.
    issue `lein midje`. You should see output that tells you that every test in
    the project has failed.
 
-        cd training-day
-        lein midje
+    ~~~ {.sh}
+    cd training-day
+    lein midje
+    ~~~
    Instead of `lein midje`, you can issue the command
 
-        lein midje :autotest
-   This starts a loop which runs the tests again every time you make changes
-   to any of the projects files. A very handy feature, as running plain `lein
-   midje` has a pretty long startup time.
+    ~~~ {.sh}
+    lein midje :autotest
+    ~~~
+   This starts a loop which runs the tests again every time you make
+   changes to any of the projects files. A very handy feature, as
+   running plain `lein midje` has a pretty long startup time.
 
 5. You are now ready to start working with the exercises. When ever you
    encounter an exercise in the material, open the file `src/training_day.clj`
