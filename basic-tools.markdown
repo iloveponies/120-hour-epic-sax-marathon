@@ -94,7 +94,13 @@ In Windows you need to do the following:
    `%Path%;C:\Users\MyUser\mybin`. Else edit the variable `Path` and
    add `;C:\Users\MyUser\mybin` at the end of the value.
 
-4. Open `powershell` and run `lein self-install`.
+4. If you haven't already, now is a good time to also add Java to the
+   Path. You need to locate the directory that contains java.exe which
+   is usually `C:\Programming Files (x86)\Java\jre7\bin` in a 64 bit
+   installation. Also append this directory to the value of the Path
+   variable, separated with a `;`.
+
+5. Open `powershell` and run `lein self-install`.
 
 The table below contains some important Leiningen commands.
 
