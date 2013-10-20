@@ -5,7 +5,7 @@ HTML=${SRC:.markdown=.html}
 all: ${HTML}
 
 non-index-before.html: before.html
-	echo '<div class=\"top-nav\"><a href=\"index.html\">← index</a></div>' | \
+	echo '<div class="top-nav"><a href="index.html">← index</a></div>' | \
 	cat $< - > $@
 
 index.html: index.markdown ${DEPS} before.html
