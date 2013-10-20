@@ -304,10 +304,6 @@ Use the `divides?` function from the previous exercise.
 </exercise>
 
 <exercise>
-
-This has changed. Be sure to get the latest tests from
-[https://github.com/iloveponies/i-am-a-horse-in-the-land-of-booleans](https://github.com/iloveponies/i-am-a-horse-in-the-land-of-booleans).
-
 Write a function `(generic-doublificate x)` that takes one argument and
 
 - doubles it if it is a number,
