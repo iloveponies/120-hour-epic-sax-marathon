@@ -10,6 +10,8 @@ Important annoucements follow:
   [these instructions][Update projects] for those repositories to get your
   answers graded.
 
+- The course has a IRCnet channel #tkt-clojure
+
 ## [Basic tools]
 
 Get equipped in your fight against the dragons.
