@@ -6,6 +6,10 @@
 
 Important annoucements follow:
 
+- If you cloned anything from github before the start of the course, follow
+  [these instructions][Update projects] for those repositories to get your
+  answers graded.
+
 ## [Basic tools]
 
 Get equipped in your fight against the dragons.
@@ -101,3 +105,4 @@ A blog engine written in Clojure, studied.
 [Looping is recursion]: looping-is-recursion.html
 [One function to rule them all]: one-function-to-rule-them-all.html
 [blorg blorg blorg]: blorg.html
+[Update projects]: update-project.html
