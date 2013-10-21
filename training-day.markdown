@@ -30,14 +30,9 @@ you. It has unit tests for the exercises that will follow under the
 directory `test`. More about these in a minute. Lets first focus on
 the stuff inside `src`.
 
-If you are using Light Table, now is a good time to Connect. If you
-already are in Instarepl, open the menu from the lower right corner
-and select Menu. This should get you to the starting choice.
-
-Select Table and click Connect. Find the directory `training-day` and
-hit `Enter`. After the loading, you should see `training-day` towards
-the top right corner. Double click on the name, and the contents of
-the file will be shown on the left.
+If you are using Light Table and you followed the instructions from the last
+chapter, you should have an Instarepl open for the `training-day` project. If
+you don't, now is a good time to go through those instructions.
 
 If you are using some other editor, just open the file
 `src/training_day.clj`.
