@@ -1,5 +1,6 @@
 @import "bootstrap.css";
 @import "bootstrap-responsive.css";
+@import "exercise-list.css";
 
 .container-fluid {
     max-width: 580px;
