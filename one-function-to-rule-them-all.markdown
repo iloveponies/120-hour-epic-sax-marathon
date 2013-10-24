@@ -289,7 +289,7 @@ reimplement that function with reduce:
 
 Write the function `(my-count a-seq)` that returns the length of a sequence.
 
-You are not to use `count` in your implementation.
+Do not use `count` in your implementation.
 
 ~~~clojure
 (my-count [])      ;=> 0
