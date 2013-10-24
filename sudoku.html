@@ -179,7 +179,7 @@ Exercise 4
       number [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]]
   (<span class="kw">str</span> <span class="kw">name</span> <span class="st">&quot; &quot;</span> number))
 <span class="co">;=&gt; (&quot;John 1&quot; &quot;John 2&quot; &quot;John 3&quot; &quot;Jane 1&quot; &quot;Jane 2&quot; &quot;Jane 3&quot;)</span></code></pre>
-<p>If you happen to be familiar with list comprehensions from some other language, <code>for</code> is a Clojures list comprehension form.</p>
+<p>If you happen to be familiar with list comprehensions from some other language, <code>for</code> is Clojures list comprehension form.</p>
 <p>To make working with coordinates a bit easier, let’s write a function that returns a sequence of coordinate pairs.</p>
 <section class="alert alert-success"><h3>
 Exercise 5
@@ -212,7 +212,7 @@ Exercise 6
 <section class="alert alert-success"><h3>
 Exercise 7
 </h3>
-<p>Write the function <code>(valid-values board coordinates)</code> that returns a set with all valid numbers for the square at <code>coordinates</code>.</p>
+<p>Write the function <code>(valid-values-for board coordinates)</code> that returns a set with all valid numbers for the square at <code>coordinates</code>.</p>
 <p>If the square at <code>coordinates</code> already has a value, <code>valid-values</code> should return the empty set <code>#{}</code>.</p>
 <p>Remember that we already defined the set <code>all-values</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(valid-values-for sudoku-board [<span class="dv">0</span> <span class="dv">0</span>]) <span class="co">;=&gt; #{}</span>
@@ -230,7 +230,7 @@ Exercise 8
 (filled? solved-board) <span class="co">;=&gt; true</span></code></pre>
 </section>
 
-<p>Now that we can check if a board is full, it would be nice to know the solution is valid.</p>
+<p>Now that we can check if a board is full, it would be nice to know if the solution is valid.</p>
 <p>A sudoku is valid if each row, each column and each block contains the numbers from 1 to 9 exactly once. Let’s write functions for checking each of these conditions.</p>
 <p>To start, let’s write some functions to get the values for each row, column and block.</p>
 <section class="alert alert-success"><h3>
@@ -375,7 +375,7 @@ Exercise 14
 <p>Let’s take a small detour and see an example of backtracking search.</p>
 <section id="subset-sum" class="level3">
 <h3>Subset Sum</h3>
-<p>Subset sub is a classic problem. Here’s how it goes. You are given:</p>
+<p>Subset sum is a classic problem. Here’s how it goes. You are given:</p>
 <ul>
 <li>a set of numbers, like <code>#{1 2 10 5 7}</code></li>
 <li>and a number, say <code>23</code></li>
@@ -428,7 +428,7 @@ Exercise 14
 Exercise 15
 </h3>
 <p>Write the function <code>(solve board)</code> which takes a sudoku board as a parameter and returns a valid solution to the given sudoku.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">  (solve sudoku-board) =&gt; solved-board)</code></pre>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">  (solve sudoku-board) =&gt; solved-board</code></pre>
 <p>Recap of backtracking:</p>
 <ul>
 <li>check if you are at the end</li>
