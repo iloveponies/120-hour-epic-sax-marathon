@@ -110,10 +110,6 @@ of values. The product of $a$, $b$ and $c$ is $a * b * c$.
 ~~~
 </exercise>
 
-<exercise>
-Write down the evaluation of `(product [1 2 4])` like we did for `sum` above.
-</exercise>
-
 To get a better grasp on what `sum` does, let's see how it's evaluated.
 
 ~~~ {.clojure}
@@ -142,6 +138,10 @@ closer look at that form and the line with comment above, we'll see why:
 We replaced the `cons` operation in the recursive structure with `+` and `'()`
 with `0`. That is, we transformed the data structure into a calculation with
 the same form but different result.
+
+<exercise>
+Write down the evaluation of `(product [1 2 4])` like we did for `sum` above.
+</exercise>
 
 From this we get the general template for linear recursion over collections:
 
@@ -184,7 +184,7 @@ Write `(my-last a-seq)` that computes the last element of a sequence.
 (my-last [2 5])   ;=> 5
 ~~~
 
-Hint: what is the base case here? How can you check if we're there?
+Hint: what is the base case here? How can you check if you're there?
 </exercise>
 
 <exercise>
@@ -633,6 +633,29 @@ _Hint:_ You can use `reverse` and `map`.
 
 </exercise>
 
+<exercise>
+Write the function `(rotations a-seq)` that, when given a sequence, returns
+all the rotations of that sequence.
+
+~~~ {.clojure}
+(rotations [])        ;=> (())
+(rotations [1 2 3])   ;=> ((1 2 3) (2 3 1) (3 1 2))
+(rotations [:a :b])   ;=> ((:a :b) (:b :a))
+; The order of rotations does not matter.
+(rotations [:a :b])   ;=> ((:b :a) (:a :b))
+(rotations [1 5 9 2]) ;=> ((1 5 9 2) (2 1 5 9) (9 2 1 5) (5 9 2 1))
+(count (rotations [6 5 8 9 2])) ;=> 5
+~~~
+
+Keep in mind the function `concat`.
+
+~~~ {.clojure}
+(concat [1 2 3] [:a :b :c]) ;=> (1 2 3 :a :b :c)
+(concat [1 2] [3 4 5 6])    ;=> (1 2 3 4 5 6)
+~~~
+
+</exercise>
+
 ### Passing state
 
 Sometimes when recursing over a structure we want to keep track of something.
@@ -676,29 +699,6 @@ parameters:
 With this helper function, our definition of `count-elem` is a simple call to
 `count-elem-helper` with `n` initialized to 0. This way users of `count-elem`
 do not need to provide the initialization argument for `n`.
-
-<exercise>
-Write the function `(rotations a-seq)` that, when given a sequence, returns
-all the rotations of that sequence.
-
-~~~ {.clojure}
-(rotations [])        ;=> (())
-(rotations [1 2 3])   ;=> ((1 2 3) (2 3 1) (3 1 2))
-(rotations [:a :b])   ;=> ((:a :b) (:b :a))
-; The order of rotations does not matter.
-(rotations [:a :b])   ;=> ((:b :a) (:a :b))
-(rotations [1 5 9 2]) ;=> ((1 5 9 2) (2 1 5 9) (9 2 1 5) (5 9 2 1))
-(count (rotations [6 5 8 9 2])) ;=> 5
-~~~
-
-Keep in mind the function `concat`.
-
-~~~ {.clojure}
-(concat [1 2 3] [:a :b :c]) ;=> (1 2 3 :a :b :c)
-(concat [1 2] [3 4 5 6])    ;=> (1 2 3 4 5 6)
-~~~
-
-</exercise>
 
 <exercise>
 Write the function `(my-frequencies a-seq)` that computes a map of how many
@@ -748,7 +748,7 @@ and `repeat`.
 
 ### Merging and sorting
 
-As a grand finale, lets implement the classic merge sort. We have split the
+As a grande finale, let's implement the classic merge sort. We have split the
 task into smaller exercises.
 
 <exercise>

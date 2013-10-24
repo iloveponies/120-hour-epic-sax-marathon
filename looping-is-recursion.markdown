@@ -139,6 +139,16 @@ Compute the last element of a sequence.
 ~~~
 </exercise>
 
+<exercise>
+Write the function `(seq= a-seq b-seq)` that compares two sequences for equality.
+
+~~~ {.clojure}
+(seq= [1 2 4] '(1 2 4))  ;=> true
+(seq= [1 2 3] [1 2 3 4]) ;=> false
+(seq= [1 3 5] [])        ;=> false
+~~~
+</exercise>
+
 Because defining the sort of helper functions like `helper` in our `factorial`
 is quite usual in functional programming, there is a utility called `loop` for
 this. The previous code could be written like this:
@@ -153,7 +163,7 @@ this. The previous code could be written like this:
 ~~~
 
 Let's dissect that. A `loop` begins with a sequence of _bindings_, just like
-in a `let`.
+in a `let`. As in `let`, you can use destructuring in the names.
 
 ~~~ {.clojure}
   (loop [acc 1
@@ -197,24 +207,14 @@ return acc;
 ~~~
 
 <exercise>
-Write the function `(seq= a-seq b-seq)` that compares two sequences for equality.
+Implement the function `(find-first-index [predicate seq])` that returns the first
+index in `seq` for which `predicate` returns true, or `nil` if no such index exists.
 
 ~~~ {.clojure}
-(seq= [1 2 4] '(1 2 4))  ;=> true
-(seq= [1 2 3] [1 2 3 4]) ;=> false
-(seq= [1 3 5] [])        ;=> false
-~~~
-</exercise>
-
-<exercise>
-Implement the function `(find-first-index [f seq])` that returns the first
-index in `seq` for which `f` returns true, or `nil` if no such index exists.
-
-~~~ {.clojure}
-(find-first-index zero? [1 1 1 0 3 7 0 2])            ;=> 3
-(find-first-index zero? [1 1 3 7 2])                  ;=> nil
-(find-first-index #(= % 6) [:cat :dog :six :blorg 6]) ;=> 4
-(find-first-index nil? [])                            ;=> nil
+(find-first-index zero? [1 1 1 0 3 7 0 2])                    ;=> 3
+(find-first-index zero? [1 1 3 7 2])                          ;=> nil
+(find-first-index (fn [n] (= n 6)) [:cat :dog :six :blorg 6]) ;=> 4
+(find-first-index nil? [])                                    ;=> nil
 ~~~
 
 </exercise>
@@ -228,7 +228,7 @@ Implement the function `(avg a-seq)` that computes the average of a sequence.
 (avg [1 0 0 1]) ;=> 1/2 ;; or 0.5
 ~~~
 
-_Hint:_ You need to keep track of two things in the loop.
+_Hint:_ You need to keep track of multiple things in the loop.
 </exercise>
 
 <exercise>
@@ -285,7 +285,7 @@ returns elements from the sequence up to the first repetition.
 
 _Hint:_ Remember that `conj`ing onto a vector appends the element.
 
-_Hint:_ You can search in a sequence with `some`.
+_Hint:_ A set might be helpful
 </exercise>
 
 ## Performance viewpoint
