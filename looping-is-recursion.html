@@ -39,8 +39,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <body>
 <div class="container-fluid">
 <div class="row-fluid">
-<div class="span12">
-<div class="top-nav"><a href="index.html">← index</a></div>
+<div class="span12"><div class="top-nav"><a href="index.html">← index</a></div>
 <header>
 <h1 class="title">Looping is recursion</h1>
 <h2 class="author">120 hour epic</h2>
@@ -115,6 +114,15 @@ Exercise 2
 (last-element [<span class="dv">2</span> <span class="dv">5</span>])   <span class="co">;=&gt; 5</span></code></pre>
 </section>
 
+<section class="alert alert-success"><h3>
+Exercise 3
+</h3>
+<p>Write the function <code>(seq= a-seq b-seq)</code> that compares two sequences for equality.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(seq= [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span>] &#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span>))  <span class="co">;=&gt; true</span>
+(seq= [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; false</span>
+(seq= [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span>] [])        <span class="co">;=&gt; false</span></code></pre>
+</section>
+
 <p>Because defining the sort of helper functions like <code>helper</code> in our <code>factorial</code> is quite usual in functional programming, there is a utility called <code>loop</code> for this. The previous code could be written like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> loopy-factorial </span>[down-from]
   (<span class="kw">loop</span> [acc <span class="dv">1</span>
@@ -122,7 +130,7 @@ Exercise 2
     (<span class="kw">if</span> (<span class="kw">zero?</span> n)
       acc
       (<span class="kw">recur</span> (<span class="kw">*</span> acc n) (<span class="kw">dec</span> n)))))</code></pre>
-<p>Let’s dissect that. A <code>loop</code> begins with a sequence of <em>bindings</em>, just like in a <code>let</code>.</p>
+<p>Let’s dissect that. A <code>loop</code> begins with a sequence of <em>bindings</em>, just like in a <code>let</code>. As in <code>let</code>, you can use destructuring in the names.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">  (<span class="kw">loop</span> [acc <span class="dv">1</span>
          n down-from]</code></pre>
 <p>This introduces the variables <code>acc</code> and <code>n</code> and gives them initial values. <code>n</code> gets its value from the parameter <code>loopy-factorial</code>.</p>
@@ -144,22 +152,13 @@ Exercise 2
 }
 return acc<span class="co">;</span></code></pre>
 <section class="alert alert-success"><h3>
-Exercise 3
-</h3>
-<p>Write the function <code>(seq= a-seq b-seq)</code> that compares two sequences for equality.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(seq= [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span>] &#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span>))  <span class="co">;=&gt; true</span>
-(seq= [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; false</span>
-(seq= [<span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span>] [])        <span class="co">;=&gt; false</span></code></pre>
-</section>
-
-<section class="alert alert-success"><h3>
 Exercise 4
 </h3>
-<p>Implement the function <code>(find-first-index [f seq])</code> that returns the first index in <code>seq</code> for which <code>f</code> returns true, or <code>nil</code> if no such index exists.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(find-first-index <span class="kw">zero?</span> [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">0</span> <span class="dv">2</span>])            <span class="co">;=&gt; 3</span>
-(find-first-index <span class="kw">zero?</span> [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">2</span>])                  <span class="co">;=&gt; nil</span>
-(find-first-index #(<span class="kw">=</span> % <span class="dv">6</span>) [<span class="kw">:cat</span> <span class="kw">:dog</span> <span class="kw">:six</span> <span class="kw">:blorg</span> <span class="dv">6</span>]) <span class="co">;=&gt; 4</span>
-(find-first-index <span class="kw">nil?</span> [])                            <span class="co">;=&gt; nil</span></code></pre>
+<p>Implement the function <code>(find-first-index [predicate seq])</code> that returns the first index in <code>seq</code> for which <code>predicate</code> returns true, or <code>nil</code> if no such index exists.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(find-first-index <span class="kw">zero?</span> [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">0</span> <span class="dv">2</span>])                    <span class="co">;=&gt; 3</span>
+(find-first-index <span class="kw">zero?</span> [<span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">2</span>])                          <span class="co">;=&gt; nil</span>
+(find-first-index (<span class="kw">fn</span> [n] (<span class="kw">=</span> n <span class="dv">6</span>)) [<span class="kw">:cat</span> <span class="kw">:dog</span> <span class="kw">:six</span> <span class="kw">:blorg</span> <span class="dv">6</span>]) <span class="co">;=&gt; 4</span>
+(find-first-index <span class="kw">nil?</span> [])                                    <span class="co">;=&gt; nil</span></code></pre>
 </section>
 
 <section class="alert alert-success"><h3>
@@ -169,7 +168,7 @@ Exercise 5
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(avg [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])   <span class="co">;=&gt; 2</span>
 (avg [<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">4</span>]) <span class="co">;=&gt; 1</span>
 (avg [<span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span>]) <span class="co">;=&gt; 1/2 ;; or 0.5</span></code></pre>
-<p><em>Hint:</em> You need to keep track of two things in the loop.</p>
+<p><em>Hint:</em> You need to keep track of multiple things in the loop.</p>
 </section>
 
 <section class="alert alert-success"><h3>
@@ -209,7 +208,7 @@ Exercise 8
 (cut-at-repetition [<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>])
 <span class="co">;=&gt; [0 1 2 3 4 5]</span></code></pre>
 <p><em>Hint:</em> Remember that <code>conj</code>ing onto a vector appends the element.</p>
-<p><em>Hint:</em> You can search in a sequence with <code>some</code>.</p>
+<p><em>Hint:</em> A set might be helpful</p>
 </section>
 
 </section>

@@ -39,8 +39,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <body>
 <div class="container-fluid">
 <div class="row-fluid">
-<div class="span12">
-<div class="top-nav"><a href="index.html">← index</a></div>
+<div class="span12"><div class="top-nav"><a href="index.html">← index</a></div>
 <header>
 <h1 class="title">Recursion</h1>
 <h2 class="author">120 hour epic</h2>
@@ -114,12 +113,6 @@ Exercise 1
 (product #{<span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>})  <span class="co">;=&gt; 24 ; works for sets too!</span></code></pre>
 </section>
 
-<section class="alert alert-success"><h3>
-Exercise 2
-</h3>
-<p>Write down the evaluation of <code>(product [1 2 4])</code> like we did for <code>sum</code> above.</p>
-</section>
-
 <p>To get a better grasp on what <code>sum</code> does, let’s see how it’s evaluated.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">    (sum &#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>))
 <span class="kw">=</span>   (sum (<span class="kw">cons</span> <span class="dv">1</span> (<span class="kw">cons</span> <span class="dv">2</span> (<span class="kw">cons</span> <span class="dv">3</span> (<span class="kw">cons</span> <span class="dv">4</span> &#39;())))))
@@ -137,6 +130,12 @@ Exercise 2
 ...
 <span class="co">;=&gt; (+    1 (+    2 (+    3 (+    4  0 ))))</span></code></pre>
 <p>We replaced the <code>cons</code> operation in the recursive structure with <code>+</code> and <code>'()</code> with <code>0</code>. That is, we transformed the data structure into a calculation with the same form but different result.</p>
+<section class="alert alert-success"><h3>
+Exercise 2
+</h3>
+<p>Write down the evaluation of <code>(product [1 2 4])</code> like we did for <code>sum</code> above.</p>
+</section>
+
 <p>From this we get the general template for linear recursion over collections:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> eats-coll </span>[coll]
   (<span class="kw">if</span> (<span class="kw">empty?</span> coll)
@@ -163,7 +162,7 @@ Exercise 4
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-last [])      <span class="co">;=&gt; nil</span>
 (my-last [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
 (my-last [<span class="dv">2</span> <span class="dv">5</span>])   <span class="co">;=&gt; 5</span></code></pre>
-<p>Hint: what is the base case here? How can you check if we’re there?</p>
+<p>Hint: what is the base case here? How can you check if you’re there?</p>
 </section>
 
 <section class="alert alert-success"><h3>
@@ -451,6 +450,22 @@ Exercise 18
 (<span class="kw">reverse</span> [<span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span>]) <span class="co">;=&gt; (1 3 2)</span></code></pre>
 </section>
 
+<section class="alert alert-success"><h3>
+Exercise 19
+</h3>
+<p>Write the function <code>(rotations a-seq)</code> that, when given a sequence, returns all the rotations of that sequence.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(rotations [])        <span class="co">;=&gt; (())</span>
+(rotations [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])   <span class="co">;=&gt; ((1 2 3) (2 3 1) (3 1 2))</span>
+(rotations [<span class="kw">:a</span> <span class="kw">:b</span>])   <span class="co">;=&gt; ((:a :b) (:b :a))</span>
+<span class="co">; The order of rotations does not matter.</span>
+(rotations [<span class="kw">:a</span> <span class="kw">:b</span>])   <span class="co">;=&gt; ((:b :a) (:a :b))</span>
+(rotations [<span class="dv">1</span> <span class="dv">5</span> <span class="dv">9</span> <span class="dv">2</span>]) <span class="co">;=&gt; ((1 5 9 2) (2 1 5 9) (9 2 1 5) (5 9 2 1))</span>
+(<span class="kw">count</span> (rotations [<span class="dv">6</span> <span class="dv">5</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">2</span>])) <span class="co">;=&gt; 5</span></code></pre>
+<p>Keep in mind the function <code>concat</code>.</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">concat</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>]) <span class="co">;=&gt; (1 2 3 :a :b :c)</span>
+(<span class="kw">concat</span> [<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>])    <span class="co">;=&gt; (1 2 3 4 5 6)</span></code></pre>
+</section>
+
 </section>
 <section id="passing-state" class="level3">
 <h3>Passing state</h3>
@@ -476,22 +491,6 @@ Exercise 18
 <li><p>and <code>coll</code>, which is the collection the function recurses over.</p></li>
 </ul>
 <p>With this helper function, our definition of <code>count-elem</code> is a simple call to <code>count-elem-helper</code> with <code>n</code> initialized to 0. This way users of <code>count-elem</code> do not need to provide the initialization argument for <code>n</code>.</p>
-<section class="alert alert-success"><h3>
-Exercise 19
-</h3>
-<p>Write the function <code>(rotations a-seq)</code> that, when given a sequence, returns all the rotations of that sequence.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(rotations [])        <span class="co">;=&gt; (())</span>
-(rotations [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])   <span class="co">;=&gt; ((1 2 3) (2 3 1) (3 1 2))</span>
-(rotations [<span class="kw">:a</span> <span class="kw">:b</span>])   <span class="co">;=&gt; ((:a :b) (:b :a))</span>
-<span class="co">; The order of rotations does not matter.</span>
-(rotations [<span class="kw">:a</span> <span class="kw">:b</span>])   <span class="co">;=&gt; ((:b :a) (:a :b))</span>
-(rotations [<span class="dv">1</span> <span class="dv">5</span> <span class="dv">9</span> <span class="dv">2</span>]) <span class="co">;=&gt; ((1 5 9 2) (2 1 5 9) (9 2 1 5) (5 9 2 1))</span>
-(<span class="kw">count</span> (rotations [<span class="dv">6</span> <span class="dv">5</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">2</span>])) <span class="co">;=&gt; 5</span></code></pre>
-<p>Keep in mind the function <code>concat</code>.</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">concat</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>] [<span class="kw">:a</span> <span class="kw">:b</span> <span class="kw">:c</span>]) <span class="co">;=&gt; (1 2 3 :a :b :c)</span>
-(<span class="kw">concat</span> [<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>])    <span class="co">;=&gt; (1 2 3 4 5 6)</span></code></pre>
-</section>
-
 <section class="alert alert-success"><h3>
 Exercise 20
 </h3>
@@ -524,7 +523,7 @@ Exercise 21
 </section>
 <section id="merging-and-sorting" class="level3">
 <h3>Merging and sorting</h3>
-<p>As a grand finale, lets implement the classic merge sort. We have split the task into smaller exercises.</p>
+<p>As a grande finale, let’s implement the classic merge sort. We have split the task into smaller exercises.</p>
 <section class="alert alert-success"><h3>
 Exercise 22
 </h3>

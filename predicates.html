@@ -38,8 +38,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <body>
 <div class="container-fluid">
 <div class="row-fluid">
-<div class="span12">
-<div class="top-nav"><a href="index.html">← index</a></div>
+<div class="span12"><div class="top-nav"><a href="index.html">← index</a></div>
 <header>
 <h1 class="title">Predicates</h1>
 <h2 class="author">120 hour epic</h2>
@@ -124,7 +123,11 @@ Exercise 2
 <section class="alert alert-success"><h3>
 Exercise 3
 </h3>
-<p>Write the function <code>(set-&gt;predicate a-set)</code> that takes a set as a parameter and returns a predicate that takes a parameter <code>x</code> and - returns <code>true</code> if <code>x</code> is in <code>a-seq</code> - otherwise returns <code>false</code></p>
+<p>Write the function <code>(set-&gt;predicate a-set)</code> that takes a set as a parameter and returns a predicate that takes a parameter <code>x</code> and</p>
+<ul>
+<li>returns <code>true</code> if <code>x</code> is in <code>a-seq</code></li>
+<li>otherwise returns <code>false</code></li>
+</ul>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">filter</span> (set-&gt;predicate #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>})     [<span class="dv">0</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">6</span>])       <span class="co">;=&gt; (2)</span>
 (<span class="kw">filter</span> (set-&gt;predicate #{<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> nil}) [<span class="dv">2</span> nil <span class="dv">4</span> nil <span class="dv">6</span>]) <span class="co">;=&gt; (2 nil nil)</span></code></pre>
 </section>
@@ -156,7 +159,11 @@ Exercise 3
 <section class="alert alert-success"><h3>
 Exercise 4
 </h3>
-<p>Write the function <code>(pred-and pred1 pred2)</code> that returns a new predicate that: - returns <code>true</code> if both <code>pred1</code> and <code>pred2</code> return <code>true</code> - otherwise returns <code>false</code></p>
+<p>Write the function <code>(pred-and pred1 pred2)</code> that returns a new predicate that:</p>
+<ul>
+<li>returns <code>true</code> if both <code>pred1</code> and <code>pred2</code> return <code>true</code></li>
+<li>otherwise returns <code>false</code></li>
+</ul>
 <p>Suppose I wanted all even positive numbers from a sequence. With <code>pred-and</code>, this should be easy.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">filter</span> (pred-and <span class="kw">pos?</span> <span class="kw">even?</span>) [<span class="dv">1</span> <span class="dv">2</span> -<span class="dv">4</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">7</span> -<span class="dv">3</span>]) <span class="co">;=&gt; [2 6]</span></code></pre>
 <p>Here are some other test cases:</p>
@@ -168,7 +175,11 @@ Exercise 4
 <section class="alert alert-success"><h3>
 Exercise 5
 </h3>
-<p>Write the function <code>(pred-or pred1 pred2)</code> that takes two predicates and returns a new predicate that: - returns <code>true</code> if <code>pred1</code> or <code>pred2</code> returns true - otherwise returns <code>false</code></p>
+<p>Write the function <code>(pred-or pred1 pred2)</code> that takes two predicates and returns a new predicate that:</p>
+<ul>
+<li>returns <code>true</code> if <code>pred1</code> or <code>pred2</code> returns true</li>
+<li>otherwise returns <code>false</code></li>
+</ul>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">filter</span> (pred-or <span class="kw">pos?</span> <span class="kw">odd?</span>) [<span class="dv">1</span> <span class="dv">2</span> -<span class="dv">4</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">7</span> -<span class="dv">3</span>])  <span class="co">;=&gt; [1 2 6 7 -3]</span>
 (<span class="kw">filter</span> (pred-or <span class="kw">pos?</span> <span class="kw">even?</span>) [<span class="dv">1</span> <span class="dv">2</span> -<span class="dv">4</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">7</span> -<span class="dv">3</span>]) <span class="co">;=&gt; [1 2 -4 0 6 7]</span></code></pre>
 </section>
@@ -302,7 +313,8 @@ Exercise 10
 Exercise 11
 </h3>
 <p>Write the function <code>(prime? n)</code> that returns <code>true</code> if <code>n</code> is a <a href="http://en.wikipedia.org/wiki/Prime_number">prime number</a> and otherwise <code>false</code>.</p>
-<p>The function <code>(range k n)</code> returns the sequence <sub><del>{.clojure} (k (+ k 1) (+ k 2) … (- n 1))</del></sub></p>
+<p>The function <code>(range k n)</code> returns the sequence</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(k (<span class="kw">+</span> k <span class="dv">1</span>) (<span class="kw">+</span> k <span class="dv">2</span>) ... (<span class="kw">-</span> n <span class="dv">1</span>))</code></pre>
 <p>Here’s a concrete example:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">range</span> <span class="dv">2</span> <span class="dv">10</span>) <span class="co">;=&gt; (2 3 4 5 6 7 8 9)</span></code></pre>
 <p>A positive integer <code>p</code> is a prime number if the only positive numbers dividing <code>p</code> are <code>p</code> and <code>1</code>.</p>
