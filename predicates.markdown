@@ -151,8 +151,9 @@ even in this case.
 <exercise>
 Write the function `(set->predicate a-set)` that takes a set as a parameter
 and returns a predicate that takes a parameter `x` and
-- returns `true` if `x` is in `a-seq`
-- otherwise returns `false`
+
+  - returns `true` if `x` is in `a-seq`
+  - otherwise returns `false`
 
 ~~~{.clojure}
 (filter (set->predicate #{1 2 3})     [0 2 4 6])       ;=> (2)
@@ -209,8 +210,9 @@ some values pass all of them. Let's create a helper function to do just that.
 
 <exercise>
 Write the function `(pred-and pred1 pred2)` that returns a new predicate that:
- - returns `true` if both `pred1` and `pred2` return `true`
- - otherwise returns `false`
+
+  - returns `true` if both `pred1` and `pred2` return `true`
+  - otherwise returns `false`
 
 Suppose I wanted all even positive numbers from a sequence. With `pred-and`,
 this should be easy.
@@ -231,8 +233,9 @@ Here are some other test cases:
 <exercise>
 Write the function `(pred-or pred1 pred2)` that takes two predicates and
 returns a new predicate that:
-- returns `true` if `pred1` or `pred2` returns true
-- otherwise returns `false`
+
+  - returns `true` if `pred1` or `pred2` returns true
+  - otherwise returns `false`
 
 ~~~{.clojure}
 (filter (pred-or pos? odd?) [1 2 -4 0 6 7 -3])  ;=> [1 2 6 7 -3]
@@ -423,6 +426,7 @@ Write the function `(prime? n)` that returns `true` if `n` is a
 [prime]: http://en.wikipedia.org/wiki/Prime_number
 
 The function `(range k n)` returns the sequence
+
 ~~~{.clojure}
 (k (+ k 1) (+ k 2) ... (- n 1))
 ~~~
