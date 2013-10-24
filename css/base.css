@@ -1,7 +1,8 @@
-@import "bootstrap.css";
-@import "bootstrap-responsive.css";
-@import "exercise-list.css";
+body {
+    padding-top: 70px;
+}
 
+/*
 .container-fluid {
     max-width: 580px;
     margin: auto;
@@ -102,3 +103,4 @@ code, pre {
 .top-nav {
     color: #666;
 }
+*/
