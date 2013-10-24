@@ -209,7 +209,7 @@ combinations:
 ~~~
 
 If you happen to be familiar with list comprehensions from some other
-language, `for` is a Clojures list comprehension form.
+language, `for` is Clojures list comprehension form.
 
 To make working with coordinates a bit easier, let's write a function that
 returns a sequence of coordinate pairs.
@@ -267,8 +267,8 @@ another way, removes all elements of `set2` from `set1`:
 ~~~
 
 <exercise>
-Write the function `(valid-values board coordinates)` that returns a set with
-all valid numbers for the square at `coordinates`.
+Write the function `(valid-values-for board coordinates)` that returns a set
+with all valid numbers for the square at `coordinates`.
 
 If the square at `coordinates` already has a value, `valid-values` should
 return the empty set `#{}`.
@@ -300,7 +300,7 @@ in `set`.
 ~~~
 </exercise>
 
-Now that we can check if a board is full, it would be nice to know the
+Now that we can check if a board is full, it would be nice to know if the
 solution is valid.
 
 A sudoku is valid if each row, each column and each block contains the numbers
@@ -503,7 +503,7 @@ Let's take a small detour and see an example of backtracking search.
 
 ### Subset Sum
 
-Subset sub is a classic problem. Here's how it goes. You are given:
+Subset sum is a classic problem. Here's how it goes. You are given:
 
 - a set of numbers, like `#{1 2 10 5 7}`
 - and a number, say `23`
@@ -602,7 +602,7 @@ Write the function `(solve board)` which takes a sudoku board as a parameter
 and returns a valid solution to the given sudoku.
 
 ~~~{.clojure}
-  (solve sudoku-board) => solved-board)
+  (solve sudoku-board) => solved-board
 ~~~
 
 Recap of backtracking:
