@@ -3,5 +3,6 @@
 filters/
 *.html
 !before.html
+!non-index-nav.html
 !after.html
 !header.html

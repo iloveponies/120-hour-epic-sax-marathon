@@ -1,12 +1,11 @@
 SRC=$(wildcard *.markdown)
-DEPS=header.html after.html filter.pl
+DEPS=header.html before.html non-index-nav.html after.html filter.pl
 HTML=${SRC:.markdown=.html}
 
 all: ${HTML}
 
-non-index-before.html: before.html
-	echo '<div class="top-nav"><a href="index.html">← index</a></div>' | \
-	cat $< - > $@
+non-index-before.html: before.html non-index-nav.html
+	cat before.html non-index-nav.html > non-index-before.html
 
 index.html: index.markdown ${DEPS} before.html
 	./make-html.sh $< before.html > $@
