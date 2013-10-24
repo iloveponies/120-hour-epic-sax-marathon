@@ -1,12 +1,28 @@
 % Clojure Workshop
 % 120 hour epic sax marathon
 
-## Scoreboard
-
 <script src="js/scoreboard.js"></script>
-<ul id="score-list">
+<div class="row">
+
+<div class="col-xs-4">
+<ul id="score-list-1">
 </ul>
+</div>
+
+<div class="col-xs-4">
+<ul id="score-list-2">
+</ul>
+</div>
+
+<div class="col-xs-4">
+<ul id="score-list-3">
+</ul>
+</div>
+
+</div>
 <script>
 var url = "http://localhost:8080/scoreboard?total=";
-populate_scoreboard($("#scoreboard"), url);
+populate_scoreboard([$("#score-list-1"),
+                     $("#score-list-2"),
+                     $("#score-list-3")], url);
 </script>
