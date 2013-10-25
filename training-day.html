@@ -35,11 +35,19 @@ code > span.er { color: #ff0000; font-weight: bold; }
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script src="js/bootstrap-3.0.0.min.js"></script>
+  <script src="js/exercise-list.js"></script>
+  <link rel="stylesheet" href="css/bootstrap-3.0.0.min.css">
 </head>
 <body>
-<div class="container-fluid">
-<div class="row-fluid">
-<div class="span12"><div class="top-nav"><a href="index.html">← index</a></div>
+<div class="container">
+<div class="row">
+<div class="col-sm-2 hidden-xs">
+  <ul id="exercise-list" class="list-unstyled affix">
+  </ul>
+</div>
+<div class="col-xs-12 col-sm-10 col-md-8">
+<div class="top-nav"><a href="index.html">← index</a></div>
 <header>
 <h1 class="title">Training day</h1>
 <h2 class="author">120 hour epic</h2>
@@ -341,7 +349,7 @@ nil</code></pre>
 <p>The repository that you cloned at the end of the last chapter contains an Leiningen project. Inside the <code>src</code> directory are all the code files of the project. The file <code>training_day.clj</code> should begin with the following.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">ns</span> training-day)</code></pre>
 <p>This is a namespace definition. It tells us that the code in this file is in the namespace <code>training-day</code>. There are no dots in the namespace name as there is no directories under <code>src</code>, just the lonely file <code>training_day.clj</code>.</p>
-<section class="alert alert-error"><h3>
+<section class="alert alert-warning"><h3>
 Watch out!
 </h3>
 
@@ -370,7 +378,7 @@ Hint
 hai</code></pre>
 <p>Were you greeted in all CAPS? If not, please raise your hand.</p>
 <p>What <code>use</code> did was that it looked inside the namespace <code>training-day</code> and brought with it all the names defined in that namespace. The name <code>hai</code> was one of them.</p>
-<section class="alert alert-error"><h3>
+<section class="alert alert-warning"><h3>
 Watch out!
 </h3>
 <p>The <code>'</code> before the namespace name in a <code>use</code> is important. If you forget it, you will get an error like this:</p>

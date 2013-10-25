@@ -15,11 +15,18 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script src="js/bootstrap-3.0.0.min.js"></script>
+  <script src="js/exercise-list.js"></script>
+  <link rel="stylesheet" href="css/bootstrap-3.0.0.min.css">
 </head>
 <body>
-<div class="container-fluid">
-<div class="row-fluid">
-<div class="span12">
+<div class="container">
+<div class="row">
+<div class="col-sm-2 hidden-xs">
+  <ul id="exercise-list" class="list-unstyled affix">
+  </ul>
+</div>
+<div class="col-xs-12 col-sm-10 col-md-8">
 <header>
 <h1 class="title">Clojure workshop</h1>
 <h2 class="author">120 hour epic</h2>
@@ -29,6 +36,7 @@
 <h2>News feed</h2>
 <p>Important annoucements follow:</p>
 <ul>
+<li><p>Rough <a href="scoreboard.html">scoreboard</a>. It’s not live updating yet. Points from pull requests submitted before monday are not showing. But it should give you a good estimate of your scores.</p></li>
 <li><p>If you cloned anything from github before the start of the course, follow <a href="update-project.html">these instructions</a> for those repositories to get your answers graded.</p></li>
 <li><p>The course has a IRCnet channel #tkt-clojure</p></li>
 </ul>
