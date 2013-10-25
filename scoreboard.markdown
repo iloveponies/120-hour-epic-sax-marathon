@@ -21,7 +21,7 @@
 
 </div>
 <script>
-var url = "http://localhost:8080/scoreboard?total=";
+var url = "http://polar-hollows-8825.herokuapp.com/scoreboard?total=";
 populate_scoreboard([$("#score-list-1"),
                      $("#score-list-2"),
                      $("#score-list-3")], url);
