@@ -149,10 +149,10 @@ Let's write a function that turns sets into predicates that works correctly
 even in this case.
 
 <exercise>
-Write the function `(set->predicate a-set)` that takes a set as a parameter
-and returns a predicate that takes a parameter `x` and
+Write the function `(set->predicate a-set)` that takes `a-set` as a parameter
+and returns a predicate that takes `x` as a parameter and
 
-  - returns `true` if `x` is in `a-seq`
+  - returns `true` if `x` is in `a-set`
   - otherwise returns `false`
 
 ~~~{.clojure}

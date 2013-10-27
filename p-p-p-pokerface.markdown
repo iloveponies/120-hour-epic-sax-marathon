@@ -390,39 +390,7 @@ It might be helpful to add a checker `(high-card? hand)`:
   true) ; All hands have a high card.
 ~~~
 
-Here are two alternative helper functions that you can define.
-
-`(hand-has-value? hand value)`
-
-~~~clojure
-(hand-has-value? pair-hand 1) ;=> true
-(hand-has-value? full-house-hand 6) ;=> true
-(hand-has-value? full-house-hand 3) ;=> true
-(hand-has-value? three-of-a-kind-hand 3) ;=> true
-(hand-has-value? three-of-a-kind-hand 6) ;=> false
-~~~
-
-To implement this function, you might want to put all the checkers into a
-vector like this. What is the relation between the checker and its index?
-
-~~~clojure
-(let [checkers [high-card? pair? two-pairs? three-of-a-kind? straight?
-                flush? full-house? four-of-a-kind? straight-flush?]]
-  ...)
-~~~
-
-`(hand-has-type? hand checker-value)`
-
-~~~clojure
-(hand-has-type? pair-hand [pair? 1]) ;=> true
-(hand-has-type? pair-hand [two-pairs? 2]) ;=> false
-(hand-has-type? full-house-hand [three-of-a-kind? 3]) ;=> true
-(hand-has-type? full-house-hand [full-house? 6]) ;=> true
-(hand-has-type? full-house-hand [flush? 5]) ;=> false
-~~~
-
-To use this function, group the checkers with the corresponding values into a
-set like this.
+You can create a sequence of `[matcher value]` pairs like so:
 
 ~~~clojure
 (let [checkers #{[high-card? 0]  [pair? 1]
@@ -433,6 +401,14 @@ set like this.
   ...)
 ~~~
 
+You can now use `filter`, `map` and `apply max` to get the highest value that a
+hand has. The function `second` can be useful. Remember to use `let` to give the
+intermediate results readable names.
+
+~~~{.clj}
+(second [:i :am :a :sequence]) ;=> :am
+(second [two-pairs? 2])        ;=> 2
+~~~
 </exercise>
 
 ## Data representation
@@ -471,7 +447,7 @@ functions like this:
 (value (hand ["2H" "3H" "4H" "5H" "6H"])) ;=> 4
 ~~~
 
-Now the functions `card`, `rank` and `suit` form the abstraction for a playing
+Now the functions `card`, `hand`, `rank` and `suit` form the abstraction for a playing
 card. They are the only functions that need to know about the internal
 representatin of the card. This means that we would now be able to change the
 internal representation to something like this, if we wanted to:

@@ -286,13 +286,13 @@ user=> (+ 1 2 3 4)
 
 <exercise>
 Write the following expression in the Clojure prefix syntax: $(2 * 3) + 4$.
-Try evaluating it in the REPL. The result should be 10. You don't need to
-return this one.
+Try evaluating it in the REPL. The result should be 10. This exercise does not
+give any points and you do not need to return it.
 </exercise>
 
 <exercise>
-Write the expression $3 + 4 + 5 + 6$ in Clojure syntax. Evaluate it in
-the REPL. You don't need to return this one.
+Write the expression $3 + 4 + 5 + 6$ in Clojure syntax. Evaluate it in the
+REPL. This exercise does not give any points and you do not need to return it.
 </exercise>
 
 The arithmetic operations have some special properties. Everyone of
@@ -351,7 +351,8 @@ Clojure programs.
 
 <exercise>
 Write a Clojure expression in the REPL that, using `get`, gets the first
-character in the string `"abrakadabra"`. You don't need to return this one.
+character in the string `"abrakadabra"`. This exercise does not give any points
+and you do not need to return it.
 </exercise>
 
 ## Functions
@@ -407,6 +408,7 @@ Call the following function in the REPL with your name.
 (fn [name] (str "Welcome to Rivendell mr " name))
 ~~~
 
+This exercise does not give any points and you do not need to return it.
 </exercise>
 
 Now we know how to make a function, but we only got a glimpse of it
