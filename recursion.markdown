@@ -162,9 +162,11 @@ grows linearly with the size of input.
 
 <exercise>
 Write the function `(singleton? coll)` which returns `true` if the collection
-has only one element in it and `false` otherwise.
+has only one element in it and `false` otherwise. This is a very useful helper
+function in the remainder of this chapter.
 
-Do not use `count` as it can be expensive on long sequences.
+Do not use `count` as it can be expensive on long sequences. This function is
+not recursive.
 
 ~~~clojure
 (singleton? [1])     ;=> true
@@ -206,7 +208,8 @@ You can use the function `(max a b)` that returns the greater of `a` and `b`.
 <exercise>
 
 Write the function `(seq-max seq-1 seq-2)` that returns the longer one of
-`seq-1` and `seq-2`.
+`seq-1` and `seq-2`. This is a helper for the next exercise. You do not need to
+use recursion here. It is okay to use `count`.
 
 ~~~clojure
 (seq-max [1] [1 2])   ;=> [1 2]
