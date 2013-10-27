@@ -45,8 +45,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
   <ul id="exercise-list" class="list-unstyled affix">
   </ul>
 </div>
-<div class="col-xs-12 col-sm-10 col-md-8">
-<div class="top-nav"><a href="index.html">← index</a></div>
+<div class="col-xs-12 col-sm-10 col-md-8"><div class="top-nav"><a href="index.html">← index</a></div>
 <header>
 <h1 class="title">P-P-P-Pokerface</h1>
 <h2 class="author">120 hour epic</h2>
@@ -349,30 +348,16 @@ Exercise 11
 <p>It might be helpful to add a checker <code>(high-card? hand)</code>:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> high-card</span>? [hand]
   true) <span class="co">; All hands have a high card.</span></code></pre>
-<p>Here are two alternative helper functions that you can define.</p>
-<p><code>(hand-has-value? hand value)</code></p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(hand-has-value? pair-hand <span class="dv">1</span>) <span class="co">;=&gt; true</span>
-(hand-has-value? full-house-hand <span class="dv">6</span>) <span class="co">;=&gt; true</span>
-(hand-has-value? full-house-hand <span class="dv">3</span>) <span class="co">;=&gt; true</span>
-(hand-has-value? three-of-a-kind-hand <span class="dv">3</span>) <span class="co">;=&gt; true</span>
-(hand-has-value? three-of-a-kind-hand <span class="dv">6</span>) <span class="co">;=&gt; false</span></code></pre>
-<p>To implement this function, you might want to put all the checkers into a vector like this. What is the relation between the checker and its index?</p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [checkers [high-card? pair? two-pairs? three-of-a-kind? straight?
-                flush? full-house? four-of-a-kind? straight-flush?]]
-  ...)</code></pre>
-<p><code>(hand-has-type? hand checker-value)</code></p>
-<pre class="sourceCode clojure"><code class="sourceCode clojure">(hand-has-type? pair-hand [pair? <span class="dv">1</span>]) <span class="co">;=&gt; true</span>
-(hand-has-type? pair-hand [two-pairs? <span class="dv">2</span>]) <span class="co">;=&gt; false</span>
-(hand-has-type? full-house-hand [three-of-a-kind? <span class="dv">3</span>]) <span class="co">;=&gt; true</span>
-(hand-has-type? full-house-hand [full-house? <span class="dv">6</span>]) <span class="co">;=&gt; true</span>
-(hand-has-type? full-house-hand [flush? <span class="dv">5</span>]) <span class="co">;=&gt; false</span></code></pre>
-<p>To use this function, group the checkers with the corresponding values into a set like this.</p>
+<p>You can create a sequence of <code>[matcher value]</code> pairs like so:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">let</span> [checkers #{[high-card? <span class="dv">0</span>]  [pair? <span class="dv">1</span>]
                  [two-pairs? <span class="dv">2</span>]  [three-of-a-kind? <span class="dv">3</span>]
                  [straight? <span class="dv">4</span>]   [flush? <span class="dv">5</span>]
                  [full-house? <span class="dv">6</span>] [four-of-a-kind? <span class="dv">7</span>]
                  [straight-flush? <span class="dv">8</span>]}]
   ...)</code></pre>
+<p>You can now use <code>filter</code>, <code>map</code> and <code>apply max</code> to get the highest value that a hand has. The function <code>second</code> can be useful. Remember to use <code>let</code> to give the intermediate results readable names.</p>
+<pre class="clj"><code>(second [:i :am :a :sequence]) ;=&gt; :am
+(second [two-pairs? 2])        ;=&gt; 2</code></pre>
 </section>
 
 </section>
@@ -391,7 +376,7 @@ Exercise 11
 <p>While these functions in their current form don’t do anything, it allows us to change the internal representation if we want to. You would use the existing functions like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(rank (card <span class="st">&quot;2H&quot;</span>)) <span class="co">;=&gt; 2</span>
 (value (hand [<span class="st">&quot;2H&quot;</span> <span class="st">&quot;3H&quot;</span> <span class="st">&quot;4H&quot;</span> <span class="st">&quot;5H&quot;</span> <span class="st">&quot;6H&quot;</span>])) <span class="co">;=&gt; 4</span></code></pre>
-<p>Now the functions <code>card</code>, <code>rank</code> and <code>suit</code> form the abstraction for a playing card. They are the only functions that need to know about the internal representatin of the card. This means that we would now be able to change the internal representation to something like this, if we wanted to:</p>
+<p>Now the functions <code>card</code>, <code>hand</code>, <code>rank</code> and <code>suit</code> form the abstraction for a playing card. They are the only functions that need to know about the internal representatin of the card. This means that we would now be able to change the internal representation to something like this, if we wanted to:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(card <span class="st">&quot;2H&quot;</span>) <span class="co">;=&gt; {:rank 2, :suit :hearts}</span></code></pre>
 </section>
 <section id="whats-next" class="level2">
