@@ -6,7 +6,7 @@ BEGIN {
 
     our %tags = (
         exercise => 'success',
-        alert    => 'error',
+        alert    => 'warning',
         info     => 'info'
     );
 

@@ -6,6 +6,10 @@
 
 Important annoucements follow:
 
+- Rough [scoreboard](scoreboard.html). It's not live updating yet. Points from
+  pull requests submitted before monday are not showing. But it should give
+  you a good estimate of your scores.
+
 - If you cloned anything from github before the start of the course, follow
   [these instructions][Update projects] for those repositories to get your
   answers graded.
