@@ -153,8 +153,8 @@ Exercise 2
 <section class="alert alert-success"><h3>
 Exercise 3
 </h3>
-<p>Write the function <code>(singleton? coll)</code> which returns <code>true</code> if the collection has only one element in it and <code>false</code> otherwise.</p>
-<p>Do not use <code>count</code> as it can be expensive on long sequences.</p>
+<p>Write the function <code>(singleton? coll)</code> which returns <code>true</code> if the collection has only one element in it and <code>false</code> otherwise. This is a very useful helper function in the remainder of this chapter.</p>
+<p>Do not use <code>count</code> as it can be expensive on long sequences. This function is not recursive.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(singleton? [<span class="dv">1</span>])     <span class="co">;=&gt; true</span>
 (singleton? #{<span class="dv">2</span>})    <span class="co">;=&gt; true</span>
 (singleton? [])      <span class="co">;=&gt; false</span>
@@ -187,7 +187,7 @@ Exercise 5
 Exercise 6
 </h3>
 
-<p>Write the function <code>(seq-max seq-1 seq-2)</code> that returns the longer one of <code>seq-1</code> and <code>seq-2</code>.</p>
+<p>Write the function <code>(seq-max seq-1 seq-2)</code> that returns the longer one of <code>seq-1</code> and <code>seq-2</code>. This is a helper for the next exercise. You do not need to use recursion here. It is okay to use <code>count</code>.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(seq-max [<span class="dv">1</span>] [<span class="dv">1</span> <span class="dv">2</span>])   <span class="co">;=&gt; [1 2]</span>
 (seq-max [<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span>]) <span class="co">;=&gt; [3 4]</span></code></pre>
 </section>
