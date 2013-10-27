@@ -141,6 +141,7 @@ the same form but different result.
 
 <exercise>
 Write down the evaluation of `(product [1 2 4])` like we did for `sum` above.
+This exercise does not give any points and you do not need to return it.
 </exercise>
 
 From this we get the general template for linear recursion over collections:
