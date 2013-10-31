@@ -41,12 +41,28 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </head>
 <body>
 <div class="container">
-<div class="row">
-<div class="col-sm-2 hidden-xs">
-  <ul id="exercise-list" class="list-unstyled affix">
-  </ul>
-</div>
-<div class="col-xs-12 col-sm-10 col-md-8"><div class="top-nav"><a href="index.html">← index</a></div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-header">
+    <a href="index.html" class="navbar-brand">← index</a>
+  </div>
+  <div class="navbar-collapse">
+    <ul class="nav">
+      <li>
+        <p data-toggle="collapse"
+           data-target="#exercise-panel"
+           class="navbar-text navbar-link">
+          Exercises <b class="caret"></b>
+        </p>
+      </li>
+    </ul>
+    <div id="exercise-panel" class="collapse">
+      <ul id="exercise-list" class="list-inline">
+      </ul>
+    </div>
+  </div>
+</nav>
 <header>
 <h1 class="title">Training day</h1>
 <h2 class="author">120 hour epic</h2>
