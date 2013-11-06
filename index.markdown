@@ -1,29 +1,15 @@
-% Clojure workshop
-% 120 hour epic
-% sax marathon
-
-## News feed
-
-Important annoucements follow:
-
-- Rough [scoreboard](scoreboard.html). It's not live updating yet. Points from
-  pull requests submitted before monday are not showing. But it should give
-  you a good estimate of your scores.
-
-- If you cloned anything from github before the start of the course, follow
-  [these instructions][Update projects] for those repositories to get your
-  answers graded.
-
-- The course has a IRCnet channel #tkt-clojure
+% Functional programming in Clojure
 
 ## [Basic tools]
 
 Get equipped in your fight against the dragons.
 
-- Shell: sh, Powershell
-- Leiningen
-- Clojure REPL
-- Git
+- Installing the developement environment
+    - Java
+    - Leiningen
+    - Editor
+    - Git
+- How to submit answers to exercises
 
 ## [Training day]
 
@@ -92,12 +78,6 @@ Calling tails.
 A blog engine written in Clojure, studied.
 
 ## [Sudoku]
-
-## State
-
-## Java
-
-## Web APIs, JSON
 
 [Basic tools]: basic-tools.html
 [Training day]: training-day.html
