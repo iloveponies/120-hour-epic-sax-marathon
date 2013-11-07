@@ -1,13 +1,6 @@
-% I am a horse in the land of booleans
-% 120 hour epic
-% sax marathon
+# I am a horse in the land of booleans
 
 > Any program is only as good as it is useful. <small>Linus Torvalds</small>
-
-## Synopsis
-
-- `if` and truthiness
-- everything is an expression / has a value
 
 ## Fork this
 

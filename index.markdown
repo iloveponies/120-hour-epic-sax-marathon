@@ -25,7 +25,7 @@ Get your survival skills up to shape.
 Get your horse!
 
 - `if` and truthiness
-- Everything is an expression / has a value
+- Everything is an expression and thus has a value
 
 ## [Structured data]
 
