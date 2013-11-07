@@ -1,10 +1,4 @@
 % Predicates
-% 120 hour epic
-% sax marathon
-
-## Synopsis
-
-Stuff about predicates and functions as values
 
 ## Fork this
 

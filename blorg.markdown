@@ -1,20 +1,13 @@
 % blorg blorg blorg
-% 120 hour epic
-% sax marathon
-
-## Synopsis
-
-In which we follow along an implementation of a blog engine.
-
-- State.
-- Using libraries.
-- Organizing code.
-- The principle of "simple".
-
-## Description
 
 This chapter is special in that there are no exercises. Instead, we will take
-an existing project and study its code and development.
+an existing project and study its code and development. Some of the topics
+covered are:
+
+- State
+- Using libraries
+- Organizing code
+- The principle of "simple"
 
 ## Get the project
 

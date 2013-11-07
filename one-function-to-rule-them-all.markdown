@@ -1,11 +1,4 @@
 % One Function to rule them all
-% 120 hour epic
-% sax marathon
-
-## Synopsis
-
-- `reduce`
-- variable arguments
 
 ## Fork this
 

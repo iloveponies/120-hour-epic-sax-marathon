@@ -54,23 +54,29 @@ Project: poker hand evaluator
 
 ## [Predicates]
 
-- predicates
-- functions as values
-- `some` and `every?`
+- Functions as values
+- Predicate functions
+- Higher-order functions
+    - `some`
+    - `every?`
 
 ## [Recursion]
 
 Down the rabbit hole.
 
-- Linear recursion
+- Recursion over sequences
 - Recursion over numbers
-- Tree recursion
 - Nonlinear recursion
+    - Tree recursion
 - Passing state
 
 ## [Looping is recursion]
 
 Calling tails.
+
+- Iteration with tail recursion
+    - `loop`
+    - `recur`
 
 ## [One Function to rule them all]
 
@@ -78,11 +84,16 @@ Calling tails.
 > One Function to bring them all and in the darkness bind them <br />
 > In the Land of Code where the Off-By-Ones lie.
 
+- Accumulating recursion with `reduce`
+- Variable arguments
+
 ## [blorg blorg blorg]
 
 A blog engine written in Clojure, studied.
 
 ## [Sudoku]
+
+Project: sudoku solver
 
 [Basic tools]: basic-tools.html
 [Training day]: training-day.html
