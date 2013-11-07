@@ -1,6 +1,4 @@
-% Functional programming in Clojure
-
-# Training day
+% Training day
 
 ## Fork this
 

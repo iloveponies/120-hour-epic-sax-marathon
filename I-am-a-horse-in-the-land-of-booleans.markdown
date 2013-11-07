@@ -1,4 +1,4 @@
-# I am a horse in the land of booleans
+% I am a horse in the land of booleans
 
 > Any program is only as good as it is useful. <small>Linus Torvalds</small>
 
