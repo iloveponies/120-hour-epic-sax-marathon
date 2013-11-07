@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="author" content="120 hour epic">
   <title>Training day</title>
   <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
@@ -35,9 +34,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script src="js/bootstrap-3.0.0.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <script src="js/exercise-list.js"></script>
-  <link rel="stylesheet" href="css/bootstrap-3.0.0.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
@@ -65,18 +64,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </nav>
 <header>
 <h1 class="title">Training day</h1>
-<h2 class="author">120 hour epic</h2>
-<h3 class="date">sax marathon</h3>
 </header>
-<section id="synopsis" class="level2">
-<h2>Synopsis</h2>
-<p>A whirlwind tour of the basics of Clojure, including:</p>
-<ul>
-<li>Using the REPL</li>
-<li>Prefix syntax</li>
-<li>Defining functions</li>
-</ul>
-</section>
 <section id="fork-this" class="level2">
 <h2>Fork this</h2>
 <p><a href="https://github.com/iloveponies/training-day">https://github.com/iloveponies/training-day</a></p>
@@ -141,16 +129,14 @@ FAIL &quot;square&quot; at (training_day_test.clj:10)
     Expected: 9
       Actual: &quot;:(&quot;</code></pre>
 <p>The <code>FAIL</code> lines indicate that our stub function fails the tests as expected, because the string <code>&quot;:(&quot;</code> is not <code>4</code> or <code>9</code>.</p>
-<p>Run <code>lein midje</code> often to see if your code is working or not. You can also run <code>lein midje --lazytest</code> to start a loop that runs the tests every time you make changes to the code.</p>
+<p>Run <code>lein midje</code> often to see if your code is working or not. You can also run <code>lein midje :autotest</code> to start a loop that runs the tests every time you make changes to the code.</p>
 </section>
 <section id="interactive-clojure" class="level2">
 <h2>Interactive Clojure</h2>
 <p>One of the nice features of Clojure is the REPL. It is an interactive session in which you can write code and see it executed immediately. Here you have two choices. Light Table has a really nice REPL called Instarepl, and Leiningen provides the classical REPL. We encourage you to test out Instarepl even once. It’s pretty awsome.</p>
 <section id="light-table" class="level3">
 <h3>Light Table</h3>
-<p>Follow the installation instructions found in the previous chapter if you haven’t already. In Linux, you run the file <code>LightTable</code> as you would run any binary.</p>
-<p>On the left side you have a menu. Select <code>command</code> and write <code>open instarepl</code> into the box. Click on the presented choice to open the Instarepl tab. Type <code>(+ 1 2)</code> into the text are. Small blue boxes near the bottom of the window should indicate that something is happening. Soon the answer to your question should appear right next to the code you wrote.</p>
-<p>If something went sideways, please let us know by raising your hand.</p>
+<p>Follow the installation instructions found in the previous chapter if you haven’t already. In Linux, you run the file <code>LightTable</code> as you would run any binary. The previous chapter has instructions for opening an instarepl.</p>
 </section>
 <section id="good-ol-repl" class="level3">
 <h3>Good ol’ repl</h3>
@@ -379,7 +365,7 @@ Hint
 
 <section id="light-table-1" class="level4">
 <h4>Light Table</h4>
-<p>From the menu, select <code>workspace</code> and the <code>Add folder</code>. Find the directory <code>training-day</code> and open it. The project is now added to Light Table. Open the Instarepl again.</p>
+<p>You need to first connect to the project <code>training-day</code>. When you then open an instarepl, LigthTable should ask you to which project you want to connect. Select <code>training-day</code>. Instructions for all this are in the <a href="basic-tools.html#editor">previous chapter</a>.</p>
 </section>
 <section id="lein-repl" class="level4">
 <h4>lein repl</h4>
@@ -389,7 +375,7 @@ Hint
 
 </section>
 
-<p>Now as you have your REPLs open, write the following in it. Light Table might ask you which client you want to use. Select training-day.</p>
+<p>Now as you have your REPLs open, write the following in it.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">use</span> &#39;training-day)
 hai</code></pre>
 <p>Were you greeted in all CAPS? If not, please raise your hand.</p>
@@ -433,10 +419,9 @@ All claimed facts (5) have been confirmed.</code></pre>
 <pre class="sh"><code>git commit -a -m &quot;message here&quot;</code></pre></li>
 <li><p>Update your fork in Github by pushing the changes. This will ask for your Github login.</p>
 <pre class="sh"><code>git push</code></pre></li>
-<li><p>Go to the Github pages of your fork of the repository <code>training-day</code>. Click on the <code>Pull request</code> button. You can ask question on the comment field, and we try to answer them <strong>if</strong> time permits. When you are ready, click <code>Send pull request</code>.</p></li>
-<li><p>A comment containing the points that you got will be posted on the pull request. Then the pull request is closed.</p></li>
+<li><p>Go to the Github page of <strong>your fork</strong> of the repository <code>training-day</code>. Click on the green <code>Compare &amp; review</code> button. When you are ready, click <code>Send pull request</code>.</p></li>
 </ol>
-<p>If you didn’t submit the solutions all at once, or some of the submited ones were incorrect, you can re-submit as many times as you need to. Just fix the code and follow the steps again. Be sure to create a <strong>new</strong> pull request.</p>
+<p>If you didn’t submit the solutions all at once, or some of the submited ones were incorrect, you can re-submit as many times as you need to. Just fix the code and follow the steps 1 and 2 again. When you push, the open pull request is updated.</p>
 <p><a href="I-am-a-horse-in-the-land-of-booleans.html">Proceed to the horse feast! →</a></p>
 </section>
 <footer>

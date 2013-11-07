@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="author" content="120 hour epic">
-  <title>Clojure workshop</title>
+  <title>Functional programming in Clojure</title>
   <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -15,42 +14,36 @@
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script src="js/bootstrap-3.0.0.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <script src="js/exercise-list.js"></script>
-  <link rel="stylesheet" href="css/bootstrap-3.0.0.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
 <header>
-<h1 class="title">Clojure workshop</h1>
-<h2 class="author">120 hour epic</h2>
-<h3 class="date">sax marathon</h3>
+<h1 class="title">Functional programming in Clojure</h1>
 </header>
-<section id="news-feed" class="level2">
-<h2>News feed</h2>
-<p>Important annoucements follow:</p>
-<ul>
-<li><p>Rough <a href="scoreboard.html">scoreboard</a>. It’s not live updating yet. Points from pull requests submitted before monday are not showing. But it should give you a good estimate of your scores.</p></li>
-<li><p>If you cloned anything from github before the start of the course, follow <a href="update-project.html">these instructions</a> for those repositories to get your answers graded.</p></li>
-<li><p>The course has a IRCnet channel #tkt-clojure</p></li>
-</ul>
-</section>
 <section id="basic-tools" class="level2">
 <h2><a href="basic-tools.html">Basic tools</a></h2>
 <p>Get equipped in your fight against the dragons.</p>
 <ul>
-<li>Shell: sh, Powershell</li>
+<li>Installing the developement environment
+<ul>
+<li>Java</li>
 <li>Leiningen</li>
-<li>Clojure REPL</li>
+<li>Editor</li>
 <li>Git</li>
+</ul></li>
+<li>How to submit answers to exercises</li>
 </ul>
 </section>
 <section id="training-day" class="level2">
 <h2><a href="training-day.html">Training day</a></h2>
 <p>Get your survival skills up to shape.</p>
 <ul>
+<li>Structure of the exercise project</li>
 <li>Using the REPL</li>
 <li>Prefix syntax</li>
 <li>Defining functions</li>
@@ -61,17 +54,25 @@
 <p>Get your horse!</p>
 <ul>
 <li><code>if</code> and truthiness</li>
-<li>Everything is an expression / has a value</li>
+<li>Everything is an expression and thus has a value</li>
 </ul>
 </section>
 <section id="structured-data" class="level2">
 <h2><a href="structured-data.html">Structured data</a></h2>
 <p>Learn the structural weaknesses of dragons.</p>
 <ul>
-<li>Names</li>
-<li>Sequences</li>
+<li>Local names</li>
+<li>Data structures
+<ul>
 <li>Vectors</li>
 <li>Maps</li>
+<li>Sets</li>
+</ul></li>
+<li>Abstract sequences
+<ul>
+<li>Mapping</li>
+<li>Filtering</li>
+</ul></li>
 </ul>
 </section>
 <section id="style" class="level2">
@@ -90,31 +91,48 @@
 <section id="predicates" class="level2">
 <h2><a href="predicates.html">Predicates</a></h2>
 <ul>
-<li>predicates</li>
-<li>functions as values</li>
-<li><code>some</code> and <code>every?</code></li>
+<li>Functions as values</li>
+<li>Predicate functions</li>
+<li>Higher-order functions
+<ul>
+<li><code>some</code></li>
+<li><code>every?</code></li>
+</ul></li>
 </ul>
 </section>
 <section id="recursion" class="level2">
 <h2><a href="recursion.html">Recursion</a></h2>
 <p>Down the rabbit hole.</p>
 <ul>
-<li>Linear recursion</li>
+<li>Recursion over sequences</li>
 <li>Recursion over numbers</li>
+<li>Nonlinear recursion
+<ul>
 <li>Tree recursion</li>
-<li>Nonlinear recursion</li>
+</ul></li>
 <li>Passing state</li>
 </ul>
 </section>
 <section id="looping-is-recursion" class="level2">
 <h2><a href="looping-is-recursion.html">Looping is recursion</a></h2>
 <p>Calling tails.</p>
+<ul>
+<li>Iteration with tail recursion
+<ul>
+<li><code>loop</code></li>
+<li><code>recur</code></li>
+</ul></li>
+</ul>
 </section>
 <section id="one-function-to-rule-them-all" class="level2">
 <h2><a href="one-function-to-rule-them-all.html">One Function to rule them all</a></h2>
 <blockquote>
 <p>One Function to rule them all, One Function to find them, <br /> One Function to bring them all and in the darkness bind them <br /> In the Land of Code where the Off-By-Ones lie.</p>
 </blockquote>
+<ul>
+<li>Accumulating recursion with <code>reduce</code></li>
+<li>Variable arguments</li>
+</ul>
 </section>
 <section id="blorg-blorg-blorg" class="level2">
 <h2><a href="blorg.html">blorg blorg blorg</a></h2>
@@ -122,15 +140,7 @@
 </section>
 <section id="sudoku" class="level2">
 <h2><a href="sudoku.html">Sudoku</a></h2>
-</section>
-<section id="state" class="level2">
-<h2>State</h2>
-</section>
-<section id="java" class="level2">
-<h2>Java</h2>
-</section>
-<section id="web-apis-json" class="level2">
-<h2>Web APIs, JSON</h2>
+<p>Project: sudoku solver</p>
 </section>
 <footer>
     <p>
