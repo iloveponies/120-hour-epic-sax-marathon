@@ -559,9 +559,10 @@ your REPL.
 
 #### Light Table
  
-From the menu, select `workspace` and the `Add folder`. Find the
-directory `training-day` and open it. The project is now added to
-Light Table. Open the Instarepl again.
+You need to first connect to the project `training-day`. When you then open an
+instarepl, LigthTable should ask you to which project you want to connect.
+Select `training-day`. Instructions for all this are in the
+[previous chapter](basic-tools.html#editor).
 
 #### lein repl
 
@@ -571,8 +572,7 @@ Navigate to the directory `training-day`, and run `lein repl`.
                 the info section -->
 </info>
 
-Now as you have your REPLs open, write the following in it. Light
-Table might ask you which client you want to use. Select training-day.
+Now as you have your REPLs open, write the following in it.
 
 ~~~clojure
 (use 'training-day)
