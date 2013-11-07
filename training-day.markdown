@@ -648,18 +648,14 @@ it.
     git push
     ~~~
        
-3. Go to the Github pages of your fork of the repository
-   `training-day`. Click on the `Pull request` button. You can ask
-   question on the comment field, and we try to answer them **if**
-   time permits. When you are ready, click `Send pull request`.
+3. Go to the Github page of **your fork** of the repository `training-day`.
+   Click on the green `Compare & review` button. When you are ready, click
+   `Send pull request`.
    
-4. A comment containing the points that you got will be posted on the pull
-   request. Then the pull request is closed.
-   
-If you didn't submit the solutions all at once, or some of the
-submited ones were incorrect, you can re-submit as many times as you
-need to. Just fix the code and follow the steps again. Be sure to
-create a **new** pull request.
+If you didn't submit the solutions all at once, or some of the submited ones
+were incorrect, you can re-submit as many times as you need to. Just fix the
+code and follow the steps 1 and 2 again. When you push, the open pull request
+is updated.
 
 [Proceed to the horse feast! →](I-am-a-horse-in-the-land-of-booleans.html)
 
