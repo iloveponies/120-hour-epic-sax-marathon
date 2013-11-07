@@ -1,5 +1,6 @@
 % Functional programming in Clojure
-% Basic Tools
+
+# Basic Tools
 
 ## First things first
 
