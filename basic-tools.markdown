@@ -1,11 +1,4 @@
 % Basic Tools
-% 120 hour epic
-% sax marathon
-
-## Synopis
-
-- the development environment
-- how to submit exercise answers
 
 ## First things first
 
@@ -17,7 +10,6 @@ things:
 - install Git
 - install Leiningen
 - make sure to have a github account
-- inform the teachers about your github account name
 - read very carefully the submission instructions
 
 ## Java
@@ -137,25 +129,6 @@ try again. Just make modifications to the code, create a commit, and push. The
 pull request will be updated, Travis will rerun the tests and a new comment
 about the build status will be posted. You can keep trying as many times as you
 want.
-
-We read the pull requests every now and then and sometimes comment on your code.
-You should also check your pull requests to see if something needs to be fixed
-before points can be awarded. If the tests for an exercise pass and the code
-makes sense, you will get the points. If you did something really weird, we
-might ask you to fix your solution. After the deadline, all pull requests made
-before the deadline will be closed and graded.
-
-### Tell us who you are
-
-For this system to work, we need to know who you are. If you haven't
-already, please fill out [this form][Form].
-
-<alert>
-
-The pull requests are visible to everyone. If you don't want your grading to
-be public, create an anonymous Github account and pass the name of that to us.
-
-</alert>
 
 ### Be prepared
 

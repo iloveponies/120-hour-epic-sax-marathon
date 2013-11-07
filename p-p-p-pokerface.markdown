@@ -1,10 +1,4 @@
 % P-P-P-Pokerface
-% 120 hour epic
-% sax marathon
-
-## Synopsis
-
-Here we'll implement a poker hand evaluator in Clojure.
 
 ## Fork this
 

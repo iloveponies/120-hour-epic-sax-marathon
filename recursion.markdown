@@ -1,17 +1,4 @@
 % Recursion
-% 120 hour epic
-% sax marathon
-
-## Synopsis
-
-Recursion is a large topic. This chapter covers the following:
-
-- Linear recursion,
-- Recursion over numbers,
-- Tree recursion,
-- Nonlinear recursion,
-- Passing state, and
-- An application: merge sort.
 
 ## Fork this
 

@@ -1,14 +1,4 @@
 % Training day
-% 120 hour epic
-% sax marathon
-
-## Synopsis
-
-A whirlwind tour of the basics of Clojure, including:
-
-- Using the REPL
-- Prefix syntax
-- Defining functions
 
 ## Fork this
 
@@ -134,7 +124,7 @@ The `FAIL` lines indicate that our stub function fails the tests as
 expected, because the string `":("` is not `4` or `9`.
 
 Run `lein midje` often to see if your code is working or not. You can
-also run `lein midje --lazytest` to start a loop that runs the tests
+also run `lein midje :autotest` to start a loop that runs the tests
 every time you make changes to the code.
 
 ## Interactive Clojure
@@ -147,18 +137,9 @@ to test out Instarepl even once. It's pretty awsome.
 
 ### Light Table
 
-Follow the installation instructions found in the previous chapter if
-you haven't already. In Linux, you run the file `LightTable` as you
-would run any binary.
-
-On the left side you have a menu. Select `command` and write `open
-instarepl` into the box. Click on the presented choice to open the
-Instarepl tab. Type `(+ 1 2)` into the text are. Small blue boxes near
-the bottom of the window should indicate that something is happening.
-Soon the answer to your question should appear right next to the code
-you wrote.
-
-If something went sideways, please let us know by raising your hand.
+Follow the installation instructions found in the previous chapter if you
+haven't already. In Linux, you run the file `LightTable` as you would run any
+binary. The previous chapter has instructions for opening an instarepl.
 
 ### Good ol' repl
 
@@ -568,9 +549,10 @@ your REPL.
 
 #### Light Table
  
-From the menu, select `workspace` and the `Add folder`. Find the
-directory `training-day` and open it. The project is now added to
-Light Table. Open the Instarepl again.
+You need to first connect to the project `training-day`. When you then open an
+instarepl, LigthTable should ask you to which project you want to connect.
+Select `training-day`. Instructions for all this are in the
+[previous chapter](basic-tools.html#editor).
 
 #### lein repl
 
@@ -580,8 +562,7 @@ Navigate to the directory `training-day`, and run `lein repl`.
                 the info section -->
 </info>
 
-Now as you have your REPLs open, write the following in it. Light
-Table might ask you which client you want to use. Select training-day.
+Now as you have your REPLs open, write the following in it.
 
 ~~~clojure
 (use 'training-day)
@@ -657,18 +638,14 @@ it.
     git push
     ~~~
        
-3. Go to the Github pages of your fork of the repository
-   `training-day`. Click on the `Pull request` button. You can ask
-   question on the comment field, and we try to answer them **if**
-   time permits. When you are ready, click `Send pull request`.
+3. Go to the Github page of **your fork** of the repository `training-day`.
+   Click on the green `Compare & review` button. When you are ready, click
+   `Send pull request`.
    
-4. A comment containing the points that you got will be posted on the pull
-   request. Then the pull request is closed.
-   
-If you didn't submit the solutions all at once, or some of the
-submited ones were incorrect, you can re-submit as many times as you
-need to. Just fix the code and follow the steps again. Be sure to
-create a **new** pull request.
+If you didn't submit the solutions all at once, or some of the submited ones
+were incorrect, you can re-submit as many times as you need to. Just fix the
+code and follow the steps 1 and 2 again. When you push, the open pull request
+is updated.
 
 [Proceed to the horse feast! →](I-am-a-horse-in-the-land-of-booleans.html)
 

@@ -1,34 +1,21 @@
-% Clojure workshop
-% 120 hour epic
-% sax marathon
-
-## News feed
-
-Important annoucements follow:
-
-- Rough [scoreboard](scoreboard.html). It's not live updating yet. Points from
-  pull requests submitted before monday are not showing. But it should give
-  you a good estimate of your scores.
-
-- If you cloned anything from github before the start of the course, follow
-  [these instructions][Update projects] for those repositories to get your
-  answers graded.
-
-- The course has a IRCnet channel #tkt-clojure
+% Functional programming in Clojure
 
 ## [Basic tools]
 
 Get equipped in your fight against the dragons.
 
-- Shell: sh, Powershell
-- Leiningen
-- Clojure REPL
-- Git
+- Installing the developement environment
+    - Java
+    - Leiningen
+    - Editor
+    - Git
+- How to submit answers to exercises
 
 ## [Training day]
 
 Get your survival skills up to shape.
 
+- Structure of the exercise project
 - Using the REPL
 - Prefix syntax
 - Defining functions
@@ -38,16 +25,20 @@ Get your survival skills up to shape.
 Get your horse!
 
 - `if` and truthiness
-- Everything is an expression / has a value
+- Everything is an expression and thus has a value
 
 ## [Structured data]
 
 Learn the structural weaknesses of dragons.
 
-- Names
-- Sequences
-- Vectors
-- Maps
+- Local names
+- Data structures
+    - Vectors
+    - Maps
+    - Sets
+- Abstract sequences
+    - Mapping
+    - Filtering
 
 ## [Style]
 
@@ -63,23 +54,29 @@ Project: poker hand evaluator
 
 ## [Predicates]
 
-- predicates
-- functions as values
-- `some` and `every?`
+- Functions as values
+- Predicate functions
+- Higher-order functions
+    - `some`
+    - `every?`
 
 ## [Recursion]
 
 Down the rabbit hole.
 
-- Linear recursion
+- Recursion over sequences
 - Recursion over numbers
-- Tree recursion
 - Nonlinear recursion
+    - Tree recursion
 - Passing state
 
 ## [Looping is recursion]
 
 Calling tails.
+
+- Iteration with tail recursion
+    - `loop`
+    - `recur`
 
 ## [One Function to rule them all]
 
@@ -87,17 +84,16 @@ Calling tails.
 > One Function to bring them all and in the darkness bind them <br />
 > In the Land of Code where the Off-By-Ones lie.
 
+- Accumulating recursion with `reduce`
+- Variable arguments
+
 ## [blorg blorg blorg]
 
 A blog engine written in Clojure, studied.
 
 ## [Sudoku]
 
-## State
-
-## Java
-
-## Web APIs, JSON
+Project: sudoku solver
 
 [Basic tools]: basic-tools.html
 [Training day]: training-day.html

@@ -1,6 +1,4 @@
 % Style
-% 120 hour epic
-% sax marathon
 
 > Any customer can have a car painted any colour that he wants so long as it
 > is black. <small>Henry Ford</small>

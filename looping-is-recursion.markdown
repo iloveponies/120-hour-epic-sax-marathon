@@ -1,10 +1,4 @@
 % Looping is recursion
-% 120 hour epic
-% sax marathon
-
-## Synopsis
-
-In which we learn how to recur tails.
 
 ## Fork this
 

@@ -1,17 +1,8 @@
 % Sudoku
-% 120 hour epic
-% sax marathon
-
-## Synopsis
-
 
 ## Fork this
 
 [https://github.com/iloveponies/sudoku](https://github.com/iloveponies/sudoku)
-
-<!-- TODO?
-  - not=
--->
 
 ## Fight!
 
