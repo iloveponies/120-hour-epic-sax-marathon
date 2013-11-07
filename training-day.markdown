@@ -147,18 +147,9 @@ to test out Instarepl even once. It's pretty awsome.
 
 ### Light Table
 
-Follow the installation instructions found in the previous chapter if
-you haven't already. In Linux, you run the file `LightTable` as you
-would run any binary.
-
-On the left side you have a menu. Select `command` and write `open
-instarepl` into the box. Click on the presented choice to open the
-Instarepl tab. Type `(+ 1 2)` into the text are. Small blue boxes near
-the bottom of the window should indicate that something is happening.
-Soon the answer to your question should appear right next to the code
-you wrote.
-
-If something went sideways, please let us know by raising your hand.
+Follow the installation instructions found in the previous chapter if you
+haven't already. In Linux, you run the file `LightTable` as you would run any
+binary. The previous chapter has instructions for opening an instarepl.
 
 ### Good ol' repl
 
