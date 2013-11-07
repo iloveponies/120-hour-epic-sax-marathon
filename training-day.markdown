@@ -134,7 +134,7 @@ The `FAIL` lines indicate that our stub function fails the tests as
 expected, because the string `":("` is not `4` or `9`.
 
 Run `lein midje` often to see if your code is working or not. You can
-also run `lein midje --lazytest` to start a loop that runs the tests
+also run `lein midje :autotest` to start a loop that runs the tests
 every time you make changes to the code.
 
 ## Interactive Clojure
