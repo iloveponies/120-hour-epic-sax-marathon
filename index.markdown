@@ -31,10 +31,14 @@ Get your horse!
 
 Learn the structural weaknesses of dragons.
 
-- Names
-- Sequences
-- Vectors
-- Maps
+- Local names
+- Data structures
+    - Vectors
+    - Maps
+    - Sets
+- Abstract sequences
+    - Mapping
+    - Filtering
 
 ## [Style]
 

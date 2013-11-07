@@ -1,15 +1,4 @@
 % Structured data
-% 120 hour epic
-% sax marathon
-
-## Synopsis
-
-In which we learn to work with structured data.
-
-- Names
-- Sequences
-- Vectors
-- Maps
 
 <info>
 The following web pages are good references to Clojure builtins and data
