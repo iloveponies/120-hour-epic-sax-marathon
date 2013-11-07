@@ -1,14 +1,6 @@
-% Training day
-% 120 hour epic
-% sax marathon
+% Functional programming in Clojure
 
-## Synopsis
-
-A whirlwind tour of the basics of Clojure, including:
-
-- Using the REPL
-- Prefix syntax
-- Defining functions
+# Training day
 
 ## Fork this
 

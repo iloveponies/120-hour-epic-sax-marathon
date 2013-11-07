@@ -15,6 +15,7 @@ Get equipped in your fight against the dragons.
 
 Get your survival skills up to shape.
 
+- Structure of the exercise project
 - Using the REPL
 - Prefix syntax
 - Defining functions
