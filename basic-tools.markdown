@@ -1,11 +1,6 @@
 % Functional programming in Clojure
 % Basic Tools
 
-## Synopis
-
-- the development environment
-- how to submit exercise answers
-
 ## First things first
 
 To successfully work through this course, you need to do the following
