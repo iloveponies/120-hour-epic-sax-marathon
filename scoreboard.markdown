@@ -1,7 +1,4 @@
-% Clojure Workshop
-% 120 hour epic sax marathon
-
-## Scoreboard
+% Scoreboard
 
 <div class="row">
 <div class="col-xs-4">
