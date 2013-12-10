@@ -537,7 +537,7 @@ name as there are no directories under `src`, just the lonely file
 
 See how the namespace is called `training-day`, while the file is
 `training_day.clj`? This is intentional. If a namespace name has a
-hyphen, the corresponding file name should have an underscore.
+hyphen, the corresponding filename should have an underscore.
 
 </alert>
 
