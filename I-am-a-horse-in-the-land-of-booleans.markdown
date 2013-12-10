@@ -12,8 +12,7 @@ the link above.
 
 ## If then else
 
-Any non-trivial program needs conditionals. Clojure's `if` looks like the
-following:
+Any non-trivial program needs conditionals. In Clojure, an `if` expression looks like this:
 
 ~~~ {.clojure}
 (if (my-father? darth-vader)  ; Conditional
@@ -39,14 +38,14 @@ as `true`. For example, all of the following are valid Clojure:
 
 `nil` is Clojure's `null` value. We'll talk about it later.
 
-To make it easier to talk about values in Boolean context, we define the
+To make it easier to talk about values in a Boolean context, we define the
 following terminology:
 
-- If a value is considered true in Boolean context, we call it *truthy*.
+- If a value is considered true in a Boolean context, we call it *truthy*.
 
 - If a value is considered false, we call it *falsey*.
 
-Any value can be turned into `true` or `false` with the `boolean` function:
+Any value can be turned into `true` or `false` using the `boolean` function:
 
 ~~~ {.clojure}
 (boolean "foo")   ;=> true
@@ -166,11 +165,11 @@ There is no need for a `return` clause -- there is no such keyword in Clojure
 expression in the body of the function.
 
 <alert>
-In a language like Java, `if` does *not* have a return value. In other words,
+In languages such as Java, `if` does *not* have a return value. In other words,
 it is not an expression, but a statement. Because everything in Clojure is an
 expression, there is no equivalent construct to Java's `if` in it.
 
-For illustration, you could use Java's `if` to implement `sign`:
+For example, you can use Java's `if` to implement `sign`:
 
 ~~~ {.java}
 String sign(int x) {
@@ -193,8 +192,8 @@ return if (x < 0) "-" else "+"; // Illegal Java!
 
 ## Conditional evaluation
 
-In any case, when using `if` *only* the appropriate expression is evaluated. So the following
-is not an error:
+In any case, when using `if` *only* the appropriate expression is evaluated. For example, the following
+code does not yield an error:
 
 ~~~ {.clojure}
 (if true
@@ -238,7 +237,7 @@ Write the function `(divides? divisor n)`, which returns `true` if
 
 ## Conditioning
 
-When checking for multiple conditions, you can use multiple `if` clauses:
+When checking for multiple conditions, you can use nested `if` clauses:
 
 ~~~ {.clojure}
 (if condition1
@@ -252,7 +251,7 @@ When checking for multiple conditions, you can use multiple `if` clauses:
 
 This is similar to `if`/`else if` in languages like Java. However, the nested
 `if` clauses are awkward. We can rewrite the nested `if` clauses with the
-`cond` builtin.
+`cond` built-in function.
 
 The general form of `cond` is:
 
@@ -264,7 +263,7 @@ The general form of `cond` is:
   ...)
 ~~~
 
-Like with `if`, you can have an else branch in the end. The condition for the else branch is `:else`.
+Similarly as with `if`, you can have an else branch in the end. The condition for the else branch is `:else`.
 
 ~~~ {.clojure}
 (defn super-sign [number]
@@ -354,8 +353,8 @@ In addition to Booleans, `and`, `or` and `not` accept non-Boolean values as
 arguments as well. (Remember that `false` and `nil` are falsey and everything
 else is truthy.)
 
-By the way, if you pass several parameters with long names to `and`, or any
-other function, indent them like this:
+By the way, in case you pass several parameters with long names to any
+function, such as `and`, indent them like this:
 
 ~~~clojure
 (and very-long-boolean-holding-parameter
