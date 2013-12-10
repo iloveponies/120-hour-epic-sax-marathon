@@ -512,8 +512,8 @@ The next section will tell you more about the function `use`.
 
 ## Files and Namespaces
 
-The code in Clojure projects is structured into namespaces defined in
-files. Usually each file corresponds to a single namespace identified by
+The code in Clojure projects is structured into namespaces which are defined in
+the code files. Usually each file corresponds to a single namespace identified by
 the path of the file. For example, the file `foo/bar/baz.clj` could
 contain the namespace `foo.bar.baz`. This is slightly different from
 Java, where directories correspond to namespaces (packages) and files
@@ -530,13 +530,13 @@ the following:
 
 This is a namespace definition. It tells us that the code in this file
 belongs to the namespace `training-day`. There are no dots in the namespace
-name as there are no directories under `src`, just the lonely file
+identifier as there are no directories under `src`, just the lonely file
 `training_day.clj`.
 
 <alert>
 
 See how the namespace is called `training-day`, while the file is
-`training_day.clj`? This is intentional. If a namespace name has a
+`training_day.clj`? This is intentional. If a namespace identifier has a
 hyphen, the corresponding filename should have an underscore.
 
 </alert>
@@ -575,7 +575,7 @@ and brought with it all the names defined in that namespace. The name
 `hai` was one of them.
 
 <alert>
-The `'` before the namespace name in a `use` is important. If you forget it,
+The `'` before the namespace identifier in a `use` is important. If you forget it,
 you will get an error like this:
 
 ~~~ {.clojure}
