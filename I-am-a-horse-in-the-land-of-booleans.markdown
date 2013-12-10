@@ -85,12 +85,12 @@ Numerical values should be compared with `==`:
 (=  5.0  5) ;=> false !
 ~~~
 
-Note the difference between `=` and `==`: `==` disregards the actual
+Note the difference between `=` and `==` operators: `==` disregards the actual
 type of the numeric value, whereas `=` requires that the numbers are
 of the same type.
 
 Less-than, greater-than and other such comparisons can be done with
-the regular `<`, `>`, `<=` and `>=` operators:
+the usual `<`, `>`, `<=` and `>=` operators:
 
 ~~~ {.clojure}
 (< 1 2)   ;=> true
@@ -133,12 +133,12 @@ and at most 19. Use only one comparison operator and give it three arguments.
 
 In functional programming, and specifically in Clojure, everything is an
 expression. This is a way of saying that everything has a usable value.
-Concretely, the return value of an `if` expression is the value of the evaluated
+More concretely, the return value of an `if` expression is the value of the evaluated
 body (either the *then* or the *else* body).
 
 As an example, let's define the function `(sign x)`, which returns the string
-`"-"` if `x` is negative and otherwise `"+"`. The function looks like the
-following:
+`"-"` if `x` is negative and otherwise `"+"`. The function looks as
+follows:
 
 ~~~ {.clojure}
 (defn sign [x]
@@ -166,7 +166,7 @@ There is no need for a `return` clause -- there is no such keyword in Clojure
 expression in the body of the function.
 
 <alert>
-`if` does *not* have a return value in a language like Java. In other words,
+In a language like Java, `if` does *not* have a return value. In other words,
 it is not an expression, but a statement. Because everything in Clojure is an
 expression, there is no equivalent construct to Java's `if` in it.
 
@@ -202,13 +202,13 @@ is not an error:
   (/ 1 0))
 ~~~
 
-If evaluated, `(/ 1 0)` would throw an `ArithmeticException` due to the
+When evaluated, `(/ 1 0)` will throw an `ArithmeticException` due to the
 division by zero. However, the `if` expression does not evaluate the division
 at all, because the conditional clause is true and only the *then* body, `42`,
 is evaluated.
 
 <exercise>
-Write the function `(abs n)`, which returns the absolute value of `n`, i.e. if
+Write the function `(abs n)`, which returns the absolute value of `n`, that is, if
 $n < 0$, the value of `(abs n)` is $- n$, and otherwise $n$.
 
 ~~~ {.clojure}
@@ -324,7 +324,7 @@ You can use the following functions:
 ## Boolean Functions
 
 The common Boolean functions in Clojure are `and`, `or` and `not`. These
-roughly match the `&&`, `||` and `!` operators of languages like Java.
+roughly match the `&&`, `||` and `!` operators seen in languages such as Java.
 
 ~~~ {.clojure}
 (and true true)   ;=> true
@@ -355,7 +355,7 @@ arguments as well. (Remember that `false` and `nil` are falsey and everything
 else is truthy.)
 
 By the way, if you have a lot of long parameters to `and`, or any
-function for that matter, indent them like this:
+other function, indent them like this:
 
 ~~~clojure
 (and very-long-boolean-holding-parameter
