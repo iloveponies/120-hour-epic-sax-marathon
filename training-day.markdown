@@ -512,17 +512,17 @@ The next section will tell you more about the function `use`.
 
 ## Files and Namespaces
 
-Code in Clojure projects are structured into namespaces defined in
+The code in Clojure projects is structured into namespaces defined in
 files. Usually each file corresponds to a single namespace identified by
-the file's path. For example, the file `foo/bar/baz.clj` could
+the path of the file. For example, the file `foo/bar/baz.clj` could
 contain the namespace `foo.bar.baz`. This is slightly different from
 Java, where directories correspond to namespaces (packages) and files
 under a directory usually contain a single class in the given package.
 
 The repository that you cloned at the end of the last chapter contains
-a Leiningen project. Inside the `src` directory are all the code
+a Leiningen project. The `src` directory contains all the code
 files of the project. The file `training_day.clj` should begin with
-the following.
+the following:
 
 ~~~clojure
 (ns training-day)
@@ -535,7 +535,7 @@ name as there are no directories under `src`, just the lonely file
 
 <alert>
 
-See how the namespace is called `training-day`, but the file is
+See how the namespace is called `training-day`, while the file is
 `training_day.clj`? This is intentional. If a namespace name has a
 hyphen, the corresponding file name should have an underscore.
 
