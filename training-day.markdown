@@ -529,19 +529,19 @@ the following.
 ~~~
 
 This is a namespace definition. It tells us that the code in this file
-is in the namespace `training-day`. There are no dots in the namespace
-name as there is no directories under `src`, just the lonely file
+belongs to the namespace `training-day`. There are no dots in the namespace
+name as there are no directories under `src`, just the lonely file
 `training_day.clj`.
 
 <alert>
 
 See how the namespace is called `training-day`, but the file is
-`training_day.clj`? This is intentional. If a namespace name has an
+`training_day.clj`? This is intentional. If a namespace name has a
 hyphen, the corresponding file name should have an underscore.
 
 </alert>
 
-We are at cross roads. Choose to right set of instructions based on
+We are at crossroads. Choose to right set of instructions based on
 your REPL.
 
 <info>
@@ -561,7 +561,7 @@ Navigate to the directory `training-day`, and run `lein repl`.
                 the info section -->
 </info>
 
-Now as you have your REPLs open, write the following in it.
+Now as you have a REPL open, write the following in it.
 
 ~~~clojure
 (use 'training-day)
@@ -612,7 +612,7 @@ parameters:
 </exercise>
 
 Now would be the time to submit your solutions to be graded. Run `lein
-midje` to see if all the tests pass. If the do, you should see the
+midje` to see if all the tests pass. If they do, you should see the
 following:
 
 ~~~sh
@@ -621,7 +621,7 @@ All claimed facts (5) have been confirmed.
 ~~~
 
 Don't worry if you haven't figured out all the exercises. You can
-still submit those that you have successfully made. Here is how to do
+still submit those that you have successfully completed. Here is how to do
 it.
 
 1. Create a commit of your changes by running
@@ -641,7 +641,7 @@ it.
    Click on the green `Compare & review` button. When you are ready, click
    `Send pull request`.
    
-If you didn't submit the solutions all at once, or some of the submited ones
+If you didn't submit all of the solutions at once, or some of the submited ones
 were incorrect, you can re-submit as many times as you need to. Just fix the
 code and follow the steps 1 and 2 again. When you push, the open pull request
 is updated.
