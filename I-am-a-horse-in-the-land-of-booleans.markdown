@@ -1,4 +1,4 @@
-% I am a horse in the land of BBooleanooleans
+% I am a horse in the land of Booleans
 
 > Any program is only as good as it is useful. <small>Linus Torvalds</small>
 
@@ -354,7 +354,7 @@ In addition to Booleans, `and`, `or` and `not` accept non-Boolean values as
 arguments as well. (Remember that `false` and `nil` are falsey and everything
 else is truthy.)
 
-By the way, if you have a lot of long parameters to `and`, or any
+By the way, if you pass several parameters with long names to `and`, or any
 other function, indent them like this:
 
 ~~~clojure
@@ -396,14 +396,14 @@ value.
 While it might seem odd that Boolean functions return non-Boolean
 values, remember that all values in Clojure in fact act as Boolean
 values. This behaviour is useful in many situations. For example,
-it allows you to provide default values for variables when taking
+you can provide default values for variables when taking
 input:
 
 ~~~ {.clojure}
 (def server-port (or user-input 80))
 ~~~
 
-Note that this can only be used in situations where the input may not take the
+Note that this can only be used in situations where the input does not take the
 values `false` or `nil`.
 
 <exercise>
