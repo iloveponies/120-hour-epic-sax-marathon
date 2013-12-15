@@ -18,7 +18,7 @@ above.
 
 ## Let there be names
 
-We often want to give a piece of data name, either because the act of naming
+We often want to give a piece of data a name, either because the act of naming
 gives clarity to the code, or because we want to refer to the data many times.
 As we have seen, namespace global names are declared with `def`. A function or
 value that is needed only inside one function can be given a *local name* with
@@ -211,7 +211,7 @@ Another way of extracting values from a vector is by *destructuring* it:
 Here, instead of giving a name to the vector `[1 2 3 4 5 6]`, we indicate with
 the brackets in `[x y z]` that we want to destructure the vector instead.
 Inside the brackets, we give names to the first three elements of the vector.
-`x` will be given the value of the first element, `1`; `b` will be `2` and `c`
+`x` will be given the value of the first element, `1`; `y` will be `2` and `z`
 will be `3`. The concatenation of these values that `str` returns is `"123"`.
 
 <exercise>
