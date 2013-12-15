@@ -199,7 +199,7 @@ function. Let's see the definition of `complement`:
   (fn [x] (not (predicate x))))
 ~~~
 
-Sometimes you have multiple predicates and you want to know whethet a value or
+Sometimes you have multiple predicates and you want to know whether a value or
 some values pass all of them. Let's create a helper function to do just that.
 
 <exercise>
