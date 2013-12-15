@@ -80,8 +80,8 @@ When you have a bunch of maps, you often want to filter those that have a
 certain `:keyword` as a key. Most of the time, you can just use the `:keyword`
 itself as a predicate.
 
-Here are some graphic novels, some of them belong to a series and some are stand
-alones.
+Here are some graphic novels, some of them belong to a series and some
+are standalones.
 
 ~~~{.clojure}
 (def graphic-novels [{:name "Yotsuba 1" :series "Yotsuba"}
