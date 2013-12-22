@@ -1204,7 +1204,7 @@ Now that we can handle the case of multiple authors, we can move on to the
 string representation of a single book.
 
 <exercise>
-Write the function `(book->string book)` takes a single book as a parameter
+Write the function `(book->string book)` which takes a single book as a parameter
 and returns a string representation of `book` as follows:
 
 ~~~{.clojure}
