@@ -1248,7 +1248,7 @@ elements of a sequence and disregard the rest:
 ~~~
 
 `(filter predicate collection)` takes two parameters, a function and a
-sequencable collection. It calls `predicate` (the function) on each element of
+seqable collection. It calls `predicate` (the function) on each element of
 `collection` and returns a sequence of elements of `collection` for
 which `predicate` returned a truthy value. In the above example the values
 `(6 7 3)` were selected because for them `pos?` returned `true`; for the others
