@@ -76,7 +76,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <blockquote>
 <p>When in doubt, do exactly the opposite of CVS. <small>Linus Torvalds</small></p>
 </blockquote>
-<p>You should now have a directory called <code>training-day</code>. This directory contains a Leiningen project we have lovingly hand-crafted just for you. It has unit tests for the exercises that will follow under the directory <code>test</code>. More about these in a minute. Lets first focus on the stuff inside <code>src</code>.</p>
+<p>You should now have a directory called <code>training-day</code>. This directory contains a Leiningen project we have lovingly hand-crafted just for you. It has unit tests for the exercises, more about these in a minute. Lets first focus on the stuff inside <code>src</code>.</p>
 <p>If you are using Light Table and you followed the instructions from the last chapter, you should have an Instarepl open for the <code>training-day</code> project. If you don’t, now is a good time to go through those instructions.</p>
 <p>If you are using some other editor, just open the file <code>src/training_day.clj</code>.</p>
 <p>Inside the file <code>src/training-day.clj</code> are stubs for all the exercises that require coding. For example this stub:</p>
@@ -116,7 +116,7 @@ FAIL &quot;average&quot; at (training_day_test.clj:14)
       Actual: &quot;:(&quot;
 FAILURE: 5 facts were not confirmed.</code></pre>
 <p>This tells us that all the test failed. Which was expected, as you haven’t done any of the exercises yet.</p>
-<p>Our project uses the <a href="https://github.com/marick/Midje">Midje</a> testing library. Let’s take a look at what kind of tests the project contains. In Light Table you can open the tests by double clicking on the name <code>training-day-test</code>. Or you can open the file <code>test/training_day_test.clj</code> in any editor. In the file are blocks of code that look like this:</p>
+<p>Our project uses the <a href="https://github.com/marick/Midje">Midje</a> testing library. To ease distributing changes to the tests, the actual test code is in a separate project. The easiest way to look at the code is to use Github. For every chapter there is a repository with the same name and a “-tests” suffix. This repository is where the tests live. Here’s a link to the <a href="https://github.com/iloveponies/training-day-tests/blob/master/src/iloveponies/tests/training_day.clj">file</a> containing the tests for this chapter. Just click it. In the file are blocks of code that look like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(facts <span class="st">&quot;square&quot;</span>
   (square <span class="dv">2</span>) =&gt; <span class="dv">4</span>
   (square <span class="dv">3</span>) =&gt; <span class="dv">9</span>)</code></pre>
