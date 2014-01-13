@@ -14,11 +14,10 @@ ready to go. If you missed the instructions,
 > When in doubt, do exactly the opposite of CVS. <small>Linus
 > Torvalds</small>
 
-You should now have a directory called `training-day`. This directory
-contains a Leiningen project we have lovingly hand-crafted just for
-you. It has unit tests for the exercises that will follow under the
-directory `test`. More about these in a minute. Lets first focus on
-the stuff inside `src`.
+You should now have a directory called `training-day`. This directory contains
+a Leiningen project we have lovingly hand-crafted just for you. It has unit
+tests for the exercises, more about these in a minute. Lets first focus on the
+stuff inside `src`.
 
 If you are using Light Table and you followed the instructions from the last
 chapter, you should have an Instarepl open for the `training-day` project. If
@@ -88,11 +87,14 @@ FAILURE: 5 facts were not confirmed.
 This tells us that all the test failed. Which was expected, as you
 haven't done any of the exercises yet.
 
-Our project uses the [Midje] testing library. Let's take a look at
-what kind of tests the project contains. In Light Table you can open
-the tests by double clicking on the name `training-day-test`. Or you
-can open the file `test/training_day_test.clj` in any editor. In the
-file are blocks of code that look like this:
+Our project uses the [Midje] testing library. To ease distributing changes to
+the tests, the actual test code is in a separate project. The easiest way to
+look at the code is to use Github. For every chapter there is a repository
+with the same name and a "-tests" suffix. This repository is where the tests
+live. Here's a link to the
+[file](https://github.com/iloveponies/training-day-tests/blob/master/src/iloveponies/tests/training_day.clj)
+containing the tests for this chapter. Just click it. In the file are blocks
+of code that look like this:
 
 ~~~ {.clojure}
 (facts "square"
