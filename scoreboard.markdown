@@ -1,5 +1,8 @@
 % Scoreboard
 
+The scoreboard is still under development. Some points might be missing
+because of that.
+
 <div class="row">
 <div class="col-xs-4">
 <ul id="score-list-1">
