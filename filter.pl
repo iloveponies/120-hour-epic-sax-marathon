@@ -23,7 +23,7 @@ for my $tag (keys %tags) {
     my $class = $tags{$tag};
     my $title = $titles{$tag};
 
-    if (/<$tag>/) {
+    while (/<$tag>/) {
         my $count = ($counts{$tag} ||= 1)++;
 
         $title =~ s/%n/$count/;
@@ -33,5 +33,5 @@ for my $tag (keys %tags) {
         s#<$tag>#$replacement#;
     }
 
-    s#</$tag>#\n</section>#;
+    s#</$tag>#</section>#g;
 }
