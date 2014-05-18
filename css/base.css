@@ -2,13 +2,11 @@ body {
     padding-top: 70px;
 }
 
-/*
-.container-fluid {
+.main-content {
     max-width: 580px;
     margin: auto;
-    margin-top: 40px;
 }
-
+/*
 footer {
     margin-top: 3em;
     color: #999;
