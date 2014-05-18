@@ -30,39 +30,33 @@ code > span.er { color: #ff0000; font-weight: bold; }
   </style>
   <link rel="stylesheet" href="css/base.css">
   <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="js/exercise-list.js"></script>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="navbar-header">
-    <a href="index.html" class="navbar-brand">← index</a>
-  </div>
-  <div class="navbar-collapse">
-    <ul class="nav">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <ul class="nav navbar-nav">
       <li>
-        <p data-toggle="collapse"
-           data-target="#exercise-panel"
-           class="navbar-text navbar-link">
-          Exercises <b class="caret"></b>
-        </p>
+        <a href="index.html">← index</a>
       </li>
-    </ul>
-    <div id="exercise-panel" class="collapse">
-      <ul id="exercise-list" class="list-inline">
-      </ul>
-    </div>
+      <li>
+        <button type="button"
+                class="btn btn-default navbar-btn"
+                data-toggle="collapse" data-target="#exercise-list">
+          Exercises
+        </button>
+      </li>
+      <li>
+        <ul id="exercise-list" class="collapse navbar-text list-inline">
+        </ul>
+      </li>
   </div>
 </nav>
+<div class="container">
+  <div class="main-content">
 <header>
 <h1 class="title">Sudoku</h1>
 </header>
@@ -382,7 +376,7 @@ Exercise 13
 <section class="alert alert-success"><h3>
 Exercise 14
 </h3>
-<p>Write the function <code>(find-empty-point board)</code> that returns coordinates to an empty point (that is, in our representation has value <span class="math">\(0\)</span>).</p>
+Write the function <code>(find-empty-point board)</code> that returns coordinates to an empty point (that is, in our representation has value <span class="math">\(0\)</span>).
 </section>
 
 <p>Okay, so now we can find an empty location and we also know what the valid values for that location are. What’s left is to try each one of those values in that location and trying to solve the rest. This is called backtracking search. You try one choice and recurse, if the recursive call didn’t find any solutions, try the next choice. If none of the choices return a valid solution, return <code>nil</code>.</p>
@@ -454,12 +448,12 @@ Exercise 15
 <li>if not
 <ul>
 <li>select an empty location</li>
-<li>try solving with each valid value for that location</li>
-</ul></li>
-</ul>
+<li>try solving with each valid value for that location
 </section>
 
-
+</li>
+</ul></li>
+</ul>
 </section>
 </section>
 <footer>
@@ -471,7 +465,6 @@ Exercise 15
         </span>
     </p>
 </footer>
-</div>
 </div>
 </div>
 </body>

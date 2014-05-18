@@ -30,39 +30,33 @@ code > span.er { color: #ff0000; font-weight: bold; }
   </style>
   <link rel="stylesheet" href="css/base.css">
   <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="js/exercise-list.js"></script>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="navbar-header">
-    <a href="index.html" class="navbar-brand">← index</a>
-  </div>
-  <div class="navbar-collapse">
-    <ul class="nav">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <ul class="nav navbar-nav">
       <li>
-        <p data-toggle="collapse"
-           data-target="#exercise-panel"
-           class="navbar-text navbar-link">
-          Exercises <b class="caret"></b>
-        </p>
+        <a href="index.html">← index</a>
       </li>
-    </ul>
-    <div id="exercise-panel" class="collapse">
-      <ul id="exercise-list" class="list-inline">
-      </ul>
-    </div>
+      <li>
+        <button type="button"
+                class="btn btn-default navbar-btn"
+                data-toggle="collapse" data-target="#exercise-list">
+          Exercises
+        </button>
+      </li>
+      <li>
+        <ul id="exercise-list" class="collapse navbar-text list-inline">
+        </ul>
+      </li>
   </div>
 </nav>
+<div class="container">
+  <div class="main-content">
 <header>
 <h1 class="title">Structured data</h1>
 </header>
@@ -72,10 +66,10 @@ Hint
 <p>The following web pages are good references to Clojure builtins and data structures:</p>
 <ul>
 <li><a href="http://clojuredocs.org">ClojureDocs</a></li>
-<li><a href="http://clojure.org/cheatsheet">Clojure cheatsheet</a></li>
-</ul>
+<li><a href="http://clojure.org/cheatsheet">Clojure cheatsheet</a>
 </section>
-
+</li>
+</ul>
 <section id="fork-this" class="level2">
 <h2>Fork this</h2>
 <p><a href="https://github.com/iloveponies/structured-data">https://github.com/iloveponies/structured-data</a></p>
@@ -113,7 +107,7 @@ Exercise 1
 <p>The following function does a thing:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defn</span><span class="fu"> do-a-thing </span>[x]
   (Math/pow (<span class="kw">+</span> x x) (<span class="kw">+</span> x x)))</code></pre>
-<p>Change the function <code>do-a-thing</code> so that it uses <code>let</code> to give a name to the common expression <code>(+ x x)</code> in its body.</p>
+Change the function <code>do-a-thing</code> so that it uses <code>let</code> to give a name to the common expression <code>(+ x x)</code> in its body.
 </section>
 
 <p>The names declared in a <code>let</code> expression can refer to previous names in the same expression:</p>
@@ -133,7 +127,12 @@ Exercise 1
 <p>Now that we know how to give names to values, let’s look at what kind of values Clojure supports.</p>
 <p>Scalar values are the regular, singular simple values like <code>42</code>, <code>&quot;foo&quot;</code> or <code>true</code>. The following table describes some of them.</p>
 <table>
-<col style="width: 20%" /><col style="width: 26%" /><col style="width: 52%" /><thead>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 26%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
 <tr class="header">
 <th style="text-align: left;">Type</th>
 <th style="text-align: left;">Examples</th>
@@ -205,7 +204,6 @@ Exercise 3
 (cutify [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) =&gt; [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="st">&quot;&lt;3&quot;</span>]
 (cutify [<span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span>]) =&gt; [<span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span> <span class="st">&quot;&lt;3&quot;</span>]</code></pre>
 <!-- "> -->
-
 </section>
 
 </section>
@@ -219,7 +217,7 @@ Exercise 3
 <section class="alert alert-success"><h3>
 Exercise 4
 </h3>
-<p>Rewrite our earlier function <code>spiff</code> by destructuring its parameter. Call this new function <code>spiff-destructuring</code>.</p>
+Rewrite our earlier function <code>spiff</code> by destructuring its parameter. Call this new function <code>spiff-destructuring</code>.
 </section>
 
 <p>You can destructure function parameters directly. For an example, take the following function:</p>
@@ -601,7 +599,6 @@ Exercise 18
 (stars <span class="dv">7</span>) <span class="co">;=&gt; &quot;*******&quot;</span>
 (stars <span class="dv">3</span>) <span class="co">;=&gt; &quot;***&quot;</span></code></pre>
 <!-- ********* -->
-
 </section>
 
 <section class="alert alert-success"><h3>
@@ -794,7 +791,7 @@ Exercise 26
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(author-&gt;string felleisen) <span class="co">;=&gt; &quot;Matthias Felleisen&quot;</span>
 (author-&gt;string friedman)  <span class="co">;=&gt; &quot;Daniel Friedman (1944 - )&quot;</span>
 (author-&gt;string octavia)   <span class="co">;=&gt; &quot;Octavia E. Butler (1947 - 2006)&quot;</span></code></pre>
-<p>Hint: you probably want to split this string into two parts: name and years. Use <code>let</code> to form these and use <code>str</code> to create the final string.</p>
+Hint: you probably want to split this string into two parts: name and years. Use <code>let</code> to form these and use <code>str</code> to create the final string.
 </section>
 
 <p>Now we have a string representation for a single author. Some of our books had multiple authors, so we need to figure out a way to give a string representation for multiple authors. To do this, we need a handy helper function.</p>
@@ -816,7 +813,7 @@ Exercise 27
 (authors-&gt;string #{octavia, friedman})
 <span class="co">;=&gt; &quot;Octavia E. Butler (1947 - 2006), Daniel Friedman (1944 - )&quot;</span>
 <span class="co">;   order doesn&#39;t matter</span></code></pre>
-<p>Since the authors are in a set, which doesn’t have a predefined order, the resulting string can have the authors in any order.</p>
+Since the authors are in a set, which doesn’t have a predefined order, the resulting string can have the authors in any order.
 </section>
 
 <p>Now that we can handle the case of multiple authors, we can move on to the string representation of a single book.</p>
@@ -828,7 +825,7 @@ Exercise 28
 (book-&gt;string little-schemer)
 <span class="co">;=&gt; &quot;The Little Schemer, written by Daniel Friedman (1944 - ), Matthias Felleisen&quot;</span>
 <span class="co">;                                   ^-- order doesn&#39;t matter</span></code></pre>
-<p>Again, the order of authors in the string doesn’t matter.</p>
+Again, the order of authors in the string doesn’t matter.
 </section>
 
 <p>And finally, we can define a string representation for a sequence of books.</p>
@@ -884,7 +881,7 @@ Exercise 32
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(living-authors authors)             <span class="co">;=&gt; (china, felleisen, friedman)</span>
 (living-authors #{octavia})          <span class="co">;=&gt; ()</span>
 (living-authors #{china, felleisen}) <span class="co">;=&gt; (china, felleisen)</span></code></pre>
-<p>The order in the results doesn’t matter.</p>
+The order in the results doesn’t matter.
 </section>
 
 <p>Here’s another book. This one has both living and dead authors, which is a useful test case for the following exercises.</p>
@@ -946,7 +943,6 @@ Exercise 34
         </span>
     </p>
 </footer>
-</div>
 </div>
 </div>
 </body>

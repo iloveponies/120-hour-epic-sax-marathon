@@ -30,39 +30,33 @@ code > span.er { color: #ff0000; font-weight: bold; }
   </style>
   <link rel="stylesheet" href="css/base.css">
   <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="js/exercise-list.js"></script>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="navbar-header">
-    <a href="index.html" class="navbar-brand">← index</a>
-  </div>
-  <div class="navbar-collapse">
-    <ul class="nav">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <ul class="nav navbar-nav">
       <li>
-        <p data-toggle="collapse"
-           data-target="#exercise-panel"
-           class="navbar-text navbar-link">
-          Exercises <b class="caret"></b>
-        </p>
+        <a href="index.html">← index</a>
       </li>
-    </ul>
-    <div id="exercise-panel" class="collapse">
-      <ul id="exercise-list" class="list-inline">
-      </ul>
-    </div>
+      <li>
+        <button type="button"
+                class="btn btn-default navbar-btn"
+                data-toggle="collapse" data-target="#exercise-list">
+          Exercises
+        </button>
+      </li>
+      <li>
+        <ul id="exercise-list" class="collapse navbar-text list-inline">
+        </ul>
+      </li>
   </div>
 </nav>
+<div class="container">
+  <div class="main-content">
 <header>
 <h1 class="title">Training day</h1>
 </header>
@@ -234,13 +228,13 @@ user=&gt; (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">
 <section class="alert alert-success"><h3>
 Exercise 1
 </h3>
-<p>Write the following expression in the Clojure prefix syntax: <span class="math">\((2 * 3) + 4\)</span>. Try evaluating it in the REPL. The result should be 10. This exercise does not give any points and you do not need to return it.</p>
+Write the following expression in the Clojure prefix syntax: <span class="math">\((2 * 3) + 4\)</span>. Try evaluating it in the REPL. The result should be 10. This exercise does not give any points and you do not need to return it.
 </section>
 
 <section class="alert alert-success"><h3>
 Exercise 2
 </h3>
-<p>Write the expression <span class="math">\(3 + 4 + 5 + 6\)</span> in Clojure syntax. Evaluate it in the REPL. This exercise does not give any points and you do not need to return it.</p>
+Write the expression <span class="math">\(3 + 4 + 5 + 6\)</span> in Clojure syntax. Evaluate it in the REPL. This exercise does not give any points and you do not need to return it.
 </section>
 
 <p>The arithmetic operations have some special properties. Everyone of the operations works with only one operand.</p>
@@ -263,7 +257,7 @@ Exercise 2
 <section class="alert alert-success"><h3>
 Exercise 3
 </h3>
-<p>Write a Clojure expression in the REPL that, using <code>get</code>, gets the first character in the string <code>&quot;abrakadabra&quot;</code>. This exercise does not give any points and you do not need to return it.</p>
+Write a Clojure expression in the REPL that, using <code>get</code>, gets the first character in the string <code>&quot;abrakadabra&quot;</code>. This exercise does not give any points and you do not need to return it.
 </section>
 
 </section>
@@ -286,7 +280,7 @@ Exercise 4
 </h3>
 <p>Call the following function in the REPL with your name.</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">fn</span> [<span class="kw">name</span>] (<span class="kw">str</span> <span class="st">&quot;Welcome to Rivendell mr &quot;</span> <span class="kw">name</span>))</code></pre>
-<p>This exercise does not give any points and you do not need to return it.</p>
+This exercise does not give any points and you do not need to return it.
 </section>
 
 <p>Now we know how to make a function, but we only got a glimpse of it and then it was gone. We have to write the definition of the function every time we want to call it. But we want something more permanent, something that we can write once and call multiple times! The functions created with <code>fn</code> are called <em>anonymous functions</em>. They are called that because they have no name. To give a name to a function we can use <code>def</code>. Let’s give the greeter function a name right away.</p>
@@ -373,7 +367,6 @@ Hint
 <p>Navigate to the directory <code>training-day</code>, and run <code>lein repl</code>.</p>
 </section> <!-- BUG in pandoc. This is required to forcefully close
                 the info section -->
-
 </section>
 
 <p>Now as you have your REPLs open, write the following in it.</p>
@@ -387,7 +380,7 @@ Watch out!
 <p>The <code>'</code> before the namespace name in a <code>use</code> is important. If you forget it, you will get an error like this:</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">user=&gt; (<span class="kw">use</span> example.hello)
 java.lang.ClassNotFoundException: example.hello (NO_SOURCE_FILE<span class="kw">:1</span>)</code></pre>
-<p><code>'</code> is an alias for the <code>quote</code> special form, which we will talk more about later.</p>
+<code>'</code> is an alias for the <code>quote</code> special form, which we will talk more about later.
 </section>
 
 </section>
@@ -434,7 +427,6 @@ All claimed facts (5) have been confirmed.</code></pre>
         </span>
     </p>
 </footer>
-</div>
 </div>
 </div>
 </body>

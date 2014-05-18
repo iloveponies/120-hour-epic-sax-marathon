@@ -30,39 +30,33 @@ code > span.er { color: #ff0000; font-weight: bold; }
   </style>
   <link rel="stylesheet" href="css/base.css">
   <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="js/exercise-list.js"></script>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="navbar-header">
-    <a href="index.html" class="navbar-brand">← index</a>
-  </div>
-  <div class="navbar-collapse">
-    <ul class="nav">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <ul class="nav navbar-nav">
       <li>
-        <p data-toggle="collapse"
-           data-target="#exercise-panel"
-           class="navbar-text navbar-link">
-          Exercises <b class="caret"></b>
-        </p>
+        <a href="index.html">← index</a>
       </li>
-    </ul>
-    <div id="exercise-panel" class="collapse">
-      <ul id="exercise-list" class="list-inline">
-      </ul>
-    </div>
+      <li>
+        <button type="button"
+                class="btn btn-default navbar-btn"
+                data-toggle="collapse" data-target="#exercise-list">
+          Exercises
+        </button>
+      </li>
+      <li>
+        <ul id="exercise-list" class="collapse navbar-text list-inline">
+        </ul>
+      </li>
   </div>
 </nav>
+<div class="container">
+  <div class="main-content">
 <header>
 <h1 class="title">Recursion</h1>
 </header>
@@ -142,7 +136,7 @@ Exercise 1
 <section class="alert alert-success"><h3>
 Exercise 2
 </h3>
-<p>Write down the evaluation of <code>(product [1 2 4])</code> like we did for <code>sum</code> above. This exercise does not give any points and you do not need to return it.</p>
+Write down the evaluation of <code>(product [1 2 4])</code> like we did for <code>sum</code> above. This exercise does not give any points and you do not need to return it.
 </section>
 
 <p>From this we get the general template for linear recursion over collections:</p>
@@ -171,7 +165,7 @@ Exercise 4
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(my-last [])      <span class="co">;=&gt; nil</span>
 (my-last [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; 3</span>
 (my-last [<span class="dv">2</span> <span class="dv">5</span>])   <span class="co">;=&gt; 5</span></code></pre>
-<p>Hint: what is the base case here? How can you check if you’re there?</p>
+Hint: what is the base case here? How can you check if you’re there?
 </section>
 
 <section class="alert alert-success"><h3>
@@ -259,7 +253,7 @@ Exercise 9
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(sequence-contains? <span class="dv">3</span> [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]) <span class="co">;=&gt; true</span>
 (sequence-contains? <span class="dv">3</span> [<span class="dv">4</span> <span class="dv">7</span> <span class="dv">9</span>]) <span class="co">;=&gt; false</span>
 (sequence-contains? <span class="kw">:pony</span> [])  <span class="co">;=&gt; false</span></code></pre>
-<p>Hint: remember to stop searching when you find it.</p>
+Hint: remember to stop searching when you find it.
 </section>
 
 <section class="alert alert-success"><h3>
@@ -512,7 +506,7 @@ Exercise 20
 
 (<span class="kw">defn</span><span class="fu"> my-frequencies </span>[a-seq]
   (frequencies-helper {} a-seq))</code></pre>
-<p>Where <code>my-frequencies-helper</code> is a recursive helper function.</p>
+Where <code>my-frequencies-helper</code> is a recursive helper function.
 </section>
 
 <section class="alert alert-success"><h3>
@@ -526,7 +520,7 @@ Exercise 21
 <p>Hint 1: Remember that you can use <code>first</code> and <code>rest</code> on a map too!</p>
 <pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">first</span> {<span class="kw">:a</span> <span class="dv">1</span> <span class="kw">:b</span> <span class="dv">2</span>}) <span class="co">;=&gt; [:a 1]</span>
 (<span class="kw">rest</span> {<span class="kw">:a</span> <span class="dv">1</span> <span class="kw">:b</span> <span class="dv">2</span> <span class="kw">:c</span> <span class="dv">3</span>}) <span class="co">;=&gt; ([:b 2] [:c 3])</span></code></pre>
-<p>Hint 2: There are multiple ways to implement this, but consider using <code>concat</code> and <code>repeat</code>.</p>
+Hint 2: There are multiple ways to implement this, but consider using <code>concat</code> and <code>repeat</code>.
 </section>
 
 </section>
@@ -625,7 +619,7 @@ Exercise 28
 <span class="co">;=&gt; (())</span>
 (permutations #{<span class="dv">1</span> <span class="dv">5</span> <span class="dv">3</span>})
 <span class="co">;=&gt; ((1 5 3) (5 1 3) (5 3 1) (1 3 5) (3 1 5) (3 5 1))</span></code></pre>
-<p>The order of the permutations doesn’t matter.</p>
+The order of the permutations doesn’t matter.
 </section>
 
 <section class="alert alert-success"><h3>
@@ -649,7 +643,6 @@ Exercise 29
         </span>
     </p>
 </footer>
-</div>
 </div>
 </div>
 </body>
