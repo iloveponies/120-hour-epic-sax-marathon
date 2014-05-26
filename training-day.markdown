@@ -424,7 +424,7 @@ file `src/training_day.clj`. Remember to run the tests with `lein
 midje`.
 
 ~~~clojure
-aswer ;=> 42
+answer ;=> 42
 ~~~
 
 </exercise>

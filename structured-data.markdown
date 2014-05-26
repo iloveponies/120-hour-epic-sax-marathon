@@ -190,9 +190,9 @@ Write the function `(cutify v)` that takes a vector as a parameter and adds
 `"<3"` to its end.
 
 ~~~{.clojure}
-(cutify []) => ["<3"]
-(cutify [1 2 3]) => [1 2 3 "<3"]
-(cutify ["a" "b"]) => ["a" "b" "<3"]
+(cutify []) ;=> ["<3"]
+(cutify [1 2 3]) ;=> [1 2 3 "<3"]
+(cutify ["a" "b"]) ;=> ["a" "b" "<3"]
 ~~~
 
 <!-- "> -->
@@ -211,7 +211,7 @@ Another way of extracting values from a vector is by *destructuring* it:
 Here, instead of giving a name to the vector `[1 2 3 4 5 6]`, we indicate with
 the brackets in `[x y z]` that we want to destructure the vector instead.
 Inside the brackets, we give names to the first three elements of the vector.
-`x` will be given the value of the first element, `1`; `b` will be `2` and `c`
+`x` will be given the value of the first element, `1`; `y` will be `2` and `y`
 will be `3`. The concatenation of these values that `str` returns is `"123"`.
 
 <exercise>
@@ -282,13 +282,13 @@ Write the functions `(height rectangle)` and `(width rectangle)` that return
 the height and width of the given rectangle. Use destructuring.
 
 ~~~{.clojure}
-(height (rectangle [1 1] [5 1])) => 0
-(height (rectangle [1 1] [5 5])) => 4
-(height (rectangle [0 0] [2 3])) => 3
+(height (rectangle [1 1] [5 1])) ;=> 0
+(height (rectangle [1 1] [5 5])) ;=> 4
+(height (rectangle [0 0] [2 3])) ;=> 3
 
-(width (rectangle [1 1] [5 1]))  => 4
-(width (rectangle [1 1] [1 1]))  => 0
-(width (rectangle [3 1] [10 4])) => 7
+(width (rectangle [1 1] [5 1]))  ;=> 4
+(width (rectangle [1 1] [1 1]))  ;=> 0
+(width (rectangle [3 1] [10 4])) ;=> 7
 ~~~
 </exercise>
 
@@ -310,10 +310,10 @@ Write the function `(area rectangle)` that returns the area of the given
 rectangle.
 
 ~~~{.clojure}
-(area (rectangle [1 1] [5 1]))  => 0
-(area (rectangle [0 0] [1 1]))  => 1
-(area (rectangle [0 0] [4 3]))  => 12
-(area (rectangle [3 1] [10 4])) => 21
+(area (rectangle [1 1] [5 1]))  ;=> 0
+(area (rectangle [0 0] [1 1]))  ;=> 1
+(area (rectangle [0 0] [4 3]))  ;=> 12
+(area (rectangle [3 1] [10 4])) ;=> 21
 ~~~
 </exercise>
 
@@ -413,8 +413,8 @@ the collection and returns the value associated with it.
 
 ~~~{.clojure}
 (count [1 2 3]) ;=> 3
-(count {:name "China Miéville", :birth-year 1972}) => 2
-(count ":)") => 2
+(count {:name "China Miéville", :birth-year 1972}) ;=> 2
+(count ":)") ;=> 2
 ~~~
 
 As we can see, `count` tells the amount of keys for a map and the
@@ -819,11 +819,11 @@ And here's another with `concat`:
 More generally, `apply` works like this:
 
 ~~~{.clojure}
-(apply function [arg1 arg2 arg3 ...]) => (function arg1 arg2 arg3 ...)
+(apply function [arg1 arg2 arg3 ...]) ;=> (function arg1 arg2 arg3 ...)
 ~~~
 
 <exercise>
-Write the function `(stars n)` that returns a string with `n` aterisks `\*`.
+Write the function `(stars n)` that returns a string with `n` asterisks `\*`.
 
 The function `(repeat n x)` returns a sequence with `n` `x`s:
 
@@ -1208,7 +1208,7 @@ Write the function `(book->string book)` takes a single book as a parameter
 and returns a string representation of `book` as follows:
 
 ~~~{.clojure}
-(book->string wild-seed) ;=> "Wild Seed, written by Octavia E. Butler"
+(book->string wild-seed) ;=> "Wild Seed, written by Octavia E. Butler (1947 - 2006)"
 (book->string little-schemer)
 ;=> "The Little Schemer, written by Daniel Friedman (1944 - ), Matthias Felleisen"
 ;                                   ^-- order doesn't matter
