@@ -282,13 +282,13 @@ Write the functions `(height rectangle)` and `(width rectangle)` that return
 the height and width of the given rectangle. Use destructuring.
 
 ~~~{.clojure}
-(height (rectangle [1 1] [5 1])) => 0
-(height (rectangle [1 1] [5 5])) => 4
-(height (rectangle [0 0] [2 3])) => 3
+(height (rectangle [1 1] [5 1])) ;=> 0
+(height (rectangle [1 1] [5 5])) ;=> 4
+(height (rectangle [0 0] [2 3])) ;=> 3
 
-(width (rectangle [1 1] [5 1]))  => 4
-(width (rectangle [1 1] [1 1]))  => 0
-(width (rectangle [3 1] [10 4])) => 7
+(width (rectangle [1 1] [5 1]))  ;=> 4
+(width (rectangle [1 1] [1 1]))  ;=> 0
+(width (rectangle [3 1] [10 4])) ;=> 7
 ~~~
 </exercise>
 
@@ -310,10 +310,10 @@ Write the function `(area rectangle)` that returns the area of the given
 rectangle.
 
 ~~~{.clojure}
-(area (rectangle [1 1] [5 1]))  => 0
-(area (rectangle [0 0] [1 1]))  => 1
-(area (rectangle [0 0] [4 3]))  => 12
-(area (rectangle [3 1] [10 4])) => 21
+(area (rectangle [1 1] [5 1]))  ;=> 0
+(area (rectangle [0 0] [1 1]))  ;=> 1
+(area (rectangle [0 0] [4 3]))  ;=> 12
+(area (rectangle [3 1] [10 4])) ;=> 21
 ~~~
 </exercise>
 
@@ -413,8 +413,8 @@ the collection and returns the value associated with it.
 
 ~~~{.clojure}
 (count [1 2 3]) ;=> 3
-(count {:name "China Miéville", :birth-year 1972}) => 2
-(count ":)") => 2
+(count {:name "China Miéville", :birth-year 1972}) ;=> 2
+(count ":)") ;=> 2
 ~~~
 
 As we can see, `count` tells the amount of keys for a map and the
@@ -819,7 +819,7 @@ And here's another with `concat`:
 More generally, `apply` works like this:
 
 ~~~{.clojure}
-(apply function [arg1 arg2 arg3 ...]) => (function arg1 arg2 arg3 ...)
+(apply function [arg1 arg2 arg3 ...]) ;=> (function arg1 arg2 arg3 ...)
 ~~~
 
 <exercise>
