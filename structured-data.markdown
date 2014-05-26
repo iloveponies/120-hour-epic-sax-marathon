@@ -190,9 +190,9 @@ Write the function `(cutify v)` that takes a vector as a parameter and adds
 `"<3"` to its end.
 
 ~~~{.clojure}
-(cutify []) => ["<3"]
-(cutify [1 2 3]) => [1 2 3 "<3"]
-(cutify ["a" "b"]) => ["a" "b" "<3"]
+(cutify []) ;=> ["<3"]
+(cutify [1 2 3]) ;=> [1 2 3 "<3"]
+(cutify ["a" "b"]) ;=> ["a" "b" "<3"]
 ~~~
 
 <!-- "> -->
