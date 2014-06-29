@@ -166,7 +166,7 @@ calls `function` with the parameters from `parameter-sequence`.
 ;=> 5
 ~~~
 
-That's quite a lot to remember, but these should provide useful when detecting
+That's quite a lot to remember, but these should prove useful when detecting
 different hands. If you get stuck, the functions introduced above might help.
 
 ## Hands
