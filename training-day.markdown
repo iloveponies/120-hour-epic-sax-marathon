@@ -346,7 +346,7 @@ want to group code into our own *functions*.
 
 Lets start writing a function `(hello who)`, which returns an English
 greeting for the user. Functions are created with `fn`. Write the
-following in you REPL and evaluate it.
+following in the REPL and evaluate it.
 
 ~~~clojure
 (fn [who] (str "Hello, " who "!"))
@@ -398,9 +398,9 @@ Now we know how to make a function, but we only got a glimpse of it
 and then it was gone. We have to write the definition of the function
 every time we want to call it. But we want something more permanent,
 something that we can write once and call multiple times! The
-functions created with `fn` are called *anonymous functions*. They are
-called that because they have no name. To give a name to a function we
-can use `def`. Let's give the greeter function a name right away.
+functions created with `fn` are called *anonymous functions*. That is, 
+they are functions that have no name. To name a function, we
+can use the keyword `def`. Let's give the greeter function a name right away.
 
 ~~~clojure
 (def hello (fn [who] (str "Hello, " who "!")))
@@ -408,11 +408,11 @@ can use `def`. Let's give the greeter function a name right away.
 
 That definition is also an expression, so don't forget to evaluate it.
 Now we can call this function. Write `(hello "beautiful")` in your
-REPL to get a instant compliment. In the name of sex-equality evaluate
-also `(hello "handsome")`.
+REPL to get an instant compliment. In the name of gender equality, also 
+evaluate `(hello "handsome")`.
 
 So what just happened? Well, `def` gives a name to a value. In the
-previous case the value is what we get when we evaluate `(fn [who]
+previous case, the value is what we get when we evaluate `(fn [who]
 (str "Hello, " who "!"))`. And what do we get when we evaluate that? A
 function. So we gave the name `hello` to a function that gives out
 greetings.
@@ -424,22 +424,21 @@ file `src/training_day.clj`. Remember to run the tests with `lein
 midje`.
 
 ~~~clojure
-aswer ;=> 42
+answer ;=> 42
 ~~~
 
 </exercise>
 
-Anonymous functions have their uses in functional programming. So it
-is nice to know that we can create them with `fn`. But most of the
-time we want to give the function a name right away. To make that a
+While anonymous functions have their uses in functional programming, 
+most of the time we want to name functions right away. To make that a
 bit easier, we have `defn`. Here is how to create *and* name the
 previous function with `defn`. There is a running commentary
 alongside, to make sure we understand its parts.
 
 ~~~ {.clojure}
 (defn                                 ; Start a function definition:
-  hello                               ; name
-  "Gives out personalized greetings." ; a optional docstring
+  hello                               ; name 
+  "Gives out personalized greetings." ; an optional docstring
   [who]                               ; parameters inside brackets
   (str "Hello, " who "!"))            ; body
 ~~~
@@ -448,7 +447,7 @@ Here `hello` is the name of the function, `[who]` is the parameter
 list, and the expression on the second line is the body of the
 function. The return value of the function is the value of the last
 expression inside the function body. In this case, it is the value of
-the `(str "Hello, " who "!")` expression. We have also provided an
+the `(str "Hello, " who "!")` expression. We have also provided a
 docstring that briefly tells what this function does. This is
 optional, but like washing your hands after visiting the toilet,
 highly recommended.
@@ -469,9 +468,9 @@ of a function is always the value of the last expression in the
 function body.
 
 <info>
-Want to take a look at the docstring of some function? You can use the
-`doc` function to do so. Unfortunately you need to do some tricks to
-get your hands at this function. But don't worry, it's not difficult.
+If you want to take a look at the docstring of some function, use the
+`doc` function. Unfortunately you need to do some tricks to
+get your hands on this function. But don't worry, it's not difficult.
 
 ~~~ {.clojure}
 user=> (use 'clojure.repl)
@@ -515,36 +514,36 @@ The next section will tell you more about the function `use`.
 
 ## Files and Namespaces
 
-Code in Clojure projects is structured into namespaces defined in
-files. Usually each file corresponds to a one namespace identified by
-the file's path. For an example, the file `foo/bar/baz.clj` could
+The code in Clojure projects is structured into namespaces which are defined in
+the code files. Usually each file corresponds to a single namespace identified by
+the path of the file. For example, the file `foo/bar/baz.clj` could
 contain the namespace `foo.bar.baz`. This is slightly different from
 Java, where directories correspond to namespaces (packages) and files
 under a directory usually contain a single class in the given package.
 
 The repository that you cloned at the end of the last chapter contains
-an Leiningen project. Inside the `src` directory are all the code
+a Leiningen project. The `src` directory contains all the code
 files of the project. The file `training_day.clj` should begin with
-the following.
+the following:
 
 ~~~clojure
 (ns training-day)
 ~~~
 
 This is a namespace definition. It tells us that the code in this file
-is in the namespace `training-day`. There are no dots in the namespace
-name as there is no directories under `src`, just the lonely file
+belongs to the namespace `training-day`. There are no dots in the namespace
+identifier as there are no directories under `src`, just the lonely file
 `training_day.clj`.
 
 <alert>
 
-See how the namespace is called `training-day`, but the file is
-`training_day.clj`? This is intentional. If a namespace name has an
-hyphen, the corresponding file name should have an underscore.
+See how the namespace is called `training-day`, while the file is
+`training_day.clj`? This is intentional. If a namespace identifier has a
+hyphen, the corresponding filename should have an underscore.
 
 </alert>
 
-We are at cross roads. Choose to right set of instructions based on
+We are at crossroads. Choose to right set of instructions based on
 your REPL.
 
 <info>
@@ -564,7 +563,7 @@ Navigate to the directory `training-day`, and run `lein repl`.
                 the info section -->
 </info>
 
-Now as you have your REPLs open, write the following in it.
+Now as you have a REPL open, write the following in it.
 
 ~~~clojure
 (use 'training-day)
@@ -578,7 +577,7 @@ and brought with it all the names defined in that namespace. The name
 `hai` was one of them.
 
 <alert>
-The `'` before the namespace name in a `use` is important. If you forget it,
+The `'` before the namespace identifier in a `use` is important. If you forget it,
 you will get an error like this:
 
 ~~~ {.clojure}
@@ -615,7 +614,7 @@ parameters:
 </exercise>
 
 Now would be the time to submit your solutions to be graded. Run `lein
-midje` to see if all the tests pass. If the do, you should see the
+midje` to see if all the tests pass. If they do, you should see the
 following:
 
 ~~~sh
@@ -624,7 +623,7 @@ All claimed facts (5) have been confirmed.
 ~~~
 
 Don't worry if you haven't figured out all the exercises. You can
-still submit those that you have successfully made. Here is how to do
+still submit those that you have successfully completed. Here is how to do
 it.
 
 1. Create a commit of your changes by running
@@ -644,7 +643,7 @@ it.
    Click on the green `Compare & review` button. When you are ready, click
    `Send pull request`.
    
-If you didn't submit the solutions all at once, or some of the submited ones
+If you didn't submit all of the solutions at once, or some of the submited ones
 were incorrect, you can re-submit as many times as you need to. Just fix the
 code and follow the steps 1 and 2 again. When you push, the open pull request
 is updated.

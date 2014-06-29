@@ -1,4 +1,4 @@
-% I am a horse in the land of booleans
+% I am a horse in the land of Booleans
 
 > Any program is only as good as it is useful. <small>Linus Torvalds</small>
 
@@ -12,8 +12,7 @@ the link above.
 
 ## If then else
 
-Any non-trivial program needs conditionals. Clojure's `if` looks like the
-following:
+Any non-trivial program needs conditionals. In Clojure, an `if` expression looks like this:
 
 ~~~ {.clojure}
 (if (my-father? darth-vader)  ; Conditional
@@ -22,11 +21,11 @@ following:
 ~~~
 
 `if` (usually) takes three parameters: the conditional clause, the *then*
-body and the *else* body. If the first parameter - the conditional clause - is
+body and the *else* body. If the first parameter -- the conditional clause -- is
 true, the *then* body is evaluated. Otherwise, the *else* body is evaluated.
 
-Clojure has two boolean values: `true` and `false`. However, all values can be
-used in a boolean context like `if`. Everything except `nil` and `false` acts
+Clojure has two Boolean values: `true` and `false`. However, all values can be
+used in a Boolean context like `if`. Everything except `nil` and `false` acts
 as `true`. For example, all of the following are valid Clojure:
 
 ~~~ {.clojure}
@@ -39,14 +38,14 @@ as `true`. For example, all of the following are valid Clojure:
 
 `nil` is Clojure's `null` value. We'll talk about it later.
 
-To make it easier to talk about values in boolean context, we define the
+To make it easier to talk about values in a Boolean context, we define the
 following terminology:
 
-- If a value is considered true in boolean context, we call it *truthy*.
+- If a value is considered true in a Boolean context, we call it *truthy*.
 
 - If a value is considered false, we call it *falsey*.
 
-Any value can be turned into `true` or `false` with the `boolean` function:
+Any value can be turned into `true` or `false` using the `boolean` function:
 
 ~~~ {.clojure}
 (boolean "foo")   ;=> true
@@ -85,12 +84,12 @@ Numerical values should be compared with `==`:
 (=  5.0  5) ;=> false !
 ~~~
 
-Note the difference between `=` and `==`: `==` disregards the actual
+Note the difference between `=` and `==` operators: `==` disregards the actual
 type of the numeric value, whereas `=` requires that the numbers are
 of the same type.
 
 Less-than, greater-than and other such comparisons can be done with
-the regular `<`, `>`, `<=` and `>=` operators:
+the usual `<`, `>`, `<=` and `>=` operators:
 
 ~~~ {.clojure}
 (< 1 2)   ;=> true
@@ -101,7 +100,7 @@ the regular `<`, `>`, `<=` and `>=` operators:
 ## Comparing many values
 
 All the comparison functions above take an arbitrary amount of
-arguments. For an example, to compare if three variables are equal,
+arguments. For example, to compare if three variables are equal,
 one can give them to `=`:
 
 ~~~ {.clojure}
@@ -133,12 +132,12 @@ and at most 19. Use only one comparison operator and give it three arguments.
 
 In functional programming, and specifically in Clojure, everything is an
 expression. This is a way of saying that everything has a usable value.
-Concretely, `if` has a return value; the value is the value of the evaluated
+More concretely, the return value of an `if` expression is the value of the evaluated
 body (either the *then* or the *else* body).
 
 As an example, let's define the function `(sign x)`, which returns the string
-`"-"` if `x` is negative and otherwise `"+"`. The function looks like the
-following:
+`"-"` if `x` is negative and otherwise `"+"`. The function looks as
+follows:
 
 ~~~ {.clojure}
 (defn sign [x]
@@ -166,11 +165,11 @@ There is no need for a `return` clause -- there is no such keyword in Clojure
 expression in the body of the function.
 
 <alert>
-`if` does *not* have a return value in a language like Java. In other words,
+In languages such as Java, `if` does *not* have a return value. In other words,
 it is not an expression, but a statement. Because everything in Clojure is an
 expression, there is no equivalent construct to Java's `if` in it.
 
-For illustration, you could use Java's `if` to implement `sign`:
+For example, you can use Java's `if` to implement `sign`:
 
 ~~~ {.java}
 String sign(int x) {
@@ -182,8 +181,8 @@ String sign(int x) {
 ~~~
 
 Note that you need to use the `return` keyword to indicate when to return from
-the method. Compare this to Clojure, where the last expression's value will be
-the function's return value. Because Java's `if` does not return a value, you
+the method. Compare this to Clojure, where the value of the last expression will be
+the function's return value. Since Java's `if` does not return a value, you
 can not say:
 
 ~~~ {.java}
@@ -193,8 +192,8 @@ return if (x < 0) "-" else "+"; // Illegal Java!
 
 ## Conditional evaluation
 
-In any case, *only* the appropriate expression is evaluated. So the following
-is not an error:
+In any case, when using `if` *only* the appropriate expression is evaluated. For example, the following
+code does not yield an error:
 
 ~~~ {.clojure}
 (if true
@@ -202,13 +201,13 @@ is not an error:
   (/ 1 0))
 ~~~
 
-If evaluated, `(/ 1 0)` would throw an `ArithmeticException` due to the
+When evaluated, `(/ 1 0)` will throw an `ArithmeticException` due to the
 division by zero. However, the `if` expression does not evaluate the division
 at all, because the conditional clause is true and only the *then* body, `42`,
 is evaluated.
 
 <exercise>
-Write the function `(abs n)`, which returns the absolute value of `n`, i.e. if
+Write the function `(abs n)`, which returns the absolute value of `n`, that is, if
 $n < 0$, the value of `(abs n)` is $- n$, and otherwise $n$.
 
 ~~~ {.clojure}
@@ -238,7 +237,7 @@ Write the function `(divides? divisor n)`, which returns `true` if
 
 ## Conditioning
 
-When checking for multiple conditions, you can use multiple `if` clauses:
+When checking for multiple conditions, you can use nested `if` clauses:
 
 ~~~ {.clojure}
 (if condition1
@@ -252,7 +251,7 @@ When checking for multiple conditions, you can use multiple `if` clauses:
 
 This is similar to `if`/`else if` in languages like Java. However, the nested
 `if` clauses are awkward. We can rewrite the nested `if` clauses with the
-`cond` builtin.
+`cond` built-in function.
 
 The general form of `cond` is:
 
@@ -264,7 +263,7 @@ The general form of `cond` is:
   ...)
 ~~~
 
-Like with `if`, you can have an else branch in the end. The condition for the else branch is `:else`.
+Similarly as with `if`, you can have an else branch in the end. The condition for the else branch is `:else`.
 
 ~~~ {.clojure}
 (defn super-sign [number]
@@ -323,8 +322,8 @@ You can use the following functions:
 
 ## Boolean Functions
 
-The common boolean functions in Clojure are `and`, `or` and `not`. These
-roughly match the `&&`, `||` and `!` operators of languages like Java.
+The common Boolean functions in Clojure are `and`, `or` and `not`. These
+roughly match the `&&`, `||` and `!` operators seen in languages such as Java.
 
 ~~~ {.clojure}
 (and true true)   ;=> true
@@ -350,12 +349,12 @@ roughly match the `&&`, `||` and `!` operators of languages like Java.
 (or)                              ;=> nil
 ~~~
 
-In addition to booleans, `and`, `or` and `not` accept non-boolean values as
+In addition to Booleans, `and`, `or` and `not` accept non-Boolean values as
 arguments as well. (Remember that `false` and `nil` are falsey and everything
 else is truthy.)
 
-By the way, if you have a lot of long parameters to `and`, or any
-function for that matter, indent them like this:
+By the way, in case you pass several parameters with long names to any
+function, such as `and`, indent them like this:
 
 ~~~clojure
 (and very-long-boolean-holding-parameter
@@ -393,17 +392,17 @@ last argument. Otherwise, it returns the value of the first falsey argument.
 Conversely, `or` returns either the first truthy value or the last falsey
 value.
 
-While it might seem odd that boolean functions return non-boolean
-values, remember that all values in Clojure in fact act as boolean
-values. This behaviour is useful in many situations. For an example,
-it allows you to provide default values for variables when taking
+While it might seem odd that Boolean functions return non-Boolean
+values, remember that all values in Clojure in fact act as Boolean
+values. This behaviour is useful in many situations. For example,
+you can provide default values for variables when taking
 input:
 
 ~~~ {.clojure}
 (def server-port (or user-input 80))
 ~~~
 
-Note that this can only be used in situations where the input may not take the
+Note that this can only be used in situations where the input does not take the
 values `false` or `nil`.
 
 <exercise>
