@@ -707,7 +707,7 @@ You'll want to structure your code like this:
   ...)
 
 (defn my-frequencies [a-seq]
-  (frequencies-helper {} a-seq))
+  (my-frequencies-helper {} a-seq))
 ~~~
 
 Where `my-frequencies-helper` is a recursive helper function.
