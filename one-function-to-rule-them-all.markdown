@@ -390,8 +390,8 @@ given to the function. This function can be called with one or two parameters.
 
 Write the function `minus` that takes one or two parameters.
 
-- If given a one parameter $x$, it returns $-x$.
-- If given to parameters $x$ and $y$, it returns $x - y$.
+- If given one parameter $x$, it returns $-x$.
+- If given two parameters $x$ and $y$, it returns $x - y$.
 
 ~~~clojure
 (minus 2)   ;=> -2
