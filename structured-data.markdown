@@ -259,7 +259,7 @@ be a pair (2-element vector) of two numbers.
 ~~~
 
 And a representation for a rectangle. This will simply be a pair of points,
-the first being the bottom left corner and the second being the top left
+the first being the bottom left corner and the second being the top right
 corner.
 
 ~~~{.clojure}
