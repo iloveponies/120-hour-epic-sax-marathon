@@ -46,7 +46,7 @@ defined a bunch of them and used them with `filter`.
 
 Let's write a function that returns a predicate. Suppose that I want to get
 all numbers greater than some limit from a sequence. I need a predicate for
-this grater than testing. Here's a function that returns such predicates.
+this greater than testing. Here's a function that returns such predicates.
 
 ~~~{.clojure}
 (defn greater-than [n]
