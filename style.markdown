@@ -160,12 +160,17 @@ Functions that create objects of certain type have names of the form
 Functions that turn objects of one type to another type have names of
 the form `from-type->to-type`: `authors->string`, `
 
-## Whitespace
+## Whitespace and commas
 
 Whitespace acts as a token separator in Clojure. That is, `(+12)` is
 parsed as a call to a function named `+12`, `[123]` is a list
-containing the number `123` and `{:a 1,:b 2}` maps `:a` with `1,:b`
-and `2` has no pair.
+containing the number `123`, `{:a :b:c}` maps `:a` with `:b:c`
+and `{:a :b:c 2}` is not a map literal, because it doesn't contain
+an even number of forms (2 has no pair).
+
+Commas are treated like whitespace, so `{:a :b,:c 2}`
+is a correct literal, but for readability put one space between pairs
+if they appear in one line: `{:a :b, :c 2}`.
 
 Parentheses, brackets and curlies hug their contents:
 
