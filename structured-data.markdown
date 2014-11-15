@@ -1280,7 +1280,7 @@ Hint: remember `first`
 (author-by-name "Octavia E. Butler" authors)                ;=> octavia
 (author-by-name "Octavia E. Butler" #{felleisen, friedman}) ;=> nil
 (author-by-name "China Miéville" authors)                   ;=> china
-(author-by-name "Goerge R. R. Martin" authors)              ;=> nil
+(author-by-name "George R. R. Martin" authors)              ;=> nil
 ~~~
 </exercise>
 
