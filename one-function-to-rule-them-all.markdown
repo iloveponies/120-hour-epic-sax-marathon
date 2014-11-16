@@ -59,7 +59,7 @@ This iterative `sum` would evaluate like this:
 ;=> 10
 ~~~
 
-Now lets say that we would like to compute the product of a list of numbers.
+Now let's say that we would like to compute the product of a list of numbers.
 It would go like this:
 
 ~~~clojure
@@ -121,7 +121,7 @@ how does it work?
            (rest a-seq))))
 ~~~
 
-Lets go through an evaluation of `reduce`:
+Let's go through an evaluation of `reduce`:
 
 ~~~clojure
     (reduce + 0                   [1 2 3])
@@ -197,7 +197,7 @@ Now the call with empty sequence results in an exception, since `min` is not
 defined for 0 arguments. Since `seq-min` used `reduce` without an initial
 value, it called `(min)` when it was given an empty sequence.
 
-Lets look at an evaluation of a `reduce` call without an initial value.
+Let's look at an evaluation of a `reduce` call without an initial value.
 
 ~~~clojure
 (seq-min [5 3 2 6])
@@ -400,7 +400,7 @@ Write the function `minus` that takes one or two parameters.
 
 </exercise>
 
-But what if you don't know the amount of parameters given before hand? Lets
+But what if you don't know the amount of parameters given before hand? Let's
 look at a definition of `max`:
 
 ~~~clojure
@@ -418,7 +418,7 @@ used, respectively.
 The third definition of `max` is using *variable arguments*. It means that the
 function can be called with any amount of parameters. The first two parameters
 are given names `x` and `y` and the rest of the parameters are grouped into a
-sequence and given a name `more`. Lets look at an evaluation:
+sequence and given a name `more`. Let's look at an evaluation:
 
 ~~~clojure
 (max 1 2 3 4)
