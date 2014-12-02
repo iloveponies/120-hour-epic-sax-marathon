@@ -321,7 +321,7 @@ some awards.
 (def scanner-darkly {:title "A Scanner Darkly" :authors #{dick}})
 
 (def books #{cities, wild-seed, lord-of-light,
-             deus-irae, ysabel, scanner-darkly}])
+             deus-irae, ysabel, scanner-darkly})
 ~~~
 
 
@@ -376,7 +376,7 @@ useful, but sometimes you need to be careful with it.
 
 ~~~{.clojure}
 (some first [[] [1 2] []]) ;=> 1
-(some first [[] [false true] []] ;=> nil
+(some first [[] [false true] []]) ;=> nil
 (some nil? [1 nil 2]) ;=> true
 ~~~
 
