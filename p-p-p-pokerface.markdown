@@ -61,7 +61,7 @@ You should now be able to write the `(suit card)` function that returns the
 suit of a card.
 
 <exercise>
-Write the function `(suit card)` which takes a singe card and returns the suit
+Write the function `(suit card)` which takes a single card and returns the suit
 of the card as a one character string.
 
 ~~~ {.clojure}
