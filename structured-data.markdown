@@ -748,7 +748,7 @@ Okey, so now that `map` has been gone over, let's see the definition of
   (map :name (:authors book)))
 
 (defn all-author-names [books]
-  (set (apply concat (map author-name books))))
+  (set (apply concat (map author-names books))))
 ~~~
 
 `author-names` returns the names of the authors of a single book.
