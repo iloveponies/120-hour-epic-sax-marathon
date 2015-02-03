@@ -346,7 +346,7 @@ want to group code into our own *functions*.
 
 Lets start writing a function `(hello who)`, which returns an English
 greeting for the user. Functions are created with `fn`. Write the
-following in you REPL and evaluate it.
+following in your REPL and evaluate it.
 
 ~~~clojure
 (fn [who] (str "Hello, " who "!"))
@@ -424,7 +424,7 @@ file `src/training_day.clj`. Remember to run the tests with `lein
 midje`.
 
 ~~~clojure
-aswer ;=> 42
+answer ;=> 42
 ~~~
 
 </exercise>
@@ -544,7 +544,7 @@ hyphen, the corresponding file name should have an underscore.
 
 </alert>
 
-We are at cross roads. Choose to right set of instructions based on
+We are at cross roads. Choose the right set of instructions based on
 your REPL.
 
 <info>
@@ -615,7 +615,7 @@ parameters:
 </exercise>
 
 Now would be the time to submit your solutions to be graded. Run `lein
-midje` to see if all the tests pass. If the do, you should see the
+midje` to see if all the tests pass. If they do, you should see the
 following:
 
 ~~~sh
@@ -644,7 +644,7 @@ it.
    Click on the green `Compare & review` button. When you are ready, click
    `Send pull request`.
    
-If you didn't submit the solutions all at once, or some of the submited ones
+If you didn't submit the solutions all at once, or some of the submitted ones
 were incorrect, you can re-submit as many times as you need to. Just fix the
 code and follow the steps 1 and 2 again. When you push, the open pull request
 is updated.
