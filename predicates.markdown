@@ -357,7 +357,7 @@ Write the function `(HAS-ALL-THE-AWARDS? book awards)` that returns `true` if
 
 ## And Then There Were Some
 
-Finally, when you wan't to know if at least one element of a sequence passes a
+Finally, when you want to know if at least one element of a sequence passes a
 predicate, there is `(some pred a-seq)` which returns a truthy value if `pred`
 returns a truthy value for some element in `a-seq` and otherwise it returns
 `nil`.
