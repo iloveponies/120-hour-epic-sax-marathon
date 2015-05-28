@@ -19,7 +19,7 @@ Or like this:
 
 ~~~{.clojure}
     (cons 1 (cons 2 (cons 3 nil)))
-;=> (*    1 (*    2 (*    3 0)))
+;=> (*    1 (*    2 (*    3 1)))
 ~~~
 
 <!-- ******* -->
@@ -455,7 +455,7 @@ Write the function `my-*` that takes any number of parameters.
   product $x \cdot y \cdots$.
 
 You are free to use `*`, but not `apply`.
-  
+
 ~~~clojure
 (my-*)           ;=> 1
 (my-* 4 3)       ;=> 12
