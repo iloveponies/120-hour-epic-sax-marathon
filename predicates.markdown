@@ -46,7 +46,7 @@ defined a bunch of them and used them with `filter`.
 
 Let's write a function that returns a predicate. Suppose that I want to get
 all numbers greater than some limit from a sequence. I need a predicate for
-this grater than testing. Here's a function that returns such predicates.
+this greater than testing. Here's a function that returns such predicates.
 
 ~~~{.clojure}
 (defn greater-than [n]
@@ -177,7 +177,7 @@ value.
 
 ~~~{.clojure}
 ((complement neg?) -5)
-;=> (not (neq? -5))
+;=> (not (neg? -5))
 ;=> (not true)
 ;=> false
 ((complement neg?) 0) ;=> true
@@ -321,7 +321,7 @@ some awards.
 (def scanner-darkly {:title "A Scanner Darkly" :authors #{dick}})
 
 (def books #{cities, wild-seed, lord-of-light,
-             deus-irae, ysabel, scanner-darkly}])
+             deus-irae, ysabel, scanner-darkly})
 ~~~
 
 
@@ -364,7 +364,7 @@ returns a truthy value for some element in `a-seq` and otherwise it returns
 
 ~~~{.clojure}
 (some whitespace? "Kekkonen")          ;=> nil
-(some whitespace? "Kekkonen Kekkonen") ;=> True
+(some whitespace? "Kekkonen Kekkonen") ;=> true
 (some even? [1 2 3])                   ;=> true
 (some even? [1 3])                     ;=> false
 ~~~
@@ -376,7 +376,7 @@ useful, but sometimes you need to be careful with it.
 
 ~~~{.clojure}
 (some first [[] [1 2] []]) ;=> 1
-(some first [[] [false true] []] ;=> nil
+(some first [[] [false true] []]) ;=> nil
 (some nil? [1 nil 2]) ;=> true
 ~~~
 
@@ -393,7 +393,7 @@ need them all).
 (my-some neg? [1 3 5 0 7 -1 8]) ;=> true
 (my-some neg? [])               ;=> falsey
 (my-some first [[false] [1]])   ;=> 1
-(my-some first [[false] []])    ;=> falsey
+(my-some first [[false] []])    ;=> nil 
 (my-some nil? [1 2])            ;=> falsey
 (my-some nil? [1 nil 2])        ;=> true
 ~~~
