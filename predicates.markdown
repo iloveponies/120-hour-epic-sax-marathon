@@ -364,7 +364,7 @@ returns a truthy value for some element in `a-seq` and otherwise it returns
 
 ~~~{.clojure}
 (some whitespace? "Kekkonen")          ;=> nil
-(some whitespace? "Kekkonen Kekkonen") ;=> True
+(some whitespace? "Kekkonen Kekkonen") ;=> true
 (some even? [1 2 3])                   ;=> true
 (some even? [1 3])                     ;=> false
 ~~~
