@@ -321,7 +321,7 @@ some awards.
 (def scanner-darkly {:title "A Scanner Darkly" :authors #{dick}})
 
 (def books #{cities, wild-seed, lord-of-light,
-             deus-irae, ysabel, scanner-darkly}])
+             deus-irae, ysabel, scanner-darkly})
 ~~~
 
 
