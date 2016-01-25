@@ -376,7 +376,7 @@ useful, but sometimes you need to be careful with it.
 
 ~~~{.clojure}
 (some first [[] [1 2] []]) ;=> 1
-(some first [[] [false true] []] ;=> nil
+(some first [[] [false true] []]) ;=> nil
 (some nil? [1 nil 2]) ;=> true
 ~~~
 
