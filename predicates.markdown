@@ -393,7 +393,7 @@ need them all).
 (my-some neg? [1 3 5 0 7 -1 8]) ;=> true
 (my-some neg? [])               ;=> falsey
 (my-some first [[false] [1]])   ;=> 1
-(my-some first [[false] []])    ;=> falsey
+(my-some first [[false] []])    ;=> nil 
 (my-some nil? [1 2])            ;=> falsey
 (my-some nil? [1 nil 2])        ;=> true
 ~~~
