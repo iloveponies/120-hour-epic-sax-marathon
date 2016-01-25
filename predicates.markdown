@@ -177,7 +177,7 @@ value.
 
 ~~~{.clojure}
 ((complement neg?) -5)
-;=> (not (neq? -5))
+;=> (not (neg? -5))
 ;=> (not true)
 ;=> false
 ((complement neg?) 0) ;=> true
