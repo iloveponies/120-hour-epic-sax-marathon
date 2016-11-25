@@ -1,7 +1,7 @@
-% Clojure Workshop
-% 120 hour epic sax marathon
+% Scoreboard
 
-## Scoreboard
+The scoreboard is still under development. Some points might be missing
+because of that.
 
 <div class="row">
 <div class="col-xs-4">
