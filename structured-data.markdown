@@ -1208,7 +1208,7 @@ Write the function `(book->string book)` takes a single book as a parameter
 and returns a string representation of `book` as follows:
 
 ~~~{.clojure}
-(book->string wild-seed) ;=> "Wild Seed, written by Octavia E. Butler"
+(book->string wild-seed) ;=> "Wild Seed, written by Octavia E. Butler (1947 - 2006)"
 (book->string little-schemer)
 ;=> "The Little Schemer, written by Daniel Friedman (1944 - ), Matthias Felleisen"
 ;                                   ^-- order doesn't matter
