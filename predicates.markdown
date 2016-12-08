@@ -166,7 +166,7 @@ suppose I want to filter all non-negative values from a sequence. There's
   (let [non-negative? (fn [n] (not (neg? n)))]
     (filter non-negative? a-seq)))
 
-(non-negatives [1 -2 9 4 0 -100 2 0 2]) ;=> (1 0 3 0 7)
+(non-negatives [1 -2 9 4 0 -100 2 0 2]) ;=> (1 9 4 0 2 0 2)
 ~~~
 
 Wanting to get the opposite result of a predicate is actually common enough
